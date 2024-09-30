@@ -19,7 +19,22 @@
     the fflush() function, so now everytime we print a number or a digit, it will shown immediately,
     on the terminal.
 */
+/* 
+In the given code, the fflush(stdout) ensures that the output buffer is flushed, meaning that any data stored in the buffer is immediately printed to the terminal. Let's break it down:
 
+Buffered Output: When you use printf(), the output is typically stored in a buffer (a temporary storage area) and is not immediately sent to the terminal. This allows the system to optimize performance by reducing the number of actual writes to the terminal (or output device). However, when the buffer is full, or when the program ends, the buffer gets flushed automatically, and the contents are printed.
+
+Without fflush(stdout): If you remove the fflush(stdout) line, the program might not immediately print the numbers when printf() is called, especially if the buffer is not full. The data might remain in the buffer until the buffer fills up or the program finishes, which means the output could be delayed or might appear all at once.
+
+In This Case:
+The code creates a child and a parent process using fork().
+Both processes print 5 numbers (the child prints from 1 to 5, and the parent from 6 to 10).
+If fflush(stdout) is removed:
+
+Inconsistent output order: Since fork() creates two processes, the output might be mixed between them. Without fflush(stdout), the buffered output from both processes may get printed together or out of order, depending on when the buffers get flushed.
+Potential delay: The output might not appear immediately on the terminal but could be delayed until the program exits or the buffer fills up.
+With fflush(stdout), the output happens immediately, so you'll see each number printed as soon as it is generated.
+ */
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -43,7 +58,7 @@ int main(int argc, char *argv[])
     for (i = n; i < n + 5; i++)
     {
         printf("%d\n", i);
-        fflush(stdout);
+        fflush(stdout); // to print the number immediately
     }
     return 0;
 }
