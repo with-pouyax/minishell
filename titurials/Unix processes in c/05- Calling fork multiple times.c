@@ -9,24 +9,26 @@ int main(int argc, char *argv[])
 {
     int id1 = fork();
     int id2 = fork();
-    if (id1 == 0)
+    if (id1 == 0) // that means we are a child of the parent process
     {
-        if (id2 == 0)
+        if (id2 == 0) // that means we are a child of the child process
         {
             printf("we are process y\n");
         }
-        else
+        else // we are still a parent process because ID1 is 0 but we are not
+             //a process that doesn't have any child, we actually have a child process
         {
             printf("we are process x\n");
         }
     }
-    else
+    else // if ID1 is not 0
     {
-        if (id2 == 0)
+        if (id2 == 0) // if ID1 is not 0 and ID2 is 0, that means we are a child of the
+                        // parent process
         {
             printf("we are process z\n");
         }
-        else
+        else // if ID1 is not 0 and ID2 is not 0, that means we are the parent process
         {
             printf("we are the parent process\n");
         }
@@ -79,7 +81,8 @@ int main(int argc, char *argv[])
 }
 
 /* 
-
+-or we can do something in the while loop, and I will get 3 messages because
+I have 3 child processes
  */
 
 int main(int argc, char *argv[])
