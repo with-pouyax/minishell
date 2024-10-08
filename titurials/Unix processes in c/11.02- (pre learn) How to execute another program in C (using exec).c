@@ -95,17 +95,56 @@ int main(int argc, char *argv[])
 - so we can have also execvpe.
  */
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *envp[]) // here envp is the environment variables.
 {
-    char *arr[] = {
-        "ping",
+    char *arr[] = { // here we have the arguments that we want to pass to the ping program.
+        "ping", 
         "google.com",
         NULL
     };
-    execv("ping", arr);
 
-    char *env[] = {
-        "TEST=environmnet variable",
+    char *env[] = { // here we have the environment variables that we want to pass to the ping program.
+        "TEST=environmnet variable", // here we have the environment variables and it is an array of strings.
         NULL
     };
+
+    execpe("ping", arr, env); // here we have the environment variables that we want to pass to the ping program.
+                              // here env is the environment variables and it is an array of strings, that we received as an argument in
+                                // our main function.
+
+    printf("End of program\n");
+
+    
+}
+
+/* 
+-we have othere exec functions with combination of l, v, p, e.
+- so as we learned, if we see this printf statement (printf("End of program\n");), when we run the program, it means there was an issue
+with exec function.
+- How to understand what was the issue?
+- we have to use ERRNO, store the value of ERRNO in a variable and then print it and check what was ERRNO returned value stands for.
+ */
+
+int main(int argc, char *argv[], char *envp[]) // here envp is the environment variables.
+{
+    char *arr[] = { // here we have the arguments that we want to pass to the ping program.
+        "ping", 
+        "google.com",
+        NULL
+    };
+
+    char *env[] = { // here we have the environment variables that we want to pass to the ping program.
+        "TEST=environmnet variable", // here we have the environment variables and it is an array of strings.
+        NULL
+    };
+
+    execpe("ping", arr, env); // here we have the environment variables that we want to pass to the ping program.
+                              // here env is the environment variables and it is an array of strings, that we received as an argument in
+                                // our main function.
+
+    int err = errno;
+
+    printf("End of program\n");
+
+    
 }
