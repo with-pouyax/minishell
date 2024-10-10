@@ -83,12 +83,17 @@ int main(int argc, char *argv[])
 }
 
 /* 
-- what if I want to instead when I type fg to bring the process back to the foreground that prompt again ? 9:33
+- what if I want to instead when I type fg to bring the process 
+back to the foreground that prompt again ? (because after we ctrl + z, and then fg, it
+doesn't prompt us to enter a number again but we can enter a number and it will work)
  */
 
 void handle_sigtstp(int signum)
 {
     printf("I won't stop\n");
+    fflush(stdout); // this is to make sure that the output is printed right when we
+    // press ctrl + z
+
 }
 
 void handle_sigcont(int signum)
@@ -101,7 +106,7 @@ int main(int argc, char *argv[])
     struct sigaction sa;
     sa.sa_handler = &handle_sigcont; 
     sa.sa_flags = SA_RESTART;
-    sigaction(SIGTSTP, &sa, NULL);
+    sigaction(sigcont, &sa, NULL);
 
     signal(SIGTSTP, &handle_sigtstp);
     int x;
@@ -110,4 +115,14 @@ int main(int argc, char *argv[])
     printf("Result %d * 5 = %d\n", x, x * 5);
     return 0;
 }
+
+/* 
+- we might notice a diffrence here, with SIGTSTP, when we change the handler it did 
+no longer stop, but with SIGCONT it continues its execution, why ?
+- because SIGCONT is sort of special in the scence that, while you can block it, you
+can handle it differently, it is still going to continue the execution of the process,
+it's still going to do same thing as before. except it is gonna do some extra stuff
+that we added in the handle_sigcont function.
+- by some signals we are not allowed to handle them ourselves.
+ */
     
