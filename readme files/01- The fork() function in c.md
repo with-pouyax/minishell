@@ -1,24 +1,9 @@
-
 # Forking and Process IDs in C
-
-This repository demonstrates how forking in C works and how process IDs are managed across parent and child processes.
-
-## Introduction
-
-In Unix-based systems, such as Linux, the `fork()` system call is used to create new processes. A new process created by `fork()` is a copy of the parent process, and both processes will run concurrently. The main difference is the process ID, which is unique to every process.
-
-### Key Notes:
-1. `fork()` creates a new process, which is an exact copy of the parent process.
-2. The parent and child processes continue executing the same code after the `fork()`.
-3. The `fork()` function returns:
-   - `0` in the child process.
-   - The child's process ID (PID) in the parent process.
-   - `-1` if the process creation failed.
-
-## Code Walkthrough
-
-### Simple Fork Example
-
+ 
+- to use fork() function in c, we need to include unistd.h, consider that unistd.h is a linux specific library, so in windows we use other functions to create processes.
+- if we add a fork() before printf, Hello world will be printed twice.
+- what fork() does is that it creates a new process, and the new process is a copy of the parent process, so the new process will have the same code and data as the parent process, but the new process will have a different process id,so I can save process id of the new process in a variable.
+ */
 ```c
 #include <stdio.h>
 #include <unistd.h>
@@ -27,15 +12,22 @@ In Unix-based systems, such as Linux, the `fork()` system call is used to create
 
 int main(int argc, char *argv[])
 {
-    fork();  // Creates a new process
+    fork();
     printf("Hello world\n");
     return 0;
 }
 ```
-
-In this example, after calling `fork()`, both the parent and child processes print "Hello world". Hence, the output will be printed twice.
-
-### Process IDs and Conditional Execution
+- so I can save process id of the new process in a variable.
+- now I gonna recieve for example:
+    Hello world from id: 0
+    Hello world from id: 4222
+- why ?
+- everything before the line of fork() is going to be executed once.
+- from the fork() line onwards, everything is going to be executed twice, once per process.
+- so we're gonna have two separate IDs, being returned from fork(), one gonna be the main process with ID 4222, and the other one gonna be the child process with a different ID 0.
+- the ID of the child process is always 0, and it returns -1 if the fork() function fails.
+- every process in linux, windows, everywhere has a process ID.
+- so I can add a condition to show me, I am in the child process.
 
 ```c
 int main(int argc, char *argv[])
@@ -54,27 +46,28 @@ int main(int argc, char *argv[])
 }
 ```
 
-This code prints the process ID for both the child and parent processes. The child process will have a PID of 0, while the parent process will display the actual PID of the child.
-
-### Multiple Forks
-
-If you call `fork()` multiple times, the number of processes increases exponentially. For example:
+- what would happend if I called fork() twice ?
+- now how many times Hello world will be printed ?
+- 4 times.
+- why ?
+- because the first fork() will create a child process,
+- and the second fork() will create a child process for the child process, so we will have 4 processes in total.
+- the way we can calculate the number of processes is 2^n,
+- so if we call fork() 3 times, we will have 8 processes.
+- but how can we create only 3 processes ?
 
 ```c
 int main(int argc, char *argv[])
 {
     fork();
     fork();
+
     printf("Hello world\n");
     return 0;
 }
 ```
 
-Here, "Hello world" will be printed 4 times because 2 forks create 4 processes in total. The formula to calculate the number of processes is `2^n`, where `n` is the number of forks.
-
-### Creating a Specific Number of Processes
-
-To create exactly 3 processes, we can use an `if` condition to control the forking process:
+- using a if conditon to create only 3 processes. we are saying that check if we are not in the child process, then create a new process.
 
 ```c
 int main(int argc, char *argv[])
@@ -87,23 +80,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 ```
-
-In this case, "Hello world" will be printed 3 times.
-
-## Compilation and Execution
-
-To compile the program:
-
-```bash
-gcc -o fork_example fork_example.c
-```
-
-To run the program:
-
-```bash
-./fork_example
-```
-
-## Conclusion
-
-Understanding how the `fork()` function works is essential in managing multiple processes in a Unix-like operating system. By using process IDs and conditional statements, you can control which process executes which part of your code.
