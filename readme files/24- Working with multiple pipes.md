@@ -106,7 +106,7 @@ Result: 10
             close( fd[1][1] );
             close( fd[2][1] );
             int x = 0;
-            if ( write( fd[0][1], &x, sizeof( int ) ) < 0 )
+            if ( write(fd[0][1], &x, sizeof( int )) < 0 )
             {
                 perror( "write" );
                 return 11;
