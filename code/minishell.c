@@ -15,7 +15,7 @@ void	shell_loop(void)
 		input = readline("minishell$ ");
 		if (input == NULL)
 		{
-			write(1, "exit\n", 5);
+			write(STDERR_FILENO, "exit\n", 5);
 			break ;
 		}
 		if (*input != '\0')
@@ -36,6 +36,7 @@ void	shell_loop(void)
 	save_history();
 	cleanup_shell();
 }
+
 
 int	main(int argc, char **argv, char **envp)
 {

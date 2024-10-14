@@ -143,17 +143,20 @@ int	builtin_exit(char **args)
 {
 	int	exit_status;
 
-	if (args[1] == NULL)
-		exit_status = 0;
-	else if (ft_isnumber(args[1]))
-		exit_status = ft_atoi(args[1]);
-	else
+	exit_status = 0;
+	if (args[1] != NULL)
 	{
-		ft_putendl_fd("minishell: exit: numeric argument required", STDERR_FILENO);
-		exit_status = 255;
+		if (ft_isnumber(args[1]))
+			exit_status = ft_atoi(args[1]);
+		else
+		{
+			ft_putendl_fd("minishell: exit: numeric argument required", STDERR_FILENO);
+			exit_status = 255;
+		}
 	}
-	ft_putendl_fd("exit", STDOUT_FILENO);
+	ft_putendl_fd("exit", STDERR_FILENO);
 	cleanup_shell();
 	exit(exit_status);
 	return (0);
 }
+
