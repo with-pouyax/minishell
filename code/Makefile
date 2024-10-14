@@ -24,11 +24,13 @@ SRC_FILES = minishell.c \
             lexer_extra.c \
             parser.c \
             parser_extra.c \
+            parser_utils.c \
             signal_handling.c \
             utils.c \
             utils_extra.c \
             utils_more.c \
             utils_array.c
+
 
 # List of object files
 OBJ_FILES = $(SRC_FILES:.c=.o)

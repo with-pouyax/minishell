@@ -28,7 +28,7 @@ typedef enum e_token_type
     HEREDOC
 }   t_token_type;
 
-// Structure for a token
+// Structure for tokens used during command parsing
 typedef struct s_token
 {
     char            *value;
@@ -36,11 +36,19 @@ typedef struct s_token
     struct s_token  *next;
 }   t_token;
 
+// Structure for argument linked list
+typedef struct s_arg
+{
+    char            *value;
+    struct s_arg    *next;
+}   t_arg;
+
 // Structure for a command (linked list)
 typedef struct s_command
 {
     char                *cmd;
     char                **args;
+    t_arg               *args_list; // Linked list for arguments
     int                 input_fd;
     int                 output_fd;
     char                *heredoc;
@@ -70,6 +78,12 @@ void    sigint_handler(int signum);
 
 // Parsing and Execution
 int     parse_input(char *input);
+t_command *parse_tokens(t_token *tokens);
+int     parse_command(t_token **tokens, t_command *cmd);
+int     add_argument(t_command *cmd, char *value);
+void    add_arg(t_arg **args_list, t_arg *new_arg);
+void    convert_args_list_to_array(t_command *cmd);
+int     count_args(t_arg *args_list);
 void    execute_commands(void);
 
 // Built-in Commands
@@ -121,7 +135,6 @@ int         is_whitespace(char c);
 int         is_special_char(char c);
 char        *get_word(char *input, int *i);
 char        *get_quoted_word(char *input, int *i);
-t_command   *parse_tokens(t_token *tokens);
 t_command   *create_command(void);
 void        add_command(t_command **head, t_command *new_cmd);
 int         handle_redirection(t_token **tokens, t_command *cmd);
@@ -129,9 +142,9 @@ int         handle_heredoc(char *delimiter, t_command *cmd);
 int         print_error(char *message);
 void        free_tokens(t_token *tokens);
 void        free_command(t_command *cmd);
+void        free_args_list(t_arg *args_list);
 
 // Command Execution
-void    execute_commands(void);
 void    execute_external(t_command *cmd);
 void    child_process(t_command *cmd, int input_fd, int output_fd);
 char    *get_command_path(char *cmd);
@@ -147,5 +160,10 @@ char    **copy_envp(void);
 void    sort_envp(char **envp);
 char    **realloc_envp(char **envp, char *new_var);
 int     set_env_var(char *arg);
+
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+void add_command(t_command **head, t_command *new_cmd);
+t_command *create_command(void);
 
 #endif

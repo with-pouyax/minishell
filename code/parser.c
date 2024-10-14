@@ -25,7 +25,6 @@ t_command   *parse_tokens(t_token *tokens)
 {
     t_command   *cmd_list;
     t_command   *cmd;
-    int         arg_count;
 
     cmd_list = NULL;
     while (tokens)
@@ -36,69 +35,71 @@ t_command   *parse_tokens(t_token *tokens)
             return (NULL);
         }
         cmd = create_command();
-        arg_count = 0;
-        while (tokens && tokens->type != PIPE)
+        if (!parse_command(&tokens, cmd))
         {
-            if (tokens->type == WORD)
-            {
-                cmd->args = realloc(cmd->args, sizeof(char *) * (arg_count + 2));
-                cmd->args[arg_count++] = ft_strdup(tokens->value);
-                cmd->args[arg_count] = NULL;
-                if (!cmd->cmd)
-                    cmd->cmd = ft_strdup(tokens->value);
-            }
-            else if (tokens->type == INPUT_REDIRECT || tokens->type == OUTPUT_REDIRECT
-                || tokens->type == APPEND_REDIRECT || tokens->type == HEREDOC)
-            {
-                if (handle_redirection(&tokens, cmd) != 0)
-                {
-                    free_command(cmd);
-                    return (NULL);
-                }
-                continue ;
-            }
-            else
-            {
-                ft_putendl_fd("minishell: syntax error", STDERR_FILENO);
-                free_command(cmd);
-                return (NULL);
-            }
-            tokens = tokens->next;
+            free_command(cmd);
+            return (NULL);
         }
+        convert_args_list_to_array(cmd);
         add_command(&cmd_list, cmd);
-        if (tokens)
+        if (tokens && tokens->type == PIPE)
             tokens = tokens->next;
     }
     return (cmd_list);
 }
 
-t_command   *create_command(void)
+int parse_command(t_token **tokens, t_command *cmd)
 {
-    t_command   *cmd;
-
-    cmd = malloc(sizeof(t_command));
-    if (!cmd)
-        return (NULL);
-    cmd->cmd = NULL;
-    cmd->args = NULL;
-    cmd->input_fd = STDIN_FILENO;
-    cmd->output_fd = STDOUT_FILENO;
-    cmd->heredoc = NULL;
-    cmd->next = NULL;
-    return (cmd);
+    while (*tokens && (*tokens)->type != PIPE)
+    {
+        if ((*tokens)->type == WORD)
+        {
+            if (!add_argument(cmd, (*tokens)->value))
+                return (0);
+        }
+        else if ((*tokens)->type == INPUT_REDIRECT || (*tokens)->type == OUTPUT_REDIRECT
+            || (*tokens)->type == APPEND_REDIRECT || (*tokens)->type == HEREDOC)
+        {
+            if (handle_redirection(tokens, cmd) != 0)
+                return (0);
+            continue ;
+        }
+        else
+        {
+            ft_putendl_fd("minishell: syntax error", STDERR_FILENO);
+            return (0);
+        }
+        *tokens = (*tokens)->next;
+    }
+    return (1);
 }
 
-void    add_command(t_command **head, t_command *new_cmd)
+int add_argument(t_command *cmd, char *value)
 {
-    t_command   *current;
+    t_arg *new_arg;
 
-    if (!*head)
+    new_arg = malloc(sizeof(t_arg));
+    if (!new_arg)
+        return (0);
+    new_arg->value = ft_strdup(value);
+    new_arg->next = NULL;
+    add_arg(&(cmd->args_list), new_arg);
+    if (!cmd->cmd)
+        cmd->cmd = ft_strdup(value);
+    return (1);
+}
+
+void add_arg(t_arg **args_list, t_arg *new_arg)
+{
+    t_arg *current;
+
+    if (!*args_list)
     {
-        *head = new_cmd;
+        *args_list = new_arg;
         return ;
     }
-    current = *head;
+    current = *args_list;
     while (current->next)
         current = current->next;
-    current->next = new_cmd;
+    current->next = new_arg;
 }
