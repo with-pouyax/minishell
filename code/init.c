@@ -5,29 +5,28 @@ void    init_shell(char **envp)
     int i;
     int env_count;
 
-    // Count environment variables
-    for (env_count = 0; envp[env_count]; env_count++)
-        ;
-
-    // Allocate memory for g_envp
-    g_envp = malloc(sizeof(char *) * (env_count + 1));
-    if (!g_envp)
+    env_count = 0;
+    while (envp[env_count])
+        env_count++;
+    g_shell.envp = malloc(sizeof(char *) * (env_count + 1));
+    if (!g_shell.envp)
     {
         perror("minishell: init_shell");
         exit(1);
     }
-
-    // Copy environment variables
-    for (i = 0; i < env_count; i++)
-        g_envp[i] = ft_strdup(envp[i]);
-    g_envp[env_count] = NULL;
-
-    // Initialize other variables if necessary
+    i = 0;
+    while (i < env_count)
+    {
+        g_shell.envp[i] = ft_strdup(envp[i]);
+        i++;
+    }
+    g_shell.envp[env_count] = NULL;
+    g_shell.last_exit_status = 0;
+    g_shell.cmd_list = NULL;
 }
 
 void    cleanup_shell(void)
 {
-    if (g_envp)
-        free_array(g_envp);
-    // Free other allocated resources if necessary
+    if (g_shell.envp)
+        free_array(g_shell.envp);
 }

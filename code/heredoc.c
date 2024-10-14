@@ -16,7 +16,7 @@ int handle_heredoc(char *delimiter, t_command *cmd)
         if (!line || ft_strcmp(line, delimiter) == 0)
         {
             free(line);
-            break;
+            break ;
         }
         ft_putendl_fd(line, fd[1]);
         free(line);

@@ -1,6 +1,4 @@
 #include "minishell.h"
-#include <readline/readline.h> // Add this include
-#include <readline/history.h>  // Add this include
 
 void    signal_setup(void)
 {

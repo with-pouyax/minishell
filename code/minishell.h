@@ -14,10 +14,10 @@
 # include <sys/wait.h>
 # include <ctype.h>
 
+// Buffer size for input and other utilities
 # define BUFFER_SIZE 1024
 
-// Typedefs and struct definitions
-
+// Token types for command parsing
 typedef enum e_token_type
 {
     WORD,
@@ -26,15 +26,17 @@ typedef enum e_token_type
     OUTPUT_REDIRECT,
     APPEND_REDIRECT,
     HEREDOC
-} t_token_type;
+}   t_token_type;
 
+// Structure for a token
 typedef struct s_token
 {
     char            *value;
     int             type;
     struct s_token  *next;
-} t_token;
+}   t_token;
 
+// Structure for a command (linked list)
 typedef struct s_command
 {
     char                *cmd;
@@ -43,13 +45,17 @@ typedef struct s_command
     int                 output_fd;
     char                *heredoc;
     struct s_command    *next;
-} t_command;
+}   t_command;
 
-extern char        **g_envp;
-extern int         g_last_exit_status;
-extern t_command   *g_cmd_list;
+// Global shell structure to store environment, last exit status, and commands
+typedef struct s_shell
+{
+    char        **envp;
+    int         last_exit_status;
+    t_command   *cmd_list;
+}   t_shell;
 
-// Function declarations
+extern t_shell g_shell;
 
 // Initialization and Cleanup
 void    init_shell(char **envp);
@@ -64,7 +70,7 @@ void    sigint_handler(int signum);
 
 // Parsing and Execution
 int     parse_input(char *input);
-void    execute_commands(t_command *cmd_list);
+void    execute_commands(void);
 
 // Built-in Commands
 int     is_builtin(char *cmd);
@@ -86,7 +92,7 @@ void    exit_shell(int status);
 
 // Utility Functions
 void    free_array(char **array);
-void    free_command_list(t_command *cmd_list);
+void    free_command_list(void);
 char    *ft_strdup(const char *s1);
 char    *ft_substr(char const *s, unsigned int start, size_t len);
 char    *ft_strjoin(char const *s1, char const *s2);
@@ -125,7 +131,7 @@ void        free_tokens(t_token *tokens);
 void        free_command(t_command *cmd);
 
 // Command Execution
-void    execute_commands(t_command *cmd_list);
+void    execute_commands(void);
 void    execute_external(t_command *cmd);
 void    child_process(t_command *cmd, int input_fd, int output_fd);
 char    *get_command_path(char *cmd);

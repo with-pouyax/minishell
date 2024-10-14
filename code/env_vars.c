@@ -1,59 +1,88 @@
 #include "minishell.h"
 
-char    *get_env_value(char *var)
-{
-    int     i;
-    size_t  len;
-    char    *env_var;
-
-    len = ft_strlen(var);
-    i = 0;
-    while (g_envp[i])
-    {
-        if (ft_strncmp(g_envp[i], var, len) == 0 && g_envp[i][len] == '=')
-        {
-            env_var = ft_strdup(&g_envp[i][len + 1]);
-            return (env_var);
-        }
-        i++;
-    }
-    return (ft_strdup(""));
-}
-
-char    *expand_env_vars(char *input)
+void    unset_env_var(char *name)
 {
     int     i;
     int     j;
-    char    *result;
-    char    *temp;
-    char    var_name[BUFFER_SIZE];
+    char    **new_envp;
+    size_t  name_len;
 
-    result = ft_strdup("");
+    name_len = ft_strlen(name);
     i = 0;
-    while (input[i])
+    j = 0;
+    while (g_shell.envp[i])
+        i++;
+    new_envp = malloc(sizeof(char *) * i);
+    if (!new_envp)
+        return ;
+    i = 0;
+    while (g_shell.envp[i])
     {
-        if (input[i] == '$' && input[i + 1] && (ft_isalnum(input[i + 1]) || input[i + 1] == '_'))
-        {
-            i++;
-            j = 0;
-            while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
-                var_name[j++] = input[i++];
-            var_name[j] = '\0';
-            temp = get_env_value(var_name);
-            result = ft_strjoin_free(result, temp);
-        }
-        else if (input[i] == '$' && input[i + 1] == '?')
-        {
-            i += 2;
-            temp = ft_itoa(g_last_exit_status);
-            result = ft_strjoin_free(result, temp);
-        }
+        if (ft_strncmp(g_shell.envp[i], name, name_len) == 0
+            && g_shell.envp[i][name_len] == '=')
+            free(g_shell.envp[i]);
         else
         {
-            temp = ft_substr(input, i, 1);
-            result = ft_strjoin_free(result, temp);
-            i++;
+            new_envp[j] = g_shell.envp[i];
+            j++;
         }
+        i++;
     }
-    return (result);
+    new_envp[j] = NULL;
+    free(g_shell.envp);
+    g_shell.envp = new_envp;
+}
+
+int     update_env(char *name, char *value)
+{
+    int     i;
+    char    *new_var;
+    size_t  name_len;
+
+    new_var = ft_strjoin3(name, "=", value);
+    if (!new_var)
+        return (1);
+    name_len = ft_strlen(name);
+    i = 0;
+    while (g_shell.envp[i])
+    {
+        if (ft_strncmp(g_shell.envp[i], name, name_len) == 0
+            && g_shell.envp[i][name_len] == '=')
+        {
+            free(g_shell.envp[i]);
+            g_shell.envp[i] = new_var;
+            return (0);
+        }
+        i++;
+    }
+    g_shell.envp = realloc_envp(g_shell.envp, new_var);
+    if (!g_shell.envp)
+    {
+        free(new_var);
+        return (1);
+    }
+    return (0);
+}
+
+void    print_sorted_env(void)
+{
+    char    **sorted_envp;
+    int     i;
+
+    sorted_envp = copy_envp();
+    if (!sorted_envp)
+    {
+        perror("minishell: print_sorted_env");
+        return ;
+    }
+    sort_envp(sorted_envp);
+    i = 0;
+    while (sorted_envp[i])
+    {
+        ft_putstr_fd("declare -x ", STDOUT_FILENO);
+        ft_putendl_fd(sorted_envp[i], STDOUT_FILENO);
+        free(sorted_envp[i]);
+        i++;
+    }
+    free(sorted_envp);
 }

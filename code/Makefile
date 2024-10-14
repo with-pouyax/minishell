@@ -9,19 +9,26 @@ CFLAGS = -Wall -Wextra -Werror -I$(READLINE_DIR)/include
 READLINE_DIR = /usr/local/opt/readline
 LIBS = -L$(READLINE_DIR)/lib -lreadline
 
-# List of source files (all in the same folder)
+# List of source files
 SRC_FILES = minishell.c \
-            lexer.c \
-            parser.c \
-            executor.c \
-            signal_handling.c \
-            history.c \
-            builtins.c \
-            env_utils.c \
-            utils.c \
             init.c \
+            builtins.c \
+            builtins_extra.c \
+            env_utils.c \
             env_vars.c \
-            heredoc.c
+            expand_vars.c \
+            executor.c \
+            heredoc.c \
+            history.c \
+            lexer.c \
+            lexer_extra.c \
+            parser.c \
+            parser_extra.c \
+            signal_handling.c \
+            utils.c \
+            utils_extra.c \
+            utils_more.c \
+            utils_array.c
 
 # List of object files
 OBJ_FILES = $(SRC_FILES:.c=.o)
