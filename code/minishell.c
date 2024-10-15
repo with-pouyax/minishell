@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-t_shell g_shell;
+t_shell g_shell; // Global shell structure to store environment, last exit status, and commands
 
 void    shell_loop(void)
 {
     char    *input;
 
-    load_history();
+    load_history(); // Load the history file
     while (1)
     {
         signal_setup();
@@ -36,9 +36,9 @@ void    shell_loop(void)
 
 int main(int argc, char **argv, char **envp)
 {
-    (void)argc;
-    (void)argv;
-    init_shell(envp);
-    shell_loop();
+    (void)argc; // Unused
+    (void)argv; // Unused
+    init_shell(envp); // Initialize the shell with the environment variables
+    shell_loop(); // Start the main shell loop
     return (g_shell.last_exit_status);
 }
