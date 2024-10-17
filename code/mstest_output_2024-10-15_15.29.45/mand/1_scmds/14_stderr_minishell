@@ -1,0 +1,3 @@
+awk: cmd. line:1:  ~ /^d/ {print }
+awk: cmd. line:1:  ^ syntax error
+exit

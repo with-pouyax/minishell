@@ -1,0 +1,44 @@
+==1829814== Memcheck, a memory error detector
+==1829814== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1829814== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1829814== Command: ./minishell
+==1829814== Parent PID: 1829813
+==1829814== 
+==1829814== 
+==1829814== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==1829814== Open file descriptor 3: /tmp/tmp.Da4UY1QnYR/tmp_valgrind_out
+==1829814==    <inherited from parent>
+==1829814== 
+==1829814== Open file descriptor 2: /dev/null
+==1829814==    <inherited from parent>
+==1829814== 
+==1829814== Open file descriptor 1: /dev/null
+==1829814==    <inherited from parent>
+==1829814== 
+==1829814== Open file descriptor 0:
+==1829814==    <inherited from parent>
+==1829814== 
+==1829814== 
+==1829814== HEAP SUMMARY:
+==1829814==     in use at exit: 385,015 bytes in 16,694 blocks
+==1829814==   total heap usage: 16,880 allocs, 186 frees, 3,142,092 bytes allocated
+==1829814== 
+==1829814== 120 bytes in 1 blocks are definitely lost in loss record 4 of 8
+==1829814==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1829814==    by 0x494A122: getdelim (iogetdelim.c:62)
+==1829814==    by 0x485C3F4: readline (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==1829814==    by 0x4012F0: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1829814==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1829814== 
+==1829814== LEAK SUMMARY:
+==1829814==    definitely lost: 120 bytes in 1 blocks
+==1829814==    indirectly lost: 0 bytes in 0 blocks
+==1829814==      possibly lost: 0 bytes in 0 blocks
+==1829814==    still reachable: 0 bytes in 0 blocks
+==1829814==         suppressed: 384,895 bytes in 16,693 blocks
+==1829814== 
+==1829814== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 7 from 7)
+--1829814-- 
+--1829814-- used_suppression:      7 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 384,895 bytes in 16,693 blocks
+==1829814== 
+==1829814== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 7 from 7)

@@ -1,0 +1,70 @@
+==1807277== Memcheck, a memory error detector
+==1807277== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1807277== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1807277== Command: ./minishell
+==1807277== Parent PID: 1807276
+==1807277== 
+==1807277== 
+==1807277== Process terminating with default action of signal 15 (SIGTERM)
+==1807277==    at 0x49DE7E0: read (read.c:26)
+==1807277==    by 0x485C308: read (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==1807277==    by 0x48B38A9: read_history_range (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1807277==    by 0x402B53: load_history (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4012DC: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277== 
+==1807277== FILE DESCRIPTORS: 5 open (3 std) at exit.
+==1807277== Open file descriptor 4: /home/pghajard/.minishell_history
+==1807277==    at 0x49DE53B: open (open64.c:41)
+==1807277==    by 0x48B383A: read_history_range (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==1807277==    by 0x402B53: load_history (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4012DC: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277== 
+==1807277== Open file descriptor 3: /tmp/tmp.ssLSoR06JL/tmp_valgrind_out
+==1807277==    <inherited from parent>
+==1807277== 
+==1807277== Open file descriptor 2: /dev/null
+==1807277==    <inherited from parent>
+==1807277== 
+==1807277== Open file descriptor 1: /dev/null
+==1807277==    <inherited from parent>
+==1807277== 
+==1807277== Open file descriptor 0:
+==1807277==    <inherited from parent>
+==1807277== 
+==1807277== 
+==1807277== HEAP SUMMARY:
+==1807277==     in use at exit: 130,759 bytes in 64 blocks
+==1807277==   total heap usage: 64 allocs, 0 frees, 130,759 bytes allocated
+==1807277== 
+==1807277== 34 bytes in 1 blocks are still reachable in loss record 1 of 5
+==1807277==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1807277==    by 0x403FCA: ft_strjoin (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x402B46: load_history (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4012DC: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277== 
+==1807277== 488 bytes in 1 blocks are still reachable in loss record 3 of 5
+==1807277==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1807277==    by 0x401425: init_shell (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4013C2: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277== 
+==1807277== 2,455 bytes in 60 blocks are still reachable in loss record 4 of 5
+==1807277==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1807277==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x401479: init_shell (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277==    by 0x4013C2: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1807277== 
+==1807277== LEAK SUMMARY:
+==1807277==    definitely lost: 0 bytes in 0 blocks
+==1807277==    indirectly lost: 0 bytes in 0 blocks
+==1807277==      possibly lost: 0 bytes in 0 blocks
+==1807277==    still reachable: 2,977 bytes in 62 blocks
+==1807277==         suppressed: 127,782 bytes in 2 blocks
+==1807277== 
+==1807277== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 2 from 2)
+--1807277-- 
+--1807277-- used_suppression:      2 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 127,782 bytes in 2 blocks
+==1807277== 
+==1807277== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 2 from 2)

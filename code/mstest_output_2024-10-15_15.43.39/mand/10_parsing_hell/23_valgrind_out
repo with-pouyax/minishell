@@ -1,0 +1,250 @@
+==1942041== Memcheck, a memory error detector
+==1942041== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1942041== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1942041== Command: ./minishell
+==1942041== Parent PID: 1942040
+==1942041== 
+==1942042== 
+==1942042== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==1942042== Open file descriptor 3: /tmp/tmp.s8oyAIDB0f/tmp_valgrind_out
+==1942042==    <inherited from parent>
+==1942042== 
+==1942042== Open file descriptor 2: /dev/null
+==1942042==    <inherited from parent>
+==1942042== 
+==1942042== Open file descriptor 1: /dev/null
+==1942042==    <inherited from parent>
+==1942042== 
+==1942042== Open file descriptor 0:
+==1942042==    <inherited from parent>
+==1942042== 
+==1942042== 
+==1942042== HEAP SUMMARY:
+==1942042==     in use at exit: 566,164 bytes in 24,610 blocks
+==1942042==   total heap usage: 24,798 allocs, 188 frees, 6,104,734 bytes allocated
+==1942042== 
+==1942042== 4 bytes in 1 blocks are still reachable in loss record 1 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x403FCA: ft_strjoin (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4040A1: ft_strjoin3 (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4020F6: update_env (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x401F34: set_env_var (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40198F: builtin_export (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40172B: execute_builtin (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4027DD: child_process (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x402667: execute_commands (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40135A: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 7 bytes in 1 blocks are still reachable in loss record 2 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40358B: add_argument (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x403437: parse_command (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x403353: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 11 bytes in 1 blocks are still reachable in loss record 4 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x403FCA: ft_strjoin (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40404C: ft_strjoin_free (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4025BA: expand_env_vars (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40133F: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 11 bytes in 2 blocks are still reachable in loss record 5 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40354D: add_argument (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x403437: parse_command (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x403353: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 24 bytes in 1 blocks are still reachable in loss record 8 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x4039FD: convert_args_list_to_array (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40337B: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 48 bytes in 1 blocks are still reachable in loss record 9 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x403B61: create_command (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x403342: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 120 bytes in 1 blocks are definitely lost in loss record 10 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x494A122: getdelim (iogetdelim.c:62)
+==1942042==    by 0x485C3F4: readline (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==1942042==    by 0x4012F0: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 496 bytes in 1 blocks are still reachable in loss record 11 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x401DD9: realloc_envp (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4021D7: update_env (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x401F34: set_env_var (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40198F: builtin_export (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40172B: execute_builtin (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4027DD: child_process (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x402667: execute_commands (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x40135A: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== 2,456 bytes in 60 blocks are still reachable in loss record 12 of 16
+==1942042==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942042==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x401479: init_shell (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042==    by 0x4013C2: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942042== 
+==1942042== LEAK SUMMARY:
+==1942042==    definitely lost: 120 bytes in 1 blocks
+==1942042==    indirectly lost: 0 bytes in 0 blocks
+==1942042==      possibly lost: 0 bytes in 0 blocks
+==1942042==    still reachable: 3,057 bytes in 68 blocks
+==1942042==         suppressed: 562,987 bytes in 24,541 blocks
+==1942042== 
+==1942042== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 7 from 7)
+--1942042-- 
+--1942042-- used_suppression:      7 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 562,987 bytes in 24,541 blocks
+==1942042== 
+==1942042== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 7 from 7)
+==1942043== 
+==1942043== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==1942043== Open file descriptor 3: /tmp/tmp.s8oyAIDB0f/tmp_valgrind_out
+==1942043==    <inherited from parent>
+==1942043== 
+==1942043== Open file descriptor 2: /dev/null
+==1942043==    <inherited from parent>
+==1942043== 
+==1942043== Open file descriptor 1: /dev/null
+==1942043==    <inherited from parent>
+==1942043== 
+==1942043== Open file descriptor 0:
+==1942043==    <inherited from parent>
+==1942043== 
+==1942043== 
+==1942043== HEAP SUMMARY:
+==1942043==     in use at exit: 566,313 bytes in 24,613 blocks
+==1942043==   total heap usage: 24,829 allocs, 216 frees, 6,104,648 bytes allocated
+==1942043== 
+==1942043== 5 bytes in 1 blocks are still reachable in loss record 1 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40358B: add_argument (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x403437: parse_command (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x403353: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 7 bytes in 2 blocks are still reachable in loss record 2 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40354D: add_argument (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x403437: parse_command (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x403353: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 9 bytes in 1 blocks are still reachable in loss record 3 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x403FCA: ft_strjoin (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40404C: ft_strjoin_free (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x402531: expand_env_vars (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40133F: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 24 bytes in 1 blocks are still reachable in loss record 4 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x4039FD: convert_args_list_to_array (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40337B: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 48 bytes in 1 blocks are still reachable in loss record 7 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x403B61: create_command (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x403342: parse_tokens (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4032AB: parse_input (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x40134C: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 240 bytes in 2 blocks are definitely lost in loss record 9 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x494A122: getdelim (iogetdelim.c:62)
+==1942043==    by 0x485C3F4: readline (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==1942043==    by 0x4012F0: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 488 bytes in 1 blocks are still reachable in loss record 10 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x401425: init_shell (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C2: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== 2,456 bytes in 60 blocks are still reachable in loss record 11 of 15
+==1942043==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942043==    by 0x403DC5: ft_strdup (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x401479: init_shell (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043==    by 0x4013C2: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942043== 
+==1942043== LEAK SUMMARY:
+==1942043==    definitely lost: 240 bytes in 2 blocks
+==1942043==    indirectly lost: 0 bytes in 0 blocks
+==1942043==      possibly lost: 0 bytes in 0 blocks
+==1942043==    still reachable: 3,037 bytes in 67 blocks
+==1942043==         suppressed: 563,036 bytes in 24,544 blocks
+==1942043== 
+==1942043== ERROR SUMMARY: 8 errors from 8 contexts (suppressed: 7 from 7)
+--1942043-- 
+--1942043-- used_suppression:      7 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 563,036 bytes in 24,544 blocks
+==1942043== 
+==1942043== ERROR SUMMARY: 8 errors from 8 contexts (suppressed: 7 from 7)
+==1942041== 
+==1942041== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==1942041== Open file descriptor 3: /tmp/tmp.s8oyAIDB0f/tmp_valgrind_out
+==1942041==    <inherited from parent>
+==1942041== 
+==1942041== Open file descriptor 2: /dev/null
+==1942041==    <inherited from parent>
+==1942041== 
+==1942041== Open file descriptor 1: /dev/null
+==1942041==    <inherited from parent>
+==1942041== 
+==1942041== Open file descriptor 0:
+==1942041==    <inherited from parent>
+==1942041== 
+==1942041== 
+==1942041== HEAP SUMMARY:
+==1942041==     in use at exit: 563,276 bytes in 24,546 blocks
+==1942041==   total heap usage: 24,834 allocs, 288 frees, 6,307,784 bytes allocated
+==1942041== 
+==1942041== 240 bytes in 2 blocks are definitely lost in loss record 4 of 8
+==1942041==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1942041==    by 0x494A122: getdelim (iogetdelim.c:62)
+==1942041==    by 0x485C3F4: readline (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==1942041==    by 0x4012F0: shell_loop (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942041==    by 0x4013C7: main (in /home/pghajard/Desktop/minishell/code/minishell)
+==1942041== 
+==1942041== LEAK SUMMARY:
+==1942041==    definitely lost: 240 bytes in 2 blocks
+==1942041==    indirectly lost: 0 bytes in 0 blocks
+==1942041==      possibly lost: 0 bytes in 0 blocks
+==1942041==    still reachable: 0 bytes in 0 blocks
+==1942041==         suppressed: 563,036 bytes in 24,544 blocks
+==1942041== 
+==1942041== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 7 from 7)
+--1942041-- 
+--1942041-- used_suppression:      7 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 563,036 bytes in 24,544 blocks
+==1942041== 
+==1942041== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 7 from 7)

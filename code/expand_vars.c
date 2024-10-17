@@ -1,5 +1,48 @@
 #include "minishell.h"
 
+
+
+
+char *expand_variables_in_word(char *word)
+{
+    int     i;
+    int     start;
+    char    *result;
+    char    *temp;
+    char    *var_name;
+    char    *var_value;
+
+    result = ft_strdup("");
+    i = 0;
+    while (word[i])
+    {
+        if (word[i] == '$' && word[i + 1] && (ft_isalnum(word[i + 1]) || word[i + 1] == '_'))
+        {
+            i++;
+            start = i;
+            while (word[i] && (ft_isalnum(word[i]) || word[i] == '_'))
+                i++;
+            var_name = ft_substr(word, start, i - start);
+            var_value = getenv(var_name);
+            free(var_name);
+            if (var_value)
+            {
+                temp = ft_strjoin_free(result, ft_strdup(var_value));
+                result = temp;
+            }
+        }
+        else
+        {
+            temp = ft_strjoin_char(result, word[i]);
+            free(result);
+            result = temp;
+            i++;
+        }
+    }
+    return (result);
+}
+
+
 char    *get_env_value(char *var)
 {
     int     i;
@@ -21,41 +64,18 @@ char    *get_env_value(char *var)
     return (ft_strdup(""));
 }
 
-char    *expand_env_vars(char *input)
+char *expand_env_vars(char *input)
 {
-    int     i;
-    int     j;
-    char    *result;
-    char    *temp;
-    char    var_name[BUFFER_SIZE];
+    char *result;
+    char *status_str;
 
-    result = ft_strdup("");
-    i = 0;
-    while (input[i])
+    result = ft_strdup(input);
+    // Check if $? is in the input
+    if (ft_strstr(input, "$?"))
     {
-        if (input[i] == '$' && input[i + 1]
-            && (ft_isalnum(input[i + 1]) || input[i + 1] == '_'))
-        {
-            i++;
-            j = 0;
-            while (input[i] && (ft_isalnum(input[i]) || input[i] == '_'))
-                var_name[j++] = input[i++];
-            var_name[j] = '\0';
-            temp = get_env_value(var_name);
-            result = ft_strjoin_free(result, temp);
-        }
-        else if (input[i] == '$' && input[i + 1] == '?')
-        {
-            i += 2;
-            temp = ft_itoa(g_shell.last_exit_status);
-            result = ft_strjoin_free(result, temp);
-        }
-        else
-        {
-            temp = ft_substr(input, i, 1);
-            result = ft_strjoin_free(result, temp);
-            i++;
-        }
+        status_str = ft_itoa(g_shell.last_exit_status); // Convert last exit status to string
+        result = ft_strreplace(result, "$?", status_str); // Replace $? with status_str
+        free(status_str);
     }
-    return (result);
+    return result;
 }

@@ -1,5 +1,79 @@
 #include "minishell.h"
 
+char *ft_strreplace(char *str, const char *old, const char *new_str)
+{
+    char *result;
+    char *insert_point;
+    char *temp;
+    int old_len;
+    int new_len;
+    int count;
+
+    // Calculate lengths
+    old_len = ft_strlen(old);
+    new_len = ft_strlen(new_str);
+
+    // Count the number of times old substring occurs
+    insert_point = str;
+    for (count = 0; (temp = ft_strstr(insert_point, old)); ++count)
+    {
+        insert_point = temp + old_len;
+    }
+
+    // Allocate memory for the new result string
+    result = malloc(ft_strlen(str) + (new_len - old_len) * count + 1);
+    if (!result)
+        return NULL;
+
+    // Replace occurrences of old with new
+    temp = result;
+    while (count--)
+    {
+        insert_point = ft_strstr(str, old);
+        int len = insert_point - str;
+        temp = ft_memcpy(temp, str, len) + len;
+        temp = ft_memcpy(temp, new_str, new_len) + new_len;
+        str += len + old_len;
+    }
+    ft_strcpy(temp, str);
+    return result;
+}
+
+
+char *ft_strstr(const char *haystack, const char *needle)
+{
+    size_t needle_len;
+
+    if (!*needle)
+        return (char *)haystack;
+    
+    needle_len = ft_strlen(needle);
+    while (*haystack)
+    {
+        if (ft_strncmp(haystack, needle, needle_len) == 0)
+            return (char *)haystack;
+        haystack++;
+    }
+    return (NULL);
+}
+
+
+char *ft_strjoin_char(char *s, char c)
+{
+    char    *result;
+    size_t  len;
+
+    len = ft_strlen(s);
+    result = malloc(len + 2);
+    if (!result)
+        return (NULL);
+    ft_memcpy(result, s, len);
+    result[len] = c;
+    result[len + 1] = '\0';
+    return (result);
+}
+
+
 size_t  ft_strlen(const char *s)
 {
     size_t i;

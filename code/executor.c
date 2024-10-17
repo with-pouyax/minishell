@@ -1,45 +1,30 @@
 #include "minishell.h"
 
-void    execute_commands(void)
+int execute_command(t_command *cmd)
 {
-    t_command   *cmd;
-    int         pipe_fd[2];
-    int         input_fd;
-    pid_t       pid;
+    pid_t pid;
+    int status;
 
-    cmd = g_shell.cmd_list;
-    input_fd = STDIN_FILENO;
-    while (cmd)
+    pid = fork();
+    if (pid == 0)
     {
-        if (cmd->next)
-        {
-            if (pipe(pipe_fd) < 0)
-            {
-                perror("minishell: pipe");
-                return ;
-            }
-        }
-        else
-            pipe_fd[1] = STDOUT_FILENO;
-        pid = fork();
-        if (pid == 0)
-            child_process(cmd, input_fd, pipe_fd[1]);
-        else if (pid < 0)
-            perror("minishell: fork");
-        else
-        {
-            waitpid(pid, &g_shell.last_exit_status, 0);
-            if (WIFEXITED(g_shell.last_exit_status))
-                g_shell.last_exit_status = WEXITSTATUS(g_shell.last_exit_status);
-            if (input_fd != STDIN_FILENO)
-                close(input_fd);
-            if (pipe_fd[1] != STDOUT_FILENO)
-                close(pipe_fd[1]);
-            input_fd = pipe_fd[0];
-            cmd = cmd->next;
-        }
+        // Child process
+        execve(cmd->path, cmd->args, g_shell.envp);
+        exit(EXIT_FAILURE); // If execve fails
     }
+    else
+    {
+        // Parent process waits for child to finish
+        waitpid(pid, &status, 0);
+        if (WIFEXITED(status))
+            g_shell.last_exit_status = WEXITSTATUS(status);
+        else if (WIFSIGNALED(status))
+            g_shell.last_exit_status = 128 + WTERMSIG(status);
+    }
+    return g_shell.last_exit_status;
 }
+
+
 
 void    child_process(t_command *cmd, int input_fd, int output_fd)
 {
@@ -95,42 +80,24 @@ void    execute_external(t_command *cmd)
     exit(1);
 }
 
-char    *get_command_path(char *cmd)
+char *get_command_path(char *cmd)
 {
-    char    **paths;
-    char    *path_var;
-    char    *cmd_path;
-    int     i;
+    char *path_env = getenv("PATH");
+    char **paths = ft_split(path_env, ':');
+    char *full_path;
+    int i;
 
-    if (ft_strchr(cmd, '/'))
+    // Iterate over all directories in PATH
+    for (i = 0; paths[i]; i++)
     {
-        if (access(cmd, X_OK) == 0)
-            return (ft_strdup(cmd));
-        else
-            return (NULL);
-    }
-    path_var = getenv("PATH");
-    if (!path_var)
-        return (NULL);
-    paths = ft_split(path_var, ':');
-    i = 0;
-    while (paths[i])
-    {
-        cmd_path = ft_strjoin_path(paths[i], cmd);
-        if (access(cmd_path, X_OK) == 0)
+        full_path = ft_strjoin_path(paths[i], cmd); // Join path with command name
+        if (access(full_path, X_OK) == 0) // Check if command exists and is executable
         {
             free_array(paths);
-            return (cmd_path);
+            return full_path;
         }
-        free(cmd_path);
-        i++;
+        free(full_path);
     }
     free_array(paths);
-    return (NULL);
-}
-
-void    exit_shell(int status)
-{
-    cleanup_shell();
-    exit(status);
+    return NULL; // Command not found
 }

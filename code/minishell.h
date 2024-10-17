@@ -46,14 +46,14 @@ typedef struct s_arg
 // Structure for a command (linked list)
 typedef struct s_command
 {
-    char                *cmd;
-    char                **args;
-    t_arg               *args_list; // Linked list for arguments
+    char                *cmd;         // Command name
+    char                **args;       // Arguments array
+    char                *path;        // Full path to the executable
     int                 input_fd;
     int                 output_fd;
-    char                *heredoc;
-    struct s_command    *next;
+    struct s_command    *next;        // Pointer to the next command in the pipeline
 }   t_command;
+
 
 // Global shell structure to store environment, last exit status, and commands
 typedef struct s_shell
@@ -134,7 +134,7 @@ void        add_token(t_token **head, t_token *new_token);
 int         is_whitespace(char c);
 int         is_special_char(char c);
 char        *get_word(char *input, int *i);
-char        *get_quoted_word(char *input, int *i);
+char    *get_quoted_word(char *input, int *i, char quote_char);
 t_command   *create_command(void);
 void        add_command(t_command **head, t_command *new_cmd);
 int         handle_redirection(t_token **tokens, t_command *cmd);
@@ -165,5 +165,13 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 void add_command(t_command **head, t_command *new_cmd);
 t_command *create_command(void);
+
+
+char    *expand_variables_in_word(char *word);
+t_token  *get_special_token(char *input, int *i);
+char    *ft_strjoin_char(char *s, char c);
+
+char *ft_strstr(const char *haystack, const char *needle);
+char *ft_strreplace(char *str, const char *old, const char *new_str);
 
 #endif
