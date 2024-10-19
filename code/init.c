@@ -2,7 +2,7 @@
 
 void    init_shell(char **envp)
 {
-    int i; 
+    int i;  
     int env_count; 
 
     env_count = 0;
