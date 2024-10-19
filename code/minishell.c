@@ -22,7 +22,8 @@ void    shell_loop(void)
             input = expand_env_vars(input);
             if (parse_input(input) == 0)
             {
-                execute_commands();
+                execute_command(g_shell.cmd_list);
+
                 free_command_list();
             }
             else

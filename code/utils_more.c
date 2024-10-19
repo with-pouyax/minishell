@@ -75,3 +75,16 @@ char    *ft_strchr(const char *s, int c)
     }
     return ((c == '\0') ? (char *)s : NULL);
 }
+char *ft_strcpy(char *dest, const char *src)
+{
+    char *start = dest;
+
+    while (*src)
+    {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';  // Null-terminate the destination string
+    return start;
+}
