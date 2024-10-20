@@ -62,4 +62,5 @@ void    parse_tokens(t_shell *shell);
 void    print_tokens(t_token *token_list);    // Function to print tokens (for debugging)
 void    print_commands(t_shell *shell);       // Function to print commands and their tokens (for debugging)
 
+int check_unclosed_quotes(char *input);
 #endif

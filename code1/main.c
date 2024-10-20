@@ -11,22 +11,26 @@ void init_shell(t_shell *shell)
 // Function to handle user input and history
 void handle_input(t_shell *shell)
 {
-    // Display prompt and get input
-    shell->input = readline(PROMPT); 
-    
+    shell->input = readline(PROMPT);
+
     // Check for EOF (Ctrl+D) or empty input
-    if (shell->input == NULL || strcmp(shell->input, "") == 0)
+    if (shell->input == NULL)
     {
-        if (shell->input == NULL)
-        {
-            printf("\nexit\n"); 
-            exit(shell->exit_status);
-        }
-        free(shell->input);
-        return;
+        printf("\nexit\n");
+        exit(shell->exit_status);
     }
 
-    // Add input to history
+    // Check for unclosed quotes and keep prompting until they're closed
+    while (check_unclosed_quotes(shell->input))
+    {
+        char *additional_input = readline("quote> ");
+        char *new_input = ft_strjoin(shell->input, additional_input);
+        free(shell->input);
+        free(additional_input);
+        shell->input = new_input;
+    }
+
+    // Add input to history if it's not empty
     if (strlen(shell->input) > 0)
         add_history(shell->input);
 
@@ -41,6 +45,7 @@ void handle_input(t_shell *shell)
     free(shell->input);
     shell->input = NULL;
 }
+
 
 // Main loop that listens for input
 void listen_for_input(t_shell *shell)

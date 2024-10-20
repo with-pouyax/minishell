@@ -111,3 +111,23 @@ void tokenize_command(t_command *command)
     command->token_list = token_list;
     free(tokens);
 }
+
+// Helper function to check for unclosed quotes
+int check_unclosed_quotes(char *input)
+{
+    int in_single_quote = 0;
+    int in_double_quote = 0;
+
+    while (*input)
+    {
+        if (*input == '\'' && !in_double_quote) // Toggle single quote flag
+            in_single_quote = !in_single_quote;
+        else if (*input == '"' && !in_single_quote) // Toggle double quote flag
+            in_double_quote = !in_double_quote;
+        
+        input++;
+    }
+
+    // If either flag is still active, it means there's an unclosed quote
+    return (in_single_quote || in_double_quote);
+}
