@@ -19,8 +19,6 @@ void print_tokens(t_token *token_list)
             printf(" - This is a flag.\n");
         if (token->is_operator)
             printf(" - This is an operator.\n");
-        if (token->is_variable_expansion)
-            printf(" - This is a variable expansion.\n");
         token = token->next;
     }
 }
@@ -32,7 +30,7 @@ void print_commands(t_shell *shell)
     while (cmd)
     {
         printf("Command #%d: '%s'\n", cmd->index, cmd->command_string);
-        print_tokens(cmd->token_list);  // Print all tokens in the command
+        print_tokens(cmd->token_list);
         cmd = cmd->next;
     }
 }

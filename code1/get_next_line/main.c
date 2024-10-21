@@ -41,33 +41,15 @@ int check_line(char *line)
     return (0);
 }
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
-    int     fd;
-    char    *line;
-    int     line_num;
+    t_shell shell;
 
-    fd = open("test.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return (1);
-    }
-    line_num = 1;
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("Line %d: %s", line_num, line); // Print the line
-        if (!check_line(line))
-        {
-            printf("Error: Line %d does not end with '1'.\n", line_num);
-            free(line);
-            get_next_line(-1);
-            close(fd);
-            return (1);
-        }
-        free(line);
-        line_num++;
-    }
-    close(fd);
-    return (0);
+    (void)argc;
+    (void)argv;
+    init_shell(&shell, envp);
+    listen_for_input(&shell);
+    cleanup_shell(&shell);
+
+    return 0;
 }
