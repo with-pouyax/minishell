@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pouyaximac <pouyaximac@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by yourname          #+#    #+#             */
-/*   Updated: 2024/10/21 15:49:56 by pouyax           ###   ########.fr       */
+/*   Updated: 2024/10/21 21:02:10 by pouyaximac       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,39 @@ static void	process_operator(char *input, int *i, t_command *cmd, int *index)
 	add_token(op, &cmd->token_list, index, 1);
 }
 
-static void	process_word(char *input, int *i, t_command *cmd, int *index)
+static void     process_word(char *input, int *i, t_command *cmd, int *index)
 {
-	char	*word;
-	char	quote;
+    char    *word;
+    char    quote;
 
-	word = ft_strdup("");
-	while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
-	{
-		if (input[*i] == '\'' || input[*i] == '\"')
-		{
-			quote = input[*i];
-			(*i)++;
-			while (input[*i] && input[*i] != quote)
-			{
-				add_char_to_token(&word, input[*i]);
-				(*i)++;
-			}
-			if (input[*i] == quote)
-				(*i)++;
-		}
-		else
-		{
-			add_char_to_token(&word, input[*i]);
-			(*i)++;
-		}
-	}
-	add_token(word, &cmd->token_list, index, 0);
+    word = ft_strdup("");
+    while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
+    {
+        if (input[*i] == '\'' || input[*i] == '\"')
+        {
+            quote = input[*i];
+            add_char_to_token(&word, input[*i]); // Include the opening quote
+            (*i)++;
+            while (input[*i] && input[*i] != quote)
+            {
+                add_char_to_token(&word, input[*i]);
+                (*i)++;
+            }
+            if (input[*i] == quote)
+            {
+                add_char_to_token(&word, input[*i]); // Include the closing quote
+                (*i)++;
+            }
+        }
+        else
+        {
+            add_char_to_token(&word, input[*i]);
+            (*i)++;
+        }
+    }
+    add_token(word, &cmd->token_list, index, 0);
 }
+
 
 void	tokenize_input(char *input, t_shell *shell)
 {
