@@ -27,8 +27,10 @@ typedef struct s_token
     int             is_variable_expansion;
     int             is_env_assignment;
     int             is_int;
+    int             var_not_found; // New field to indicate variable not found
     struct s_token  *next;
 }               t_token;
+
 
 // Command structure
 typedef struct s_command
@@ -66,7 +68,7 @@ int     is_operator(char *token);
 int     is_internal_command(char *token);
 
 // Variable expansion functions
-char    *expand_variables(char *input, t_shell *shell);
+char    *expand_variables(char *input, t_shell *shell, int *var_not_found_flag);
 char    *getenv_from_envp(char *name, t_shell *shell);
 int     get_var_name_len(char *str);
 int     is_special_var(char c);
@@ -82,10 +84,10 @@ int     check_unclosed_quotes(char *input);
 
 
 // Expands a single variable token
-char    *expand_variable_token(char *input, int *i, t_shell *shell);
+char    *expand_variable_token(char *input, int *i, t_shell *shell, int *var_not_found_flag);
 
 // Expands variables inside double quotes
-char    *expand_double_quotes(char *input, int *i, t_shell *shell);
+char    *expand_double_quotes(char *input, int *i, t_shell *shell, int *var_not_found_flag);
 
 // Returns a literal character as a string
 char    *get_literal_char(char *input, int *i);

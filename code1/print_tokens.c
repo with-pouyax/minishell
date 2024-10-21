@@ -19,9 +19,12 @@ void print_tokens(t_token *token_list)
             printf(" - This is a flag.\n");
         if (token->is_operator)
             printf(" - This is an operator.\n");
+        if (token->var_not_found)
+            printf(" - Variable not found during expansion.\n"); // New message
         token = token->next;
     }
 }
+
 
 // Function to print commands and their tokens
 void print_commands(t_shell *shell)

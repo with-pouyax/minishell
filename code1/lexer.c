@@ -26,12 +26,14 @@ void add_token(char *token_value, t_token **token_list, int *index, t_shell *she
 {
     t_token *new_token = malloc(sizeof(t_token));
     char    *expanded_value;
+    int     var_not_found_flag = 0;
 
-    expanded_value = expand_variables(token_value, shell);
+    expanded_value = expand_variables(token_value, shell, &var_not_found_flag);
     new_token->value = expanded_value;
     new_token->index = (*index)++;
     new_token->is_operator = 0;
     new_token->is_int = 0;
+    new_token->var_not_found = var_not_found_flag; // Set the flag in the token
 
     new_token->next = NULL;
 
@@ -45,6 +47,7 @@ void add_token(char *token_value, t_token **token_list, int *index, t_shell *she
         current->next = new_token;
     }
 }
+
 
 // Function to lex the input by splitting it into commands and tokens
 void lex_input(t_shell *shell)

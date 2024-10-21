@@ -47,7 +47,7 @@ char *handle_quotes(char *input, int *i)
 }
 
 // Expand variables in input
-char *expand_variables(char *input, t_shell *shell)
+char *expand_variables(char *input, t_shell *shell, int *var_not_found_flag)
 {
     char    *result = ft_strdup("");
     char    *temp;
@@ -60,13 +60,14 @@ char *expand_variables(char *input, t_shell *shell)
         else if (input[i] == '$')
         {
             i++;
-            temp = expand_variable_token(input, &i, shell);
+            temp = expand_variable_token(input, &i, shell, var_not_found_flag);
         }
         else if (input[i] == '\"')
-            temp = expand_double_quotes(input, &i, shell);
+            temp = expand_double_quotes(input, &i, shell, var_not_found_flag);
         else
             temp = get_literal_char(input, &i);
         result = ft_strjoin_free(result, temp);
     }
     return (result);
 }
+
