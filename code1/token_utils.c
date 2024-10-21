@@ -1,30 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by yourname          #+#    #+#             */
+/*   Updated: 2024/10/21 15:50:25 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-// Free the token list
-void free_tokens(t_token *token_list)
+void	add_token(char *token_value, t_token **token_list, int *index, int is_operator)
 {
-    t_token *tmp;
-    
-    while (token_list)
-    {
-        tmp = token_list;
-        token_list = token_list->next;
-        free(tmp->value);  // Free the token value string
-        free(tmp);  // Free the token structure
-    }
+	t_token	*new_token;
+	t_token	*current;
+
+	new_token = malloc(sizeof(t_token));
+	new_token->value = token_value;
+	new_token->index = (*index)++;
+	new_token->is_operator = is_operator;
+	new_token->is_command = 0;
+	new_token->is_flag = 0;
+	new_token->is_int = 0;
+	new_token->var_not_found = 0;
+	new_token->next = NULL;
+	if (!*token_list)
+		*token_list = new_token;
+	else
+	{
+		current = *token_list;
+		while (current->next)
+			current = current->next;
+		current->next = new_token;
+	}
 }
 
-// Free the command list and its associated tokens
-void free_commands(t_command *cmd_list)
+int	is_operator(char *token)
 {
-    t_command *tmp;
-    
-    while (cmd_list)
-    {
-        tmp = cmd_list;
-        free_tokens(cmd_list->token_list);  // Free all tokens in the command
-        free(cmd_list->command_string);  // Free the raw command string
-        cmd_list = cmd_list->next;
-        free(tmp);  // Free the command structure
-    }
+	if (!ft_strcmp(token, "|") || !ft_strcmp(token, "<") || !ft_strcmp(token, ">") ||
+		!ft_strcmp(token, ">>") || !ft_strcmp(token, "<<"))
+		return (1);
+	return (0);
+}
+
+int	is_internal_command(char *token)
+{
+	if (!ft_strcmp(token, "echo") || !ft_strcmp(token, "cd") ||
+		!ft_strcmp(token, "pwd") || !ft_strcmp(token, "export") ||
+		!ft_strcmp(token, "unset") || !ft_strcmp(token, "env") ||
+		!ft_strcmp(token, "exit"))
+		return (1);
+	return (0);
 }

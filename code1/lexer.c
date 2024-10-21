@@ -1,96 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by yourname          #+#    #+#             */
+/*   Updated: 2024/10/21 15:49:56 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-// Function to separate operators
-void separate_operator(char *token, t_token **token_list, int *index)
+static int	is_operator_char(char c)
 {
-    t_token *new_token = malloc(sizeof(t_token));
-
-    new_token->value = ft_strdup(token);
-    new_token->index = (*index)++;
-    new_token->is_operator = 1;
-    new_token->next = NULL;
-
-    if (!*token_list)
-        *token_list = new_token;
-    else
-    {
-        t_token *current = *token_list;
-        while (current->next)
-            current = current->next;
-        current->next = new_token;
-    }
+	return (c == '|' || c == '<' || c == '>');
 }
 
-// Function to add a new token to the token list
-void add_token(char *token_value, t_token **token_list, int *index, t_shell *shell)
+static void	add_char_to_token(char **token, char c)
 {
-    t_token *new_token = malloc(sizeof(t_token));
-    char    *expanded_value;
-    int     var_not_found_flag = 0;
+	char	tmp[2];
 
-    expanded_value = expand_variables(token_value, shell, &var_not_found_flag);
-    new_token->value = expanded_value;
-    new_token->index = (*index)++;
-    new_token->is_operator = 0;
-    new_token->is_int = 0;
-    new_token->var_not_found = var_not_found_flag; // Set the flag in the token
-
-    new_token->next = NULL;
-
-    if (!*token_list)
-        *token_list = new_token;
-    else
-    {
-        t_token *current = *token_list;
-        while (current->next)
-            current = current->next;
-        current->next = new_token;
-    }
+	tmp[0] = c;
+	tmp[1] = '\0';
+	*token = ft_strjoin_free(*token, ft_strdup(tmp));
 }
 
-
-// Function to lex the input by splitting it into commands and tokens
-void lex_input(t_shell *shell)
+static void	process_operator(char *input, int *i, t_command *cmd, int *index)
 {
-    t_command *cmd = malloc(sizeof(t_command));
-    cmd->command_string = ft_strdup(shell->input);
-    cmd->index = 0;
-    cmd->next = NULL;
-    cmd->token_list = NULL;
+	char	*op;
 
-    shell->commands = cmd;
-    tokenize_command(cmd, shell);
+	op = ft_strdup("");
+	while (input[*i] && is_operator_char(input[*i]))
+	{
+		add_char_to_token(&op, input[*i]);
+		(*i)++;
+	}
+	add_token(op, &cmd->token_list, index, 1);
 }
 
-// Function to tokenize a single command string
-void tokenize_command(t_command *command, t_shell *shell)
+static void	process_word(char *input, int *i, t_command *cmd, int *index)
 {
-    char **tokens = ft_split(command->command_string, ' ');
-    t_token *token_list = NULL;
-    int index = 0;
+	char	*word;
+	char	quote;
 
-    for (int i = 0; tokens[i] != NULL; i++)
-    {
-        if (is_operator(tokens[i]))
-        {
-            separate_operator(tokens[i], &token_list, &index);
-        }
-        else
-        {
-            add_token(tokens[i], &token_list, &index, shell);
+	word = ft_strdup("");
+	while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
+	{
+		if (input[*i] == '\'' || input[*i] == '\"')
+		{
+			quote = input[*i];
+			(*i)++;
+			while (input[*i] && input[*i] != quote)
+			{
+				add_char_to_token(&word, input[*i]);
+				(*i)++;
+			}
+			if (input[*i] == quote)
+				(*i)++;
+		}
+		else
+		{
+			add_char_to_token(&word, input[*i]);
+			(*i)++;
+		}
+	}
+	add_token(word, &cmd->token_list, index, 0);
+}
 
-            if (index == 1)
-            {
-                token_list->is_command = 1;
-                if (is_internal_command(token_list->value))
-                    token_list->is_int = 1;
-            }
-        }
-    }
+void	tokenize_input(char *input, t_shell *shell)
+{
+	int			i;
+	t_command	*cmd;
+	int			index;
 
-    command->token_list = token_list;
-    // Free tokens array
-    for (int i = 0; tokens[i]; i++)
-        free(tokens[i]);
-    free(tokens);
+	i = 0;
+	index = 0;
+	cmd = malloc(sizeof(t_command));
+	cmd->command_string = ft_strdup(input);
+	cmd->index = 0;
+	cmd->next = NULL;
+	cmd->token_list = NULL;
+	while (input[i])
+	{
+		while (input[i] && ft_isspace(input[i]))
+			i++;
+		if (input[i] && is_operator_char(input[i]))
+			process_operator(input, &i, cmd, &index);
+		else if (input[i])
+			process_word(input, &i, cmd, &index);
+	}
+	shell->commands = cmd;
 }

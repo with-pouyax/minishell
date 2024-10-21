@@ -8,7 +8,7 @@ LIBFT_DIR = ./libft
 GNL_DIR = ./get_next_line
 
 # Source files
-SRCS = main.c ft_strcmp.c lexer.c parser.c print_tokens.c token_utils.c input_handler.c \
+SRCS = main.c utils.c ft_strcmp.c lexer.c parser.c print_tokens.c token_utils.c input_handler.c \
        variable_expansion.c variable_expansion_helpers.c helpers.c $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
 OBJS = $(SRCS:.c=.o)
 

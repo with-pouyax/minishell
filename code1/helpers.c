@@ -1,35 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by yourname          #+#    #+#             */
+/*   Updated: 2024/10/21 15:50:47 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-// Internal command check function
-int is_internal_command(char *token)
+// Check for unclosed quotes
+int	check_unclosed_quotes(char *input)
 {
-    return (ft_strcmp(token, "echo") == 0 || ft_strcmp(token, "cd") == 0 ||
-            ft_strcmp(token, "pwd") == 0 || ft_strcmp(token, "export") == 0 ||
-            ft_strcmp(token, "unset") == 0 || ft_strcmp(token, "env") == 0 ||
-            ft_strcmp(token, "exit") == 0);
+	int	in_single_quote;
+	int	in_double_quote;
+	int	i;
+
+	in_single_quote = 0;
+	in_double_quote = 0;
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' && !in_double_quote)
+			in_single_quote = !in_single_quote;
+		else if (input[i] == '\"' && !in_single_quote)
+			in_double_quote = !in_double_quote;
+		i++;
+	}
+	return (in_single_quote || in_double_quote);
 }
 
-// Helper function to check if a token is an operator
-int is_operator(char *token)
+// Function to duplicate a string and free the original
+char	*ft_strdup_free(char *s1)
 {
-    return (ft_strcmp(token, ">") == 0 || ft_strcmp(token, ">>") == 0 ||
-            ft_strcmp(token, "<") == 0 || ft_strcmp(token, "<<") == 0 ||
-            ft_strcmp(token, "|") == 0);
+	char	*dup;
+
+	dup = ft_strdup(s1);
+	free(s1);
+	return (dup);
 }
 
-// Helper function to check for unclosed quotes
-int check_unclosed_quotes(char *input)
+// Function to join two strings and free both
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-    int in_single_quote = 0;
-    int in_double_quote = 0;
+	char	*joined;
 
-    while (*input)
-    {
-        if (*input == '\'' && !in_double_quote)
-            in_single_quote = !in_single_quote;
-        else if (*input == '\"' && !in_single_quote)
-            in_double_quote = !in_double_quote;
-        input++;
-    }
-    return (in_single_quote || in_double_quote);
+	joined = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (joined);
 }
