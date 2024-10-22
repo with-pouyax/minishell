@@ -26,6 +26,7 @@ typedef struct s_token
 	int				is_env_assignment;
 	int				is_int;
 	int				var_not_found;
+	int             wrong_operator;
 	struct s_token	*next;
 }				t_token;
 
