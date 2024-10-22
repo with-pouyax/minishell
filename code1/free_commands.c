@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_commands.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,21 +12,28 @@
 
 #include "minishell.h"
 
-void init_shell(t_shell *shell, char **envp)
+// Function to free the commands list
+void free_commands(t_command *cmd_list)
 {
-    shell->input = NULL;
-    shell->exit_status = 0;
-    shell->commands = NULL;
-    shell->envp = envp;
-}
+    t_command *cmd;
+    t_token *token;
+    t_token *next_token;
 
-int main(int argc, char **argv, char **envp)
-{
-    t_shell shell;
+    while (cmd_list)
+    {
+        cmd = cmd_list;
+        cmd_list = cmd_list->next;
 
-    (void)argc;
-    (void)argv;
-    init_shell(&shell, envp);
-    handle_input(&shell);
-    return (0);
+        token = cmd->token_list;
+        while (token)
+        {
+            next_token = token->next;
+            free(token->value);
+            free(token);
+            token = next_token;
+        }
+
+        free(cmd->command_string);
+        free(cmd);
+    }
 }

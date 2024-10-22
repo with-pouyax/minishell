@@ -5,11 +5,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Directories
 LIBFT_DIR = ./libft
-GNL_DIR = ./get_next_line
 
 # Source files
-SRCS = main.c utils.c ft_strcmp.c lexer.c parser.c print_tokens.c token_utils.c input_handler.c \
-       variable_expansion.c variable_expansion_helpers.c helpers.c $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
+SRCS = main.c helpers.c lexer.c parser.c token_utils.c input_handler.c variable_expansion.c print_tokens.c free_commands.c
 OBJS = $(SRCS:.c=.o)
 
 # Libraries
@@ -17,7 +15,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBS = -L$(LIBFT_DIR) -lft -lreadline
 
 # Header files
-INCLUDES = -I. -I$(LIBFT_DIR) -I$(GNL_DIR)
+INCLUDES = -I. -I$(LIBFT_DIR)
 
 # Compilation
 all: $(LIBFT) $(NAME)
@@ -28,7 +26,7 @@ $(LIBFT):
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
-%.o: %.c
+%.o: %.c minishell.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # Clean up

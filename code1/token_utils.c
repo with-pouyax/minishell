@@ -18,6 +18,8 @@ void add_token(char *token_value, t_token **token_list, int *index, int is_opera
     t_token *current;
 
     new_token = malloc(sizeof(t_token));
+    if (!new_token)
+        return;
     new_token->value = token_value;
     new_token->index = (*index)++;
     new_token->is_operator = is_operator;
@@ -25,7 +27,7 @@ void add_token(char *token_value, t_token **token_list, int *index, int is_opera
     new_token->is_flag = 0;
     new_token->is_int = 0;
     new_token->var_not_found = 0;
-    new_token->wrong_operator = 0; // Initialize wrong_operator to 0
+    new_token->wrong_operator = 0; // Initialize to 0
     new_token->next = NULL;
     if (!*token_list)
         *token_list = new_token;
@@ -38,21 +40,16 @@ void add_token(char *token_value, t_token **token_list, int *index, int is_opera
     }
 }
 
-
-int	is_operator(char *token)
+int is_operator(char *token)
 {
-	if (!ft_strcmp(token, "|") || !ft_strcmp(token, "<") || !ft_strcmp(token, ">") ||
-		!ft_strcmp(token, ">>") || !ft_strcmp(token, "<<"))
-		return (1);
-	return (0);
+    return (!ft_strcmp(token, "|") || !ft_strcmp(token, "<") || !ft_strcmp(token, ">") ||
+            !ft_strcmp(token, ">>") || !ft_strcmp(token, "<<"));
 }
 
-int	is_internal_command(char *token)
+int is_internal_command(char *token)
 {
-	if (!ft_strcmp(token, "echo") || !ft_strcmp(token, "cd") ||
-		!ft_strcmp(token, "pwd") || !ft_strcmp(token, "export") ||
-		!ft_strcmp(token, "unset") || !ft_strcmp(token, "env") ||
-		!ft_strcmp(token, "exit"))
-		return (1);
-	return (0);
+    return (!ft_strcmp(token, "echo") || !ft_strcmp(token, "cd") ||
+            !ft_strcmp(token, "pwd") || !ft_strcmp(token, "export") ||
+            !ft_strcmp(token, "unset") || !ft_strcmp(token, "env") ||
+            !ft_strcmp(token, "exit"));
 }

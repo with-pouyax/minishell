@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_tokens.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by yourname          #+#    #+#             */
+/*   Updated: 2024/10/21 15:53:11 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 // Function to print tokens
@@ -31,17 +43,16 @@ void print_tokens(t_token *token_list)
     }
 }
 
-
 // Function to print commands and their tokens
-void	print_commands(t_shell *shell)
+void print_commands(t_shell *shell)
 {
-	t_command	*cmd;
+    t_command   *cmd;
 
-	cmd = shell->commands;
-	while (cmd)
-	{
-		printf("Command #%d: '%s'\n", cmd->index, cmd->command_string);
-		print_tokens(cmd->token_list);
-		cmd = cmd->next;
-	}
+    cmd = shell->commands;
+    while (cmd)
+    {
+        printf("Command #%d: '%s'\n", cmd->index, cmd->command_string);
+        print_tokens(cmd->token_list);
+        cmd = cmd->next;
+    }
 }
