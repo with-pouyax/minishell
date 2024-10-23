@@ -14,11 +14,12 @@
 
 void handle_input(t_shell *shell)
 {
-    while (1) // Infinite loop to keep the shell running and printing the prompt minishell>
+    int i = 1;
+    while (i < 4) // Infinite loop to keep the shell running and printing the prompt minishell>
     {
         shell->input = readline(PROMPT); // Read the input from the user
         if (!shell->input) // If the input is NULL, break the loop (e.g., Ctrl-D)
-            break;
+             break;
         if (check_unclosed_quotes(shell->input)) // Check if the quotes are closed
         {
             char *additional_input; // Declare a variable to store the additional input
@@ -37,5 +38,13 @@ void handle_input(t_shell *shell)
         shell->commands = NULL;
         free(shell->input);
         shell->input = NULL;
+
+
+
+        free(shell->input);
+        shell->input = NULL;
+        i++;
     }
+    rl_clear_history();
+    return; 
 }

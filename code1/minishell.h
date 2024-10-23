@@ -74,7 +74,7 @@ void    add_char_to_token(char **token, char c);
 // Utility functions
 int     ft_strcmp(const char *s1, const char *s2);
 
-int is_valid_operator(char *op);  // Add this declaration to minishell.h
+int is_valid_operator(char *op);    // Add this declaration to minishell.h
 int     is_valid_operator(char *op); // Declare is_valid_operator
 int     is_operator_char(char c);
 int     is_operator(char *token);

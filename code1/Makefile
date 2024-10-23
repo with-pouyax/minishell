@@ -1,7 +1,7 @@
 # Variables
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 # Directories
 LIBFT_DIR = ./libft

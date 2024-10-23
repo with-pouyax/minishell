@@ -70,40 +70,39 @@ void tokenize_input(char *input, t_shell *shell)
     i = 0;
     cmd_index = 0;
     last_cmd = NULL;
-    while (input[i])
+    while (input[i]) // Loop through the input string
     {
-        while (input[i] && ft_isspace(input[i]))
-            i++; // Skip whitespaces
-        start = i;
+        while (input[i] && ft_isspace(input[i])) // Skip whitespaces
+            i++; 
+        start = i; // set index of first character we find to start
 
-        if (input[i] == '|')
+        if (input[i] == '|') // If we find a pipe
         {
-            if (is_valid_pipe(input, i))
+            if (is_valid_pipe(input, i)) // if pipe is valid
             {
-                cmd_str = ft_strdup("|");
-                i++;
+                cmd_str = ft_strdup("|"); // we create a new node with the pipe in it
+                i++; // move to the next character
             }
-            else
+            else // if pipe is not valid
             {
-                error_flag = 1;
-                break;
+                error_flag = 1; // set error flag to 1
+                break; // break the loop
             }
-        }
-        else
+        } 
+        else // If we find a command (not a pipe)
         {
-            // Process the command (until we reach a pipe or the end)
-            while (input[i] && input[i] != '|' && !ft_isspace(input[i]))
+            while (input[i] && input[i] != '|' && !ft_isspace(input[i])) // Loop until we find a pipe or whitespace
             {
-                if (input[i] == '\'' || input[i] == '\"')
-                    i = skip_quotes(input, i); // Skip over quotes
-                else
-                    i++;
+                if (input[i] == '\'' || input[i] == '\"') // If we find a quote
+                    i = skip_quotes(input, i); // Skip over the quoted string and move to the next character
+                else // If we find a regular character
+                    i++; // Move to the next character
             }
-            cmd_str = ft_substr(input, start, i - start); // Extract the command part
+            // after we check for quotes and regular characters, we create a new node with the command string
+            cmd_str = ft_substr(input, start, i - start); // Create a substring from the start index to the current index and store it in cmd_str
         }
 
-        // Create a new command node
-        cmd = create_command(cmd_str, cmd_index++);
+        cmd = create_command(cmd_str, cmd_index++); // we create a new node with the command string and index
         tokenize_command(cmd); // Tokenize the command into tokens
 
         // Add the command to the linked list
@@ -131,9 +130,13 @@ t_command *create_command(char *cmd_str, int index)
 {
     t_command *cmd;
 
-    cmd = malloc(sizeof(t_command));
+    cmd = malloc(sizeof(t_command)); // Allocate memory for the new node
     if (!cmd)
-        return (NULL);
+    {
+        printf("Error: malloc failed\n");
+        free(cmd_str);
+        exit(EXIT_FAILURE);
+    }
     cmd->command_string = cmd_str;
     cmd->index = index;
     cmd->token_list = NULL;
@@ -238,12 +241,12 @@ int skip_quotes(char *input, int i)
 {
     char quote;
 
-    quote = input[i++]; // Get the opening quote
-    while (input[i] && input[i] != quote) // Skip until the closing quote
+    quote = input[i++]; // store the opening quote in quote and move to the next character
+    while (input[i] && input[i] != quote) // Skip all characters until the closing quote is found
+        i++; 
+    if (input[i] == quote) // If the closing quote is found 
         i++; // Move to the next character
-    if (input[i] == quote) // If the closing quote is found
-        i++; // Move to the next character
-    return (i);
+    return (i); // Return the index of the next character
 }
 
 // Add character to token
