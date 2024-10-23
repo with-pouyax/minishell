@@ -12,6 +12,40 @@
 
 #include "minishell.h"
 
+// Function to check if the pipe (|) has valid syntax: 
+// - Must have at least one space before and after the | 
+// - There must be an alphabetic character before and after the spaces
+int is_valid_pipe_syntax(char *input, int pipe_pos)
+{
+    size_t before_pipe = pipe_pos - 1;
+    size_t after_pipe = pipe_pos + 1;
+    size_t input_len = ft_strlen(input);
+
+    // Check for whitespace before and after the pipe
+    if (before_pipe >= input_len || !ft_isspace(input[before_pipe]) ||
+        after_pipe >= input_len || !ft_isspace(input[after_pipe]))
+    {
+        return 0; // Invalid if there's no space before or after
+    }
+
+    // Move before_pipe and after_pipe to the non-whitespace character positions
+    while (before_pipe > 0 && ft_isspace(input[before_pipe]))
+        before_pipe--;
+    while (after_pipe < input_len && ft_isspace(input[after_pipe]))
+        after_pipe++;
+
+    // Check if there are alphabetic characters before and after the spaces
+    if (before_pipe >= input_len || !ft_isalpha(input[before_pipe]) ||
+        after_pipe >= input_len || !ft_isalpha(input[after_pipe]))
+    {
+        return 0; // Invalid if no alphabetic character is found
+    }
+
+    return 1; // Valid syntax
+}
+
+
+
 // Tokenize the entire input into commands and tokens
 void tokenize_input(char *input, t_shell *shell)
 {
@@ -33,6 +67,15 @@ void tokenize_input(char *input, t_shell *shell)
         // Find the next part of the input (either a command or a pipe)
         if (input[i] == '|')
         {
+            // Check the syntax for pipe (|) operator
+            if (!is_valid_pipe_syntax(input, i))
+            {
+                // Exit with code 2 if the syntax is invalid
+                shell->exit_status = 2;
+                printf("==========================>                   Syntax error near unexpected token `|'\n");
+                return;
+            }
+
             // Pipe operator detected, add it as a separate command node
             cmd_str = ft_strdup("|");
             i++;
@@ -106,25 +149,26 @@ int is_operator_char(char c)
     return (c == '|' || c == '<' || c == '>');
 }
 
+
 // Process operator tokens
 void process_operator(char *input, int *i, t_command *cmd, int *index)
 {
     char *op;
 
-    op = ft_strdup("");  // Allocate memory for the operator string
-    while (input[*i] && is_operator_char(input[*i]))  // Check if it's an operator character
+    op = ft_strdup("");
+    while (input[*i] && is_operator_char(input[*i]))
     {
-        add_char_to_token(&op, input[*i]);  // Add the operator character to the token
-        (*i)++;  // Move to the next character
+        add_char_to_token(&op, input[*i]);
+        (*i)++;
     }
-    add_token(op, &cmd->token_list, index, 1);  // Add the operator token to the token list
-    if (!is_valid_operator(op))  // Check if it's a valid operator
-    {
-        t_token *new_token = cmd->token_list;  // Traverse to the newly added token
-        while (new_token->next)
-            new_token = new_token->next;
-        new_token->wrong_operator = 1;  // Mark the token as a wrong operator if necessary
-    }
+    add_token(op, &cmd->token_list, index, 1);
+
+    // Set wrong_operator flag if the operator is invalid
+    t_token *new_token = cmd->token_list;
+    while (new_token->next)
+        new_token = new_token->next;
+    if (!is_valid_operator(op))
+        new_token->wrong_operator = 1;
 }
 
 

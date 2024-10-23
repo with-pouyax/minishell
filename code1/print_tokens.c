@@ -21,7 +21,14 @@ void print_tokens(t_token *token_list)
     while (token)
     {
         printf("Token: '%s', Index: %d\n", token->value, token->index);
-        if (token->is_command)
+
+        if (token->is_operator)
+        {
+            printf(" - This is an operator.\n");
+            if (token->wrong_operator)
+                printf(" - Warning: Invalid operator detected.\n");
+        }
+        else if (token->is_command)
         {
             printf(" - This is a command.\n");
             if (token->is_int)
@@ -29,19 +36,14 @@ void print_tokens(t_token *token_list)
             else
                 printf(" - This is an external command.\n");
         }
+
         if (token->is_flag)
             printf(" - This is a flag.\n");
-        if (token->is_operator)
-        {
-            printf(" - This is an operator.\n");
-            if (token->wrong_operator)
-                printf(" - Warning: This is an invalid operator.\n");
-        }
-        if (token->var_not_found)
-            printf(" - Variable not found during expansion.\n");
+
         token = token->next;
     }
 }
+
 
 // Function to print commands and their tokens
 void print_commands(t_shell *shell)
