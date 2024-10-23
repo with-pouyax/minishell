@@ -17,11 +17,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	unsigned int	i;
 	char			*sub;
 
-	if (!s)
+	if (!s) // If the string is NULL, return NULL
 		return (NULL);
-	if (start >= ft_strlen(s))
+	if (start >= ft_strlen(s)) // If the start index is greater than the length of the string, return an empty string
 	{
-		sub = malloc(1);
+		sub = malloc(1); // Allocate memory for an empty string
 		if (!sub)
 			return (NULL);
 		sub[0] = '\0';

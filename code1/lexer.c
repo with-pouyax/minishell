@@ -12,37 +12,47 @@
 
 #include "minishell.h"
 
-// Function to check if the pipe (|) has valid syntax: 
-// - Must have at least one space before and after the | 
-// - There must be an alphabetic character before and after the spaces
-int is_valid_pipe_syntax(char *input, int pipe_pos)
+
+int is_valid_pipe(char *input, int i)
 {
-    size_t before_pipe = pipe_pos - 1;
-    size_t after_pipe = pipe_pos + 1;
-    size_t input_len = ft_strlen(input);
+    int prev_char_index = i - 1;
+    int next_char_index = i + 1;
+    int input_len = ft_strlen(input);
 
-    // Check for whitespace before and after the pipe
-    if (before_pipe >= input_len || !ft_isspace(input[before_pipe]) ||
-        after_pipe >= input_len || !ft_isspace(input[after_pipe]))
-    {
-        return 0; // Invalid if there's no space before or after
-    }
+    // Check for multiple '|' or operators after '|'
+    if (input[i + 1] == '|' || input[i + 1] == '>' || input[i + 1] == '<')
+        return 0;
 
-    // Move before_pipe and after_pipe to the non-whitespace character positions
-    while (before_pipe > 0 && ft_isspace(input[before_pipe]))
-        before_pipe--;
-    while (after_pipe < input_len && ft_isspace(input[after_pipe]))
-        after_pipe++;
+    // Check for at least one whitespace before '|'
+    if (prev_char_index < 0 || !ft_isspace(input[prev_char_index]))
+        return 0;
 
-    // Check if there are alphabetic characters before and after the spaces
-    if (before_pipe >= input_len || !ft_isalpha(input[before_pipe]) ||
-        after_pipe >= input_len || !ft_isalpha(input[after_pipe]))
-    {
-        return 0; // Invalid if no alphabetic character is found
-    }
+    // Skip backward over whitespace
+    while (prev_char_index >= 0 && ft_isspace(input[prev_char_index]))
+        prev_char_index--;
 
-    return 1; // Valid syntax
+    // Now prev_char_index is at the last non-space character before the pipe
+    // Check that it's not an operator character
+    if (prev_char_index < 0 || is_operator_char(input[prev_char_index]))
+        return 0;
+
+    // Check for at least one whitespace after '|'
+    if (next_char_index >= input_len || !ft_isspace(input[next_char_index]))
+        return 0;
+
+    // Skip forward over whitespace
+    while (next_char_index < input_len && ft_isspace(input[next_char_index]))
+        next_char_index++;
+
+    // Now next_char_index is at the first non-space character after the pipe
+    // Check that it's not an operator character
+    if (next_char_index >= input_len || is_operator_char(input[next_char_index]))
+        return 0;
+
+    return 1;
 }
+
+
 
 
 
@@ -55,6 +65,7 @@ void tokenize_input(char *input, t_shell *shell)
     t_command *last_cmd;
     char *cmd_str;
     int cmd_index;
+    int error_flag = 0;
 
     i = 0;
     cmd_index = 0;
@@ -64,21 +75,19 @@ void tokenize_input(char *input, t_shell *shell)
         while (input[i] && ft_isspace(input[i]))
             i++; // Skip whitespaces
         start = i;
-        // Find the next part of the input (either a command or a pipe)
+
         if (input[i] == '|')
         {
-            // Check the syntax for pipe (|) operator
-            if (!is_valid_pipe_syntax(input, i))
+            if (is_valid_pipe(input, i))
             {
-                // Exit with code 2 if the syntax is invalid
-                shell->exit_status = 2;
-                printf("==========================>                   Syntax error near unexpected token `|'\n");
-                return;
+                cmd_str = ft_strdup("|");
+                i++;
             }
-
-            // Pipe operator detected, add it as a separate command node
-            cmd_str = ft_strdup("|");
-            i++;
+            else
+            {
+                error_flag = 1;
+                break;
+            }
         }
         else
         {
@@ -104,7 +113,18 @@ void tokenize_input(char *input, t_shell *shell)
             last_cmd->next = cmd;
         last_cmd = cmd;
     }
+
+    if (error_flag)
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+        shell->exit_status = 2;
+        free_commands(shell->commands);
+        shell->commands = NULL;
+        return;
+    }
 }
+
+
 
 // Create a new command node
 t_command *create_command(char *cmd_str, int index)
@@ -218,11 +238,11 @@ int skip_quotes(char *input, int i)
 {
     char quote;
 
-    quote = input[i++];
-    while (input[i] && input[i] != quote)
-        i++;
-    if (input[i] == quote)
-        i++;
+    quote = input[i++]; // Get the opening quote
+    while (input[i] && input[i] != quote) // Skip until the closing quote
+        i++; // Move to the next character
+    if (input[i] == quote) // If the closing quote is found
+        i++; // Move to the next character
     return (i);
 }
 

@@ -28,12 +28,12 @@ void handle_input(t_shell *shell)
         }
         if (ft_strlen(shell->input) > 0) // If the input is not empty
             add_history(shell->input); // Add the input to the history
-        shell->commands = NULL; // Reset commands
-        tokenize_input(shell->input, shell); // Tokenize the input into commands and tokens
-        expand_variables_in_tokens(shell); // Expand variables in tokens
-        parse_tokens(shell); // Parse tokens
-        print_commands(shell); // Print commands and tokens
-        free_commands(shell->commands); // Free commands and tokens
+        shell->commands = NULL; // Reset commands for new input
+        tokenize_input(shell->input, shell); // Tokenize the input into commands and tokens <=>
+        expand_variables_in_tokens(shell); 
+        parse_tokens(shell);
+        print_commands(shell);
+        free_commands(shell->commands);
         shell->commands = NULL;
         free(shell->input);
         shell->input = NULL;
