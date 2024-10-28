@@ -12,21 +12,15 @@
 
 #include "minishell.h"
 
-void init_shell(t_shell *shell, char **envp)
-{
-    shell->input = NULL;
-    shell->exit_status = 0;
-    shell->commands = NULL;
-    shell->envp = envp;
-}
+t_shell_data g_data = {0};
 
 int main(int argc, char **argv, char **envp)
 {
-    t_shell shell;
-
     (void)argc;
     (void)argv;
-    init_shell(&shell, envp);
-    handle_input(&shell);
+    g_data.envp = envp;
+    init_shell();
+    handle_input();
     return (0);
 }
+

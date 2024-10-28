@@ -60,7 +60,9 @@ char *expand_double_quotes(char *input, int *i, t_shell *shell, int *var_not_fou
 // Get literal character
 char *get_literal_char(char *input, int *i)
 {
-    char    *str = ft_substr(input, *i, 1);
+    char *str;
+
+    str = ft_substr(input, *i, 1);
     (*i)++;
     return (str);
 }

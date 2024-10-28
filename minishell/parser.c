@@ -12,18 +12,20 @@
 
 #include "minishell.h"
 
-void parse_tokens(t_shell *shell)
+
+
+void parse_tokens(void)
 {
     t_command   *cmd;
     t_token     *token;
 
-    cmd = shell->commands;
+    cmd = g_data.commands;
     while (cmd)
     {
         token = cmd->token_list;
         while (token)
         {
-            if (token->index == 0 && !token->is_operator) // Only mark as command if it's not an operator
+            if (token->index == 0 && !token->is_operator)
             {
                 token->is_command = 1;
                 if (is_internal_command(token->value))
@@ -36,4 +38,5 @@ void parse_tokens(t_shell *shell)
         cmd = cmd->next;
     }
 }
+
 

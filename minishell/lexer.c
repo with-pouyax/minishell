@@ -57,95 +57,85 @@ int is_valid_pipe(char *input, int i)
 
 
 // Tokenize the entire input into commands and tokens
-void	tokenize_input(char *input, t_shell *shell)
+void tokenize_input(void)
 {
-	int			i;
-	int			start;
-	t_command	*cmd;
-	t_command	*last_cmd;
-	char		*cmd_str;
-	int			cmd_index;
-	int			error_flag;
+    int         i;
+    int         start;
+    t_command   *cmd;
+    t_command   *last_cmd;
+    char        *cmd_str;
+    int         cmd_index;
 
-	i = 0;
-	cmd_index = 0;
-	last_cmd = NULL;
-	error_flag = 0;
-	while (input[i])
-	{
-		while (input[i] && ft_isspace(input[i]))
-			i++;
-		start = i;
-		if (input[i] == '|')
-		{
-			if (is_valid_pipe(input, i))
-			{
-				cmd_str = ft_strdup("|");
-				if (!cmd_str)
-				{
-					error_flag = 2; // Memory allocation failure
-					break;
-				}
-				i++;
-			}
-			else
-			{
-				error_flag = 1; // Syntax error
-				break;
-			}
-		}
-		else
-		{
-			while (input[i] && input[i] != '|' && !ft_isspace(input[i]))
-			{
-				if (input[i] == '\'' || input[i] == '\"')
-					i = skip_quotes(input, i);
-				else
-					i++;
-			}
-			cmd_str = ft_substr(input, start, i - start);
-			if (!cmd_str)
-			{
-				error_flag = 2; // Memory allocation failure
-				break;
-			}
-		}
-		cmd = create_command(cmd_str, cmd_index++);
-		if (!cmd)
-		{
-			// Only free cmd_str here if create_command fails
-			free(cmd_str);
-			error_flag = 2; // Memory allocation failure
-			break;
-		}
-		if (tokenize_command(cmd))
-		{
-			free(cmd_str);
-			free(cmd);
-			error_flag = 2; // Memory allocation failure
-			break;
-		}
-		if (!shell->commands)
-			shell->commands = cmd;
-		else
-			last_cmd->next = cmd;
-		last_cmd = cmd;
-	}
-	if (error_flag)
-	{
-		free_commands(shell->commands);
-		shell->commands = NULL;
-		if (error_flag == 1)
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
-			shell->exit_status = 2;
-		}
-		else if (error_flag == 2)
-		{
-			ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-			exit(EXIT_FAILURE);
-		}
-	}
+    i = 0;
+    cmd_index = 0;
+    last_cmd = NULL;
+    g_data.error_flag = 0;
+    while (g_data.input[i])
+    {
+        while (g_data.input[i] && ft_isspace(g_data.input[i]))
+            i++;
+        start = i;
+        if (g_data.input[i] == '|')
+        {
+            cmd_str = ft_strdup("|");
+            if (!cmd_str)
+            {
+                g_data.error_flag = 2;
+                break;
+            }
+            i++;
+        }
+        else
+        {
+            while (g_data.input[i] && g_data.input[i] != '|' && !ft_isspace(g_data.input[i]))
+            {
+                if (g_data.input[i] == '\'' || g_data.input[i] == '\"')
+                    i = skip_quotes(g_data.input, i);
+                else
+                    i++;
+            }
+            cmd_str = ft_substr(g_data.input, start, i - start);
+            if (!cmd_str)
+            {
+                g_data.error_flag = 2;
+                break;
+            }
+        }
+        cmd = create_command(cmd_str, cmd_index++);
+        if (!cmd)
+        {
+            free(cmd_str);
+            g_data.error_flag = 2;
+            break;
+        }
+        if (tokenize_command(cmd))
+        {
+            free(cmd_str);
+            free(cmd);
+            g_data.error_flag = 2;
+            break;
+        }
+        if (!g_data.commands)
+            g_data.commands = cmd;
+        else
+            last_cmd->next = cmd;
+        last_cmd = cmd;
+    }
+    if (g_data.error_flag)
+    {
+        free_commands();
+        g_data.commands = NULL;
+        if (g_data.error_flag == 1)
+        {
+            ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+            g_data.exit_status = 2;
+        }
+        else if (g_data.error_flag == 2)
+        {
+            ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 
@@ -154,52 +144,50 @@ void	tokenize_input(char *input, t_shell *shell)
 
 
 // Create a new command node
-t_command	*create_command(char *cmd_str, int index)
+t_command   *create_command(char *cmd_str, int index)
 {
-	t_command	*cmd;
+    t_command   *cmd;
 
-	cmd = malloc(sizeof(t_command));
-	if (!cmd)
-	{
-		return (NULL);
-	}
-	cmd->command_string = cmd_str;
-	cmd->index = index;
-	cmd->token_list = NULL;
-	cmd->next = NULL;
-	return (cmd);
+    cmd = malloc(sizeof(t_command));
+    if (!cmd)
+        return (NULL);
+    cmd->command_string = cmd_str;
+    cmd->index = index;
+    cmd->token_list = NULL;
+    cmd->next = NULL;
+    return (cmd);
 }
 
 // Tokenize a single command string into tokens
-int	tokenize_command(t_command *cmd)
+int tokenize_command(t_command *cmd)
 {
-	int	i;
-	int	index;
-	int	ret;
+    int i;
+    int index;
+    int ret;
 
-	i = 0;
-	index = 0;
-	while (cmd->command_string[i])
-	{
-		while (cmd->command_string[i] && ft_isspace(cmd->command_string[i]))
-			i++;
-		if (cmd->command_string[i])
-		{
-			if (is_operator_char(cmd->command_string[i]))
-			{
-				ret = process_operator(cmd->command_string, &i, cmd, &index);
-				if (ret)
-					return (1);
-			}
-			else
-			{
-				ret = process_word(cmd->command_string, &i, cmd, &index);
-				if (ret)
-					return (1);
-			}
-		}
-	}
-	return (0);
+    i = 0;
+    index = 0;
+    while (cmd->command_string[i])
+    {
+        while (cmd->command_string[i] && ft_isspace(cmd->command_string[i]))
+            i++;
+        if (cmd->command_string[i])
+        {
+            if (is_operator_char(cmd->command_string[i]))
+            {
+                ret = process_operator(cmd->command_string, &i, cmd, &index);
+                if (ret)
+                    return (1);
+            }
+            else
+            {
+                ret = process_word(cmd->command_string, &i, cmd, &index);
+                if (ret)
+                    return (1);
+            }
+        }
+    }
+    return (0);
 }
 
 // Check if character is an operator character
@@ -210,37 +198,37 @@ int is_operator_char(char c)
 
 
 // Process operator tokens
-int	process_operator(char *input, int *i, t_command *cmd, int *index)
+int process_operator(char *input, int *i, t_command *cmd, int *index)
 {
-	char	*op;
-	int		ret;
-	t_token	*new_token;
+    char    *op;
+    int     ret;
+    t_token *new_token;
 
-	op = ft_strdup("");
-	if (!op)
-		return (1);
-	while (input[*i] && is_operator_char(input[*i]))
-	{
-		ret = add_char_to_token(&op, input[*i]);
-		if (ret)
-		{
-			free(op);
-			return (1);
-		}
-		(*i)++;
-	}
-	ret = add_token(op, &cmd->token_list, index, 1);
-	if (ret)
-	{
-		free(op);
-		return (1);
-	}
-	new_token = cmd->token_list;
-	while (new_token->next)
-		new_token = new_token->next;
-	if (!is_valid_operator(op))
-		new_token->wrong_operator = 1;
-	return (0);
+    op = ft_strdup("");
+    if (!op)
+        return (1);
+    while (input[*i] && is_operator_char(input[*i]))
+    {
+        ret = add_char_to_token(&op, input[*i]);
+        if (ret)
+        {
+            free(op);
+            return (1);
+        }
+        (*i)++;
+    }
+    ret = add_token(op, &cmd->token_list, index, 1);
+    if (ret)
+    {
+        free(op);
+        return (1);
+    }
+    new_token = cmd->token_list;
+    while (new_token->next)
+        new_token = new_token->next;
+    if (!is_valid_operator(op))
+        new_token->wrong_operator = 1;
+    return (0);
 }
 
 
@@ -255,100 +243,96 @@ int is_valid_operator(char *op)
 }
 
 // Process word tokens
-int	process_word(char *input, int *i, t_command *cmd, int *index)
+int process_word(char *input, int *i, t_command *cmd, int *index)
 {
-	char	*word;
-	char	quote;
-	int		ret;
+    char    *word;
+    char    quote;
+    int     ret;
 
-	word = ft_strdup("");
-	if (!word)
-		return (1);
-	while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
-	{
-		if (input[*i] == '\'' || input[*i] == '\"')
-		{
-			quote = input[*i];
-			ret = add_char_to_token(&word, input[*i]);
-			if (ret)
-			{
-				free(word);
-				return (1);
-			}
-			(*i)++;
-			while (input[*i] && input[*i] != quote)
-			{
-				ret = add_char_to_token(&word, input[*i]);
-				if (ret)
-				{
-					free(word);
-					return (1);
-				}
-				(*i)++;
-			}
-			if (input[*i] == quote)
-			{
-				ret = add_char_to_token(&word, input[*i]);
-				if (ret)
-				{
-					free(word);
-					return (1);
-				}
-				(*i)++;
-			}
-		}
-		else
-		{
-			ret = add_char_to_token(&word, input[*i]);
-			if (ret)
-			{
-				free(word);
-				return (1);
-			}
-			(*i)++;
-		}
-	}
-	// Add the token and check for success
-	ret = add_token(word, &cmd->token_list, index, 0);
-	if (ret)
-	{
-		// `word` is already freed by add_token if it returns 1
-		return (1);
-	}
-	return (0);
+    word = ft_strdup("");
+    if (!word)
+        return (1);
+    while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
+    {
+        if (input[*i] == '\'' || input[*i] == '\"')
+        {
+            quote = input[*i];
+            ret = add_char_to_token(&word, input[*i]);
+            if (ret)
+            {
+                free(word);
+                return (1);
+            }
+            (*i)++;
+            while (input[*i] && input[*i] != quote)
+            {
+                ret = add_char_to_token(&word, input[*i]);
+                if (ret)
+                {
+                    free(word);
+                    return (1);
+                }
+                (*i)++;
+            }
+            if (input[*i] == quote)
+            {
+                ret = add_char_to_token(&word, input[*i]);
+                if (ret)
+                {
+                    free(word);
+                    return (1);
+                }
+                (*i)++;
+            }
+        }
+        else
+        {
+            ret = add_char_to_token(&word, input[*i]);
+            if (ret)
+            {
+                free(word);
+                return (1);
+            }
+            (*i)++;
+        }
+    }
+    ret = add_token(word, &cmd->token_list, index, 0);
+    if (ret)
+        return (1);
+    return (0);
 }
 
 
 
 // Skip over quoted strings
-int	skip_quotes(char *input, int i)
+int skip_quotes(char *input, int i)
 {
-	char	quote;
+    char    quote;
 
-	quote = input[i++];
-	while (input[i] && input[i] != quote)
-		i++;
-	if (input[i] == quote)
-		i++;
-	return (i);
+    quote = input[i++];
+    while (input[i] && input[i] != quote)
+        i++;
+    if (input[i] == quote)
+        i++;
+    return (i);
 }
 
 // Add character to token
-int	add_char_to_token(char **token, char c)
+int add_char_to_token(char **token, char c)
 {
-	char	tmp[2];
-	char	*new_token;
+    char    tmp[2];
+    char    *new_token;
 
-	tmp[0] = c;
-	tmp[1] = '\0';
-	new_token = ft_strjoin_safe(*token, tmp);
-	if (!new_token)
-	{
-		free(*token);
-		*token = NULL;
-		return (1);
-	}
-	free(*token);
-	*token = new_token;
-	return (0);
+    tmp[0] = c;
+    tmp[1] = '\0';
+    new_token = ft_strjoin_safe(*token, tmp);
+    if (!new_token)
+    {
+        free(*token);
+        *token = NULL;
+        return (1);
+    }
+    free(*token);
+    *token = new_token;
+    return (0);
 }

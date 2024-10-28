@@ -46,11 +46,11 @@ void print_tokens(t_token *token_list)
 
 
 // Function to print commands and their tokens
-void print_commands(t_shell *shell)
+void print_commands(void)
 {
     t_command   *cmd;
 
-    cmd = shell->commands;
+    cmd = g_data.commands;
     while (cmd)
     {
         printf("Command #%d: '%s'\n", cmd->index, cmd->command_string);
