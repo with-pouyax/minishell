@@ -45,22 +45,48 @@ int check_unclosed_quotes(char *input)
 }
 
 // Function to duplicate a string and free the original
-char *ft_strdup_free(char *s1)
+char	*ft_strdup_free(char *s1)
 {
-    char *dup;
+	char	*dup;
 
-    dup = ft_strdup(s1);
-    free(s1);
-    return (dup);
+	dup = ft_strdup(s1);
+	free(s1);
+	return (dup);
+}
+// Custom ft_strjoin that handles NULL inputs
+char	*ft_strjoin_safe(char const *s1, char const *s2)
+{
+	char	*res;
+	size_t	s1_len;
+	size_t	s2_len;
+
+	s1_len = s1 ? ft_strlen(s1) : 0;
+	s2_len = s2 ? ft_strlen(s2) : 0;
+	res = malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!res)
+		return (NULL);
+	if (s1)
+		ft_memcpy(res, s1, s1_len);
+	if (s2)
+		ft_memcpy(res + s1_len, s2, s2_len);
+	res[s1_len + s2_len] = '\0';
+	return (res);
 }
 
-// Function to join two strings and free both
-char *ft_strjoin_free(char *s1, char *s2)
-{
-    char *joined;
 
-    joined = ft_strjoin(s1, s2);
-    free(s1);
-    free(s2);
-    return (joined);
+// Function to join two strings and free both
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*joined;
+
+	joined = ft_strjoin_safe(s1, s2);
+	if (!joined)
+	{
+		free(s1);
+		free(s2);
+		return (NULL);
+	}
+	free(s1);
+	free(s2);
+	return (joined);
 }
