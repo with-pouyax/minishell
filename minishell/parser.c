@@ -1,23 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by yourname          #+#    #+#             */
-/*   Updated: 2024/10/21 15:52:31 by pouyax           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-
+int is_internal_command(char *token)
+{
+    return (!ft_strcmp(token, "echo") || !ft_strcmp(token, "cd") ||
+            !ft_strcmp(token, "pwd") || !ft_strcmp(token, "export") ||
+            !ft_strcmp(token, "unset") || !ft_strcmp(token, "env") ||
+            !ft_strcmp(token, "exit"));
+}
 
 void parse_tokens(void)
 {
-    t_command   *cmd;
-    t_token     *token;
+    t_command *cmd;
+    t_token *token;
 
     cmd = g_data.commands;
     while (cmd)
@@ -38,5 +32,3 @@ void parse_tokens(void)
         cmd = cmd->next;
     }
 }
-
-

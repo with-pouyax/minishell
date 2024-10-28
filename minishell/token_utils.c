@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by yourname          #+#    #+#             */
-/*   Updated: 2024/10/21 15:50:25 by pouyax           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int add_token(char *token_value, t_token **token_list, int *index, int is_operator)
@@ -42,19 +30,4 @@ int add_token(char *token_value, t_token **token_list, int *index, int is_operat
         current->next = new_token;
     }
     return (0);
-}
-
-
-int is_operator(char *token)
-{
-    return (!ft_strcmp(token, "|") || !ft_strcmp(token, "<") || !ft_strcmp(token, ">") ||
-            !ft_strcmp(token, ">>") || !ft_strcmp(token, "<<"));
-}
-
-int is_internal_command(char *token)
-{
-    return (!ft_strcmp(token, "echo") || !ft_strcmp(token, "cd") ||
-            !ft_strcmp(token, "pwd") || !ft_strcmp(token, "export") ||
-            !ft_strcmp(token, "unset") || !ft_strcmp(token, "env") ||
-            !ft_strcmp(token, "exit"));
 }
