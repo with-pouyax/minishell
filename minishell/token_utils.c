@@ -12,17 +12,16 @@
 
 #include "minishell.h"
 
-void	add_token(char *token_value, t_token **token_list, int *index, int is_operator)
+int	add_token(char *token_value, t_token **token_list, int *index, int is_operator)
 {
 	t_token	*new_token;
 	t_token	*current;
 
-	new_token = NULL;//malloc(sizeof(t_token));
+	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 	{
 		free(token_value);
-		printf("Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		return (1); // Return error code
 	}
 	new_token->value = token_value;
 	new_token->index = (*index)++;
@@ -42,7 +41,9 @@ void	add_token(char *token_value, t_token **token_list, int *index, int is_opera
 			current = current->next;
 		current->next = new_token;
 	}
+	return (0); // Success
 }
+
 
 int is_operator(char *token)
 {

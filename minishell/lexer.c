@@ -113,13 +113,15 @@ void	tokenize_input(char *input, t_shell *shell)
 		cmd = create_command(cmd_str, cmd_index++);
 		if (!cmd)
 		{
+			// Only free cmd_str here if create_command fails
 			free(cmd_str);
 			error_flag = 2; // Memory allocation failure
 			break;
 		}
 		if (tokenize_command(cmd))
 		{
-			free_commands(cmd);
+			free(cmd_str);
+			free(cmd);
 			error_flag = 2; // Memory allocation failure
 			break;
 		}
@@ -131,6 +133,8 @@ void	tokenize_input(char *input, t_shell *shell)
 	}
 	if (error_flag)
 	{
+		free_commands(shell->commands);
+		shell->commands = NULL;
 		if (error_flag == 1)
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
@@ -141,10 +145,10 @@ void	tokenize_input(char *input, t_shell *shell)
 			ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
 			exit(EXIT_FAILURE);
 		}
-		free_commands(shell->commands);
-		shell->commands = NULL;
 	}
 }
+
+
 
 
 
@@ -157,7 +161,6 @@ t_command	*create_command(char *cmd_str, int index)
 	cmd = malloc(sizeof(t_command));
 	if (!cmd)
 	{
-		free(cmd_str);
 		return (NULL);
 	}
 	cmd->command_string = cmd_str;
@@ -226,7 +229,12 @@ int	process_operator(char *input, int *i, t_command *cmd, int *index)
 		}
 		(*i)++;
 	}
-	add_token(op, &cmd->token_list, index, 1);
+	ret = add_token(op, &cmd->token_list, index, 1);
+	if (ret)
+	{
+		free(op);
+		return (1);
+	}
 	new_token = cmd->token_list;
 	while (new_token->next)
 		new_token = new_token->next;
@@ -234,6 +242,8 @@ int	process_operator(char *input, int *i, t_command *cmd, int *index)
 		new_token->wrong_operator = 1;
 	return (0);
 }
+
+
 
 
 
@@ -298,9 +308,17 @@ int	process_word(char *input, int *i, t_command *cmd, int *index)
 			(*i)++;
 		}
 	}
-	add_token(word, &cmd->token_list, index, 0);
+	// Add the token and check for success
+	ret = add_token(word, &cmd->token_list, index, 0);
+	if (ret)
+	{
+		// `word` is already freed by add_token if it returns 1
+		return (1);
+	}
 	return (0);
 }
+
+
 
 // Skip over quoted strings
 int	skip_quotes(char *input, int i)

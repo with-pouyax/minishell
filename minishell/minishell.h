@@ -52,7 +52,7 @@ void	handle_input(t_shell *shell);
 void	tokenize_input(char *input, t_shell *shell);
 int		tokenize_command(t_command *cmd);
 t_command	*create_command(char *cmd_str, int index);
-void	add_token(char *token_value, t_token **token_list, int *index, int is_operator);
+int	add_token(char *token_value, t_token **token_list, int *index, int is_operator);
 int		is_operator_char(char c);
 int		is_operator(char *token);
 int		is_internal_command(char *token);
