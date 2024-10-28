@@ -57,7 +57,8 @@ void    handle_input(void);
 void    tokenize_input(void);
 int     tokenize_command(t_command *cmd);
 t_command   *create_command(char *cmd_str, int index);
-int     add_token(char *token_value, t_token **token_list, int *index, int is_operator);
+int     add_token(char *token_value, t_token **token_list,
+                  int *index, int is_operator);
 int     is_operator_char(char c);
 int     is_operator(char *token);
 int     is_internal_command(char *token);
@@ -80,6 +81,8 @@ char    *expand_variables_in_token(char *input, int *var_not_found_flag);
 char    *expand_variable_token(char *input, int *i, int *var_not_found_flag);
 char    *get_literal_char(char *input, int *i);
 int     get_var_name_len(char *str);
-char    *ft_strjoin_safe(char const *s1, char const *s2);
+char    *ft_strjoin_safe(const char *s1, const char *s2);
+void    process_input(void);
+int     handle_unclosed_quotes(void);
 
 #endif

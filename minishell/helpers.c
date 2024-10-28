@@ -1,29 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by yourname          #+#    #+#             */
-/*   Updated: 2024/10/21 15:50:47 by pouyax           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-// Compare two strings
 int ft_strcmp(const char *s1, const char *s2)
 {
-    while (*s1 && (*s1 == *s2))
-    {
-        s1++;
-        s2++;
-    }
-    return (*(unsigned char *)s1 - *(unsigned char *)s2);
+    size_t i;
+
+    i = 0;
+    while (s1[i] && s1[i] == s2[i])
+        i++;
+    return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-// Check for unclosed quotes
 int check_unclosed_quotes(char *input)
 {
     int in_single_quote;
@@ -44,17 +30,16 @@ int check_unclosed_quotes(char *input)
     return (in_single_quote || in_double_quote);
 }
 
-// Function to duplicate a string and free the original
-char	*ft_strdup_free(char *s1)
+char *ft_strdup_free(char *s1)
 {
-	char	*dup;
+    char *dup;
 
-	dup = ft_strdup(s1);
-	free(s1);
-	return (dup);
+    dup = ft_strdup(s1);
+    free(s1);
+    return (dup);
 }
-// Custom ft_strjoin that handles NULL inputs
-char    *ft_strjoin_safe(char const *s1, char const *s2)
+
+char *ft_strjoin_safe(const char *s1, const char *s2)
 {
     char    *res;
     size_t  s1_len;
@@ -73,19 +58,11 @@ char    *ft_strjoin_safe(char const *s1, char const *s2)
     return (res);
 }
 
-
-// Function to join two strings and free both
-char    *ft_strjoin_free(char *s1, char *s2)
+char *ft_strjoin_free(char *s1, char *s2)
 {
-    char    *joined;
+    char *joined;
 
     joined = ft_strjoin_safe(s1, s2);
-    if (!joined)
-    {
-        free(s1);
-        free(s2);
-        return (NULL);
-    }
     free(s1);
     free(s2);
     return (joined);

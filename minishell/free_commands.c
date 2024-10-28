@@ -1,39 +1,33 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   free_commands.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by yourname          #+#    #+#             */
-/*   Updated: 2024/10/21 15:53:11 by pouyax           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-
-void free_commands(void)
+void free_tokens(t_token *token_list)
 {
-    t_command   *cmd;
-    t_token     *token;
-    t_token     *next_token;
+    t_token *token;
+    t_token *next_token;
 
-    while (g_data.commands)
+    token = token_list;
+    while (token)
     {
-        cmd = g_data.commands;
-        g_data.commands = cmd->next;
-        token = cmd->token_list;
-        while (token)
-        {
-            next_token = token->next;
-            free(token->value);
-            free(token);
-            token = next_token;
-        }
-        free(cmd->command_string);
-        free(cmd);
+        next_token = token->next;
+        free(token->value);
+        free(token);
+        token = next_token;
     }
 }
 
+void free_commands(void)
+{
+    t_command *cmd;
+    t_command *next_cmd;
 
+    cmd = g_data.commands;
+    while (cmd)
+    {
+        next_cmd = cmd->next;
+        free_tokens(cmd->token_list);
+        free(cmd->command_string);
+        free(cmd);
+        cmd = next_cmd;
+    }
+    g_data.commands = NULL;
+}
