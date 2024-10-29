@@ -43,6 +43,7 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
 {
     char *op;
     int ret;
+    t_token *last_token;
 
     op = ft_strdup("");
     if (!op)
@@ -65,8 +66,25 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
     }
     if (!is_valid_operator(op))
         cmd->token_list->wrong_operator = 1;
+
+    // Get the last token added (the operator token)
+    last_token = cmd->token_list;
+    while (last_token->next)
+        last_token = last_token->next;
+
+    // Check if operator is '<<'
+    if (ft_strcmp(op, "<<") == 0)
+    {
+        // Set is_heredoc flag
+        last_token->is_heredoc = 1;
+        // Process the delimiter and store it in the heredoc_token
+        ret = process_heredoc_delimiter(input, i, last_token);
+        if (ret)
+            return (1);
+    }
     return (0);
 }
+
 
 int process_word(char *input, int *i, t_command *cmd, int *index)
 {

@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <fcntl.h>
 # include <string.h>
 # include <signal.h>
 # include <termios.h>
@@ -28,8 +29,12 @@ typedef struct s_token
     int             is_int;
     int             var_not_found;
     int             wrong_operator;
+    int             is_heredoc;
+    char            *heredoc_delimiter; // Add this line
+    char            *heredoc_file;
     struct s_token  *next;
 }               t_token;
+
 
 typedef struct s_command
 {
@@ -85,5 +90,10 @@ char    *ft_strjoin_safe(const char *s1, const char *s2);
 void    process_input(void);
 int     handle_unclosed_quotes(void);
 void preprocess_input(void);
+
+int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
+int read_heredoc_content(t_token *heredoc_token);
+char *generate_temp_filename(void);
+void free_tokens(t_token *token_list);
 
 #endif

@@ -10,10 +10,22 @@ void free_tokens(t_token *token_list)
     {
         next_token = token->next;
         free(token->value);
+        if (token->is_heredoc)
+        {
+            if (token->heredoc_file)
+            {
+                unlink(token->heredoc_file);
+                free(token->heredoc_file);
+            }
+            if (token->heredoc_delimiter)
+                free(token->heredoc_delimiter);
+        }
         free(token);
         token = next_token;
     }
 }
+
+
 
 void free_commands(void)
 {
