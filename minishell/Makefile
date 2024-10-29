@@ -15,10 +15,10 @@ OBJS = $(SRCS:.c=.o)
 
 # Libraries
 LIBFT = $(LIBFT_DIR)/libft.a
-LIBS = -L$(LIBFT_DIR) -lft -lreadline
+LIBS = -L$(LIBFT_DIR) -L/usr/local/opt/readline/lib -lft -lreadline
 
 # Header files
-INCLUDES = -I. -I$(LIBFT_DIR)
+INCLUDES = -I. -I$(LIBFT_DIR) -I/usr/local/opt/readline/include
 
 # Compilation
 all: $(LIBFT) $(NAME)

@@ -66,7 +66,6 @@ int read_heredoc_content(t_token *heredoc_token)
     delimiter_quoted = (delimiter[0] == '\'' || delimiter[0] == '\"');
     if (delimiter_quoted)
     {
-        // Remove quotes from delimiter
         char *unquoted_delimiter = ft_substr(delimiter, 1, ft_strlen(delimiter) - 2);
         if (!unquoted_delimiter)
             return (1);
@@ -75,7 +74,6 @@ int read_heredoc_content(t_token *heredoc_token)
         delimiter = unquoted_delimiter;
     }
 
-    // Create a temporary file
     tmp_filename = generate_temp_filename();
     if (!tmp_filename)
         return (1);
@@ -93,13 +91,29 @@ int read_heredoc_content(t_token *heredoc_token)
         line = readline("heredoc> ");
         if (!line)
             break;
+
+        g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, "\nheredoc> ");
+        if (!g_data.full_input)
+        {
+            ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+            free(line);
+            return (1);
+        }
+
+        g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, line);
+        if (!g_data.full_input)
+        {
+            ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+            free(line);
+            return (1);
+        }
+
         if (ft_strcmp(line, delimiter) == 0)
         {
             free(line);
             break;
         }
 
-        // If delimiter is unquoted, perform variable expansion
         if (!delimiter_quoted)
         {
             int var_not_found_flag = 0;
@@ -115,18 +129,18 @@ int read_heredoc_content(t_token *heredoc_token)
             }
         }
 
-        // Write the line to the temporary file
         write(fd, line, ft_strlen(line));
         write(fd, "\n", 1);
         free(line);
     }
-    close(fd);
 
-    // Store the temporary file path in the token
+    close(fd);
     heredoc_token->heredoc_file = tmp_filename;
 
     return (0);
 }
+
+
 
 
 

@@ -93,7 +93,7 @@ char *expand_variables_in_token(char *input, int *var_not_found_flag)
         {
             temp = get_literal_char(input, &i);
         }
-        result = ft_strjoin_free(result, temp);
+        result = ft_strjoin_free_both(result, temp);
         if (!result)
             return (NULL);
     }

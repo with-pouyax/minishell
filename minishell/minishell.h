@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include <string.h>
 # include <signal.h>
 # include <termios.h>
@@ -13,6 +13,8 @@
 # include "libft/libft.h"
 
 # define PROMPT "minishell> "
+
+// Structs and Global Variables
 
 typedef struct s_token
 {
@@ -35,8 +37,6 @@ typedef struct s_token
     struct s_token  *next;
 }               t_token;
 
-
-
 typedef struct s_command
 {
     char                *command_string;
@@ -49,6 +49,7 @@ typedef struct s_shell_data
 {
     volatile sig_atomic_t    signal_status;
     char                    *input;
+    char                    *full_input;    // Full input including heredoc content
     t_command               *commands;
     char                    **envp;
     int                     exit_status;
@@ -57,44 +58,60 @@ typedef struct s_shell_data
 
 extern t_shell_data g_data;
 
-// Function prototypes
+// Function Prototypes
+
+// Shell Initialization and Input Handling
 void    init_shell(void);
 void    handle_input(void);
+void    process_input(void);
+int     handle_unclosed_quotes(void);
+int     check_unclosed_quotes(char *input);
+
+// Tokenization, Parsing, and Execution
 void    tokenize_input(void);
 int     tokenize_command(t_command *cmd);
-t_command   *create_command(char *cmd_str, int index);
-int     add_token(char *token_value, t_token **token_list,
-                  int *index, int is_operator);
-int     is_operator_char(char c);
-int     is_operator(char *token);
-int     is_internal_command(char *token);
+t_command *create_command(char *cmd_str, int index);
+int     add_token(char *token_value, t_token **token_list, int *index, int is_operator);
 void    parse_tokens(void);
+void    expand_variables_in_tokens(void);
 void    print_commands(void);
 void    print_tokens(t_token *token_list);
 void    free_commands(void);
-int     check_unclosed_quotes(char *input);
-char    *ft_strjoin_free(char *s1, char *s2);
-char    *ft_strdup_free(char *s1);
-char    *getenv_from_envp(char *name);
-void    expand_variables_in_tokens(void);
-int     skip_quotes(char *input, int i);
+void    free_tokens(t_token *token_list);
+
+// Added function prototypes for process_operator and process_word
 int     process_operator(char *input, int *i, t_command *cmd, int *index);
 int     process_word(char *input, int *i, t_command *cmd, int *index);
-int     add_char_to_token(char **token, char c);
-int     ft_strcmp(const char *s1, const char *s2);
-int     is_valid_operator(char *op);
-char    *expand_variables_in_token(char *input, int *var_not_found_flag);
-char    *expand_variable_token(char *input, int *i, int *var_not_found_flag);
-char    *get_literal_char(char *input, int *i);
-int     get_var_name_len(char *str);
-char    *ft_strjoin_safe(const char *s1, const char *s2);
-void    process_input(void);
-int     handle_unclosed_quotes(void);
-void preprocess_input(void);
 
-int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
-int read_heredoc_content(t_token *heredoc_token);
-char *generate_temp_filename(void);
-void free_tokens(t_token *token_list);
+// Heredoc Handling and Redirection
+int     process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
+int     read_heredoc_content(t_token *heredoc_token);
+char    *generate_temp_filename(void);
+int     is_operator_char(char c);
+int     is_valid_operator(char *op);
+
+// Environment Variable Handling
+char    *getenv_from_envp(char *name);
+int     get_var_name_len(char *str);
+char    *expand_variable_token(char *input, int *i, int *var_not_found_flag);
+char    *expand_variables_in_token(char *input, int *var_not_found_flag);
+char    *get_literal_char(char *input, int *i);
+
+// String Manipulation Utilities
+int     ft_strcmp(const char *s1, const char *s2);
+char    *ft_strdup_free(char *s1);
+char    *ft_strjoin_safe(const char *s1, const char *s2);
+char    *ft_strjoin_and_free_first(char *s1, const char *s2);     // Frees only s1
+char    *ft_strjoin_and_free_second(const char *s1, char *s2);    // Frees only s2
+char    *ft_strjoin_and_free_both(char *s1, char *s2);            // Frees both s1 and s2
+char    *ft_strjoin_free_both(char *s1, char *s2);                // Renamed from ft_strjoin_free
+int     add_char_to_token(char **token, char c);
+int     skip_quotes(char *input, int i);
+
+// Error Handling
+void    handle_tokenization_error(int error_flag);
+
+// Preprocessing
+void    preprocess_input(void);
 
 #endif

@@ -67,3 +67,40 @@ char *ft_strjoin_free(char *s1, char *s2)
     free(s2);
     return (joined);
 }
+
+char *ft_strjoin_and_free_first(char *s1, const char *s2)
+{
+    char *joined;
+
+    joined = ft_strjoin_safe(s1, s2);
+    free(s1);
+    return (joined);
+}
+
+// Joins `s1` and `s2`, frees only `s2`
+char *ft_strjoin_and_free_second(const char *s1, char *s2)
+{
+    char *joined;
+
+    joined = ft_strjoin_safe(s1, s2);
+    free(s2);
+    return (joined);
+}
+
+// Joins `s1` and `s2`, frees both `s1` and `s2`
+char *ft_strjoin_and_free_both(char *s1, char *s2)
+{
+    char *joined;
+
+    joined = ft_strjoin_safe(s1, s2);
+    free(s1);
+    free(s2);
+    return (joined);
+}
+
+// Joins `s1` and `s2`, frees both `s1` and `s2`
+// This is a duplicate of `ft_strjoin_and_free_both` but is included as `ft_strjoin_free`
+char *ft_strjoin_free_both(char *s1, char *s2)
+{
+    return ft_strjoin_and_free_both(s1, s2);
+}
