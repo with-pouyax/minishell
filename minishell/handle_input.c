@@ -23,6 +23,10 @@ void process_input(void)
 {
     if (g_data.input && ft_strlen(g_data.input) > 0)
         add_history(g_data.input);
+
+    // Call preprocess_input() here
+    preprocess_input();
+
     g_data.commands = NULL;
     tokenize_input();
     if (!g_data.commands)
@@ -32,6 +36,7 @@ void process_input(void)
     print_commands();
     free_commands();
 }
+
 
 void handle_input(void)
 {

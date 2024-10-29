@@ -84,5 +84,6 @@ int     get_var_name_len(char *str);
 char    *ft_strjoin_safe(const char *s1, const char *s2);
 void    process_input(void);
 int     handle_unclosed_quotes(void);
+void preprocess_input(void);
 
 #endif

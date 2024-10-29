@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 LIBFT_DIR = ./libft
 
 # Source files
-SRCS = main.c handle_input.c init_shell.c helpers.c lexer.c \
+SRCS = main.c preprocess_input.c handle_input.c init_shell.c helpers.c lexer.c \
        parser.c token_utils.c variable_expansion.c print_tokens.c \
        free_commands.c tokenize_input.c tokenize_input_utils.c
 
