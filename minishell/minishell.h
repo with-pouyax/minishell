@@ -29,11 +29,12 @@ typedef struct s_token
     int             is_int;
     int             var_not_found;
     int             wrong_operator;
-    int             is_heredoc;
-    char            *heredoc_delimiter; // Add this line
-    char            *heredoc_file;
+    int             is_heredoc;           // Indicates if the token is a heredoc operator
+    char            *heredoc_delimiter;   // Stores the heredoc delimiter
+    char            *heredoc_file;        // Stores the path to the heredoc content file
     struct s_token  *next;
 }               t_token;
+
 
 
 typedef struct s_command

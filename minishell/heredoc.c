@@ -20,7 +20,6 @@ int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
     start = *i;
     if (input[*i] == '\'' || input[*i] == '\"')
     {
-        // Quoted delimiter
         char quote = input[*i];
         (*i)++;
         while (input[*i] && input[*i] != quote)
@@ -35,7 +34,6 @@ int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
     }
     else
     {
-        // Unquoted delimiter
         while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
             (*i)++;
     }
@@ -44,16 +42,16 @@ int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
     if (!delimiter)
         return (1);
 
-    // Store the delimiter in the heredoc_token
-    heredoc_token->heredoc_delimiter = delimiter;
+    heredoc_token->heredoc_delimiter = delimiter; // Store the delimiter in the token
 
-    // Now read the heredoc content from stdin until the delimiter is encountered
+    // Read the heredoc content and store the file path
     int ret = read_heredoc_content(heredoc_token);
     if (ret)
         return (1);
 
     return (0);
 }
+
 
 
 int read_heredoc_content(t_token *heredoc_token)
@@ -69,7 +67,6 @@ int read_heredoc_content(t_token *heredoc_token)
     if (delimiter_quoted)
     {
         // Remove quotes from delimiter
-        //char quote = delimiter[0];
         char *unquoted_delimiter = ft_substr(delimiter, 1, ft_strlen(delimiter) - 2);
         if (!unquoted_delimiter)
             return (1);
@@ -130,6 +127,7 @@ int read_heredoc_content(t_token *heredoc_token)
 
     return (0);
 }
+
 
 
 

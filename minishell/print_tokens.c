@@ -7,6 +7,12 @@ void print_token_details(t_token *token)
         printf(" - This is an operator.\n");
         if (token->wrong_operator)
             printf(" - Warning: Invalid operator detected.\n");
+        if (token->is_heredoc)
+        {
+            printf(" - This is a heredoc operator.\n");
+            printf(" - Heredoc delimiter: '%s'\n", token->heredoc_delimiter);
+            printf(" - Heredoc file: '%s'\n", token->heredoc_file);
+        }
     }
     else if (token->is_command)
     {
@@ -19,6 +25,8 @@ void print_token_details(t_token *token)
     if (token->is_flag)
         printf(" - This is a flag.\n");
 }
+
+
 
 void print_tokens(t_token *token_list)
 {

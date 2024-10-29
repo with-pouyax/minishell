@@ -75,15 +75,19 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
     // Check if operator is '<<'
     if (ft_strcmp(op, "<<") == 0)
     {
-        // Set is_heredoc flag
-        last_token->is_heredoc = 1;
-        // Process the delimiter and store it in the heredoc_token
-        ret = process_heredoc_delimiter(input, i, last_token);
+        last_token->is_heredoc = 1; // Mark as heredoc
+        ret = process_heredoc_delimiter(input, i, last_token); // Handle delimiter
         if (ret)
             return (1);
+        // Do not increment index here since no new token was added
+    }
+    else
+    {
+        (*index)++; // Increment index for other operators
     }
     return (0);
 }
+
 
 
 int process_word(char *input, int *i, t_command *cmd, int *index)
