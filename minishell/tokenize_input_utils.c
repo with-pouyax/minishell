@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+void cleanup(void)
+{
+    free(g_data.input);
+    g_data.input = NULL;
+    free(g_data.full_input);
+    g_data.full_input = NULL;
+    free_commands();
+}
+
 void handle_tokenization_error(int error_flag)
 {
     if (error_flag == 1)
@@ -11,9 +20,11 @@ void handle_tokenization_error(int error_flag)
     else if (error_flag == 2)
     {
         ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        cleanup();
         exit(EXIT_FAILURE);
     }
 }
+
 
 void tokenize_input(void)
 {
@@ -50,6 +61,7 @@ void tokenize_input(void)
         if (!cmd || tokenize_command(cmd))
         {
             free(cmd_str);
+            free(cmd);
             g_data.error_flag = 2;
             break;
         }
@@ -68,3 +80,4 @@ void tokenize_input(void)
         handle_tokenization_error(g_data.error_flag);
     }
 }
+

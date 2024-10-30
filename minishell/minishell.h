@@ -113,5 +113,6 @@ void    handle_tokenization_error(int error_flag);
 
 // Preprocessing
 void    preprocess_input(void);
+void cleanup(void);
 
 #endif

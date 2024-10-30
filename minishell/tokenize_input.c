@@ -33,11 +33,16 @@ int tokenize_command(t_command *cmd)
             else
                 ret = process_word(cmd->command_string, &i, cmd, &index);
             if (ret)
+            {
+                free_tokens(cmd->token_list);
+                cmd->token_list = NULL;
                 return (1);
+            }
         }
     }
     return (0);
 }
+
 
 int process_operator(char *input, int *i, t_command *cmd, int *index)
 {
@@ -61,32 +66,30 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
     ret = add_token(op, &cmd->token_list, index, 1);
     if (ret)
     {
-        free(op);
+        free(op); // Free op if add_token fails
         return (1);
     }
     if (!is_valid_operator(op))
         cmd->token_list->wrong_operator = 1;
 
-    // Get the last token added (the operator token)
     last_token = cmd->token_list;
     while (last_token->next)
         last_token = last_token->next;
 
-    // Check if operator is '<<'
     if (ft_strcmp(op, "<<") == 0)
     {
-        last_token->is_heredoc = 1; // Mark as heredoc
-        ret = process_heredoc_delimiter(input, i, last_token); // Handle delimiter
+        last_token->is_heredoc = 1;
+        ret = process_heredoc_delimiter(input, i, last_token);
         if (ret)
             return (1);
-        // Do not increment index here since no new token was added
     }
     else
     {
-        (*index)++; // Increment index for other operators
+        (*index)++;
     }
     return (0);
 }
+
 
 
 
@@ -130,6 +133,10 @@ int process_word(char *input, int *i, t_command *cmd, int *index)
     }
     ret = add_token(word, &cmd->token_list, index, 0);
     if (ret)
+    {
+        free(word); // Free word if add_token fails
         return (1);
+    }
     return (0);
 }
+
