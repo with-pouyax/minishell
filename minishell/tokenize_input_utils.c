@@ -28,30 +28,29 @@ void handle_tokenization_error(int error_flag)
 
 void tokenize_input(void)
 {
-    int i;
     int start;
     t_command *cmd;
     t_command *last_cmd;
     char *cmd_str;
     int cmd_index;
 
-    i = 0;
+    g_data.i = 0;
     cmd_index = 0;
     last_cmd = NULL;
     g_data.error_flag = 0;
-    while (g_data.input[i])
+    while (g_data.input[g_data.i])
     {
-        while (g_data.input[i] && ft_isspace(g_data.input[i]))
-            i++;
-        start = i;
-        while (g_data.input[i] && g_data.input[i] != '|')
+        while (g_data.input[g_data.i] && ft_isspace(g_data.input[g_data.i]))
+            g_data.i++;
+        start = g_data.i;
+        while (g_data.input[g_data.i] && g_data.input[g_data.i] != '|')
         {
-            if (g_data.input[i] == '\'' || g_data.input[i] == '\"')
-                i = skip_quotes(g_data.input, i);
+            if (g_data.input[g_data.i] == '\'' || g_data.input[g_data.i] == '\"')
+                g_data.i = skip_quotes(g_data.input, g_data.i);
             else
-                i++;
+                g_data.i++;
         }
-        cmd_str = ft_substr(g_data.input, start, i - start);
+        cmd_str = ft_substr(g_data.input, start, g_data.i - start);
         if (!cmd_str)
         {
             g_data.error_flag = 2;
@@ -70,8 +69,8 @@ void tokenize_input(void)
         else
             last_cmd->next = cmd;
         last_cmd = cmd;
-        if (g_data.input[i] == '|')
-            i++;
+        if (g_data.input[g_data.i] == '|')
+            g_data.i++;
     }
     if (g_data.error_flag)
     {
@@ -80,4 +79,5 @@ void tokenize_input(void)
         handle_tokenization_error(g_data.error_flag);
     }
 }
+
 

@@ -54,6 +54,12 @@ typedef struct s_shell_data
     char                    **envp;
     int                     exit_status;
     int                     error_flag;
+
+    // New fields added
+    int                     var_not_found_flag;
+    int                     i;                // Index used during parsing
+    int                     token_index;      // Token index during tokenization
+    char                    *expansion_input; // Input string for variable expansion
 }               t_shell_data;
 
 extern t_shell_data g_data;
@@ -71,7 +77,7 @@ int     check_unclosed_quotes(char *input);
 void    tokenize_input(void);
 int     tokenize_command(t_command *cmd);
 t_command *create_command(char *cmd_str, int index);
-int     add_token(char *token_value, t_token **token_list, int *index, int is_operator);
+int     add_token(char *token_value, t_token **token_list, int is_operator);
 void    parse_tokens(void);
 void    expand_variables_in_tokens(void);
 void    print_commands(void);
@@ -79,12 +85,12 @@ void    print_tokens(t_token *token_list);
 void    free_commands(void);
 void    free_tokens(t_token *token_list);
 
-// Added function prototypes for process_operator and process_word
-int     process_operator(char *input, int *i, t_command *cmd, int *index);
-int     process_word(char *input, int *i, t_command *cmd, int *index);
+// Updated function prototypes for process_operator and process_word
+int     process_operator(char *input, t_command *cmd);
+int     process_word(char *input, t_command *cmd);
 
-// Heredoc Handling and Redirection
-int     process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
+// Updated Heredoc Handling and Redirection function prototypes
+int     process_heredoc_delimiter(char *input, t_token *heredoc_token);
 int     read_heredoc_content(t_token *heredoc_token);
 char    *generate_temp_filename(void);
 int     is_operator_char(char c);
@@ -93,9 +99,9 @@ int     is_valid_operator(char *op);
 // Environment Variable Handling
 char    *getenv_from_envp(char *name);
 int     get_var_name_len(char *str);
-char    *expand_variable_token(char *input, int *i, int *var_not_found_flag);
-char    *expand_variables_in_token(char *input, int *var_not_found_flag);
-char    *get_literal_char(char *input, int *i);
+char    *expand_variable_token(void);
+char    *expand_variables_in_token(void);
+char    *get_literal_char(void);
 
 // String Manipulation Utilities
 int     ft_strcmp(const char *s1, const char *s2);
@@ -114,5 +120,6 @@ void    handle_tokenization_error(int error_flag);
 // Preprocessing
 void    preprocess_input(void);
 void cleanup(void);
+
 
 #endif

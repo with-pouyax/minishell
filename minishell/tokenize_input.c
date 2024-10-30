@@ -16,22 +16,20 @@ t_command *create_command(char *cmd_str, int index)
 
 int tokenize_command(t_command *cmd)
 {
-    int i;
-    int index;
     int ret;
 
-    i = 0;
-    index = 0;
-    while (cmd->command_string[i])
+    g_data.i = 0;
+    g_data.token_index = 0;
+    while (cmd->command_string[g_data.i])
     {
-        while (cmd->command_string[i] && ft_isspace(cmd->command_string[i]))
-            i++;
-        if (cmd->command_string[i])
+        while (cmd->command_string[g_data.i] && ft_isspace(cmd->command_string[g_data.i]))
+            g_data.i++;
+        if (cmd->command_string[g_data.i])
         {
-            if (is_operator_char(cmd->command_string[i]))
-                ret = process_operator(cmd->command_string, &i, cmd, &index);
+            if (is_operator_char(cmd->command_string[g_data.i]))
+                ret = process_operator(cmd->command_string, cmd);
             else
-                ret = process_word(cmd->command_string, &i, cmd, &index);
+                ret = process_word(cmd->command_string, cmd);
             if (ret)
             {
                 free_tokens(cmd->token_list);
@@ -44,7 +42,8 @@ int tokenize_command(t_command *cmd)
 }
 
 
-int process_operator(char *input, int *i, t_command *cmd, int *index)
+
+int process_operator(char *input, t_command *cmd)
 {
     char *op;
     int ret;
@@ -53,20 +52,20 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
     op = ft_strdup("");
     if (!op)
         return (1);
-    while (input[*i] && is_operator_char(input[*i]))
+    while (input[g_data.i] && is_operator_char(input[g_data.i]))
     {
-        ret = add_char_to_token(&op, input[*i]);
+        ret = add_char_to_token(&op, input[g_data.i]);
         if (ret)
         {
             free(op);
             return (1);
         }
-        (*i)++;
+        g_data.i++;
     }
-    ret = add_token(op, &cmd->token_list, index, 1);
+    ret = add_token(op, &cmd->token_list, 1);
     if (ret)
     {
-        free(op); // Free op if add_token fails
+        free(op);
         return (1);
     }
     if (!is_valid_operator(op))
@@ -79,13 +78,13 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
     if (ft_strcmp(op, "<<") == 0)
     {
         last_token->is_heredoc = 1;
-        ret = process_heredoc_delimiter(input, i, last_token);
+        ret = process_heredoc_delimiter(input, last_token);
         if (ret)
             return (1);
     }
     else
     {
-        (*index)++;
+        g_data.token_index++;
     }
     return (0);
 }
@@ -93,7 +92,8 @@ int process_operator(char *input, int *i, t_command *cmd, int *index)
 
 
 
-int process_word(char *input, int *i, t_command *cmd, int *index)
+
+int process_word(char *input, t_command *cmd)
 {
     char *word;
     char quote;
@@ -102,28 +102,28 @@ int process_word(char *input, int *i, t_command *cmd, int *index)
     word = ft_strdup("");
     if (!word)
         return (1);
-    while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
+    while (input[g_data.i] && !ft_isspace(input[g_data.i]) && !is_operator_char(input[g_data.i]))
     {
-        if (input[*i] == '\'' || input[*i] == '\"')
+        if (input[g_data.i] == '\'' || input[g_data.i] == '\"')
         {
-            quote = input[*i];
-            ret = add_char_to_token(&word, input[*i]);
-            (*i)++;
-            while (input[*i] && input[*i] != quote)
+            quote = input[g_data.i];
+            ret = add_char_to_token(&word, input[g_data.i]);
+            g_data.i++;
+            while (input[g_data.i] && input[g_data.i] != quote)
             {
-                ret = add_char_to_token(&word, input[*i]);
-                (*i)++;
+                ret = add_char_to_token(&word, input[g_data.i]);
+                g_data.i++;
             }
-            if (input[*i] == quote)
+            if (input[g_data.i] == quote)
             {
-                ret = add_char_to_token(&word, input[*i]);
-                (*i)++;
+                ret = add_char_to_token(&word, input[g_data.i]);
+                g_data.i++;
             }
         }
         else
         {
-            ret = add_char_to_token(&word, input[*i]);
-            (*i)++;
+            ret = add_char_to_token(&word, input[g_data.i]);
+            g_data.i++;
         }
         if (ret)
         {
@@ -131,12 +131,11 @@ int process_word(char *input, int *i, t_command *cmd, int *index)
             return (1);
         }
     }
-    ret = add_token(word, &cmd->token_list, index, 0);
+    ret = add_token(word, &cmd->token_list, 0);
     if (ret)
     {
-        free(word); // Free word if add_token fails
+        free(word);
         return (1);
     }
     return (0);
 }
-

@@ -1,31 +1,28 @@
 #include "minishell.h"
 
-int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
+int process_heredoc_delimiter(char *input, t_token *heredoc_token)
 {
     char *delimiter;
     int start;
 
-    // Skip any whitespace
-    while (input[*i] && ft_isspace(input[*i]))
-        (*i)++;
+    while (input[g_data.i] && ft_isspace(input[g_data.i]))
+        g_data.i++;
 
-    // Check if end of input
-    if (!input[*i])
+    if (!input[g_data.i])
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
         return (1);
     }
 
-    // Process the delimiter
-    start = *i;
-    if (input[*i] == '\'' || input[*i] == '\"')
+    start = g_data.i;
+    if (input[g_data.i] == '\'' || input[g_data.i] == '\"')
     {
-        char quote = input[*i];
-        (*i)++;
-        while (input[*i] && input[*i] != quote)
-            (*i)++;
-        if (input[*i] == quote)
-            (*i)++;
+        char quote = input[g_data.i];
+        g_data.i++;
+        while (input[g_data.i] && input[g_data.i] != quote)
+            g_data.i++;
+        if (input[g_data.i] == quote)
+            g_data.i++;
         else
         {
             ft_putstr_fd("minishell: syntax error: unclosed quote in heredoc delimiter\n", STDERR_FILENO);
@@ -34,17 +31,16 @@ int process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
     }
     else
     {
-        while (input[*i] && !ft_isspace(input[*i]) && !is_operator_char(input[*i]))
-            (*i)++;
+        while (input[g_data.i] && !ft_isspace(input[g_data.i]) && !is_operator_char(input[g_data.i]))
+            g_data.i++;
     }
 
-    delimiter = ft_substr(input, start, *i - start);
+    delimiter = ft_substr(input, start, g_data.i - start);
     if (!delimiter)
         return (1);
 
-    heredoc_token->heredoc_delimiter = delimiter; // Store the delimiter in the token
+    heredoc_token->heredoc_delimiter = delimiter;
 
-    // Read the heredoc content and store the file path
     int ret = read_heredoc_content(heredoc_token);
     if (ret)
         return (1);
@@ -116,17 +112,18 @@ int read_heredoc_content(t_token *heredoc_token)
 
         if (!delimiter_quoted)
         {
-            int var_not_found_flag = 0;
-            char *temp = expand_variables_in_token(line, &var_not_found_flag);
+            g_data.var_not_found_flag = 0;
+            g_data.expansion_input = line;
+            char *temp = expand_variables_in_token();
             free(line);
-            line = temp;
-            if (!line)
+            if (!temp)
             {
                 close(fd);
                 unlink(tmp_filename);
                 free(tmp_filename);
                 return (1);
             }
+            line = temp;
         }
 
         write(fd, line, ft_strlen(line));

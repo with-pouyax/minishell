@@ -26,72 +26,82 @@ int get_var_name_len(char *str)
     return (len);
 }
 
-char *get_literal_char(char *input, int *i)
+char *get_literal_char(void)
 {
     char *str;
 
-    str = ft_substr(input, *i, 1);
-    (*i)++;
+    str = ft_substr(g_data.expansion_input, g_data.i, 1);
+    if (!str)
+        return (NULL);
+    g_data.i++;
     return (str);
 }
 
-char *expand_variable_token(char *input, int *i, int *var_not_found_flag)
+
+char *expand_variable_token(void)
 {
     char *var_name;
     char *var_value;
     int var_len;
 
-    if (input[*i] == '?')
+    if (g_data.expansion_input[g_data.i] == '?')
     {
-        (*i)++;
+        g_data.i++;
         var_value = ft_itoa(g_data.exit_status);
     }
     else
     {
-        var_len = get_var_name_len(&input[*i]);
-        var_name = ft_substr(input, *i, var_len);
+        var_len = get_var_name_len(&g_data.expansion_input[g_data.i]);
+        var_name = ft_substr(g_data.expansion_input, g_data.i, var_len);
+        if (!var_name)
+            return (NULL);
         var_value = getenv_from_envp(var_name);
         if (var_value)
             var_value = ft_strdup(var_value);
         else
         {
             var_value = ft_strdup("");
-            *var_not_found_flag = 1;
+            g_data.var_not_found_flag = 1;
         }
-        *i += var_len;
+        g_data.i += var_len;
         free(var_name);
     }
     return (var_value);
 }
 
-char *expand_variables_in_token(char *input, int *var_not_found_flag)
+
+char *expand_variables_in_token(void)
 {
     char *result;
     char *temp;
-    int i;
     int in_single_quote;
     int in_double_quote;
 
     result = ft_strdup("");
     if (!result)
         return (NULL);
-    i = 0;
+    g_data.i = 0;
     in_single_quote = 0;
     in_double_quote = 0;
-    while (input[i])
+    while (g_data.expansion_input[g_data.i])
     {
-        if (input[i] == '\'' && !in_double_quote)
+        if (g_data.expansion_input[g_data.i] == '\'' && !in_double_quote)
             in_single_quote = !in_single_quote;
-        else if (input[i] == '\"' && !in_single_quote)
+        else if (g_data.expansion_input[g_data.i] == '\"' && !in_single_quote)
             in_double_quote = !in_double_quote;
-        if (input[i] == '$' && !in_single_quote)
+        if (g_data.expansion_input[g_data.i] == '$' && !in_single_quote)
         {
-            i++;
-            temp = expand_variable_token(input, &i, var_not_found_flag);
+            g_data.i++;
+            temp = expand_variable_token();
         }
         else
         {
-            temp = get_literal_char(input, &i);
+            temp = get_literal_char();
+        }
+        if (!temp)
+        {
+            free(result);
+            return (NULL);
         }
         result = ft_strjoin_free_both(result, temp);
         if (!result)
@@ -100,12 +110,12 @@ char *expand_variables_in_token(char *input, int *var_not_found_flag)
     return (result);
 }
 
+
 void expand_variables_in_tokens(void)
 {
     t_command *cmd;
     t_token *token;
     char *expanded_value;
-    int var_not_found_flag;
 
     cmd = g_data.commands;
     while (cmd)
@@ -115,15 +125,21 @@ void expand_variables_in_tokens(void)
         {
             if (!token->is_operator)
             {
-                var_not_found_flag = 0;
-                expanded_value = expand_variables_in_token(token->value,
-                                                           &var_not_found_flag);
+                g_data.var_not_found_flag = 0;
+                g_data.expansion_input = token->value;
+                expanded_value = expand_variables_in_token();
+                if (!expanded_value)
+                {
+                    // Handle error (e.g., free resources, set error flag)
+                    return;
+                }
                 free(token->value);
                 token->value = expanded_value;
-                token->var_not_found = var_not_found_flag;
+                token->var_not_found = g_data.var_not_found_flag;
             }
             token = token->next;
         }
         cmd = cmd->next;
     }
 }
+
