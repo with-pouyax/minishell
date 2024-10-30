@@ -44,6 +44,7 @@ int handle_unclosed_quotes(void)
 
 void process_input(void)
 {
+    // Use full_input for history if it contains heredoc content
     if (g_data.full_input && ft_strlen(g_data.full_input) > 0)
         add_history(g_data.full_input);
     else if (g_data.input && ft_strlen(g_data.input) > 0)
@@ -65,17 +66,20 @@ void process_input(void)
 
 
 
+
 void handle_input(void)
 {
     int ret;
-
-    while (1)
+    int i= 1;
+    while (i < 2)
     {
         g_data.input = readline(PROMPT);
         if (!g_data.input)
             break;
 
-        g_data.full_input = ft_strdup(g_data.input); // Initialize full_input as duplicate
+        // Initialize full_input as a duplicate of input for heredoc processing
+        g_data.full_input = ft_strdup(g_data.input); 
+
         if (check_unclosed_quotes(g_data.input))
         {
             ret = handle_unclosed_quotes();
@@ -83,15 +87,23 @@ void handle_input(void)
                 break;
         }
 
+        // Process heredoc if necessary
         process_input();
+
+        // Now that full_input has all heredoc content, add it to history
+        if (g_data.full_input && ft_strlen(g_data.full_input) > 0)
+            add_history(g_data.full_input);
 
         // Free both input and full_input after processing
         free(g_data.input);
         g_data.input = NULL;
         free(g_data.full_input);
         g_data.full_input = NULL;
+        i++;
     }
     rl_clear_history();
+    
 }
+
 
 

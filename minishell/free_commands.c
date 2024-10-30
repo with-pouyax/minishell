@@ -14,7 +14,7 @@ void free_tokens(t_token *token_list)
         {
             if (token->heredoc_file)
             {
-                //unlink(token->heredoc_file); // Delete the temporary file
+                unlink(token->heredoc_file); // Delete the temporary file
                 free(token->heredoc_file);
             }
             if (token->heredoc_delimiter)
