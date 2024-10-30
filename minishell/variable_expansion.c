@@ -131,10 +131,10 @@ char	*expand_variables_in_token(char *input, int *var_not_found_flag)
 
 void	update_quote_flags(char c, int *in_single_quote, int *in_double_quote)
 {
-	if (c == '\'' && !(*in_double_quote))
-		*in_single_quote = !(*in_single_quote);
-	else if (c == '\"' && !(*in_single_quote))
-		*in_double_quote = !(*in_double_quote);
+	if (c == '\'' && !(*in_double_quote)) // If the character is a single quote and not in double quotes
+		*in_single_quote = !(*in_single_quote); // reverse the value of in_single_quote
+	else if (c == '\"' && !(*in_single_quote)) // If the character is a double quote and not in single quotes
+		*in_double_quote = !(*in_double_quote); // reverse the value of in_double_quote
 }
 
 void	expand_variables_in_tokens(void)
