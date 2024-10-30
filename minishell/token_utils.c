@@ -19,7 +19,11 @@ int add_token(char *token_value, t_token **token_list, int *index, int is_operat
     new_token->is_int = 0;
     new_token->var_not_found = 0;
     new_token->wrong_operator = 0;
+    new_token->is_heredoc = 0;
+    new_token->heredoc_file = NULL;      // Initialize to NULL
+    new_token->heredoc_delimiter = NULL; // Initialize to NULL
     new_token->next = NULL;
+    
     if (!*token_list)
         *token_list = new_token;
     else
@@ -31,3 +35,4 @@ int add_token(char *token_value, t_token **token_list, int *index, int is_operat
     }
     return (0);
 }
+
