@@ -105,3 +105,21 @@ char	*ft_strjoin_free_both(char *s1, char *s2)
 	return (ft_strjoin_and_free_both(s1, s2));
 }
 
+int	is_recalled_command(char *input)
+{
+	// Assuming last command in history matches input (indicating recall)
+	HIST_ENTRY *last_entry = history_get(history_length);
+	return last_entry && ft_strcmp(last_entry->line, input) == 0;
+}
+
+// Set `is_recalled` flag for all commands in the list
+void	set_recalled_flag(t_command *commands)
+{
+	t_command	*cmd = commands;
+
+	while (cmd)
+	{
+		cmd->is_recalled = 1;
+		cmd = cmd->next;
+	}
+}

@@ -19,9 +19,16 @@ void	preprocess_input(void)
 	g_data.input = expanded_input; // Store the expanded input in .input
 	g_data.commands = NULL;
 	tokenize_input();
+
 	if (!g_data.commands)
 		return ;
+
+	// Check if input is from history and set `is_recalled` flag
+	if (g_data.full_input && is_recalled_command(g_data.full_input))
+		set_recalled_flag(g_data.commands);
+
 	process_heredocs(); // Process heredocs after tokenization
+
 	if (g_data.error_flag)
 	{
 		free_commands();
@@ -33,8 +40,10 @@ void	preprocess_input(void)
 		add_history(g_data.full_input);
 	else if (g_data.input && ft_strlen(g_data.input) > 0)
 		add_history(g_data.input);
+
 	expand_variables_in_tokens();
 	parse_tokens();
 	print_commands();
 	free_commands();
 }
+

@@ -39,9 +39,11 @@ typedef struct s_command
 {
 	char				*command_string;
 	int					index;
+	int					is_recalled; // New flag for history recall
 	t_token				*token_list;
 	struct s_command	*next;
 }				t_command;
+
 
 typedef struct s_shell_data
 {
@@ -174,5 +176,8 @@ char	*get_variable_value(char *input, int *i, int *var_not_found_flag);
 
 int		get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
 void	process_heredocs(void);
+int	is_recalled_command(char *input);
+void	set_recalled_flag(t_command *commands);
+
 
 #endif

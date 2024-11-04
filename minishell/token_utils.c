@@ -6,7 +6,7 @@ int	add_token(char *token_value, t_token **token_list,
 	t_token	*new_token;
 	t_token	*current;
 
-	new_token = malloc(sizeof(t_token));
+	new_token = NULL;malloc(sizeof(t_token));
 	if (!new_token)
 	{
 		free(token_value);

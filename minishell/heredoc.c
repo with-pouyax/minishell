@@ -35,7 +35,7 @@ void	process_heredocs(void)
 		token = cmd->token_list;
 		while (token)
 		{
-			if (token->is_heredoc)
+			if (token->is_heredoc && !cmd->is_recalled)
 			{
 				if (read_heredoc_content(token))
 				{
