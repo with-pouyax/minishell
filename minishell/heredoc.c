@@ -1,5 +1,54 @@
 #include "minishell.h"
 
+int	get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
+{
+	char	*delimiter;
+	int		start;
+
+	while (input[*i] && ft_isspace(input[*i]))
+		(*i)++;
+	if (!input[*i])
+		return (syntax_error_newline());
+	start = *i;
+	if (input[*i] == '\'' || input[*i] == '\"')
+	{
+		if (process_quoted_delimiter(input, i) == -1)
+			return (1);
+	}
+	else
+		skip_until_operator_or_space(input, i);
+	delimiter = ft_substr(input, start, *i - start);
+	if (!delimiter)
+		return (1);
+	heredoc_token->heredoc_delimiter = delimiter;
+	return (0);
+}
+
+void	process_heredocs(void)
+{
+	t_command	*cmd;
+	t_token		*token;
+
+	cmd = g_data.commands;
+	while (cmd)
+	{
+		token = cmd->token_list;
+		while (token)
+		{
+			if (token->is_heredoc)
+			{
+				if (read_heredoc_content(token))
+				{
+					g_data.error_flag = 1;
+					return ;
+				}
+			}
+			token = token->next;
+		}
+		cmd = cmd->next;
+	}
+}
+
 int	process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 {
 	char	*delimiter;

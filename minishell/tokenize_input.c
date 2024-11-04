@@ -90,7 +90,7 @@ void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
 	if (ft_strcmp(op, "<<") == 0)
 	{
 		last_token->is_heredoc = 1;
-		if (process_heredoc_delimiter(cmd->command_string, i, last_token))
+		if (get_heredoc_delimiter(cmd->command_string, i, last_token))
 			cmd->token_list->wrong_operator = 1;
 	}
 	else

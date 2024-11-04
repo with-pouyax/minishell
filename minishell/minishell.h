@@ -141,8 +141,7 @@ void	free_heredoc_token(t_token *token);
 int		tokenize_command_error(t_command *cmd);
 void	print_operator_token(t_token *token);
 void	print_command_token(t_token *token);
-void	process_operator_details(char *op, t_command *cmd,
-			int *i, int *index);
+void	process_operator_details(char *op, t_command *cmd, int *i, int *index);
 int		free_and_return(char *str);
 char *get_variable_value(char *input, int *i, int *var_not_found_flag);
 
@@ -172,5 +171,8 @@ int		append_literal_char(char *input, int *i, char **result);
 /* variable_expansion_utils.c */
 void	update_quote_flags(char c, int *in_single_quote, int *in_double_quote);
 char	*get_variable_value(char *input, int *i, int *var_not_found_flag);
+
+int		get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
+void	process_heredocs(void);
 
 #endif
