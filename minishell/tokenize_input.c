@@ -140,11 +140,12 @@ int	process_word(char *input, int *i, t_command *cmd, int *index)
 	}
 	if (add_token(word, &cmd->token_list, index, 0))
 	{
-		free(word);
+		free(word); // Properly free token_value on failure
 		return (1);
 	}
 	return (0);
 }
+
 
 int	process_quoted_word(char *input, int *i, char **word)
 {
