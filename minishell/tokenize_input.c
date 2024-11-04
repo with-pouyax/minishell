@@ -153,8 +153,7 @@ int	process_quoted_word(char *input, int *i, char **word)
 	int		ret;
 
 	quote = input[*i];
-	ret = add_char_to_token(word, input[*i]);
-	(*i)++;
+	(*i)++; // Skip the opening quote
 	while (input[*i] && input[*i] != quote)
 	{
 		ret = add_char_to_token(word, input[*i]);
@@ -164,11 +163,14 @@ int	process_quoted_word(char *input, int *i, char **word)
 	}
 	if (input[*i] == quote)
 	{
-		ret = add_char_to_token(word, input[*i]);
-		(*i)++;
-		if (ret)
-			return (1);
+		(*i)++; // Skip the closing quote
+	}
+	else
+	{
+		ft_putstr_fd("minishell: syntax error: unclosed quote\n", STDERR_FILENO);
+		return (1);
 	}
 	return (0);
 }
+
 

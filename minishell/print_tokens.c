@@ -45,6 +45,7 @@ void	print_tokens(t_token *token_list)
 	}
 }
 
+
 void	print_commands(void)
 {
 	t_command	*cmd;
