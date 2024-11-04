@@ -32,7 +32,7 @@ int	process_input_segment(int *i, int *cmd_index, t_command **last_cmd)
 	t_command	*cmd;
 
 	start = *i;
-	*i = extract_command_string(g_data.input, *i);
+	*i = extract_command_string(g_data.input, *i); //
 	cmd_str = ft_substr(g_data.input, start, *i - start);
 	if (!cmd_str)
 	{
@@ -63,10 +63,10 @@ void	tokenize_input(void)
 	cmd_index = 0;
 	last_cmd = NULL;
 	g_data.error_flag = 0;
-	while (g_data.input[i])
+	while (g_data.input[i]) // Loop through the input string
 	{
-		skip_spaces(&i);
-		if (process_input_segment(&i, &cmd_index, &last_cmd))
+		skip_spaces(&i); // Skip spaces
+		if (process_input_segment(&i, &cmd_index, &last_cmd)) // Process the input segment
 			break ;
 	}
 	if (g_data.error_flag)

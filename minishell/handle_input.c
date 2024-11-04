@@ -46,11 +46,11 @@ int	append_additional_input(char *additional_input)
 
 void	process_input(void)
 {
-	if (g_data.full_input && ft_strlen(g_data.full_input) > 0)
+	if (g_data.full_input && ft_strlen(g_data.full_input) > 0) // If there is input in .full_input, add it to history
 		add_history(g_data.full_input);
-	else if (g_data.input && ft_strlen(g_data.input) > 0)
+	else if (g_data.input && ft_strlen(g_data.input) > 0) // If there is input in .input, add it to history, we don't need this check but we are doing it for safety
 		add_history(g_data.input);
-	preprocess_input();
+	preprocess_input(); // preprocess the input before tokenizing to handle quotes and heredocs and other stuff  ->DONE<-
 	g_data.commands = NULL;
 	tokenize_input();
 	if (!g_data.commands)
@@ -67,20 +67,20 @@ void	handle_input(void)
 
 	while (1)
 	{
-		g_data.input = readline(PROMPT);
-		if (!g_data.input)
+		g_data.input = readline(PROMPT); // Read input from the user and store it in .input
+		if (!g_data.input) // if ctrl-D is pressed
 			break ;
-		g_data.full_input = ft_strdup(g_data.input);
-		if (check_unclosed_quotes(g_data.input))
+		g_data.full_input = ft_strdup(g_data.input); // Copy the input to .full_input for history
+		if (check_unclosed_quotes(g_data.input)) // Check if there are unclosed quotes
 		{
-			ret = handle_unclosed_quotes();
+			ret = handle_unclosed_quotes(); // If there are unclosed quotes, prompt the user for more input
 			if (ret <= 0)
 			{
 				cleanup();
 				break ;
 			}
 		}
-		process_input();
+		process_input(); 
 		free(g_data.input);
 		g_data.input = NULL;
 		free(g_data.full_input);
