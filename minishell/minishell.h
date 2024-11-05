@@ -37,12 +37,13 @@ typedef struct s_token
 
 typedef struct s_command
 {
-	char				*command_string;
-	int					index;
-	int					is_recalled; // New flag for history recall
-	t_token				*token_list;
-	struct s_command	*next;
-}				t_command;
+    char                *command_string;
+    int                 index;
+    int                 is_recalled; // New flag for history recall
+    t_token             *token_list;
+    struct s_command    *next;
+}               t_command;
+
 
 
 typedef struct s_shell_data

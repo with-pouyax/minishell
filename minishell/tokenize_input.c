@@ -1,18 +1,21 @@
 #include "minishell.h"
 
-t_command	*create_command(char *cmd_str, int index)
+t_command *create_command(char *cmd_str, int index)
 {
-	t_command	*cmd;
+    t_command *cmd;
 
-	cmd = malloc(sizeof(t_command));
-	if (!cmd)
-		return (NULL);
-	cmd->command_string = cmd_str;
-	cmd->index = index;
-	cmd->token_list = NULL;
-	cmd->next = NULL;
-	return (cmd);
+    cmd = malloc(sizeof(t_command));
+    if (!cmd)
+        return (NULL);
+    cmd->command_string = cmd_str;
+    cmd->index = index;
+    cmd->is_recalled = 0; // Initialize to 0
+    cmd->token_list = NULL;
+    cmd->next = NULL;
+    return (cmd);
 }
+
+
 void	skip_cmd_spaces(char *str, int *i)
 {
 	while (str[*i] && ft_isspace(str[*i]))

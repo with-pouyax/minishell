@@ -26,9 +26,9 @@ int	get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 
 void process_heredocs(void)
 {
-    t_command   *cmd;
-    t_token     *token;
-    int         input_index = 0;
+    t_command *cmd;
+    t_token *token;
+    int input_index = 0; // Declare and initialize input_index
 
     cmd = g_data.commands;
     while (cmd)
@@ -36,12 +36,12 @@ void process_heredocs(void)
         token = cmd->token_list;
         while (token)
         {
-            if (token->is_heredoc)
+            if (token->is_heredoc && !cmd->is_recalled)
             {
-                if (read_heredoc_content(token, &input_index))
+                if (read_heredoc_content(token, &input_index)) // Pass input_index here
                 {
                     g_data.error_flag = 1;
-                    return ;
+                    return;
                 }
             }
             token = token->next;
@@ -49,6 +49,8 @@ void process_heredocs(void)
         cmd = cmd->next;
     }
 }
+
+
 
 
 
