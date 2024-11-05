@@ -87,7 +87,7 @@ int		process_word(char *input, int *i, t_command *cmd,
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(char *input, int *i,
 			t_token *heredoc_token);
-int		read_heredoc_content(t_token *heredoc_token);
+int read_heredoc_content(t_token *heredoc_token, int *input_index);
 char	*generate_temp_filename(void);
 int		is_operator_char(char c);
 int		is_valid_operator(char *op);
@@ -178,6 +178,6 @@ int		get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
 void	process_heredocs(void);
 int	is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
-
+char *get_line_from_input(char *input, int *index);
 
 #endif

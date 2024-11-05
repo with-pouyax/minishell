@@ -24,30 +24,33 @@ int	get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 	return (0);
 }
 
-void	process_heredocs(void)
+void process_heredocs(void)
 {
-	t_command	*cmd;
-	t_token		*token;
+    t_command   *cmd;
+    t_token     *token;
+    int         input_index = 0;
 
-	cmd = g_data.commands;
-	while (cmd)
-	{
-		token = cmd->token_list;
-		while (token)
-		{
-			if (token->is_heredoc && !cmd->is_recalled)
-			{
-				if (read_heredoc_content(token))
-				{
-					g_data.error_flag = 1;
-					return ;
-				}
-			}
-			token = token->next;
-		}
-		cmd = cmd->next;
-	}
+    cmd = g_data.commands;
+    while (cmd)
+    {
+        token = cmd->token_list;
+        while (token)
+        {
+            if (token->is_heredoc)
+            {
+                if (read_heredoc_content(token, &input_index))
+                {
+                    g_data.error_flag = 1;
+                    return ;
+                }
+            }
+            token = token->next;
+        }
+        cmd = cmd->next;
+    }
 }
+
+
 
 int	process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 {
@@ -70,7 +73,8 @@ int	process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 	if (!delimiter)
 		return (1);
 	heredoc_token->heredoc_delimiter = delimiter;
-	if (read_heredoc_content(heredoc_token))
+	int input_index = 0;
+	if (read_heredoc_content(heredoc_token, &input_index))
 		return (1);
 	return (0);
 }
@@ -106,8 +110,20 @@ int	syntax_error_newline(void)
 		"`newline'\n", STDERR_FILENO);
 	return (1);
 }
+char *get_line_from_input(char *input, int *index)
+{
+    int start = *index;
+    while (input[*index] && input[*index] != '\n')
+        (*index)++;
+    char *line = ft_substr(input, start, *index - start);
+    if (input[*index] == '\n')
+        (*index)++;
+    return line;
+}
 
-int read_heredoc_content(t_token *heredoc_token)
+
+
+int read_heredoc_content(t_token *heredoc_token, int *input_index)
 {
     char    *line;
     int     fd;
@@ -121,16 +137,32 @@ int read_heredoc_content(t_token *heredoc_token)
     fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
     if (fd < 0)
         return (heredoc_open_error(tmp_filename));
-    while (1)
+
+    // Check if the command is recalled
+    if (g_data.commands->is_recalled)
     {
-        line = readline("heredoc> ");
-        if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted))
-            break;
+        while (1)
+        {
+            line = get_line_from_input(g_data.input, input_index);
+            if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted))
+                break;
+        }
+    }
+    else
+    {
+        while (1)
+        {
+            line = readline("> "); // Interactive prompt
+            if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted))
+                break;
+        }
     }
     close(fd);
     heredoc_token->heredoc_file = tmp_filename;
     return (0);
 }
+
+
 
 int	check_delimiter_quotes(t_token *heredoc_token)
 {
@@ -188,23 +220,24 @@ int handle_heredoc_line(char *line, t_token *heredoc_token, int fd, int delimite
 
 
 
-int	append_heredoc_full_input(char *line)
+int append_heredoc_full_input(char *line)
 {
-	g_data.full_input = ft_strjoin_and_free_first(
-			g_data.full_input, "\nheredoc> ");
-	if (!g_data.full_input)
-	{
-		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		return (1);
-	}
-	g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, line);
-	if (!g_data.full_input)
-	{
-		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		return (1);
-	}
-	return (0);
+    g_data.full_input = ft_strjoin_and_free_first(
+            g_data.full_input, "\n");
+    if (!g_data.full_input)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        return (1);
+    }
+    g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, line);
+    if (!g_data.full_input)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        return (1);
+    }
+    return (0);
 }
+
 
 int expand_and_write_line(char *line, int fd)
 {

@@ -19,30 +19,36 @@ int	handle_unclosed_quotes(void)
 	return (1);
 }
 
-int	append_additional_input(char *additional_input)
+int append_additional_input(char *additional_input)
 {
-	g_data.input = ft_strjoin_and_free_first(g_data.input, additional_input);
-	if (!g_data.input)
-	{
-		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		return (-1);
-	}
-	g_data.full_input = ft_strjoin_and_free_first(
-			g_data.full_input, "\nquote> ");
-	if (!g_data.full_input)
-	{
-		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		return (-1);
-	}
-	g_data.full_input = ft_strjoin_and_free_first(
-			g_data.full_input, additional_input);
-	if (!g_data.full_input)
-	{
-		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		return (-1);
-	}
-	return (0);
+    g_data.input = ft_strjoin_and_free_first(g_data.input, "\n");
+    if (!g_data.input)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        return (-1);
+    }
+    g_data.input = ft_strjoin_and_free_first(g_data.input, additional_input);
+    if (!g_data.input)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        return (-1);
+    }
+    g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, "\n");
+    if (!g_data.full_input)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        return (-1);
+    }
+    g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, additional_input);
+    if (!g_data.full_input)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        return (-1);
+    }
+    return (0);
 }
+
+
 
 void	process_input(void)
 {
