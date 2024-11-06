@@ -61,13 +61,19 @@ void	handle_input(void)
 
 	while (1)
 	{
-		g_data.input = readline(PROMPT); // Read input from the user and store it in .input
-		if (!g_data.input) // if ctrl-D is pressed
+		g_data.input = readline(PROMPT);
+		if (!g_data.input)
 			break ;
-		g_data.full_input = ft_strdup(g_data.input); // Copy the input to .full_input for history
-		if (check_unclosed_quotes(g_data.input)) // Check if there are unclosed quotes
+		if (ft_strlen(g_data.input) > MAX_INPUT_LENGTH)
 		{
-			ret = handle_unclosed_quotes(); // If there are unclosed quotes, prompt the user for more input
+			ft_putstr_fd("minishell: input too long\n", STDERR_FILENO);
+			free(g_data.input);
+			continue ;
+		}
+		g_data.full_input = ft_strdup(g_data.input);
+		if (check_unclosed_quotes(g_data.input))
+		{
+			ret = handle_unclosed_quotes();
 			if (ret <= 0)
 			{
 				cleanup();

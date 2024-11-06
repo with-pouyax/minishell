@@ -13,6 +13,7 @@
 # include "libft/libft.h"
 
 # define PROMPT "minishell> "
+# define MAX_INPUT_LENGTH 4096
 
 typedef struct s_token
 {
@@ -37,14 +38,12 @@ typedef struct s_token
 
 typedef struct s_command
 {
-    char                *command_string;
-    int                 index;
-    int                 is_recalled; // New flag for history recall
-    t_token             *token_list;
-    struct s_command    *next;
-}               t_command;
-
-
+	char				*command_string;
+	int					index;
+	int					is_recalled;
+	t_token				*token_list;
+	struct s_command	*next;
+}				t_command;
 
 typedef struct s_shell_data
 {
@@ -88,7 +87,7 @@ int		process_word(char *input, int *i, t_command *cmd,
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(char *input, int *i,
 			t_token *heredoc_token);
-int read_heredoc_content(t_token *heredoc_token, int *input_index);
+int		read_heredoc_content(t_token *heredoc_token, int *input_index);
 char	*generate_temp_filename(void);
 int		is_operator_char(char c);
 int		is_valid_operator(char *op);
@@ -146,7 +145,7 @@ void	print_operator_token(t_token *token);
 void	print_command_token(t_token *token);
 void	process_operator_details(char *op, t_command *cmd, int *i, int *index);
 int		free_and_return(char *str);
-char *get_variable_value(char *input, int *i, int *var_not_found_flag);
+char	*get_variable_value(char *input, int *i, int *var_not_found_flag);
 
 /* tokenize_input.c */
 void	tokenize_input(void);
@@ -177,8 +176,8 @@ char	*get_variable_value(char *input, int *i, int *var_not_found_flag);
 
 int		get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
 void	process_heredocs(void);
-int	is_recalled_command(char *input);
+int		is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
-char *get_line_from_input(char *input, int *index);
+char	*get_line_from_input(char *input, int *index);
 
 #endif
