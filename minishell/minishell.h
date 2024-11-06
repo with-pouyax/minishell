@@ -179,5 +179,8 @@ void	process_heredocs(void);
 int		is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
 char	*get_line_from_input(char *input, int *index);
+int		execute_commands(void);
+int handle_internal_commands(void);
+
 
 #endif
