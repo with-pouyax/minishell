@@ -183,4 +183,9 @@ int		execute_commands(void);
 int handle_internal_commands(void);
 
 
+// execute_command
+
+void 	execute_internal_command(t_command *cmd);
+void 	execute_external_command(t_command *cmd);
+
 #endif

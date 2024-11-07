@@ -15,7 +15,7 @@ int main(int argc, char **argv, char **envp)
     handle_input(); // This function handles input parsing and populates g_data.commands
 
     /* Execution Phase */
-    execute_commands();
+    // execute_commands();
 
     /* Internal Commands Handling Phase */
     handle_internal_commands();
@@ -27,12 +27,7 @@ int main(int argc, char **argv, char **envp)
     return (0);
 }
 
-/* Execution Function Stub */
-int execute_commands(void)
-{
-    // TODO: Implement command execution logic
-    return (1);
-}
+
 
 /* Internal Commands Handling Function Stub */
 int handle_internal_commands(void)

@@ -81,6 +81,7 @@ void	handle_input(void)
 			}
 		}
 		process_input();
+		execute_commands();
 		free(g_data.input);
 		g_data.input = NULL;
 		free(g_data.full_input);
