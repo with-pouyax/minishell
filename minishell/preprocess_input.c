@@ -20,6 +20,21 @@ void	preprocess_input(void)
 	g_data.commands = NULL;
 	tokenize_input();
 
+
+
+	if (!g_data.commands)
+    {
+        printf("preprocess_input: No commands parsed.\n");
+        return ;
+    }
+    else
+    {
+        printf("preprocess_input: Commands have been parsed and stored.\n");
+    }
+
+
+
+
 	if (!g_data.commands)
 		return ;
 
@@ -31,7 +46,7 @@ void	preprocess_input(void)
 
 	if (g_data.error_flag)
 	{
-		free_commands();
+		//free_commands();   lol
 		g_data.commands = NULL;
 		return ;
 	}
@@ -44,6 +59,6 @@ void	preprocess_input(void)
 	//expand_variables_in_tokens();
 	parse_tokens();
 	print_commands();
-	free_commands();
+	//free_commands();   lol
 }
 

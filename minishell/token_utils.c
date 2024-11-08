@@ -19,6 +19,11 @@ int	add_token(char *token_value, t_token **token_list,
 			current = current->next;
 		current->next = new_token;
 	}
+
+
+
+	printf("add_token: Added token #%d: %s (Operator: %d)\n", new_token->index, new_token->value, is_operator);
+
 	return (0);
 }
 
@@ -37,4 +42,8 @@ void	initialize_new_token(t_token *new_token, char *token_value,
 	new_token->heredoc_file = NULL;
 	new_token->heredoc_delimiter = NULL;
 	new_token->next = NULL;
+
+
+	printf("initialize_new_token: Initialized token #%d: %s\n", new_token->index, new_token->value);
+
 }

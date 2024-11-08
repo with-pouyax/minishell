@@ -81,10 +81,27 @@ void	handle_input(void)
 			}
 		}
 		process_input();
+
+/* 
+ * +-------------------------------+
+ * |        EXECUTION PHASE        |
+ * +-------------------------------+
+ */
+		execute_commands();
+/* 
+ * +-------------------------------+
+ * |        END EXECUTION          |
+ * +-------------------------------+
+ */
+
+
 		free(g_data.input);
 		g_data.input = NULL;
 		free(g_data.full_input);
 		g_data.full_input = NULL;
 	}
 	rl_clear_history();
+
+	printf("handle_input: Exiting input loop.\n");
+
 }

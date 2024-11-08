@@ -75,6 +75,20 @@ void	tokenize_input(void)
 		g_data.commands = NULL;
 		handle_tokenization_error(g_data.error_flag);
 	}
+
+
+
+
+
+
+
+	
+    else
+    {
+        printf("tokenize_input: Successfully parsed %d commands.\n", cmd_index);
+    }
+
+
 }
 
 void	skip_spaces(int *i)
