@@ -41,7 +41,7 @@ void	preprocess_input(void)
 	else if (g_data.input && ft_strlen(g_data.input) > 0)
 		add_history(g_data.input);
 
-	expand_variables_in_tokens();
+	//expand_variables_in_tokens();
 	parse_tokens();
 	print_commands();
 	free_commands();
