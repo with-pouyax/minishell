@@ -12,6 +12,10 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 
+#include "redirection.h"
+#include "internal_commands.h"
+#include "execute_commands.h"
+
 # define PROMPT "minishell> "
 # define MAX_INPUT_LENGTH 4096
 

@@ -82,18 +82,34 @@ void	handle_input(void)
 		}
 		process_input();
 
-/* 
- * +-------------------------------+
- * |        EXECUTION PHASE        |
- * +-------------------------------+
- */
-		execute_commands();
-/* 
- * +-------------------------------+
- * |        END EXECUTION          |
- * +-------------------------------+
- */
+		/* 
+		 * +-------------------------------+
+		 * |        NEXT PHASE        |
+		 * +-------------------------------+
+		 */
+		
+		// Handle redirections
+		if (handle_redirections() == -1)
+		{
+			
+			cleanup();
+			break ;
+		}
 
+		execute_internal_commands();
+
+		if (execute_commands() == -1)
+		{
+			
+			cleanup();
+			break ;
+		}
+		
+		/* 
+		 * +-------------------------------+
+		 * |        END EXECUTION          |
+		 * +-------------------------------+
+		 */
 
 		free(g_data.input);
 		g_data.input = NULL;
@@ -103,5 +119,5 @@ void	handle_input(void)
 	rl_clear_history();
 
 	printf("handle_input: Exiting input loop.\n");
-
 }
+

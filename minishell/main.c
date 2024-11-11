@@ -85,21 +85,7 @@ int main(int argc, char **argv, char **envp)
     return (0);
 }
 
-/* Execution Function Stub */
-int execute_commands(void)
-{
-    // +-----------------------+
-    // |      EXECUTION PHASE  |
-    // +-----------------------+
-    debug_print_commands();
-    // +-----------------------+
-    // |  END EXECUTION PHASE  |
-    // +-----------------------+
 
-    // TODO: Add actual command execution logic here.
-
-    return (0);
-}
 
 /* Internal Commands Handling Function Stub */
 int handle_internal_commands(void)

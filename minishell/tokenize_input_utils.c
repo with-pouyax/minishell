@@ -32,7 +32,7 @@ int	process_input_segment(int *i, int *cmd_index, t_command **last_cmd)
 	t_command	*cmd;
 
 	start = *i;
-	*i = extract_command_string(g_data.input, *i); //
+	*i = extract_command_string(g_data.input, *i); // here we take the command string from the input
 	cmd_str = ft_substr(g_data.input, start, *i - start);
 	if (!cmd_str)
 	{
@@ -99,10 +99,10 @@ void	skip_spaces(int *i)
 
 int	extract_command_string(char *input, int i)
 {
-	while (input[i] && input[i] != '|')
+	while (input[i] && input[i] != '|') // Loop through the input string
 	{
 		if (input[i] == '\'' || input[i] == '\"')
-			i = skip_quotes(input, i);
+			i = skip_quotes(input, i); // Skip quotes
 		else
 			i++;
 	}
