@@ -45,6 +45,11 @@ char	*expand_variable_token(char *input, int *i, int *var_not_found_flag)
 		(*i)++; // Skip the ? character
 		var_value = ft_itoa(g_data.exit_status); // Get the exit status from the global data struct and convert it to a string and store it in var_value
 	}
+	else if (input[*i] == ' ' || input[*i] == '=' || input[*i] == '+')
+	{
+		var_value = ft_strdup("$"); // If the character is a space, =, or + character, set var_value to a $ character
+		(*var_not_found_flag) = 1; // Set the var_not_found_flag to true
+	}
 	else // If the character is not a ? character 
 		var_value = get_variable_value(input, i, var_not_found_flag); // Get the value of the variable and store it in var_value
 	return (var_value); // Return the value of the variable
@@ -77,7 +82,7 @@ int	process_variable_expansion(char *input, int *i, char **result, int *flag)
 {
 	char	*temp;
 
-	(*i)++; // Skip the $ character
+		(*i)++; // Skip the $ character
 	temp = expand_variable_token(input, i, flag); // Expand the variable and store the result in temp
 	if (!temp)
 		return (1);
