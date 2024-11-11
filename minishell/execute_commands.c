@@ -5,7 +5,8 @@ int execute_commands(void)
     // +-----------------------+
     // |      EXECUTION PHASE  |
     // +-----------------------+
-    //debug_print_commands();
+    // Ensure debug_print_commands is declared in the header file or define it here
+    debug_print_commands();
     // +-----------------------+
     // |  END EXECUTION PHASE  |
     // +-----------------------+

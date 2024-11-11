@@ -36,7 +36,7 @@ void preprocess_input(void)
 
     if (g_data.error_flag)
     {
-        free_commands(); 
+        //free_commands(); //##important 
         g_data.commands = NULL;
         return;
     }
@@ -47,7 +47,7 @@ void preprocess_input(void)
 
     parse_tokens();
     print_commands();
-	free_commands();      
+	//free_commands();  //##important       
 }
 
 

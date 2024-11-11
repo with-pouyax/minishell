@@ -4,5 +4,7 @@
 #include "minishell.h"
 
 int execute_commands(void);
+int debug_print_commands(void);
+
 
 #endif
