@@ -82,35 +82,6 @@ void	handle_input(void)
 		}
 		process_input();
 
-		/* 
-		 * +-------------------------------+
-		 * |        NEXT PHASE        |
-		 * +-------------------------------+
-		 */
-		
-		// Handle redirections
-		if (handle_redirections() == -1)
-		{
-			
-			cleanup();
-			break ;
-		}
-
-		execute_internal_commands();
-
-		if (execute_commands() == -1)
-		{
-			
-			cleanup();
-			break ;
-		}
-		
-		/* 
-		 * +-------------------------------+
-		 * |        END EXECUTION          |
-		 * +-------------------------------+
-		 */
-
 		free(g_data.input);
 		g_data.input = NULL;
 		free(g_data.full_input);
@@ -120,4 +91,3 @@ void	handle_input(void)
 
 	printf("handle_input: Exiting input loop.\n");
 }
-

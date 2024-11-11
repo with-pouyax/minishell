@@ -28,17 +28,16 @@ void process_heredocs(void)
 {
     t_command *cmd;
     t_token *token;
-    int input_index = 0; // Declare and initialize input_index
 
     cmd = g_data.commands;
-    while (cmd)
+    while (cmd) // Loop through all commands
     {
         token = cmd->token_list;
         while (token)
         {
-            if (token->is_heredoc && !cmd->is_recalled)
+            if (token->is_heredoc)
             {
-                if (read_heredoc_content(token, &input_index)) // Pass input_index here
+                if (read_heredoc_content(token)) // Pass input_index here
                 {
                     g_data.error_flag = 1;
                     return;
@@ -49,6 +48,7 @@ void process_heredocs(void)
         cmd = cmd->next;
     }
 }
+
 
 
 
@@ -75,8 +75,7 @@ int	process_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 	if (!delimiter)
 		return (1);
 	heredoc_token->heredoc_delimiter = delimiter;
-	int input_index = 0;
-	if (read_heredoc_content(heredoc_token, &input_index))
+	if (read_heredoc_content(heredoc_token))
 		return (1);
 	return (0);
 }
@@ -125,46 +124,33 @@ char *get_line_from_input(char *input, int *index)
 
 
 
-int read_heredoc_content(t_token *heredoc_token, int *input_index)
+int	read_heredoc_content(t_token *heredoc_token)
 {
-    char    *line;
-    int     fd;
-    char    *tmp_filename;
-    int     delimiter_quoted;
+	char *line;
+	int fd;
+	char *tmp_filename;
+	int delimiter_quoted;
 
-    delimiter_quoted = check_delimiter_quotes(heredoc_token);
-    tmp_filename = generate_temp_filename();
-    if (!tmp_filename)
-        return (1);
-    fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
-    if (fd < 0)
-        return (heredoc_open_error(tmp_filename));
+	delimiter_quoted = check_delimiter_quotes(heredoc_token);
+	tmp_filename = generate_temp_filename();
+	if (!tmp_filename)
+		return (1);
+	fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (fd < 0)
+		return (heredoc_open_error(tmp_filename));
 
-    // Check if the command is recalled
-    if (g_data.commands->is_recalled)
-    {
-        while (1)
-        {
-            line = get_line_from_input(g_data.input, input_index);
-            if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted))
-                break;
-        }
-    }
-    else
-    {
-        while (1)
-        {
-            line = readline("> "); // Interactive prompt
-            if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted))
-                break;
-        }
-    }
-    close(fd);
-    heredoc_token->heredoc_file = tmp_filename;
-    return (0);
+	// Always read heredoc input interactively
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted))
+			break;
+	}
+
+	close(fd);
+	heredoc_token->heredoc_file = tmp_filename;
+	return (0);
 }
-
-
 
 int	check_delimiter_quotes(t_token *heredoc_token)
 {
@@ -183,6 +169,7 @@ int	check_delimiter_quotes(t_token *heredoc_token)
 	}
 	return (0);
 }
+
 
 int	heredoc_open_error(char *tmp_filename)
 {

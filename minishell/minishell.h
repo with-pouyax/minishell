@@ -91,7 +91,7 @@ int		process_word(char *input, int *i, t_command *cmd,
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(char *input, int *i,
 			t_token *heredoc_token);
-int		read_heredoc_content(t_token *heredoc_token, int *input_index);
+int		read_heredoc_content(t_token *heredoc_token);
 char	*generate_temp_filename(void);
 int		is_operator_char(char c);
 int		is_valid_operator(char *op);
