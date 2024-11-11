@@ -76,11 +76,7 @@ int main(int argc, char **argv, char **envp)
     /* Parsing Phase */
     handle_input(); // This function handles input parsing and populates g_data.commands
 
-    /* Execution Phase */
-    execute_commands();
 
-    /* Internal Commands Handling Phase */
-    handle_internal_commands();
     
 
     /* Cleanup before exiting */
