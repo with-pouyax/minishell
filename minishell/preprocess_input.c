@@ -42,8 +42,8 @@ void preprocess_input(void)
     }
 
     // Add only the initial input to history, excluding heredoc content
-    if (g_data.input && ft_strlen(g_data.input) > 0)
-        add_history(g_data.input);
+    if (g_data.full_input && ft_strlen(g_data.full_input) > 0)
+        add_history(g_data.full_input);
 
     parse_tokens();
     //print_commands(); // ##debug print
