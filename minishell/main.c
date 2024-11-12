@@ -63,6 +63,39 @@ int debug_print_commands(void)
     printf("Total Commands Executed: %d\n", command_count);
     return (0);
 }
+char **copy_envp(char **envp)
+{
+    int i;
+    int count;
+    char **new_envp;
+
+    // Count number of environment variables
+    count = 0;
+    while (envp[count])
+        count++;
+
+    // Allocate new envp
+    new_envp = malloc(sizeof(char *) * (count + 1));
+    if (!new_envp)
+        return NULL;
+
+    // Copy environment variables
+    for (i = 0; i < count; i++)
+    {
+        new_envp[i] = ft_strdup(envp[i]);
+        if (!new_envp[i])
+        {
+            // In case of failure, free already allocated strings
+            for (int j = 0; j < i; j++)
+                free(new_envp[j]);
+            free(new_envp);
+            return NULL;
+        }
+    }
+    new_envp[count] = NULL;
+
+    return new_envp;
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -70,14 +103,16 @@ int main(int argc, char **argv, char **envp)
     (void)argv;
 
     /* Initialize the shell */
-    g_data.envp = envp; // Save the environment variables in the global data struct
+    g_data.envp = copy_envp(envp); // Copy the environment variables
+    if (!g_data.envp)
+    {
+        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+        exit(EXIT_FAILURE);
+    }
     init_shell();
 
-    /* Parsing Phase */
-    handle_input(); // This function handles input parsing and populates g_data.commands
-
-
-    
+    /* Handle input and execute commands */
+    handle_input();
 
     /* Cleanup before exiting */
     cleanup();
@@ -87,9 +122,4 @@ int main(int argc, char **argv, char **envp)
 
 
 
-/* Internal Commands Handling Function Stub */
-int handle_internal_commands(void)
-{
-    // TODO: Implement internal command handling logic
-    return (1);
-}
+

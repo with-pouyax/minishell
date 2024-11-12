@@ -1,12 +1,28 @@
 #include "minishell.h"
 
-void	cleanup(void)
+void free_envp(void)
 {
-	free(g_data.input);
-	g_data.input = NULL;
-	free(g_data.full_input);
-	g_data.full_input = NULL;
-	free_commands();
+    int i;
+
+    if (!g_data.envp)
+        return;
+
+    for (i = 0; g_data.envp[i]; i++)
+    {
+        free(g_data.envp[i]);
+    }
+    free(g_data.envp);
+    g_data.envp = NULL;
+}
+
+void cleanup(void)
+{
+    free(g_data.input);
+    g_data.input = NULL;
+    free(g_data.full_input);
+    g_data.full_input = NULL;
+    free_commands();
+    free_envp();
 }
 
 void	handle_tokenization_error(int error_flag)

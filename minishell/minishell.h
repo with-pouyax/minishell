@@ -188,6 +188,7 @@ char	*get_line_from_input(char *input, int *index);
 int		execute_commands(void);
 int handle_internal_commands(void);
 int		execute_internal_commands(void);
-
+void    free_envp(void);
+char    **copy_envp(char **envp);
 
 #endif
