@@ -142,30 +142,29 @@ void	update_quote_flags(char c, int *in_single_quote, int *in_double_quote)
 		*in_double_quote = !(*in_double_quote);
 }
 
-void	expand_variables_in_tokens(void)
+void expand_variables_in_tokens(void)
 {
-	t_command	*cmd;
-	t_token		*token;
-	char		*expanded_value;
-	int			var_not_found_flag;
+    t_command *cmd;
+    t_token *token;
+    char *expanded_value;
+    int var_not_found_flag;
 
-	cmd = g_data.commands;
-	while (cmd)
-	{
-		token = cmd->token_list;
-		while (token)
-		{
-			if (!token->is_operator)
-			{
-				var_not_found_flag = 0;
-				expanded_value = expand_variables_in_token(token->value,
-						&var_not_found_flag);
-				free(token->value);
-				token->value = expanded_value;
-				token->var_not_found = var_not_found_flag;
-			}
-			token = token->next;
-		}
-		cmd = cmd->next;
-	}
+    cmd = g_data.commands;
+    while (cmd)
+    {
+        token = cmd->token_list;
+        while (token)
+        {
+            if (!token->is_operator)
+            {
+                var_not_found_flag = 0;
+                expanded_value = expand_variables_in_token(token->value, &var_not_found_flag);
+                free(token->value);
+                token->value = expanded_value;
+                token->var_not_found = var_not_found_flag;
+            }
+            token = token->next;
+        }
+        cmd = cmd->next;
+    }
 }

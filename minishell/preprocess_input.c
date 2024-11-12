@@ -2,52 +2,30 @@
 
 void preprocess_input(void)
 {
-    char *expanded_input;
-    int var_not_found_flag;
-
-    var_not_found_flag = 0;
-    expanded_input = expand_variables_in_token(g_data.input, &var_not_found_flag); // Expand variables in the input
-    if (!expanded_input) // If the expansion failed
-    {
-        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-        free(g_data.input);
-        free(g_data.full_input);
-        exit(EXIT_FAILURE);
-    }
-    free(g_data.input);
-    g_data.input = expanded_input; // Store the expanded input in g_data.input
     g_data.commands = NULL;
     tokenize_input();
 
     if (!g_data.commands)
-    {
-        //printf("preprocess_input: No commands parsed.\n"); // ##debug print
-        return;
-    }
-    else
-    {
-        //printf("preprocess_input: Commands have been parsed and stored.\n"); // ##debug print
-    }
-
-    if (!g_data.commands)
         return;
 
-    process_heredocs(); // Process heredocs after tokenization
+    expand_variables_in_tokens(); // Perform variable expansion on tokens after tokenization.
+
+    process_heredocs(); // Process heredocs after tokenization and variable expansion
 
     if (g_data.error_flag)
     {
-        //free_commands(); //##important 
+        //free_commands(); //##important
         g_data.commands = NULL;
         return;
     }
 
-    // Add only the initial input to history, excluding heredoc content
     if (g_data.full_input && ft_strlen(g_data.full_input) > 0)
         add_history(g_data.full_input);
 
     parse_tokens();
     print_commands(); // ##debug print
-	//free_commands();  //##important       
+    //free_commands();  //##important
 }
+
 
 

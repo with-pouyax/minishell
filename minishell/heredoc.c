@@ -180,11 +180,7 @@ int	heredoc_open_error(char *tmp_filename)
 
 int handle_heredoc_line(char *line, t_token *heredoc_token, int fd, int delimiter_quoted)
 {
-    if (append_heredoc_full_input(line))
-    {
-        free(line);
-        return (1);
-    }
+    
     if (ft_strcmp(line, heredoc_token->heredoc_delimiter) == 0)
     {
         free(line);
@@ -209,23 +205,7 @@ int handle_heredoc_line(char *line, t_token *heredoc_token, int fd, int delimite
 
 
 
-int append_heredoc_full_input(char *line)
-{
-    g_data.full_input = ft_strjoin_and_free_first(
-            g_data.full_input, "\n");
-    if (!g_data.full_input)
-    {
-        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-        return (1);
-    }
-    g_data.full_input = ft_strjoin_and_free_first(g_data.full_input, line);
-    if (!g_data.full_input)
-    {
-        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-        return (1);
-    }
-    return (0);
-}
+
 
 
 int expand_and_write_line(char *line, int fd)
