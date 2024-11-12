@@ -12,9 +12,7 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 
-#include "redirection.h"
-#include "internal_commands.h"
-#include "execute_commands.h"
+
 
 # define PROMPT "minishell> "
 # define MAX_INPUT_LENGTH 4096
@@ -61,6 +59,10 @@ typedef struct s_shell_data
 }				t_shell_data;
 
 extern t_shell_data	g_data;
+
+#include "redirection.h"
+#include "internal_commands.h"
+#include "execute_commands.h"
 
 /* Function Prototypes */
 
@@ -185,6 +187,7 @@ void	set_recalled_flag(t_command *commands);
 char	*get_line_from_input(char *input, int *index);
 int		execute_commands(void);
 int handle_internal_commands(void);
+int		execute_internal_commands(void);
 
 
 #endif

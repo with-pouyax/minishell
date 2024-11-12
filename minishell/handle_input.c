@@ -118,5 +118,5 @@ void	handle_input(void)
 	}
 	rl_clear_history();
 
-	printf("handle_input: Exiting input loop.\n");
+	//printf("handle_input: Exiting input loop.\n"); // ##debug print
 }

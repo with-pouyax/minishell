@@ -85,7 +85,7 @@ void	tokenize_input(void)
 	
     else
     {
-        printf("tokenize_input: Successfully parsed %d commands.\n", cmd_index);
+        //printf("tokenize_input: Successfully parsed %d commands.\n", cmd_index); // ##debug print
     }
 
 

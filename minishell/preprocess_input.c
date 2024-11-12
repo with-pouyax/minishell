@@ -21,12 +21,12 @@ void preprocess_input(void)
 
     if (!g_data.commands)
     {
-        printf("preprocess_input: No commands parsed.\n");
+        //printf("preprocess_input: No commands parsed.\n"); // ##debug print
         return;
     }
     else
     {
-        printf("preprocess_input: Commands have been parsed and stored.\n");
+        //printf("preprocess_input: Commands have been parsed and stored.\n"); // ##debug print
     }
 
     if (!g_data.commands)
@@ -46,7 +46,7 @@ void preprocess_input(void)
         add_history(g_data.input);
 
     parse_tokens();
-    print_commands();
+    //print_commands(); // ##debug print
 	//free_commands();  //##important       
 }
 

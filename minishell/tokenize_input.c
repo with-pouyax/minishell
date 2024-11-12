@@ -14,7 +14,7 @@ t_command *create_command(char *cmd_str, int index)
     cmd->next = NULL;
 	
 	
-	printf("create_command: Created command #%d: %s\n", index, cmd_str);
+	//printf("create_command: Created command #%d: %s\n", index, cmd_str); // ##debug print
 
     return (cmd);
 }
