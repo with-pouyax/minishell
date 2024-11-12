@@ -46,7 +46,7 @@ void preprocess_input(void)
         add_history(g_data.full_input);
 
     parse_tokens();
-    //print_commands(); // ##debug print
+    print_commands(); // ##debug print
 	//free_commands();  //##important       
 }
 
