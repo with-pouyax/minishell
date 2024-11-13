@@ -19,8 +19,7 @@ void preprocess_input(void)
         return;
     }
 
-    if (g_data.full_input && ft_strlen(g_data.full_input) > 0)
-        add_history(g_data.full_input);
+   
 
     parse_tokens();
     print_commands(); // ##debug print
