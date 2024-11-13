@@ -96,6 +96,18 @@ void	handle_input(void)
 			continue ;
 		}
 
+		// Check for trailing pipe
+		if (check_trailing_pipe(g_data.input))
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+			free(g_data.input);
+			free(g_data.full_input);
+			g_data.input = NULL;
+			g_data.full_input = NULL;
+			g_data.exit_status = 2; // Set appropriate exit status for syntax error
+			continue ;
+		}
+
 		// Process the input
 		process_input();
 

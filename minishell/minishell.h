@@ -190,5 +190,6 @@ int handle_internal_commands(void);
 int		execute_internal_commands(void);
 void    free_envp(void);
 char    **copy_envp(char **envp);
+int	check_trailing_pipe(char *input);
 
 #endif

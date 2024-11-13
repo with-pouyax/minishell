@@ -10,7 +10,7 @@ LIBFT_DIR = ./libft
 
 # Source files
 SRCS = main.c heredoc.c preprocess_input.c handle_input.c init_shell.c helpers.c lexer.c \
-       parser.c token_utils.c variable_expansion.c print_tokens.c \
+       parser.c token_utils.c variable_expansion.c print_tokens.c syntax_check.c \
        free_commands.c tokenize_input.c tokenize_input_utils.c execute_commands.c internal_commands.c redirection.c \
        ft_echo.c ft_cd.c ft_pwd.c ft_export.c ft_unset.c ft_env.c ft_exit.c internal_commands_utils.c
 
