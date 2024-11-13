@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "minishell.h": "c",
-        "termios.h": "c"
+        "termios.h": "c",
+        "internal_commands.h": "c"
     }
 }

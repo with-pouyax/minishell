@@ -2,6 +2,8 @@
 
 t_shell_data	g_data = {0};
 
+
+
 int debug_print_commands(void)
 {
     t_command *cmd = g_data.commands;
@@ -99,25 +101,27 @@ char **copy_envp(char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-    (void)argc;
-    (void)argv;
+	(void)argc;
+	(void)argv;
 
-    /* Initialize the shell */
-    g_data.envp = copy_envp(envp); // Copy the environment variables
-    if (!g_data.envp)
-    {
-        ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-        exit(EXIT_FAILURE);
-    }
-    init_shell();
+	/* Initialize the shell */
+	g_data.envp = copy_envp(envp); // Copy the environment variables
+	if (!g_data.envp)
+	{
+		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	init_shell();
 
-    /* Handle input and execute commands */
-    handle_input();
+	setup_signal_handlers(); // Set up signal handlers
 
-    /* Cleanup before exiting */
-    cleanup();
+	/* Handle input and execute commands */
+	handle_input();
 
-    return (0);
+	/* Cleanup before exiting */
+	cleanup();
+
+	return (0);
 }
 
 

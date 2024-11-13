@@ -59,28 +59,33 @@ void	handle_input(void)
 {
 	while (1)
 	{
+		// Display prompt and wait for user input
 		g_data.input = readline(PROMPT);
 		if (!g_data.input)
-			break ;
+		{
+			// Handle Ctrl-D (EOF): Exit the shell
+			write(1, "exit\n", 5);
+			break;
+		}
 
-		// Check input length
+		// Check for input length limits
 		if (ft_strlen(g_data.input) > MAX_INPUT_LENGTH)
 		{
 			ft_putstr_fd("minishell: input too long\n", STDERR_FILENO);
 			free(g_data.input);
-			continue ;
+			continue;
 		}
 
-		// Duplicate input
+		// Duplicate input for processing
 		g_data.full_input = ft_strdup(g_data.input);
 		if (!g_data.full_input)
 		{
 			ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 			free(g_data.input);
-			continue ;
+			continue;
 		}
 
-		// Add to history before syntax checking
+		// Add the full input to history before syntax checking
 		if (ft_strlen(g_data.full_input) > 0)
 			add_history(g_data.full_input);
 
@@ -93,7 +98,7 @@ void	handle_input(void)
 			g_data.input = NULL;
 			g_data.full_input = NULL;
 			g_data.exit_status = 2; // Set appropriate exit status for syntax error
-			continue ;
+			continue;
 		}
 
 		// Check for trailing pipe
@@ -105,48 +110,38 @@ void	handle_input(void)
 			g_data.input = NULL;
 			g_data.full_input = NULL;
 			g_data.exit_status = 2; // Set appropriate exit status for syntax error
-			continue ;
+			continue;
 		}
 
-		// Process the input
+		// Process the input, tokenize, parse, and prepare for execution
 		process_input();
 
-		/* 
-		 * +-------------------------------+
-		 * |        NEXT PHASE        |
-		 * +-------------------------------+
-		 */
-		
-		// Handle redirections
+		// Handle redirections if present
 		if (handle_redirections() == -1)
 		{
+			// Clean up if redirection fails
 			cleanup();
-			break ;
+			break;
 		}
 
 		// Execute internal commands
 		execute_internal_commands();
 
-		// Execute external commands
+		// Execute external commands if no internal command is matched
 		if (execute_commands() == -1)
 		{
+			// Clean up if command execution fails
 			cleanup();
-			break ;
+			break;
 		}
-		
-		/* 
-		 * +-------------------------------+
-		 * |        END EXECUTION          |
-		 * +-------------------------------+
-		 */
 
-		// Free input buffers
+		// Free input buffers after processing
 		free(g_data.input);
 		g_data.input = NULL;
 		free(g_data.full_input);
 		g_data.full_input = NULL;
 	}
-	rl_clear_history();
 
-	//printf("handle_input: Exiting input loop.\n"); // ##debug print
+	// Clear the readline history upon exit
+	rl_clear_history();
 }

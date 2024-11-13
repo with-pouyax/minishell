@@ -11,6 +11,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+#include <signal.h>
+
 
 
 
@@ -56,6 +58,7 @@ typedef struct s_shell_data
 	char					**envp;
 	int						exit_status;
 	int						error_flag;
+	int						in_child_process; // Add this line
 }				t_shell_data;
 
 extern t_shell_data	g_data;
@@ -191,5 +194,9 @@ int		execute_internal_commands(void);
 void    free_envp(void);
 char    **copy_envp(char **envp);
 int	check_trailing_pipe(char *input);
+
+void	setup_signal_handlers(void);
+void	sigint_handler(int sig);
+void	sigquit_handler(int sig);
 
 #endif
