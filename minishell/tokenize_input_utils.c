@@ -82,7 +82,7 @@ void	tokenize_input(void)
 	while (g_data.input[i]) // Loop through the input string
 	{
 		skip_spaces(&i); // Skip spaces
-		if (process_input_segment(&i, &cmd_index, &last_cmd)) // Process the input segment
+		if (process_input_segment(&i, &cmd_index, &last_cmd)) //
 			break ;
 	}
 	if (g_data.error_flag)
@@ -115,9 +115,9 @@ void	skip_spaces(int *i)
 
 int	extract_command_string(char *input, int i)
 {
-	while (input[i] && input[i] != '|') // Loop through the input string
+	while (input[i] && input[i] != '|') // Loop through the input string until we find a pipe
 	{
-		if (input[i] == '\'' || input[i] == '\"')
+		if (input[i] == '\'' || input[i] == '\"') // If we find a quote
 			i = skip_quotes(input, i); // Skip quotes
 		else
 			i++;

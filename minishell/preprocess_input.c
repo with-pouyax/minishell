@@ -3,14 +3,12 @@
 void preprocess_input(void)
 {
     g_data.commands = NULL;
-    tokenize_input();
+    tokenize_input(); // Tokenize the input string after variable expansion
 
     if (!g_data.commands)
         return;
 
-    expand_variables_in_tokens(); // Perform variable expansion on tokens after tokenization.
-
-    process_heredocs(); // Process heredocs after tokenization and variable expansion
+    process_heredocs(); // Process heredocs after tokenization
 
     if (g_data.error_flag)
     {
@@ -19,12 +17,11 @@ void preprocess_input(void)
         return;
     }
 
-   
-
     parse_tokens();
     print_commands(); // ##debug print
     //free_commands();  //##important
 }
+
 
 
 

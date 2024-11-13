@@ -19,15 +19,15 @@ int	check_unclosed_quotes(char *input)
 	in_single_quote = 0;
 	in_double_quote = 0;
 	i = 0;
-	while (input[i])
+	while (input[i]) // loop through the input string
 	{
-		if (input[i] == '\'' && !in_double_quote)
-			in_single_quote = !in_single_quote;
-		else if (input[i] == '\"' && !in_single_quote)
-			in_double_quote = !in_double_quote;
+		if (input[i] == '\'' && !in_double_quote) // if single quote and not in double quote
+			in_single_quote = !in_single_quote; // reverse the value of in_single_quote
+		else if (input[i] == '\"' && !in_single_quote) // if double quote and not in single quote
+			in_double_quote = !in_double_quote; // reverse the value of in_double_quote
 		i++;
 	}
-	return (in_single_quote || in_double_quote);
+	return (in_single_quote || in_double_quote); // Return 1 if any of the quotes are 1, 0 otherwise.
 }
 
 char	*ft_strdup_free(char *s1)

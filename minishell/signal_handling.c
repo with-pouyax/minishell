@@ -5,29 +5,26 @@
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	if (g_data.in_child_process)
+	if (g_data.in_child_process) // Check if in child process (executing a command)
 	{
-		// If in child process, default behavior
-		write(1, "\n", 1);
+		write(1, "\n", 1); // Write newline
 	}
-	else
+	else // Not in child process
 	{
-		// If in parent process, write newline and re-display prompt
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		write(1, "\n", 1); // Write newline
+		rl_replace_line("", 0); // Clear the input line
+		rl_on_new_line(); // Move cursor to new line
+		rl_redisplay(); // Redisplay the prompt
 	}
 }
 
 void	sigquit_handler(int sig)
 {
 	(void)sig;
-	// Do nothing
 }
 
 void	setup_signal_handlers(void)
 {
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGINT, sigint_handler); // Handle SIGINT (Ctrl-C)
+	signal(SIGQUIT, sigquit_handler); // Handle SIGQUIT (Ctrl-\)
 }

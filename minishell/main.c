@@ -71,30 +71,24 @@ char **copy_envp(char **envp)
     int count;
     char **new_envp;
 
-    // Count number of environment variables
     count = 0;
-    while (envp[count])
+    while (envp[count]) // Count the number of environment variables, envp is an array of strings
         count++;
-
-    // Allocate new envp
-    new_envp = malloc(sizeof(char *) * (count + 1));
+    new_envp = malloc(sizeof(char *) * (count + 1)); // Allocate memory for the environment variables
     if (!new_envp)
         return NULL;
-
-    // Copy environment variables
-    for (i = 0; i < count; i++)
+    for (i = 0; i < count; i++) // loop through the environment variables
     {
-        new_envp[i] = ft_strdup(envp[i]);
+        new_envp[i] = ft_strdup(envp[i]); //Copy each environment variable to new_envp, which is an array of strings
         if (!new_envp[i])
         {
-            // In case of failure, free already allocated strings
             for (int j = 0; j < i; j++)
                 free(new_envp[j]);
             free(new_envp);
             return NULL;
         }
     }
-    new_envp[count] = NULL;
+    new_envp[count] = NULL; // Set the last element of new_envp to NULL
 
     return new_envp;
 }
@@ -104,23 +98,16 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	/* Initialize the shell */
-	g_data.envp = copy_envp(envp); // Copy the environment variables
+    g_data.envp = copy_envp(envp); // Copy the environment variables and store them in g_data
 	if (!g_data.envp)
 	{
 		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	init_shell();
-
 	setup_signal_handlers(); // Set up signal handlers
-
-	/* Handle input and execute commands */
 	handle_input();
-
-	/* Cleanup before exiting */
 	cleanup();
-
 	return (0);
 }
 

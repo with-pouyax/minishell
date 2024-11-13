@@ -108,6 +108,7 @@ char	*expand_variable_token(char *input, int *i,
 			int *var_not_found_flag);
 char	*expand_variables_in_token(char *input,
 			int *var_not_found_flag);
+void expand_variables_in_input(void);
 char	*get_literal_char(char *input, int *i);
 
 /* String Manipulation Utilities */

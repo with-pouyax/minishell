@@ -141,6 +141,23 @@ void	update_quote_flags(char c, int *in_single_quote, int *in_double_quote)
 	else if (c == '\"' && !(*in_single_quote))
 		*in_double_quote = !(*in_double_quote);
 }
+void expand_variables_in_input(void)
+{
+    char *expanded_input;
+    int var_not_found_flag = 0;
+
+    expanded_input = expand_variables_in_token(g_data.input, &var_not_found_flag);
+    if (!expanded_input)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+        free(g_data.input);
+        g_data.input = NULL;
+        g_data.exit_status = 1;
+        return;
+    }
+    free(g_data.input);
+    g_data.input = expanded_input;
+}
 
 void expand_variables_in_tokens(void)
 {
