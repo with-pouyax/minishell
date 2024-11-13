@@ -65,7 +65,9 @@ int	process_input_segment(int *i, int *cmd_index, t_command **last_cmd)
 	}
 	add_command_to_list(last_cmd, cmd); // we add the command to the list of commands,
 	if (g_data.input[*i] == '|')
-		(*i)++;
+		{
+			(*i)++;
+		}
 	return (0);
 }
 

@@ -53,8 +53,7 @@ void	print_commands(void)
 	cmd = g_data.commands;
 	while (cmd)
 	{
-		printf("Command #%d: '%s'\n", cmd->index, cmd->command_string);
-		print_tokens(cmd->token_list);
+		printf("Command index:%d command_nb :%d pipe_nb :%d '%s'\n", cmd->index, cmd->cmds_nb, cmd->pipe_nb, cmd->command_string);		print_tokens(cmd->token_list);
 		cmd = cmd->next;
 	}
 }

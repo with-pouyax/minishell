@@ -44,6 +44,8 @@ typedef struct s_command
 {
 	char				*command_string;
 	int					index;
+	int					pipe_nb;
+	int					cmds_nb;
 	int					is_recalled;
 	t_token				*token_list;
 	struct s_command	*next;

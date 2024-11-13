@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_command *create_command(char *cmd_str, int index)
+t_command	*create_command(char *cmd_str, int index)
 {
     t_command *cmd;
 
@@ -9,7 +9,9 @@ t_command *create_command(char *cmd_str, int index)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-    cmd->is_recalled = 0;
+	cmd->cmds_nb = index + 1;
+    // cmd->cmds_nb = cmds_nb;   // Store the command number
+    // cmd->pipe_nb = pipe_nb;   // Store the pipe number    cmd->is_recalled = 0;
     cmd->token_list = NULL;
     cmd->next = NULL;
 	//printf("create_command: Created command #%d: %s\n", index, cmd_str); // ##debug print

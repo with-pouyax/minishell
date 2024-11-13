@@ -72,6 +72,8 @@ char **copy_envp(char **envp)
     char **new_envp;
 
     count = 0;
+    // if (!envp || !envp[0])
+    //     exit(EXIT_FAILURE);
     while (envp[count]) // Count the number of environment variables, envp is an array of strings
         count++;
     new_envp = malloc(sizeof(char *) * (count + 1)); // Allocate memory for the environment variables
@@ -98,7 +100,33 @@ The isatty function is used to check if a file descriptor refers to a terminal.
 first : Makes sure that the terminal is linked to the STDIN
 */
 
+void    execution()
+{
+    t_command	*cmd;
+    int         process_index;
+    int         saved_stdin;
+    int         saved_stdout;
 
+    process_index = 0;
+	cmd = g_data.commands;
+    cmd->pipe_nb = init_pipes(cmd->cmds_nb);
+	while (cmd)
+	{
+        exec_cmd();
+    }
+
+    // if (execute_internal_commands() == -1)
+    // {
+    //     //cleanup();
+    //     // break;
+    // }
+    // if (execute_commands() == -1)
+    // {
+    //     // cleanup();
+    //     // break;
+    // }
+
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -107,7 +135,7 @@ int main(int argc, char **argv, char **envp)
 
     if (!isatty(STDIN_FILENO))
         exit(EXIT_FAILURE);
-    ft_bzero(&g_data, envp);
+    ft_bzero(&g_data, sizeof(t_shell_data));
     g_data.envp = copy_envp(envp); // Copy the environment variables and store them in g_data
 	if (!g_data.envp)
 	{
@@ -117,6 +145,7 @@ int main(int argc, char **argv, char **envp)
 	init_shell();
 	setup_signal_handlers(); // Set up signal handlers
 	handle_input();
+    execution();
 	cleanup();
 	return (0);
 }

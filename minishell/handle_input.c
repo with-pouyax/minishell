@@ -52,20 +52,20 @@ void	handle_input(void)
 			continue;
 		}
 		process_input(); // Expand variables and preprocess input 
-		if (execute_internal_commands() == -1)
-		{
-			//cleanup();
-			break;
-		}
-		if (execute_commands() == -1)
-		{
-			cleanup();
-			break;
-		}
-		free(g_data.input);
-		g_data.input = NULL;
-		free(g_data.full_input);
-		g_data.full_input = NULL;
+		// if (execute_internal_commands() == -1)
+	// 	{
+	// 		//cleanup();
+	// 		break;
+	// 	}
+	// 	if (execute_commands() == -1)
+	// 	{
+	// 		cleanup();
+	// 		break;
+	// 	}
+	// 	free(g_data.input);
+	// 	g_data.input = NULL;
+	// 	free(g_data.full_input);
+	// 	g_data.full_input = NULL;
 	}
 	rl_clear_history();
 }
