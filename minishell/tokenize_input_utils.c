@@ -48,14 +48,14 @@ int	process_input_segment(int *i, int *cmd_index, t_command **last_cmd)
 	t_command	*cmd;
 
 	start = *i;
-	*i = extract_command_string(g_data.input, *i); // here we take the command string from the input
-	cmd_str = ft_substr(g_data.input, start, *i - start);
+	*i = extract_command_string(g_data.input, *i); // here we find the end index of the command, before the pipe
+	cmd_str = ft_substr(g_data.input, start, *i - start); // we extract the command string from the input and store it in cmd_str
 	if (!cmd_str)
 	{
 		g_data.error_flag = 2;
 		return (1);
 	}
-	cmd = create_command(cmd_str, (*cmd_index)++);
+	cmd = create_command(cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
 	if (!cmd || tokenize_command(cmd))
 	{
 		free(cmd_str);
@@ -63,7 +63,7 @@ int	process_input_segment(int *i, int *cmd_index, t_command **last_cmd)
 		g_data.error_flag = 2;
 		return (1);
 	}
-	add_command_to_list(last_cmd, cmd);
+	add_command_to_list(last_cmd, cmd); // we add the command to the list of commands,
 	if (g_data.input[*i] == '|')
 		(*i)++;
 	return (0);
@@ -82,7 +82,7 @@ void	tokenize_input(void)
 	while (g_data.input[i]) // Loop through the input string
 	{
 		skip_spaces(&i); // Skip spaces
-		if (process_input_segment(&i, &cmd_index, &last_cmd)) //
+		if (process_input_segment(&i, &cmd_index, &last_cmd)) // here we save each command in a linked list
 			break ;
 	}
 	if (g_data.error_flag)
@@ -91,20 +91,10 @@ void	tokenize_input(void)
 		g_data.commands = NULL;
 		handle_tokenization_error(g_data.error_flag);
 	}
-
-
-
-
-
-
-
-	
-    else
-    {
-        //printf("tokenize_input: Successfully parsed %d commands.\n", cmd_index); // ##debug print
-    }
-
-
+	// else
+    // {
+    //     printf("tokenize_input: Successfully parsed %d commands.\n", cmd_index); // ##debug print
+    // }
 }
 
 void	skip_spaces(int *i)

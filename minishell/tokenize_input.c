@@ -9,14 +9,11 @@ t_command *create_command(char *cmd_str, int index)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-    cmd->is_recalled = 0; // Initialize to 0
+    cmd->is_recalled = 0;
     cmd->token_list = NULL;
     cmd->next = NULL;
-	
-	
 	//printf("create_command: Created command #%d: %s\n", index, cmd_str); // ##debug print
-
-    return (cmd);
+	return (cmd);
 }
 
 
