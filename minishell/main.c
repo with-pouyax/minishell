@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_shell_data	g_data = {0};
+t_shell_data	g_data;
 
 
 
@@ -93,11 +93,21 @@ char **copy_envp(char **envp)
     return new_envp;
 }
 
+/*
+The isatty function is used to check if a file descriptor refers to a terminal.
+first : Makes sure that the terminal is linked to the STDIN
+*/
+
+
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
 
+    if (!isatty(STDIN_FILENO))
+        exit(EXIT_FAILURE);
+    ft_bzero(&g_data, envp);
     g_data.envp = copy_envp(envp); // Copy the environment variables and store them in g_data
 	if (!g_data.envp)
 	{
