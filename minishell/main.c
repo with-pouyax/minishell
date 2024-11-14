@@ -100,33 +100,6 @@ The isatty function is used to check if a file descriptor refers to a terminal.
 first : Makes sure that the terminal is linked to the STDIN
 */
 
-void    execution()
-{
-    t_command	*cmd;
-    int         process_index;
-    int         saved_stdin;
-    int         saved_stdout;
-
-    process_index = 0;
-	cmd = g_data.commands;
-    cmd->pipe_nb = init_pipes(cmd->cmds_nb);
-	while (cmd)
-	{
-        exec_cmd();
-    }
-
-    // if (execute_internal_commands() == -1)
-    // {
-    //     //cleanup();
-    //     // break;
-    // }
-    // if (execute_commands() == -1)
-    // {
-    //     // cleanup();
-    //     // break;
-    // }
-
-}
 
 int main(int argc, char **argv, char **envp)
 {
