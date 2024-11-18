@@ -57,11 +57,17 @@ void	handle_input(void)
 			//cleanup();
 			break;
 		}
+
+		//free_commands(); // ##important
 		if (execute_commands() == -1)
 		{
 			cleanup();
 			break;
 		}
+
+		free_commands(); // ##important
+		
+
 		free(g_data.input);
 		g_data.input = NULL;
 		free(g_data.full_input);
