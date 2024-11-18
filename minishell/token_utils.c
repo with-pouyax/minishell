@@ -31,6 +31,7 @@ void	initialize_new_token(t_token *new_token, char *token_value,
 		int *index, int is_operator)
 {
 	new_token->value = token_value;
+	new_token->original_value = NULL; // Initialize original_value to NULL
 	new_token->index = (*index)++;
 	new_token->is_operator = is_operator;
 	new_token->is_command = 0;
@@ -39,11 +40,10 @@ void	initialize_new_token(t_token *new_token, char *token_value,
 	new_token->var_not_found = 0;
 	new_token->wrong_operator = 0;
 	new_token->is_heredoc = 0;
-	new_token->heredoc_file = NULL;
 	new_token->heredoc_delimiter = NULL;
+	new_token->heredoc_file = NULL;
 	new_token->next = NULL;
 
-
 	//printf("initialize_new_token: Initialized token #%d: %s\n", new_token->index, new_token->value); // ##debug print
-
 }
+

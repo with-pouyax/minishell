@@ -22,6 +22,7 @@
 typedef struct s_token
 {
 	char			*value;
+	char			*original_value; // New field added
 	int				index;
 	int				is_command;
 	int				is_builtin;
@@ -39,6 +40,7 @@ typedef struct s_token
 	char			*heredoc_file;
 	struct s_token	*next;
 }				t_token;
+
 
 typedef struct s_command
 {

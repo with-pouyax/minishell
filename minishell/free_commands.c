@@ -10,12 +10,15 @@ void	free_tokens(t_token *token_list)
 	{
 		next_token = token->next;
 		free(token->value);
+		if (token->original_value)
+			free(token->original_value); // Free original_value if it exists
 		if (token->is_heredoc)
 			free_heredoc_token(token);
 		free(token);
 		token = next_token;
 	}
 }
+
 
 void	free_heredoc_token(t_token *token)
 {
