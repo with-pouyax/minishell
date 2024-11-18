@@ -85,10 +85,10 @@ void handle_input(void)
         // fflush(stdout);
         process_input();
         // printf("Debug: Finished process_input()\n");
-        fflush(stdout);
+        // fflush(stdout);
 
         printf("Debug: Starting execution()---------------------------------------\n");
-        // execution(); // Add execution logic here
+        execution(); // Add execution logic here
         printf("Debug: Finished execution()\n");
 
         free(g_data.input);

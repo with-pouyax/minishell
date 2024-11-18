@@ -4,48 +4,68 @@
 
 void exec_cmd(t_command *cmd, int index, int total_pipes)
 {
-    pid_t   pid;           //fork()
+    pid_t   pid;           // fork()
     int     *pipe_in;
     int     *pipe_out;
     int		status;
 
     pipe_in = NULL;
     pipe_out = NULL;
+
+    printf("Debug: Starting exec_cmd for command #%d\n", index);
     pid = fork();
     if (pid == -1)
-        exit(EXIT_FAILURE);
-    if (pid == 0)
     {
-        // redirection if it's not a first cmd
-        if (index > 0)   //if it's not a first cmd
+        perror("Fork failed");
+        exit(EXIT_FAILURE);
+    }
+
+    if (pid == 0)  // Child process
+    {
+        printf("Debug: In child process for command #%d\n", index);
+
+        // Redirection if it's not the first command
+        if (index > 0)  
         {
-            pipe_in = g_data.commands[index - 1].pipes[1];  // gets the write end of the previous command's pipe
-            dup2(pipe_in[0], STDIN_FILENO);                 // Redirect input from previous pipe (read end)        }
-            close(pipe_in[0]);  // Close after dup
-            close(pipe_in[1]);
+            pipe_in = g_data.commands[index - 1].pipes[1];  // Previous command's pipe
+            printf("Debug: Redirecting input from pipe_in[0] for command #%d\n", index);
+            dup2(pipe_in[0], STDIN_FILENO);  // Redirect input
+            close(pipe_in[0]);  // Close read end after dup
+            close(pipe_in[1]);  // Close write end
         }
-        // redirection (if there is a next pipe)
+
+        // Redirection if there is a next pipe
         if (index < total_pipes)
         {
             pipe_out = cmd->pipes[index];
-            dup2(pipe_out[1], STDOUT_FILENO);
-            close(pipe_out[0]);
-            close(pipe_out[1]);
+            printf("Debug: Redirecting output to pipe_out[1] for command #%d\n", index);
+            dup2(pipe_out[1], STDOUT_FILENO);  // Redirect output
+            close(pipe_out[0]);  // Close read end
+            close(pipe_out[1]);  // Close write end
         }
-         if (cmd->token_list->is_int == 1)
-         {
-            execute_internal_commands();
-         }
-         else
-         {
-            execute_external_commands(cmd->token_list);
-         }
-        exit(EXIT_SUCCESS);  // Ensure the child process exits properly
-    }
-    else
-        waitpid(pid, &status, 0);   // Parent process: Wait for the child to finish
-}
 
+        // Execute internal or external commands
+        if (cmd->token_list->is_int == 1)
+        {
+            printf("Debug: Executing internal command for command #%d\n", index);
+            execute_internal_commands();
+        }
+        else
+        {
+            printf("Debug: Executing external command for command #%d: %s\n", index, cmd->token_list->value);
+            execute_external_commands(cmd->token_list);
+        }
+
+        printf("Debug: Exiting child process for command #%d\n", index);
+        exit(EXIT_SUCCESS);  // Exit child process
+    }
+    else  // Parent process
+    {
+        printf("Debug: In parent process, waiting for child #%d\n", index);
+        waitpid(pid, &status, 0);
+        printf("Debug: Child #%d finished with status %d\n", index, WEXITSTATUS(status));
+    }
+}
 
 
 void execution()
@@ -61,7 +81,7 @@ void execution()
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
 
-    printf("Debug: Saved original stdin (%d) and stdout (%d)\n", saved_stdin, saved_stdout);
+    // printf("Debug: Saved original stdin (%d) and stdout (%d)\n", saved_stdin, saved_stdout);
 
     cmd = g_data.commands;
 
@@ -75,15 +95,15 @@ void execution()
     // Initialize pipes for each command if there are multiple
     cmd->pipe_nb = cmd->cmds_nb - 1;  // Set number of pipes based on command count
     cmd->pipes = init_pipes(cmd->cmds_nb);  // Initialize pipes
-    printf("Debug: Pipes initialized. cmd->pipe_nb = %d, cmd->cmds_nb = %d\n", cmd->pipe_nb, cmd->cmds_nb);
+    // printf("Debug: Pipes initialized. cmd->pipe_nb = %d, cmd->cmds_nb = %d\n", cmd->pipe_nb, cmd->cmds_nb);
 
     // Loop through each command in the command list
     while (cmd)
     {
-        printf("Debug: Executing command #%d: '%s'\n", process_index, cmd->command_string);
+        // printf("Debug: Executing command #%d: '%s'\n", process_index, cmd->command_string);
         
         // Debugging the process of executing the command
-        printf("Debug: Calling exec_cmd() with process_index = %d, pipe_nb = %d\n", process_index, cmd->pipe_nb);
+        printf("Debug: Calling exec_cmd() : pipe_nb = %d, Executing command %s\n", cmd->pipe_nb, cmd->command_string);
         exec_cmd(cmd, process_index, cmd->pipe_nb); // Execute the command in a separate process
         
         // Move to the next command in the linked list
@@ -92,7 +112,7 @@ void execution()
     }
 
     // Restore original stdin and stdout
-    printf("Debug: Restoring original stdin and stdout\n");
+    // printf("Debug: Restoring original stdin and stdout\n");
     dup2(saved_stdin, STDIN_FILENO);
     dup2(saved_stdout, STDOUT_FILENO);
 
@@ -100,5 +120,5 @@ void execution()
     close(saved_stdin);
     close(saved_stdout);
 
-    printf("Debug: stdin and stdout restored and closed\n");
+    // printf("Debug: stdin and stdout restored and closed\n");
 }
