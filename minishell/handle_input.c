@@ -35,7 +35,7 @@ void handle_input(void)
         }
 
         g_data.full_input = ft_strdup(g_data.input);
-        // printf("Debug: ft_strdup complete. g_data.full_input = '%s'\n", g_data.full_input);
+        printf("Debug: full_command= '%s'\n", g_data.full_input);
 
         if (!g_data.full_input)
         {
@@ -88,7 +88,7 @@ void handle_input(void)
         fflush(stdout);
 
         printf("Debug: Starting execution()---------------------------------------\n");
-        execution(); // Add execution logic here
+        // execution(); // Add execution logic here
         printf("Debug: Finished execution()\n");
 
         free(g_data.input);
