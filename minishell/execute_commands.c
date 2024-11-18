@@ -47,7 +47,6 @@ void exec_cmd(t_command *cmd, int index, int total_pipes)
 }
 
 
-#include "minishell.h"
 
 void execution()
 {

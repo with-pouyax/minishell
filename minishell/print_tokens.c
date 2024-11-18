@@ -40,7 +40,7 @@ void	print_tokens(t_token *token_list)
 	while (token)
 	{
 		printf("Token: '%s', Index: %d\n", token->value, token->index);
-		print_token_details(token);
+		// print_token_details(token);
 		token = token->next;
 	}
 }
@@ -53,7 +53,8 @@ void	print_commands(void)
 	cmd = g_data.commands;
 	while (cmd)
 	{
-		printf("Command index:%d command_nb :%d pipe_nb :%d '%s'\n", cmd->index, cmd->cmds_nb, cmd->pipe_nb, cmd->command_string);		print_tokens(cmd->token_list);
+		printf("Command index:%d command_nb :%d pipe_nb :%d '%s'\n", cmd->index, cmd->cmds_nb, cmd->pipe_nb, cmd->command_string);
+		print_tokens(cmd->token_list);
 		cmd = cmd->next;
 	}
 }
