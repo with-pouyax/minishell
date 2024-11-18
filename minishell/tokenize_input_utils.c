@@ -79,6 +79,10 @@ void	tokenize_input(void)
 	cmd_index = 0;
 	last_cmd = NULL;
 	g_data.error_flag = 0;
+
+	if (!g_data.input)
+        return;
+
 	while (g_data.input[i]) // Loop through the input string
 	{
 		skip_spaces(&i); // Skip spaces
