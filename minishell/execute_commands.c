@@ -2,44 +2,6 @@
 
 
 
-// int execute_commands(void)
-// {
-//     // +-----------------------+
-//     // |      EXECUTION PHASE  |
-//     // +-----------------------+
-//     // Ensure debug_print_commands is declared in the header file or define it here
-//     //debug_print_commands(); // ##debug print
-//     // +-----------------------+
-//     // |  END EXECUTION PHASE  |
-//     // +-----------------------+
-
-//     // TODO: Add actual command execution logic here.
-
-//     return (0);
-// }
-int **init_pipes(int cmds_nb)
-{
-    int **pipes;
-    int i;
-
-    i = 0;
-    if (cmds_nb == 1)
-        return (NULL);
-    pipes = malloc(sizeof(int *) * (cmds_nb - 1));
-    if (!pipes)
-        exit (EXIT_FAILURE);
-    while (i < (cmds_nb - 1))
-    {
-        pipes[i] = malloc(sizeof(int) * 2); //2 for read and write
-        if (!pipes[i])
-            exit (EXIT_FAILURE);
-        if (pipe(pipes[i]) == -1)
-            exit (EXIT_FAILURE);
-        i++;
-    }
-    return (pipes);
-}
-
 void exec_cmd(t_command *cmd, int index, int total_pipes)
 {
     pid_t   pid;           //fork()
@@ -85,31 +47,59 @@ void exec_cmd(t_command *cmd, int index, int total_pipes)
 }
 
 
-void    execution()
+#include "minishell.h"
+
+void execution()
 {
-    t_command	*cmd;
-    int         process_index;
-    int         saved_stdin;
-    int         saved_stdout;
+    t_command *cmd;
+    int process_index;
+    int saved_stdin;
+    int saved_stdout;
 
     process_index = 0;
-    saved_stdin = dup(STDIN_FILENO); // Save original stdin and stdout
+
+    // Save original stdin and stdout to restore later
+    saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
-	cmd = g_data.commands;
-    cmd->pipe_nb = cmd->cmds_nb - 1;
-    cmd->pipes = init_pipes(cmd->cmds_nb);
-	while (cmd)
-	{
-        exec_cmd(cmd, process_index, cmd->pipe_nb); // Execute command in a separate process
+
+    printf("Debug: Saved original stdin (%d) and stdout (%d)\n", saved_stdin, saved_stdout);
+
+    cmd = g_data.commands;
+
+    // If no commands, print debug and exit
+    if (!cmd) 
+    {
+        printf("Debug: No commands to execute, exiting execution function.\n");
+        return;
+    }
+
+    // Initialize pipes for each command if there are multiple
+    cmd->pipe_nb = cmd->cmds_nb - 1;  // Set number of pipes based on command count
+    cmd->pipes = init_pipes(cmd->cmds_nb);  // Initialize pipes
+    printf("Debug: Pipes initialized. cmd->pipe_nb = %d, cmd->cmds_nb = %d\n", cmd->pipe_nb, cmd->cmds_nb);
+
+    // Loop through each command in the command list
+    while (cmd)
+    {
+        printf("Debug: Executing command #%d: '%s'\n", process_index, cmd->command_string);
+        
+        // Debugging the process of executing the command
+        printf("Debug: Calling exec_cmd() with process_index = %d, pipe_nb = %d\n", process_index, cmd->pipe_nb);
+        exec_cmd(cmd, process_index, cmd->pipe_nb); // Execute the command in a separate process
+        
+        // Move to the next command in the linked list
         cmd = cmd->next;
-        process_index++;
+        process_index++;  // Increment the process index for the next command
     }
 
     // Restore original stdin and stdout
+    printf("Debug: Restoring original stdin and stdout\n");
     dup2(saved_stdin, STDIN_FILENO);
     dup2(saved_stdout, STDOUT_FILENO);
 
     // Close saved stdin and stdout
     close(saved_stdin);
     close(saved_stdout);
+
+    printf("Debug: stdin and stdout restored and closed\n");
 }

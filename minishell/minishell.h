@@ -207,5 +207,7 @@ void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 // execution
 void    execution();
+int **init_pipes(int cmds_nb);
+
 
 #endif

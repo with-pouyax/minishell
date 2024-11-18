@@ -117,8 +117,14 @@ int main(int argc, char **argv, char **envp)
 	}
 	init_shell();
 	setup_signal_handlers(); // Set up signal handlers
+        // printf("before handle input");
 	handle_input();
-    execution();
+    printf("after handle input");
+
+    // printf("before execution");
+    // execution();
+    //  printf("after execution");
+
 	cleanup();
 	return (0);
 }
