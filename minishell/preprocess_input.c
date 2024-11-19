@@ -14,7 +14,7 @@ void preprocess_input(void)
         return;
     }
     parse_tokens();
-    print_commands(); // ##debug print
+    // print_commands(); // ##debug print
     //free_commands();  //##important
 }
 

@@ -12,6 +12,7 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 #include <signal.h>
+#include <sys/wait.h>
 
 
 
@@ -46,6 +47,9 @@ typedef struct s_command
 {
 	char				*command_string;
 	int					index;
+	int					pipe_nb;
+	int					**pipes;
+	int					cmds_nb;
 	int					is_recalled;
 	t_token				*token_list;
 	struct s_command	*next;
@@ -192,14 +196,20 @@ int		is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
 char	*get_line_from_input(char *input, int *index);
 int		execute_commands(void);
-int handle_internal_commands(void);
+int 	handle_internal_commands(void);
 int		execute_internal_commands(void);
+void	execute_external_commands(t_token *token);
+
 void    free_envp(void);
 char    **copy_envp(char **envp);
-int	check_trailing_pipe(char *input);
+int		check_trailing_pipe(char *input);
 
 void	setup_signal_handlers(void);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
+// execution
+void    execution();
+int **init_pipes(int cmds_nb);
+
 
 #endif

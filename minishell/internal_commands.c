@@ -1,5 +1,7 @@
 // src/internal_commands.c
 #include "internal_commands.h"
+#include "minishell.h"
+
 
 int	execute_internal_commands(void)
 {

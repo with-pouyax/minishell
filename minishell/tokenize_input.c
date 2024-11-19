@@ -1,6 +1,55 @@
 #include "minishell.h"
 
-t_command *create_command(char *cmd_str, int index)
+static int	calc_pipe_nb()
+{
+	char	*full_input;
+	int		pipe_nb;
+
+	full_input = g_data.full_input;
+	pipe_nb = 0;
+	while (*full_input)
+    {
+        if (*full_input == '|')
+            pipe_nb++;
+        full_input++;
+    }
+	return (pipe_nb);
+}
+static int calc_cmds_nb()
+{
+    char *input = g_data.full_input; // Get the full input
+    int cmd_count = 0;
+    int i = 0;
+
+    if (!input || !*input) // Check if input is empty or NULL
+        return 0;
+
+    while (input[i])
+    {
+        // Skip leading spaces around commands
+        while (input[i] == ' ' || input[i] == '\t')
+            i++;
+
+        // If we're at the start of a command, increment cmd_count
+        if (input[i] && input[i] != '|')
+        {
+            cmd_count++;
+            // Move to the end of the current command
+            while (input[i] && input[i] != '|')
+                i++;
+        }
+
+        // Skip over the pipe symbol
+        if (input[i] == '|')
+            i++;
+    }
+
+    return cmd_count;
+}
+
+
+
+t_command	*create_command(char *cmd_str, int index)
 {
     t_command *cmd;
 
@@ -9,7 +58,9 @@ t_command *create_command(char *cmd_str, int index)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-    cmd->is_recalled = 0;
+	cmd->cmds_nb = calc_cmds_nb();
+    cmd->pipe_nb = calc_pipe_nb();
+	cmd->is_recalled = 0;
     cmd->token_list = NULL;
     cmd->next = NULL;
 	//printf("create_command: Created command #%d: %s\n", index, cmd_str); // ##debug print
