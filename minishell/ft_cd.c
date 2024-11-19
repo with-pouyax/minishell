@@ -1,7 +1,7 @@
 // ft_cd.c
 #include "internal_commands.h"
 
-int	ft_cd(t_command *cmd)
+int	ft_cd(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 	char	*path;
@@ -13,17 +13,17 @@ int	ft_cd(t_command *cmd)
 	if (!token)
 	{
 		// No argument provided, change to HOME
-		home = getenv_from_envp("HOME");
+		home = getenv_from_envp(shell, "HOME");
 		if (!home)
 		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-			g_data.exit_status = 1;
+			shell->exit_status = 1;
 			return (1);
 		}
 		if (chdir(home) != 0)
 		{
 			perror("minishell: cd");
-			g_data.exit_status = 1;
+			shell->exit_status = 1;
 			return (1);
 		}
 	}
@@ -34,11 +34,11 @@ int	ft_cd(t_command *cmd)
 
 		if (path[0] == '~')
 		{
-			home = getenv_from_envp("HOME");
+			home = getenv_from_envp(shell, "HOME");
 			if (!home)
 			{
 				ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-				g_data.exit_status = 1;
+				shell->exit_status = 1;
 				return (1);
 			}
 			if (path[1] == '\0')
@@ -57,14 +57,14 @@ int	ft_cd(t_command *cmd)
 				ft_putstr_fd("minishell: cd: no such file or directory: ", STDERR_FILENO);
 				ft_putstr_fd(path, STDERR_FILENO);
 				ft_putchar_fd('\n', STDERR_FILENO);
-				g_data.exit_status = 1;
+				shell->exit_status = 1;
 				return (1);
 			}
 
 			if (!expanded_path)
 			{
 				ft_putstr_fd("minishell: cd: memory allocation error\n", STDERR_FILENO);
-				g_data.exit_status = 1;
+				shell->exit_status = 1;
 				return (1);
 			}
 
@@ -72,7 +72,7 @@ int	ft_cd(t_command *cmd)
 			{
 				perror("minishell: cd");
 				free(expanded_path);
-				g_data.exit_status = 1;
+				shell->exit_status = 1;
 				return (1);
 			}
 			free(expanded_path);
@@ -83,12 +83,12 @@ int	ft_cd(t_command *cmd)
 			if (chdir(path) != 0)
 			{
 				perror("minishell: cd");
-				g_data.exit_status = 1;
+				shell->exit_status = 1;
 				return (1);
 			}
 		}
 	}
 
-	g_data.exit_status = 0;
+	shell->exit_status = 0;
 	return (0);
 }

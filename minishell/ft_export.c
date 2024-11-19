@@ -1,7 +1,7 @@
 // ft_export.c
 #include "internal_commands.h"
 
-int	ft_export(t_command *cmd)
+int	ft_export(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 
@@ -9,21 +9,21 @@ int	ft_export(t_command *cmd)
 
 	if (!token)
 	{
-		print_sorted_env();
-		g_data.exit_status = 0;
+		print_sorted_env(shell); //ok
+		shell->exit_status = 0;
 		return (0);
 	}
 
 	while (token)
 	{
 		if (is_valid_identifier(token->value))
-			add_to_env(token->value);
+			add_to_env(shell, token->value); //ok
 		else
 		{
 			ft_putstr_fd("minishell: export: `", STDERR_FILENO);
 			ft_putstr_fd(token->value, STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-			g_data.exit_status = 1;
+			shell->exit_status = 1;
 		}
 		token = token->next;
 	}

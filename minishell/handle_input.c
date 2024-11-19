@@ -1,77 +1,77 @@
 #include "minishell.h"
 
-void	process_input(void)
+void	process_input(t_shell_data *shell)
 {
-	expand_variables_in_input(); // Expand variables in input
-	preprocess_input(); // Preprocess input (tokenize, parse)
+	expand_variables_in_input(shell); //ok 
+	preprocess_input(shell); //ok
 }
 
-void	handle_input(void)
+void	handle_input(t_shell_data *shell)
 {
 	while (1)
 	{
-		g_data.input = readline(PROMPT); // Read input from user and print prompt and store in g_data.input
-		if (!g_data.input) // If input is NULL (Ctrl-D) , exit the shell
+		shell->input = readline(PROMPT); // Read input from user and print prompt and store in g_data.input
+		if (!shell->input) // If input is NULL (Ctrl-D) , exit the shell
 		{
 			write(1, "exit\n", 5);
 			break;
 		}
-		if (ft_strlen(g_data.input) > MAX_INPUT_LENGTH)
+		if (ft_strlen(shell->input) > MAX_INPUT_LENGTH)
 		{
 			ft_putstr_fd("minishell: input too long\n", STDERR_FILENO);
-			free(g_data.input);
+			free(shell->input);
 			continue;
 		}
-		g_data.full_input = ft_strdup(g_data.input);
-		if (!g_data.full_input)
+		shell->full_input = ft_strdup(shell->input);
+		if (!shell->full_input)
 		{
 			ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-			free(g_data.input);
+			free(shell->input);
 			continue;
 		}
-		if (ft_strlen(g_data.full_input) > 0) // If input is not empty, add to history
-			add_history(g_data.full_input);
-		if (check_unclosed_quotes(g_data.input)) // Check for unclosed quotes
+		if (ft_strlen(shell->full_input) > 0) // If input is not empty, add to history
+			add_history(shell->full_input);
+		if (check_unclosed_quotes(shell->input)) // Check for unclosed quotes
 		{
 			ft_putstr_fd("minishell: syntax error: unclosed quotes\n", STDERR_FILENO);
-			free(g_data.input);
-			free(g_data.full_input);
-			g_data.input = NULL;
-			g_data.full_input = NULL;
-			g_data.exit_status = 2;
+			free(shell->input);
+			free(shell->full_input);
+			shell->input = NULL;
+			shell->full_input = NULL;
+			shell->exit_status = 2;
 			continue;
 		}
-		if (check_trailing_pipe(g_data.input)) // Check for trailing pipe, trailing means at the end of the input
+		if (check_trailing_pipe(shell->input)) // Check for trailing pipe, trailing means at the end of the input
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
-			free(g_data.input);
-			free(g_data.full_input);
-			g_data.input = NULL;
-			g_data.full_input = NULL;
-			g_data.exit_status = 2;
+			free(shell->input);
+			free(shell->full_input);
+			shell->input = NULL;
+			shell->full_input = NULL;
+			shell->exit_status = 2;
 			continue;
 		}
-		process_input(); // Expand variables and preprocess input 
-		if (execute_internal_commands() == -1)
+		process_input(shell); // Expand variables and preprocess input 
+		if (execute_internal_commands(shell) == -1)
 		{
-			//cleanup();
+			//cleanup(shell);
 			break;
 		}
 
-		//free_commands(); // ##important
+		//free_commands(shell); // ##important
 		if (execute_commands() == -1)
 		{
-			cleanup();
+			cleanup(shell);
 			break;
 		}
 
-		free_commands(); // ##important
+		free_commands(shell); // ##important
 		
 
-		free(g_data.input);
-		g_data.input = NULL;
-		free(g_data.full_input);
-		g_data.full_input = NULL;
+		free(shell->input);
+		shell->input = NULL;
+		free(shell->full_input);
+		shell->full_input = NULL;
 	}
 	rl_clear_history();
 }

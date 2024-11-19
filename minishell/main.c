@@ -1,8 +1,5 @@
 #include "minishell.h"
 
-t_shell_data	g_data = {0};
-
-
 
 int debug_print_commands(void)
 {
@@ -95,19 +92,21 @@ char **copy_envp(char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
+    t_shell_data shell;
+
 	(void)argc;
 	(void)argv;
 
-    g_data.envp = copy_envp(envp); // Copy the environment variables and store them in g_data
-	if (!g_data.envp)
+    shell.envp = copy_envp(envp); // Copy the environment variables and store them in g_data
+	if (!shell.envp)
 	{
 		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	init_shell();
-	setup_signal_handlers(); // Set up signal handlers
-	handle_input();
-	cleanup();
+	init_shell(&shell); 
+	//setup_signal_handlers(); // Set up signal handlers
+	handle_input(&shell);//ok
+	cleanup(&shell);
 	return (0);
 }
 

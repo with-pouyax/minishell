@@ -21,7 +21,7 @@ int	add_char_to_token(char **token, char c)
 
 	tmp[0] = c;
 	tmp[1] = '\0';
-	new_token = ft_strjoin_safe(*token, tmp);
+	new_token = ft_strjoin_safe(*token, tmp); //ok
 	if (!new_token)
 	{
 		free(*token);

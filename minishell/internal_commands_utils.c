@@ -43,7 +43,7 @@ int	is_valid_identifier(const char *str)
 
 /* internal_commands_utils.c */
 
-void add_to_env(const char *str)
+void add_to_env(t_shell_data *shell, const char *str)
 {
     int     i;
     char    *key;
@@ -58,23 +58,23 @@ void add_to_env(const char *str)
     if (!key)
     {
         ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-        g_data.exit_status = 1;
+        shell->exit_status = 1;
         return;
     }
 
     // Check if the key already exists in the environment variables
     i = 0;
-    while (g_data.envp[i])
+    while (shell->envp[i])
     {
-        if (ft_strncmp(g_data.envp[i], key, len) == 0 && g_data.envp[i][len] == '=')
+        if (ft_strncmp(shell->envp[i], key, len) == 0 && shell->envp[i][len] == '=')
         {
             // Update existing variable with new value
-            free(g_data.envp[i]);
-            g_data.envp[i] = ft_strdup(str);
-            if (!g_data.envp[i])
+            free(shell->envp[i]);
+            shell->envp[i] = ft_strdup(str);
+            if (!shell->envp[i])
             {
                 ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-                g_data.exit_status = 1;
+                shell->exit_status = 1;
             }
             free(key);
             return;
@@ -88,7 +88,7 @@ void add_to_env(const char *str)
     if (!new_var)
     {
         ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-        g_data.exit_status = 1;
+        shell->exit_status = 1;
         return;
     }
 
@@ -98,20 +98,20 @@ void add_to_env(const char *str)
     {
         ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
         free(new_var);
-        g_data.exit_status = 1;
+        shell->exit_status = 1;
         return;
     }
 
     // Copy over existing variables
     for (int j = 0; j < i; j++)
-        new_envp[j] = g_data.envp[j];
+        new_envp[j] = shell->envp[j];
     new_envp[i] = new_var;
     new_envp[i + 1] = NULL;
 
     // Free the old envp array but not the strings (they are now in new_envp)
-    free(g_data.envp);
-    g_data.envp = new_envp;
-    g_data.exit_status = 0;
+    free(shell->envp);
+    shell->envp = new_envp;
+    shell->exit_status = 0;
 }
 
 
@@ -157,7 +157,7 @@ void	remove_from_env(const char *name)
 }
 
 /* Print sorted environment variables */
-void	print_sorted_env(void)
+void	print_sorted_env(t_shell_data *shell)
 {
 	int		i, j;
 	int		env_size;
@@ -166,7 +166,7 @@ void	print_sorted_env(void)
 
 	// Count environment variables
 	env_size = 0;
-	while (g_data.envp[env_size])
+	while (shell->envp[env_size])
 		env_size++;
 
 	// Duplicate envp
@@ -174,12 +174,12 @@ void	print_sorted_env(void)
 	if (!sorted_envp)
 	{
 		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-		g_data.exit_status = 1;
+		shell->exit_status = 1;
 		return;
 	}
 
 	for (i = 0; i < env_size; i++)
-		sorted_envp[i] = ft_strdup(g_data.envp[i]);
+		sorted_envp[i] = ft_strdup(shell->envp[i]);
 	sorted_envp[env_size] = NULL;
 
 	// Simple bubble sort

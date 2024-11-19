@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-void	init_shell(void)
+void	init_shell(t_shell_data *shell)
 {
-	g_data.input = NULL;
-	g_data.full_input = NULL;
-	g_data.exit_status = 0;
-	g_data.commands = NULL;
-	g_data.error_flag = 0;
-	g_data.signal_status = 0;
+	shell->input = NULL;
+	shell->full_input = NULL;
+	shell->exit_status = 0;
+	shell->commands = NULL;
+	shell->error_flag = 0;
+	shell->signal_status = 0;
 }

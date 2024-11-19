@@ -1,7 +1,7 @@
 // ft_unset.c
 #include "internal_commands.h"
 
-int	ft_unset(t_command *cmd)
+int	ft_unset(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 

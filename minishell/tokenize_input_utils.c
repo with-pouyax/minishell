@@ -1,75 +1,75 @@
 #include "minishell.h"
 
-void free_envp(void)
+void free_envp(t_shell_data *shell)
 {
     int i;
 
-    if (!g_data.envp)
+    if (!shell->envp)
         return;
 
-    for (i = 0; g_data.envp[i]; i++)
+    for (i = 0; shell->envp[i]; i++)
     {
-        free(g_data.envp[i]);
+        free(shell->envp[i]);
     }
-    free(g_data.envp);
-    g_data.envp = NULL;
+    free(shell->envp);
+    shell->envp = NULL;
 }
 
-void cleanup(void)
+void cleanup(t_shell_data *shell)
 {
-    free(g_data.input);
-    g_data.input = NULL;
-    free(g_data.full_input);
-    g_data.full_input = NULL;
-    free_commands();
-    free_envp();
+    free(shell->input);
+    shell->input = NULL;
+    free(shell->full_input);
+    shell->full_input = NULL;
+    free_commands(shell);
+    free_envp(shell);
 }
 
-void	handle_tokenization_error(int error_flag)
+void	handle_tokenization_error(t_shell_data *shell, int error_flag)
 {
 	if (error_flag == 1)
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
 			STDERR_FILENO);
-		g_data.exit_status = 2;
+		shell->exit_status = 2;
 	}
 	else if (error_flag == 2)
 	{
 		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		cleanup();
-		exit(EXIT_FAILURE);
+		cleanup(shell); // ok
+		exit(EXIT_FAILURE); // ok
 	}
 }
 
-int	process_input_segment(int *i, int *cmd_index, t_command **last_cmd)
+int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd)
 {
 	int			start;
 	char		*cmd_str;
 	t_command	*cmd;
 
 	start = *i;
-	*i = extract_command_string(g_data.input, *i); // here we find the end index of the command, before the pipe
-	cmd_str = ft_substr(g_data.input, start, *i - start); // we extract the command string from the input and store it in cmd_str
+	*i = extract_command_string(shell->input, *i); // ok
+	cmd_str = ft_substr(shell->input, start, *i - start); // ok
 	if (!cmd_str)
 	{
-		g_data.error_flag = 2;
+		shell->error_flag = 2;
 		return (1);
 	}
-	cmd = create_command(cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
-	if (!cmd || tokenize_command(cmd))
+	cmd = create_command(cmd_str, (*cmd_index)++); // ok
+	if (!cmd || tokenize_command(shell, cmd)) // ok
 	{
 		free(cmd_str);
 		free(cmd);
-		g_data.error_flag = 2;
+		shell->error_flag = 2;
 		return (1);
 	}
-	add_command_to_list(last_cmd, cmd); // we add the command to the list of commands,
-	if (g_data.input[*i] == '|')
+	add_command_to_list(shell, last_cmd, cmd); //ok
+	if (shell->input[*i] == '|')
 		(*i)++;
 	return (0);
 }
 
-void	tokenize_input(void)
+void	tokenize_input(t_shell_data *shell)
 {
 	int			i;
 	int			cmd_index;
@@ -78,22 +78,22 @@ void	tokenize_input(void)
 	i = 0;
 	cmd_index = 0;
 	last_cmd = NULL;
-	g_data.error_flag = 0;
+	shell->error_flag = 0;
 
-	if (!g_data.input)
+	if (!shell->input)
         return;
 
-	while (g_data.input[i]) // Loop through the input string
+	while (shell->input[i]) // Loop through the input string
 	{
 		skip_spaces(&i); // Skip spaces
-		if (process_input_segment(&i, &cmd_index, &last_cmd)) // here we save each command in a linked list
+		if (process_input_segment(shell, &i, &cmd_index, &last_cmd)) //ok
 			break ;
 	}
-	if (g_data.error_flag)
+	if (shell->error_flag)
 	{
-		free_commands();
-		g_data.commands = NULL;
-		handle_tokenization_error(g_data.error_flag);
+		free_commands(shell); //ok
+		shell->commands = NULL;
+		handle_tokenization_error(shell, shell->error_flag); //ok
 	}
 	// else
     // {
@@ -119,10 +119,10 @@ int	extract_command_string(char *input, int i)
 	return (i);
 }
 
-void	add_command_to_list(t_command **last_cmd, t_command *cmd)
+void	add_command_to_list(t_shell_data *shell, t_command **last_cmd, t_command *cmd)
 {
-	if (!g_data.commands)
-		g_data.commands = cmd;
+	if (!shell->commands)
+		shell->commands = cmd;
 	else
 		(*last_cmd)->next = cmd;
 	*last_cmd = cmd;

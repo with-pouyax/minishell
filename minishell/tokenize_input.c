@@ -19,22 +19,22 @@ t_command *create_command(char *cmd_str, int index)
 
 void	skip_cmd_spaces(char *str, int *i)
 {
-	while (str[*i] && ft_isspace(str[*i]))
+	while (str[*i] && ft_isspace(str[*i])) //ok
 		(*i)++;
 }
 
-int	process_token(t_command *cmd, int *i, int *index)
+int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index)
 {
 	int	ret;
 
-	if (is_operator_char(cmd->command_string[*i]))
-		ret = process_operator(cmd->command_string, i, cmd, index);
+	if (is_operator_char(cmd->command_string[*i])) //ok
+		ret = process_operator(shell, cmd->command_string, i, cmd, index); //ok
 	else
-		ret = process_word(cmd->command_string, i, cmd, index);
+		ret = process_word(shell, cmd->command_string, i, cmd, index); //ok
 	return (ret);
 }
 
-int	tokenize_command(t_command *cmd)
+int	tokenize_command(t_shell_data *shell, t_command *cmd)
 {
 	int	i;
 	int	index;
@@ -46,8 +46,8 @@ int	tokenize_command(t_command *cmd)
 		skip_cmd_spaces(cmd->command_string, &i);
 		if (cmd->command_string[i])
 		{
-			if (process_token(cmd, &i, &index))
-				return (tokenize_command_error(cmd));
+			if (process_token(shell, cmd, &i, &index))//ok
+				return (tokenize_command_error(cmd)); //ok
 		}
 	}
 	return (0);
@@ -55,46 +55,46 @@ int	tokenize_command(t_command *cmd)
 
 int	tokenize_command_error(t_command *cmd)
 {
-	free_tokens(cmd->token_list);
+	free_tokens(cmd->token_list); //ok
 	cmd->token_list = NULL;
 	return (1);
 }
 
-int	process_operator(char *input, int *i, t_command *cmd, int *index)
+int	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
 {
 	char	*op;
 	int		ret;
 
-	op = ft_strdup("");
+	op = ft_strdup(""); //ok
 	if (!op)
 		return (1);
-	while (input[*i] && is_operator_char(input[*i]))
+	while (input[*i] && is_operator_char(input[*i])) //ok
 	{
-		ret = add_char_to_token(&op, input[*i]);
+		ret = add_char_to_token(&op, input[*i]); //ok
 		if (ret)
-			return (free_and_return(op));
+			return (free_and_return(op)); //ok
 		(*i)++;
 	}
-	ret = add_token(op, &cmd->token_list, index, 1);
+	ret = add_token(op, &cmd->token_list, index, 1); //ok
 	if (ret)
-		return (free_and_return(op));
-	process_operator_details(op, cmd, i, index);
+		return (free_and_return(op)); //ok
+	process_operator_details(shell, op, cmd, i, index); //ok
 	return (0);
 }
 
-void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
+void	process_operator_details(t_shell_data *shell, char *op, t_command *cmd, int *i, int *index)
 {
 	t_token	*last_token;
 
-	if (!is_valid_operator(op))
+	if (!is_valid_operator(op)) //ok
 		cmd->token_list->wrong_operator = 1;
 	last_token = cmd->token_list;
 	while (last_token->next)
 		last_token = last_token->next;
-	if (ft_strcmp(op, "<<") == 0)
+	if (ft_strcmp(op, "<<") == 0) //ok
 	{
 		last_token->is_heredoc = 1;
-		if (get_heredoc_delimiter(cmd->command_string, i, last_token))
+		if (get_heredoc_delimiter(shell, cmd->command_string, i, last_token)) //ok
 			cmd->token_list->wrong_operator = 1;
 	}
 	else
@@ -113,7 +113,7 @@ int collect_word(char *input, int *i, char **word)
     int in_single_quote = 0;
     int in_double_quote = 0;
 
-    while (input[*i] && (!ft_isspace(input[*i]) || in_single_quote || in_double_quote))
+    while (input[*i] && (!ft_isspace(input[*i]) || in_single_quote || in_double_quote))//ok
     {
         if (input[*i] == '\'' && !in_double_quote)
         {
@@ -127,7 +127,7 @@ int collect_word(char *input, int *i, char **word)
         }
         else
         {
-            ret = add_char_to_token(word, input[*i]);
+            ret = add_char_to_token(word, input[*i]); //ok
             (*i)++;
             if (ret)
                 return (1);
@@ -143,19 +143,19 @@ int collect_word(char *input, int *i, char **word)
 
 
 
-int	process_word(char *input, int *i, t_command *cmd, int *index)
+int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
 {
 	char	*word;
 
-	word = ft_strdup("");
+	word = ft_strdup(""); //ok
 	if (!word)
 		return (1);
-	if (collect_word(input, i, &word))
+	if (collect_word(input, i, &word)) //ok
 	{
 		free(word);
 		return (1);
 	}
-	if (add_token(word, &cmd->token_list, index, 0))
+	if (add_token(word, &cmd->token_list, index, 0)) //ok
 	{
 		free(word); // Properly free token_value on failure
 		return (1);

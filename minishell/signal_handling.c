@@ -1,10 +1,12 @@
 // signal_handling.c
 #include "minishell.h"
 
+volatile sig_atomic_t g_signal_status = 0;
 
 void	sigint_handler(int sig)
 {
 	(void)sig;
+	g_signal_status = sig;
 	if (g_data.in_child_process) // Check if in child process (executing a command)
 	{
 		write(1, "\n", 1); // Write newline

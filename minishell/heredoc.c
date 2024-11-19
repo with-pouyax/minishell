@@ -1,35 +1,35 @@
 #include "minishell.h"
 
-int	get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
+int	get_heredoc_delimiter(t_shell_data *shell, char *input, int *i, t_token *heredoc_token)
 {
 	char	*delimiter;
 	int		start;
 
-	while (input[*i] && ft_isspace(input[*i]))
+	while (input[*i] && ft_isspace(input[*i])) // ok
 		(*i)++;
 	if (!input[*i])
-		return (syntax_error_newline());
+		return (syntax_error_newline(shell)); // ok
 	start = *i;
 	if (input[*i] == '\'' || input[*i] == '\"')
 	{
-		if (process_quoted_delimiter(input, i) == -1)
+		if (process_quoted_delimiter(input, i) == -1) // ok
 			return (1);
 	}
 	else
-		skip_until_operator_or_space(input, i);
-	delimiter = ft_substr(input, start, *i - start);
+		skip_until_operator_or_space(input, i); // ok
+	delimiter = ft_substr(input, start, *i - start); // ok
 	if (!delimiter)
 		return (1);
 	heredoc_token->heredoc_delimiter = delimiter;
 	return (0);
 }
 
-void process_heredocs(void)
+void process_heredocs(t_shell_data *shell)
 {
     t_command *cmd;
     t_token *token;
 
-    cmd = g_data.commands;
+    cmd = shell->commands;
     while (cmd) // Loop through all commands
     {
         token = cmd->token_list;
@@ -37,9 +37,9 @@ void process_heredocs(void)
         {
             if (token->is_heredoc) // If the token is a heredoc token
             {
-                if (read_heredoc_content(token)) // Read the heredoc content
+                if (read_heredoc_content(shell, token)) //ok
                 {
-                    g_data.error_flag = 1;
+                    shell->error_flag = 1;
                     return;
                 }
             }
@@ -105,7 +105,7 @@ void	skip_until_operator_or_space(char *input, int *i)
 		(*i)++;
 }
 
-int	syntax_error_newline(void)
+int	syntax_error_newline(t_shell_data *shell)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token "
 		"`newline'\n", STDERR_FILENO);
@@ -124,24 +124,24 @@ char *get_line_from_input(char *input, int *index)
 
 
 
-int	read_heredoc_content(t_token *heredoc_token)
+int	read_heredoc_content(t_shell_data *shell, t_token *heredoc_token)
 {
 	char *line;
 	int fd;
 	char *tmp_filename;
 	int delimiter_quoted;
 
-	delimiter_quoted = check_delimiter_quotes(heredoc_token); // Check if the delimiter is quoted
-	tmp_filename = generate_temp_filename(); // Generate a temporary filename
+	delimiter_quoted = check_delimiter_quotes(heredoc_token); //ok
+	tmp_filename = generate_temp_filename(shell); // ok
 	if (!tmp_filename)
 		return (1);
 	fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600); // Open the temporary file
 	if (fd < 0)
-		return (heredoc_open_error(tmp_filename));
+		return (heredoc_open_error(tmp_filename));//ok
 	while (1) // Loop until we reach the delimiter
 	{
 		line = readline("> "); // Read a line from the user
-		if (!line || handle_heredoc_line(line, heredoc_token, fd, delimiter_quoted)) // If the line is NULL or the line is the delimiter, break the loop
+		if (!line || handle_heredoc_line(shell, line, heredoc_token, fd, delimiter_quoted)) //ok
 			break;
 	}
 
@@ -176,7 +176,7 @@ int	heredoc_open_error(char *tmp_filename)
 	return (1);
 }
 
-int handle_heredoc_line(char *line, t_token *heredoc_token, int fd, int delimiter_quoted)
+int handle_heredoc_line(t_shell_data *shell, char *line, t_token *heredoc_token, int fd, int delimiter_quoted)
 {
     
     if (ft_strcmp(line, heredoc_token->heredoc_delimiter) == 0) // If the line is the delimiter, break the loop
@@ -186,7 +186,7 @@ int handle_heredoc_line(char *line, t_token *heredoc_token, int fd, int delimite
     }
     if (!delimiter_quoted) // If the delimiter is not quoted
     {
-        if (expand_and_write_line(line, fd)) // Expand the variables in the line and write the line to the file
+        if (expand_and_write_line(shell, line, fd)) // Expand the variables in the line and write the line to the file
         {
             free(line);
             return (1);
@@ -201,13 +201,13 @@ int handle_heredoc_line(char *line, t_token *heredoc_token, int fd, int delimite
     return (0);
 }
 
-int expand_and_write_line(char *line, int fd)
+int expand_and_write_line(t_shell_data *shell, char *line, int fd)
 {
     int     var_not_found_flag;
     char    *temp;
 
     var_not_found_flag = 0;
-    temp = expand_variables_in_token(line, &var_not_found_flag); // Expand the variables in the line
+    temp = expand_variables_in_token(shell, line, &var_not_found_flag); //ok
     if (!temp)
         return (1);
     write(fd, temp, ft_strlen(temp)); // Write the expanded line to the file
@@ -219,13 +219,12 @@ int expand_and_write_line(char *line, int fd)
 
 
 
-char	*generate_temp_filename(void)
+char	*generate_temp_filename(t_shell_data *shell)
 {
-	static int	counter = 0;
 	char		*filename;
 	char		*counter_str;
 
-	counter_str = ft_itoa(counter++); // Convert the counter to a string
+	counter_str = ft_itoa(shell->heredoc_counter++); // Convert the counter to a string
 	if (!counter_str)
 		return (NULL);
 	filename = ft_strjoin("/tmp/minishell_heredoc_", counter_str); // Join the prefix and the counter string

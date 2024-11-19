@@ -49,11 +49,11 @@ void	print_tokens(t_token *token_list)
 }
 
 
-void	print_commands(void)
+void	print_commands(t_shell_data *shell)
 {
 	t_command	*cmd;
 
-	cmd = g_data.commands;
+	cmd = shell->commands;
 	while (cmd)
 	{
 		printf("Command #%d: '%s'\n", cmd->index, cmd->command_string);

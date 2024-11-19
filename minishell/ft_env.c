@@ -1,7 +1,7 @@
 // src/ft_env.c
 #include "internal_commands.h"
 
-int	ft_env(t_command *cmd)
+int	ft_env(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 	int		arg_count;

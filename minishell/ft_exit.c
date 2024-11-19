@@ -1,7 +1,7 @@
 // ft_exit.c
 #include "internal_commands.h"
 
-int	ft_exit_shell(t_command *cmd)
+int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 	int		exit_status;

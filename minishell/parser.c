@@ -10,12 +10,12 @@ int	is_internal_command(char *token)
 	return (0);
 }
 
-void parse_tokens(void)
+void parse_tokens(t_shell_data *shell)
 {
     t_command *cmd;
     t_token *token;
 
-    cmd = g_data.commands;
+    cmd = shell->commands;
     while (cmd) // Loop through all commands
     {
         token = cmd->token_list;
@@ -24,7 +24,7 @@ void parse_tokens(void)
             if (token->index == 0 && !token->is_operator) // If the token is the first token and not an operator
             {
                 token->is_command = 1;
-                if (is_internal_command(token->value)) // If the token is an internal command
+                if (is_internal_command(token->value)) //ok
                     token->is_int = 1; // Set the is_int flag to 1
             }
             else if (ft_strncmp(token->value, "-", 1) == 0) // If the token starts with a dash

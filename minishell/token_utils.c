@@ -9,7 +9,7 @@ int	add_token(char *token_value, t_token **token_list,
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (1);
-	initialize_new_token(new_token, token_value, index, is_operator);
+	initialize_new_token(new_token, token_value, index, is_operator); // ok
 	if (!*token_list)
 		*token_list = new_token;
 	else
@@ -19,11 +19,7 @@ int	add_token(char *token_value, t_token **token_list,
 			current = current->next;
 		current->next = new_token;
 	}
-
-
-
 	//printf("add_token: Added token #%d: %s (Operator: %d)\n", new_token->index, new_token->value, is_operator); // ##debug print
-
 	return (0);
 }
 
