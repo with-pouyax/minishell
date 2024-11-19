@@ -175,7 +175,30 @@ void expand_variables_in_tokens(void)
             if (!token->is_operator)
             {
                 var_not_found_flag = 0;
+
+                // Store the original value before expansion
+                token->original_value = ft_strdup(token->value);
+                if (!token->original_value)
+                {
+                    ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+                    g_data.exit_status = 1;
+                    // Handle the error appropriately (e.g., set an error flag, clean up, etc.)
+                    return;
+                }
+
+                // Expand the variable
                 expanded_value = expand_variables_in_token(token->value, &var_not_found_flag);
+                if (!expanded_value)
+                {
+                    ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+                    free(token->original_value);
+                    token->original_value = NULL;
+                    g_data.exit_status = 1;
+                    // Handle the error appropriately
+                    return;
+                }
+
+                // Replace the token value with the expanded value
                 free(token->value);
                 token->value = expanded_value;
                 token->var_not_found = var_not_found_flag;
@@ -185,3 +208,4 @@ void expand_variables_in_tokens(void)
         cmd = cmd->next;
     }
 }
+

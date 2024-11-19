@@ -8,6 +8,9 @@ void	print_token_details(t_token *token)
 		print_command_token(token);
 	if (token->is_flag)
 		printf(" - This is a flag.\n");
+    
+    if (token->original_value)
+        printf("    - Original Value: '%s'\n", token->original_value);
 }
 
 void	print_operator_token(t_token *token)

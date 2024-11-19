@@ -91,6 +91,9 @@ void handle_input(void)
         execution(); // Add execution logic here
         printf("Debug: Finished execution()\n");
 
+		free_commands(); // ##important
+
+
         free(g_data.input);
         printf("Debug: Freed g_data.input after process_input()\n");
         g_data.input = NULL;

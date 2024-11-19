@@ -9,7 +9,7 @@ void preprocess_input(void)
     process_heredocs(); // Process heredocs after tokenization
     if (g_data.error_flag) // If an error occurred during heredoc processing
     {
-        //free_commands(); //##important
+        free_commands(); //##important
         g_data.commands = NULL;
         return;
     }
