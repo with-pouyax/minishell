@@ -10,7 +10,7 @@ void	add_command_to_list(t_shell_data *shell, t_command **last_cmd, t_command *c
 }
 
 
-t_command	*create_command(char *cmd_str, int index)
+t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
     t_command *cmd;
 
@@ -19,12 +19,11 @@ t_command	*create_command(char *cmd_str, int index)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-	cmd->cmds_nb = calc_cmds_nb();
-    cmd->pipe_nb = calc_pipe_nb();
+	cmd->cmds_nb = calc_cmds_nb(shell);
+    cmd->pipe_nb = calc_pipe_nb(shell);
 	cmd->is_recalled = 0;
     cmd->token_list = NULL;
     cmd->next = NULL;
-	//printf("create_command: Created command #%d: %s\n", index, cmd_str); // ##debug print
 	return (cmd);
 }
 

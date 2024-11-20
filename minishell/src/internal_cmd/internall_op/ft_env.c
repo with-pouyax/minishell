@@ -1,7 +1,7 @@
 // src/ft_env.c
 #include "internal_commands.h"
 
-int	ft_env(t_command *cmd)
+int		ft_env(t_shell_data *shell,t_command *cmd)
 {
 	t_token	*token;
 	int		arg_count;
@@ -21,19 +21,19 @@ int	ft_env(t_command *cmd)
 	{
 		// env does not accept any arguments in this implementation
 		ft_putstr_fd("minishell: env: too many arguments\n", STDERR_FILENO);
-		g_data.exit_status = 1;
+		shell->exit_status = 1;
 		return (1);
 	}
 
 	// No arguments provided; print all environment variables
 	i = 0;
-	while (g_data.envp[i])
+	while (shell->envp[i])
 	{
-		ft_putstr_fd(g_data.envp[i], STDOUT_FILENO);
+		ft_putstr_fd(shell->envp[i], STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
 
-	g_data.exit_status = 0;
+	shell->exit_status = 0;
 	return (0);
 }

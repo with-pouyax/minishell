@@ -1,7 +1,7 @@
 // ft_echo.c
 #include "internal_commands.h"
 
-int	ft_echo(t_command *cmd)
+int	ft_echo(t_shell_data *shell,t_command *cmd)
 {
 	t_token	*token;
 	int		newline;
@@ -28,6 +28,6 @@ int	ft_echo(t_command *cmd)
 	if (newline)
 		printf("\n");
 
-	g_data.exit_status = 0;
+	shell->exit_status = 0;
 	return (0);
 }

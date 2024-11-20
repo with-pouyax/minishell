@@ -1,9 +1,5 @@
 #include "minishell.h"
 
-
-
-
-
 int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd)
 {
 	int			start;
@@ -18,7 +14,7 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 		shell->error_flag = 2;
 		return (1);
 	}
-	cmd = create_command(cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
+	cmd = create_command(shell ,cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
 	if (!cmd || tokenize_command(cmd))
 	{
 		free(cmd_str);
@@ -52,13 +48,8 @@ void	split_cmd_tokenize(t_shell_data *shell)
 	}
 	if (shell->error_flag)
 	{
-		free_commands();
+		free_commands(shell);
 		shell->commands = NULL;
 		handle_tokenization_error(shell, shell->error_flag);
 	}
 }
-
-
-
-
-

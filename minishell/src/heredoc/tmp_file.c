@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*generate_temp_filename(void)
 {

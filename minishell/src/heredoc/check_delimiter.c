@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 {

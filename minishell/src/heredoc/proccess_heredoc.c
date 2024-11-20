@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int handle_heredoc_line(t_shell_data *shell, char *line, t_token *heredoc_token, int fd, int delimiter_quoted)
 {

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*expand_variable_token(t_shell_data *shell, char *input, int *i, int *var_not_found_flag)
 {
@@ -7,7 +7,7 @@ char	*expand_variable_token(t_shell_data *shell, char *input, int *i, int *var_n
 	if (input[*i] == '?')
 	{
 		(*i)++; // Skip the ? character
-		var_value = ft_itoa(g_data.exit_status); // Get the exit status from the global data struct and convert it to a string and store it in var_value
+		var_value = ft_itoa(shell->exit_status); // Get the exit status from the global data struct and convert it to a string and store it in var_value
 	}
 	else if (input[*i] == ' ' || input[*i] == '=' || input[*i] == '+')
 	{
@@ -43,53 +43,53 @@ char	*get_variable_value(t_shell_data *shell, char *input, int *i, int *var_not_
 }
 
 
-void expand_variables_in_tokens(void)
-{
-    t_command *cmd;
-    t_token *token;
-    char *expanded_value;
-    int var_not_found_flag;
+// void expand_variables_in_tokens(t_shell_data *shell)
+// {
+//     t_command *cmd;
+//     t_token *token;
+//     char *expanded_value;
+//     int var_not_found_flag;
 
-    cmd = g_data.commands;
-    while (cmd)
-    {
-        token = cmd->token_list;
-        while (token)
-        {
-            if (!token->is_operator)
-            {
-                var_not_found_flag = 0;
+//     cmd = shell->commands;
+//     while (cmd)
+//     {
+//         token = cmd->token_list;
+//         while (token)
+//         {
+//             if (!token->is_operator)
+//             {
+//                 var_not_found_flag = 0;
 
-                // Store the original value before expansion
-                token->original_value = ft_strdup(token->value);
-                if (!token->original_value)
-                {
-                    ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-                    g_data.exit_status = 1;
-                    // Handle the error appropriately (e.g., set an error flag, clean up, etc.)
-                    return;
-                }
+//                 // Store the original value before expansion
+//                 token->original_value = ft_strdup(token->value);
+//                 if (!token->original_value)
+//                 {
+//                     ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+//                     g_data.exit_status = 1;
+//                     // Handle the error appropriately (e.g., set an error flag, clean up, etc.)
+//                     return;
+//                 }
 
-                // Expand the variable
-                expanded_value = expand_variables_in_token(token->value, &var_not_found_flag);
-                if (!expanded_value)
-                {
-                    ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-                    free(token->original_value);
-                    token->original_value = NULL;
-                    g_data.exit_status = 1;
-                    // Handle the error appropriately
-                    return;
-                }
+//                 // Expand the variable
+//                 expanded_value = expand_variables_in_token(token->value, &var_not_found_flag);
+//                 if (!expanded_value)
+//                 {
+//                     ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+//                     free(token->original_value);
+//                     token->original_value = NULL;
+//                     g_data.exit_status = 1;
+//                     // Handle the error appropriately
+//                     return;
+//                 }
 
-                // Replace the token value with the expanded value
-                free(token->value);
-                token->value = expanded_value;
-                token->var_not_found = var_not_found_flag;
-            }
-            token = token->next;
-        }
-        cmd = cmd->next;
-    }
-}
+//                 // Replace the token value with the expanded value
+//                 free(token->value);
+//                 token->value = expanded_value;
+//                 token->var_not_found = var_not_found_flag;
+//             }
+//             token = token->next;
+//         }
+//         cmd = cmd->next;
+//     }
+// }
 

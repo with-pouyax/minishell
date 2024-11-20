@@ -14,8 +14,8 @@ void preprocess_input(t_shell_data *shell)
         return;
     }
     parse_tokens(shell);
-    // print_commands(); // ##debug print
-    //free_commands();  //##important
+    print_commands(shell); // ##debug print
+    //free_commands(shell);  //##important
 }
 
 

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	skip_spaces(t_shell_data *shell, int *i)
 {

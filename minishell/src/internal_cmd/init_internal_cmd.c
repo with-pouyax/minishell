@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_internal_command(char *token)
 {

@@ -1,13 +1,13 @@
 // ft_exit.c
 #include "internal_commands.h"
 
-int	ft_exit_shell(t_command *cmd)
+int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 	int		exit_status;
 
 	token = cmd->token_list->next; // Skip the command token
-	exit_status = g_data.exit_status;
+	exit_status = shell->exit_status;
 
 	printf("exit\n");
 
@@ -20,7 +20,7 @@ int	ft_exit_shell(t_command *cmd)
 			if (token)
 			{
 				ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-				g_data.exit_status = 1;
+				shell->exit_status = 1;
 				return (1);
 			}
 		}
@@ -31,6 +31,6 @@ int	ft_exit_shell(t_command *cmd)
 		}
 	}
 
-	cleanup();
+	cleanup(shell);
 	exit(exit_status);
 }
