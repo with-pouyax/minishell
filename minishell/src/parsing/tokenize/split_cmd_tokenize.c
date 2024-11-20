@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd)
 {

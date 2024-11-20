@@ -1,4 +1,4 @@
-# include "minishell.h"
+# include "../../minishell.h"
 
 void	add_command_to_list(t_shell_data *shell, t_command **last_cmd, t_command *cmd)
 {

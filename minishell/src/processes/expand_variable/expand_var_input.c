@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 
 void expand_variables_in_input(t_shell_data *shell)
@@ -7,7 +7,7 @@ void expand_variables_in_input(t_shell_data *shell)
     int var_not_found_flag;
 
     var_not_found_flag = 0;
-    expanded_input = expand_variables_in_token(shell->input, &var_not_found_flag); // Expand the variables in the input and store the result in expanded_input
+    expanded_input = expand_variables_in_token(shell ,shell->input, &var_not_found_flag); // Expand the variables in the input and store the result in expanded_input
     if (!expanded_input)
     {
         ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);

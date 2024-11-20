@@ -1,6 +1,7 @@
 // internal_commands.h
 #ifndef INTERNAL_COMMANDS_H
 # define INTERNAL_COMMANDS_H
+#include <limits.h> // For PATH_MAX
 
 # include "../minishell.h"
 
@@ -19,5 +20,6 @@ int		is_valid_identifier(const char *str);
 void	add_to_env(t_shell_data *shell ,const char *str);
 void	remove_from_env(t_shell_data *shell,const char *name);
 void	print_sorted_env(t_shell_data *shell);
+int	is_internal_command(char *token);
 
 #endif

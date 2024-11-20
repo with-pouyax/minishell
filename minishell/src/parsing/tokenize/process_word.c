@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 int collect_word(char *input, int *i, char **word)
 {

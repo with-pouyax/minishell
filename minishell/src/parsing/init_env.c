@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 
 char **copy_envp(char **envp)
@@ -26,6 +26,7 @@ char **copy_envp(char **envp)
             free(new_envp);
             return NULL;
         }
+        i++;
     }
     new_envp[count] = NULL; // Set the last element of new_envp to NULL
     return (new_envp);

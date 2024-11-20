@@ -1,6 +1,6 @@
-#include "minishell.h"
+#include "../minishell.h"
 
-static int	calc_pipe_nb(t_shell_data *shell)
+int	calc_pipe_nb(t_shell_data *shell)
 {
 	char	*full_input;
 	int		pipe_nb;
@@ -15,7 +15,7 @@ static int	calc_pipe_nb(t_shell_data *shell)
     }
 	return (pipe_nb);
 }
-static int calc_cmds_nb(t_shell_data *shell)
+ int calc_cmds_nb(t_shell_data *shell)
 {
     char *input = shell->full_input; // Get the full input
     int cmd_count = 0;

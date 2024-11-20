@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void handle_input(t_shell_data *shell)
 {
@@ -59,7 +59,7 @@ void handle_input(t_shell_data *shell)
         process_input(shell);
         // printf("Debug: Finished process_input()\n");
         printf("Debug: Starting execution()---------------------------------------\n");
-        execution(); // Add execution logic here
+        // execution(); // Add execution logic here
         printf("Debug: Finished execution()\n");
 
 		free_commands(shell); // ##important

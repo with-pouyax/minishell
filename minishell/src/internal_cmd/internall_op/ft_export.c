@@ -1,5 +1,5 @@
 // ft_export.c
-#include "internal_commands.h"
+#include "../internal_commands.h"
 
 int	ft_export(t_shell_data *shell,t_command *cmd)
 {

@@ -1,5 +1,5 @@
 // ft_exit.c
-#include "internal_commands.h"
+#include "../internal_commands.h"
 
 int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 {

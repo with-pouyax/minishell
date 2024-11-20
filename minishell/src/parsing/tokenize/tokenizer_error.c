@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	handle_tokenization_error(t_shell_data *shell, int error_flag)
 {
@@ -11,7 +11,7 @@ void	handle_tokenization_error(t_shell_data *shell, int error_flag)
 	else if (error_flag == 2)
 	{
 		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
-		cleanup();
+		cleanup(shell);
 		exit(EXIT_FAILURE);
 	}
 }

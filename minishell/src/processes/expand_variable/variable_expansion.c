@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 char	*getenv_from_envp(t_shell_data *shell, char *name)
 {

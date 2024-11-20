@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 
 char	*expand_variables_in_token(t_shell_data *shell ,char *input, int *var_not_found_flag)

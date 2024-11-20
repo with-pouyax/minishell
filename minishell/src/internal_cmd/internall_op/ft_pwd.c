@@ -1,6 +1,6 @@
 // ft_pwd.c
-#include "internal_commands.h"
-#include <limits.h> // For PATH_MAX
+#include "../internal_commands.h"
+
 
 int	ft_pwd(t_shell_data *shell,t_command *cmd)
 {

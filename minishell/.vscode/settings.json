@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "minishell.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "internal_commands.h": "c"
   }
 }

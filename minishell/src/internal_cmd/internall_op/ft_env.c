@@ -1,5 +1,5 @@
 // src/ft_env.c
-#include "internal_commands.h"
+#include "../internal_commands.h"
 
 int		ft_env(t_shell_data *shell,t_command *cmd)
 {

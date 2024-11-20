@@ -141,7 +141,7 @@ int		append_additional_input(char *additional_input);
 void	skip_spaces(t_shell_data *shell, int *i);
 int		extract_command_string(char *input, int i);
 void	add_command_to_list(t_shell_data *shell, t_command **last_cmd, t_command *cmd);
-void	tokenize_input_error(int error_flag);
+void	tokenize_input_error(t_shell_data *shell,int error_flag);
 int		process_quoted_delimiter(char *input, int *i);
 void	skip_until_operator_or_space(char *input, int *i);
 int		syntax_error_newline(void);
@@ -202,6 +202,9 @@ void	sigquit_handler(int sig);
 // execution
 void    execution();
 int **init_pipes(int cmds_nb);
+
+int calc_cmds_nb(t_shell_data *shell);
+int	calc_pipe_nb(t_shell_data *shell);
 
 
 #endif

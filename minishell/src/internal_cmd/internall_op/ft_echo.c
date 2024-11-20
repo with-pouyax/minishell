@@ -1,5 +1,5 @@
 // ft_echo.c
-#include "internal_commands.h"
+#include "../internal_commands.h"
 
 int	ft_echo(t_shell_data *shell,t_command *cmd)
 {

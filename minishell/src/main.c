@@ -35,7 +35,7 @@ int main(int argc, char **argv, char **envp)
     // execution();
     //  printf("after execution");
 
-	cleanup();
+	cleanup(&shell);
 	return (0);
 }
 
