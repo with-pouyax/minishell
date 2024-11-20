@@ -62,7 +62,7 @@ void handle_input(t_shell_data *shell)
         execution(); // Add execution logic here
         printf("Debug: Finished execution()\n");
 
-		free_commands(); // ##important
+		free_commands(shell); // ##important
 
 
         free(shell->input);

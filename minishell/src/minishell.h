@@ -75,8 +75,8 @@ typedef struct s_shell_data
 /* Function Prototypes */
 
 /* Shell Initialization and Input Handling */
-void	init_shell(void);
-void	handle_input(void);
+void	init_shell(t_shell_data *shell);
+void	handle_input(t_shell_data *shell);
 void	process_input(t_shell_data *shell);
 int		handle_unclosed_quotes(void);
 int		check_unclosed_quotes(char *input);
@@ -143,7 +143,7 @@ int		process_quoted_word(char *input, int *i, char **word);
 int		append_additional_input(char *additional_input);
 void	skip_spaces(int *i);
 int		extract_command_string(char *input, int i);
-void	add_command_to_list(t_command **last_cmd, t_command *cmd);
+void	add_command_to_list(t_shell_data *shell ,t_command **last_cmd, t_command *cmd);
 void	tokenize_input_error(int error_flag);
 int		process_quoted_delimiter(char *input, int *i);
 void	skip_until_operator_or_space(char *input, int *i);
@@ -167,7 +167,6 @@ void	tokenize_input(void);
 void	skip_spaces(int *i);
 int		process_input_segment(int *i, int *cmd_index, t_command **last_cmd);
 int		extract_command_string(char *input, int i);
-void	add_command_to_list(t_command **last_cmd, t_command *cmd);
 
 /* tokenize_input_utils.c */
 int		tokenize_command(t_command *cmd);

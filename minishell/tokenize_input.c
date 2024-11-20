@@ -49,23 +49,6 @@ static int calc_cmds_nb()
 
 
 
-t_command	*create_command(char *cmd_str, int index)
-{
-    t_command *cmd;
-
-    cmd = malloc(sizeof(t_command));
-    if (!cmd)
-        return (NULL);
-    cmd->command_string = cmd_str;
-    cmd->index = index;
-	cmd->cmds_nb = calc_cmds_nb();
-    cmd->pipe_nb = calc_pipe_nb();
-	cmd->is_recalled = 0;
-    cmd->token_list = NULL;
-    cmd->next = NULL;
-	//printf("create_command: Created command #%d: %s\n", index, cmd_str); // ##debug print
-	return (cmd);
-}
 
 
 void	skip_cmd_spaces(char *str, int *i)

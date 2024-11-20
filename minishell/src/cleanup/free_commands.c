@@ -31,12 +31,12 @@ void	free_heredoc_token(t_token *token)
 		free(token->heredoc_delimiter);
 }
 
-void	free_commands(void)
+void	free_commands(t_shell_data *shell)
 {
 	t_command	*cmd;
 	t_command	*next_cmd;
 
-	cmd = g_data.commands;
+	cmd = shell->commands;
 	while (cmd)
 	{
 		next_cmd = cmd->next;
@@ -45,5 +45,5 @@ void	free_commands(void)
 		free(cmd);
 		cmd = next_cmd;
 	}
-	g_data.commands = NULL;
+	shell->commands = NULL;
 }

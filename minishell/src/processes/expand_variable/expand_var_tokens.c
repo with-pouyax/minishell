@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 
-char	*expand_variables_in_token(char *input, int *var_not_found_flag)
+char	*expand_variables_in_token(t_shell_data *shell ,char *input, int *var_not_found_flag)
 {
 	char	*result;
 	int		i;
@@ -19,7 +19,7 @@ char	*expand_variables_in_token(char *input, int *var_not_found_flag)
 		update_quote_flags(input[i], &in_single_quote, &in_double_quote);            // Update the quote flags based on the current character
 		if (input[i] == '$' && !in_single_quote)                                     // If we encounter a $ character and we are not in a single quote
 		{
-			if (process_variable_expansion(input, &i, &result, var_not_found_flag)) // Process the variable expansion
+			if (process_variable_expansion(shell ,input, &i, &result, var_not_found_flag)) // Process the variable expansion
 				return (NULL);
 		}
 		else // If we encounter a character that is not a $ character
