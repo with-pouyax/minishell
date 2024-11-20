@@ -104,60 +104,7 @@ int	append_literal_char(char *input, int *i, char **result)
 	return (0);
 }
 
-char	*expand_variables_in_token(char *input, int *var_not_found_flag)
-{
-	char	*result;
-	int		i;
-	int		in_single_quote;
-	int		in_double_quote;
 
-	result = ft_strdup(""); // Allocate memory for the result
-	if (!result)
-		return (NULL);
-	i = 0;
-	in_single_quote = 0;
-	in_double_quote = 0;
-	while (input[i]) // Loop through the input string
-	{
-		update_quote_flags(input[i], &in_single_quote, &in_double_quote); // Update the quote flags based on the current character
-		if (input[i] == '$' && !in_single_quote) // If we encounter a $ character and we are not in a single quote
-		{
-			if (process_variable_expansion(input, &i, &result, var_not_found_flag)) // Process the variable expansion
-				return (NULL);
-		}
-		else // If we encounter a character that is not a $ character
-		{
-			if (append_literal_char(input, &i, &result)) // Append the character to the result, so after the result will our input string with the variables expanded
-				return (NULL);
-		}
-	}
-	return (result); // Return the result
-}
-
-void	update_quote_flags(char c, int *in_single_quote, int *in_double_quote)
-{
-	if (c == '\'' && !(*in_double_quote)) // If the character is a single quote and we are not in a double quote
-		*in_single_quote = !(*in_single_quote); // reverse the value of in_single_quote
-	else if (c == '\"' && !(*in_single_quote)) // If the character is a double quote and we are not in a single quote
-		*in_double_quote = !(*in_double_quote); // reverse the value of in_double_quote
-}
-void expand_variables_in_input(void)
-{
-    char *expanded_input;
-    int var_not_found_flag = 0;
-
-    expanded_input = expand_variables_in_token(g_data.input, &var_not_found_flag); // Expand the variables in the input and store the result in expanded_input
-    if (!expanded_input)
-    {
-        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-        free(g_data.input);
-        g_data.input = NULL;
-        g_data.exit_status = 1;
-        return;
-    }
-    free(g_data.input);
-    g_data.input = expanded_input;
-}
 
 void expand_variables_in_tokens(void)
 {

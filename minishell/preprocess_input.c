@@ -1,16 +1,16 @@
 #include "minishell.h"
 
-void preprocess_input(void)
+void preprocess_input(t_shell_data *shell)
 {
-    g_data.commands = NULL;
-    tokenize_input(); // Tokenize the input string
-    if (!g_data.commands)
+    shell->commands = NULL;
+    split_cmd_tokenize(shell);
+    if (!shell->commands)
         return;
     process_heredocs(); // Process heredocs after tokenization
-    if (g_data.error_flag) // If an error occurred during heredoc processing
+    if (shell->error_flag) // If an error occurred during heredoc processing
     {
         free_commands(); //##important
-        g_data.commands = NULL;
+        shell->commands = NULL;
         return;
     }
     parse_tokens();

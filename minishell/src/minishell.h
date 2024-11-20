@@ -50,7 +50,7 @@ typedef struct s_command
 	int					pipe_nb;
 	int					**pipes;
 	int					cmds_nb;
-	int					is_recalled;   //pak shavad
+	int					is_recalled;
 	t_token				*token_list;
 	struct s_command	*next;
 }				t_command;
@@ -58,8 +58,8 @@ typedef struct s_command
 typedef struct s_shell_data
 {
 	volatile sig_atomic_t	signal_status;
-	char					*input;            //
-	char					*full_input;       //
+	char					*input;
+	char					*full_input;
 	t_command				*commands;
 	char					**envp;
 	int						exit_status;
@@ -67,7 +67,6 @@ typedef struct s_shell_data
 	int						in_child_process; // Add this line
 }				t_shell_data;
 
-extern t_shell_data	g_data;
 
 #include "redirection.h"
 #include "internal_commands.h"
@@ -76,14 +75,14 @@ extern t_shell_data	g_data;
 /* Function Prototypes */
 
 /* Shell Initialization and Input Handling */
-void	init_shell(t_shell_data *shell);
-void	handle_input(t_shell_data *shell);
+void	init_shell(void);
+void	handle_input(void);
 void	process_input(t_shell_data *shell);
 int		handle_unclosed_quotes(void);
 int		check_unclosed_quotes(char *input);
 
 /* Tokenization, Parsing, and Execution */
-void	split_cmd_tokenize(t_shell_data *shell);
+void	tokenize_input(void);
 int		tokenize_command(t_command *cmd);
 t_command	*create_command(char *cmd_str, int index);
 int		add_token(char *token_value, t_token **token_list,
@@ -114,7 +113,7 @@ char	*expand_variable_token(char *input, int *i,
 			int *var_not_found_flag);
 char	*expand_variables_in_token(char *input,
 			int *var_not_found_flag);
-void expand_variables_in_input(t_shell_data *shell);
+void expand_variables_in_input(void);
 char	*get_literal_char(char *input, int *i);
 
 /* String Manipulation Utilities */
@@ -132,7 +131,7 @@ int		skip_quotes(char *input, int i);
 void	handle_tokenization_error(int error_flag);
 
 /* Preprocessing */
-void	preprocess_input(t_shell_data *shell);
+void	preprocess_input(void);
 void	cleanup(void);
 
 /* Additional Helper Functions */
@@ -142,7 +141,7 @@ void	update_quote_flags(char c, int *in_single_quote,
 			int *in_double_quote);
 int		process_quoted_word(char *input, int *i, char **word);
 int		append_additional_input(char *additional_input);
-void	skip_spaces(t_shell_data *shell, int *i);
+void	skip_spaces(int *i);
 int		extract_command_string(char *input, int i);
 void	add_command_to_list(t_command **last_cmd, t_command *cmd);
 void	tokenize_input_error(int error_flag);
@@ -165,7 +164,8 @@ char	*get_variable_value(char *input, int *i, int *var_not_found_flag);
 
 /* tokenize_input.c */
 void	tokenize_input(void);
-int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd);
+void	skip_spaces(int *i);
+int		process_input_segment(int *i, int *cmd_index, t_command **last_cmd);
 int		extract_command_string(char *input, int i);
 void	add_command_to_list(t_command **last_cmd, t_command *cmd);
 
