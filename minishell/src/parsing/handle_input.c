@@ -2,16 +2,13 @@
 
 void handle_input(t_shell_data *shell)
 {
-    printf("Debug: Starting handle_input()\n");
+    int skip_processing;
 
+    skip_processing = 0;
     while (1)
     {
-        // printf("Debug: Entering input loop\n");
-        // fflush(stdout);
-
         shell->input = readline(PROMPT);
-        // printf("Debug: Readline complete. shell->input = '%s'\n", shell->input);
-        if (!shell->input)           // If input is NULL (Ctrl-D), exit the shell
+        if (!shell->input)           // handle CTRL + D
         {
             write(1, "exit\n", 5);
             printf("Debug: shell->input is NULL, exiting shell\n");
@@ -21,21 +18,23 @@ void handle_input(t_shell_data *shell)
         {
             ft_putstr_fd("minishell: input too long\n", STDERR_FILENO);
             free(shell->input);
-            continue;       //check what to do with this part--------------------
+            skip_processing = 1;
         }
-        shell->full_input = ft_strdup(shell->input);
-        printf("Debug: full_command= '%s'\n", shell->full_input);
-        if (!shell->full_input)
+        if (!skip_processing)
         {
-            ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-            free(shell->input);
-            continue;      //check !!!! ----------------------------------------
+            shell->full_input = ft_strdup(shell->input);
+            if (!shell->full_input)
+            {
+                ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+                free(shell->input);
+                skip_processing = 1;
+            }
         }
         if (ft_strlen(shell->full_input) > 0)
         {
             add_history(shell->full_input);
         }
-        if (check_unclosed_quotes(shell->input))
+        if (!skip_processing && check_unclosed_quotes(shell->input))
         {
             ft_putstr_fd("minishell: syntax error: unclosed quotes\n", STDERR_FILENO);
             free(shell->input);
@@ -43,9 +42,9 @@ void handle_input(t_shell_data *shell)
             shell->input = NULL;
             shell->full_input = NULL;
             shell->exit_status = 2;  //check------------------------------------
-            continue;                //check------------------------------------
+            skip_processing =1;
         }
-        if (check_trailing_pipe(shell->input))
+        if (!skip_processing && check_trailing_pipe(shell->input))
         {
             ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
             free(shell->input);
@@ -53,28 +52,23 @@ void handle_input(t_shell_data *shell)
             shell->input = NULL;
             shell->full_input = NULL;
             shell->exit_status = 2;   //check------------------------------------
-            continue;                 //check------------------------------------
+            skip_processing = 1;
         }
         // printf("Debug: Starting process_input()\n");
         process_input(shell);
         // printf("Debug: Finished process_input()\n");
         printf("Debug: Starting execution()---------------------------------------\n");
-        // execution(); // Add execution logic here
+        // execution(shell);
         printf("Debug: Finished execution()\n");
-
 		free_commands(shell); // ##important
-
-
         free(shell->input);
         printf("Debug: Freed shell->input after process_input()\n");
         shell->input = NULL;
         free(shell->full_input);
         printf("Debug: Freed shell->full_input after process_input()\n");
         shell->full_input = NULL;
-
         printf("Debug: Completed processing input\n");
     }
-
     rl_clear_history();
     printf("Debug: Exiting handle_input(), clearing history\n");
 }
