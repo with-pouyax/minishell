@@ -13,6 +13,8 @@ int	execute_internal_commands(t_shell_data *shell)
 		token = cmd->token_list;
 		while (token)
 		{
+			if (token->is_end)
+				break;
 			if (token->is_command && token->is_int)
 			{
 				if (ft_strcmp(token->value, "echo") == 0)

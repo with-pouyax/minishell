@@ -42,8 +42,10 @@ void	print_tokens(t_token *token_list)
 	token = token_list;
 	while (token)
 	{
-		printf("Token: '%s', Index: %d\n", token->value, token->index);
-		// print_token_details(token);
+		if (token->is_end)
+			printf("Token: '\\0', Index: %d (End of Input)\n", token->index);
+		else
+			printf("Token: '%s', Index: %d\n", token->value, token->index);
 		token = token->next;
 	}
 }

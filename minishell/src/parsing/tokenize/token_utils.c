@@ -42,6 +42,7 @@ void	initialize_new_token(t_token *new_token, char *token_value,
 	new_token->is_heredoc = 0;
 	new_token->heredoc_delimiter = NULL;
 	new_token->heredoc_file = NULL;
+	new_token->is_end = 0; // Initialize is_end to 0
 	new_token->next = NULL;
 
 	//printf("initialize_new_token: Initialized token #%d: %s\n", new_token->index, new_token->value); // ##debug print

@@ -39,6 +39,7 @@ typedef struct s_token
 	int				is_heredoc;
 	char			*heredoc_delimiter;
 	char			*heredoc_file;
+	int				is_end; // New field added
 	struct s_token	*next;
 }				t_token;
 
@@ -205,6 +206,8 @@ int **init_pipes(int cmds_nb);
 
 int calc_cmds_nb(t_shell_data *shell);
 int	calc_pipe_nb(t_shell_data *shell);
+
+void    append_end_token(t_shell_data *shell);
 
 
 #endif
