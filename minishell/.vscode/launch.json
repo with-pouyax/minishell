@@ -1,62 +1,46 @@
 {
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "Launch GDB Debugger",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/minishell",
-      "args": [],
-      "stopAtEntry": true,
-      "cwd": "${workspaceFolder}",
-      "externalConsole": false,
-      "MIMode": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        },
-        {
-          "description": "Break on all exceptions",
-          "text": "catch throw",
-          "ignoreFailures": true
-        },
-        {
-          "description": "Break on abort",
-          "text": "catch syscall abort",
-          "ignoreFailures": true
-        },
-        {
-          "description": "Enable readable array printing",
-          "text": "set print array on",
-          "ignoreFailures": true
-        },
-        {
-          "description": "Enable pretty-printing of structures",
-          "text": "set print pretty on",
-          "ignoreFailures": true
-        }
-      ]
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/mina/Desktop/new/minishell/minishell",
-      "program": "/home/mina/Desktop/new/minishell/minishell/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    }
+      {
+          "name": "Launch GDB Debugger",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceFolder}/minishell",
+          "args": [],
+          "stopAtEntry": true,
+          "cwd": "${workspaceFolder}",
+          "externalConsole": false,
+          "MIMode": "gdb",
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              },
+              {
+                  "description": "Break on all exceptions",
+                  "text": "catch throw",
+                  "ignoreFailures": true
+              },
+              {
+                  "description": "Break on abort",
+                  "text": "catch syscall abort",
+                  "ignoreFailures": true
+              },
+              {
+                  "description": "Enable readable array printing",
+                  "text": "set print array on",
+                  "ignoreFailures": true
+              },
+              {
+                  "description": "Enable pretty-printing of structures",
+                  "text": "set print pretty on",
+                  "ignoreFailures": true
+              }
+          ]
+      }
   ]
 }
