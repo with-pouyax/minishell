@@ -203,12 +203,18 @@ void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 
 // execution
-void    execution(t_shell_data *shell);
-void 	exec_cmd(t_shell_data *shell, t_command *cmd);
-int 	**init_pipes(int cmds_nb);
-
 int 	calc_cmds_nb(t_shell_data *shell);
 int		calc_pipe_nb(t_shell_data *shell);
+int 	**init_pipes(int cmds_nb);
+
+void    execution(t_shell_data *shell);
+void 	exec_cmd(t_shell_data *shell ,t_command *cmds, int index);
+void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_index);
+int 	has_redirs(t_redir *redir, const char *type);
+int 	open_all_files(t_redir *redir);
+int 	open_input_file(t_redir *redir, int fd_in);
+int 	open_output_file(t_redir *redir, int fd_out);
+int 	open_append_file(t_redir *redir, int fd_out);
 
 
 #endif

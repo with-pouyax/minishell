@@ -1,7 +1,19 @@
 #include "../minishell.h"
 
-int open_file(char *file_name, int fd, int flag, mode_t )
-{}
+int has_redirs(t_redir *redir, const char *type)
+{
+    while (redir)
+    {
+        if (strcmp(redir->type, type) == 0)
+            return (1);
+        redir = redir->next;
+    }
+    return (0);
+}
+
+
+// int open_file(char *file_name, int fd, int flag, mode_t )
+// {}
 
 int open_all_files(t_redir *redir)
 {
@@ -13,39 +25,11 @@ int open_all_files(t_redir *redir)
     while (redir)
     {
         if(redir->type[0] == '<')
-        {
-            fd_input = open(redir->direction, fd_input, O_RDONLY, 0);
-            if (fd_input == -1)
-            {
-                perror("open file failed");
-                return (EXIT_FAILURE);
-            }
-            dup2(fd_input, STDIN_FILENO);     //redirect input
-            close(fd_input); 
-        }
+            fd_input = open_input_file(redir, fd_input);
         else if (redir->type[0] == '>' && redir->type[1] == '\0' )   // ">"
-        {
-            fd_output = open(redir->direction, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-            if (fd_output == -1)
-            {
-                perror("open file failed");
-                return (EXIT_FAILURE);
-            }
-            dup2(fd_output, STDOUT_FILENO);    //redirect output
-            close(fd_output); 
-        }
-        else if (redir->type[0] == '>' && redir->type[1] == '>')    // ">>"
-        {
-            fd_output = open(redir->direction, O_WRONLY | O_CREAT | O_APPEND, 0666);
-            if (fd_output == -1)
-            {
-                perror("open");
-                return (EXIT_FAILURE);
-            }
-            dup2(fd_output, STDOUT_FILENO); // Redirect output to append mode
-            close(fd_output); 
-        }
-        
+            fd_output = open_output_file(redir, fd_output);
+        else if (redir->type[0] == '>' && redir->type[1] == '>')     // ">>"
+            fd_output = open_append_file(redir, fd_output);
         redir = redir->next; // Move to the next redirection
     }
     return (EXIT_SUCCESS);
@@ -72,7 +56,21 @@ void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_ind
     exit_code = open_all_files(redir);
     if (exit_code == EXIT_FAILURE)
         return;
-    // check the redirections
+    if (cmds_index != 0 && cmds_index != cmds_nb - 1)   // Set up pipes for commands that aren't the first or last
+    {
+        dup2(pipes[cmds_index - 1][0], STDIN_FILENO);   // Redirect input from the previous command's output pipe
+        dup2(pipes[cmds_index][1], STDOUT_FILENO);      // Redirect output to the next command's input pipe
+    }
+    else if (cmds_index == 0)                           // First command, only output redirection (if any)
+    {
+        if (!has_redirs(redir, ">") && !has_redirs(redir, ">>"))
+            dup2(pipes[cmds_index][1], STDOUT_FILENO);
+    }
+    else if (cmds_index == cmds_nb - 1)                 // Last command, only input redirection (if any)
+    {
+        if (!has_redirs(redir, "<"))
+            dup2(pipes[cmds_index - 1][0], STDIN_FILENO);
+    }
 }
 
 void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
@@ -83,7 +81,7 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
     // replace_env_var();     // pouya did this part before 
-    if_thereis_redirection(shell, cmds->redirs, index);
+    if_thereis_redirection(shell, cmds->redirs_list, index);
     // check cmd if is internal or external
     // {   execute_program();  }
     // restore_std();
