@@ -47,9 +47,6 @@ typedef struct s_command
 {
 	char				*command_string;
 	int					index;
-	int					pipe_nb;
-	int					**pipes;
-	int					cmds_nb;
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
 	struct s_command	*next;
@@ -61,6 +58,9 @@ typedef struct s_shell_data
 	char					*input;            //
 	char					*full_input;       //
 	t_command				*commands;
+	int						pipe_nb;
+	int						**pipes;
+	int						cmds_nb;
 	char					**envp;
 	int						exit_status;
 	int						error_flag;
@@ -82,22 +82,19 @@ int		check_unclosed_quotes(char *input);
 void	split_cmd_tokenize(t_shell_data *shell);
 int		tokenize_command(t_command *cmd);
 t_command	*create_command(t_shell_data *shell, char *cmd_str, int index);
-int		add_token(char *token_value, t_token **token_list,
-			int *index, int is_operator);
+int		add_token(char *token_value, t_token **token_list, int *index, int is_operator);
 void	parse_tokens(t_shell_data *shell);
 void	expand_variables_in_tokens(t_shell_data *shell);
 void	print_commands(t_shell_data *shell);
 void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
-int		process_operator(char *input, int *i, t_command *cmd,
-			int *index);
-int		process_word(char *input, int *i, t_command *cmd,
-			int *index);
+int		process_operator(char *input, int *i, t_command *cmd, int *index);
+int		process_word(char *input, int *i, t_command *cmd, int *index);
 
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
-			t_token *heredoc_token);
+t_token *heredoc_token);
 int		read_heredoc_content(t_shell_data *shell, t_token *heredoc_token);
 char	*generate_temp_filename(void);
 int		is_operator_char(char c);
@@ -107,10 +104,10 @@ int		is_valid_operator(char *op);
 char	*getenv_from_envp(t_shell_data *shell, char *name);
 int		get_var_name_len(char *str);
 char	*expand_variable_token(t_shell_data *shell, char *input, int *i,
-			int *var_not_found_flag);
+int 	*var_not_found_flag);
 char	*expand_variables_in_token(t_shell_data *shell, char *input,
-			int *var_not_found_flag);
-void expand_variables_in_input(t_shell_data *shell);
+int 	*var_not_found_flag);
+void 	expand_variables_in_input(t_shell_data *shell);
 char	*get_literal_char(char *input, int *i);
 
 /* String Manipulation Utilities */
@@ -187,24 +184,24 @@ void	process_heredocs(t_shell_data *shell);
 int		is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
 char	*get_line_from_input(char *input, int *index);
-int		execute_commands(void);
-int 	handle_internal_commands(void);
-int		execute_internal_commands(t_shell_data *shell);
-void	execute_external_commands(t_token *token);
 
 void    free_envp(t_shell_data *shell);
 char    **copy_envp(char **envp);
 int		check_trailing_pipe(char *input);
 
+// signal handler
+
 void	setup_signal_handlers(void);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
-// execution
-void    execution();
-int **init_pipes(int cmds_nb);
 
-int calc_cmds_nb(t_shell_data *shell);
-int	calc_pipe_nb(t_shell_data *shell);
+// execution
+void    execution(t_shell_data *shell);
+void 	exec_cmd(t_shell_data *shell, t_command *cmd);
+int 	**init_pipes(int cmds_nb);
+
+int 	calc_cmds_nb(t_shell_data *shell);
+int		calc_pipe_nb(t_shell_data *shell);
 
 
 #endif
