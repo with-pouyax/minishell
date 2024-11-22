@@ -42,14 +42,21 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+typedef struct s_redir
+{
+	char			*direction;
+	char			type[2];
+	struct s_redir	*next;
+}				t_redir;
 
 typedef struct s_command
 {
 	char				*command_string;
 	int					index;
 	int					is_recalled;   //pak shavad
-	t_token				*token_list;
-	struct s_command	*next;
+	t_token				*token_list;   //list of tokens
+	t_redir				*redirs_list;		//list of redirection
+	struct s_command	*next;      // Linked list of commands (for pipelines)
 }				t_command;
 
 typedef struct s_shell_data
