@@ -1,22 +1,77 @@
 #include "src/minishell.h"
 
+void print_horizontal_line(int length) {
+    for (int i = 0; i < length; i++)
+        printf("-");
+    printf("\n");
+}
+
+// Function to print table headers with alignment
+void print_table_header(const char *headers[], int num_columns, int widths[]) {
+    printf("|");
+    for (int i = 0; i < num_columns; i++) {
+        printf(" %-*s |", widths[i] - 2, headers[i]);
+    }
+    printf("\n");
+}
+
+// Function to print a single row of the table
+void print_table_row(const char *row_data[], int num_columns, int widths[]) {
+    printf("|");
+    for (int i = 0; i < num_columns; i++) {
+        printf(" %-*s |", widths[i] - 2, row_data[i]);
+    }
+    printf("\n");
+}
+
+
 void print_redirections(t_redirection *redirs)
 {
-    t_redirection *redir = redirs;
+    const char *redir_headers[] = {"Type", "Redir#", "Filename", "Delimiter"};
+    int redir_widths[] = {15, 8, 15, 15};
+    int num_redir_columns = sizeof(redir_headers) / sizeof(redir_headers[0]);
 
-    while (redir)
+    print_horizontal_line(60);
+    print_table_header(redir_headers, num_redir_columns, redir_widths);
+    print_horizontal_line(60);
+
+    while (redirs)
     {
-        printf("  Redirection: type:%s, redir_number:%d, filename:%s, delimiter:%s;\n",
-            (redir->type == REDIR_INPUT) ? "REDIR_INPUT" :
-            (redir->type == REDIR_OUTPUT) ? "REDIR_OUTPUT" :
-            (redir->type == REDIR_APPEND) ? "REDIR_APPEND" :
-            (redir->type == REDIR_HEREDOC) ? "REDIR_HEREDOC" : "UNKNOWN",
-            redir->redir_number,
-            redir->filename ? redir->filename : "NULL",
-            redir->delimiter ? redir->delimiter : "NULL");
-        redir = redir->next;
+        const char *type_str;
+        switch (redirs->type)
+        {
+            case REDIR_INPUT:
+                type_str = "REDIR_INPUT";
+                break;
+            case REDIR_OUTPUT:
+                type_str = "REDIR_OUTPUT";
+                break;
+            case REDIR_APPEND:
+                type_str = "REDIR_APPEND";
+                break;
+            case REDIR_HEREDOC:
+                type_str = "REDIR_HEREDOC";
+                break;
+            default:
+                type_str = "UNKNOWN";
+        }
+
+        char redir_number_str[10];
+        snprintf(redir_number_str, sizeof(redir_number_str), "%d", redirs->redir_number);
+
+        const char *redir_row[] = {
+            type_str,
+            redir_number_str,
+            redirs->filename ? redirs->filename : "NULL",
+            redirs->delimiter ? redirs->delimiter : "NULL"
+        };
+
+        print_table_row(redir_row, num_redir_columns, redir_widths);
+        redirs = redirs->next;
     }
+    print_horizontal_line(60);
 }
+
 
 
 void	print_token_details(t_token *token)
@@ -56,22 +111,46 @@ void	print_command_token(t_token *token)
 
 void print_tokens(t_token *token_list)
 {
-    t_token *token;
+    const char *token_headers[] = {"Index", "Value", "Type"};
+    int token_widths[] = {7, 15, 20};
+    int num_token_columns = sizeof(token_headers) / sizeof(token_headers[0]);
 
-    token = token_list;
-    while (token)
+    print_horizontal_line(50);
+    print_table_header(token_headers, num_token_columns, token_widths);
+    print_horizontal_line(50);
+
+    while (token_list)
     {
-        if (token->is_end)
-            printf("Token: '\\0', Index: %d (End of Input)\n", token->index);
-        else
-            printf("Token: '%s', Index: %d\n", token->value, token->index);
+        char token_index_str[10];
+        snprintf(token_index_str, sizeof(token_index_str), "%d", token_list->index);
 
-        // If you want to print additional token details, you can do so here
-        // For now, we'll keep it minimal as per your request
+        // Determine the type of token
+        char type_str[20] = "";
+        if (token_list->is_command)
+            strcat(type_str, "Command ");
+        if (token_list->is_flag)
+            strcat(type_str, "Flag ");
+        if (token_list->is_operator)
+            strcat(type_str, "Operator ");
+        if (token_list->is_end)
+            strcat(type_str, "End ");
+        if (token_list->is_heredoc)
+            strcat(type_str, "Heredoc ");
+        if (token_list->var_not_found)
+            strcat(type_str, "VarNotFound ");
 
-        token = token->next;
+        const char *token_row[] = {
+            token_index_str,
+            token_list->value,
+            type_str
+        };
+
+        print_table_row(token_row, num_token_columns, token_widths);
+        token_list = token_list->next;
     }
+    print_horizontal_line(50);
 }
+
 
 
 
@@ -82,19 +161,52 @@ void print_commands(t_shell_data *shell)
     cmd = shell->commands;
     while (cmd)
     {
-        printf("Command index:%d cmds_nb:%d pipe_nb:%d '%s' full_cmd: %s\n",
-            cmd->index, cmd->cmds_nb, cmd->pipe_nb,
-            cmd->command_string, shell->full_input);
+        printf("\n=========================================\n");
+        printf("Command #%d\n", cmd->index);
+        printf("=========================================\n");
 
-        // Print tokens
+        // Define headers and their respective widths
+        const char *cmd_headers[] = {"Index", "Cmds#", "Pipes#", "Command String", "Full Command"};
+        int cmd_widths[] = {7, 7, 8, 25, 50};
+        int num_cmd_columns = sizeof(cmd_headers) / sizeof(cmd_headers[0]);
+
+        // Print command table header
+        print_horizontal_line(100);
+        print_table_header(cmd_headers, num_cmd_columns, cmd_widths);
+        print_horizontal_line(100);
+
+        // Prepare row data
+        char index_str[10];
+        char cmds_nb_str[10];
+        char pipe_nb_str[10];
+        snprintf(index_str, sizeof(index_str), "%d", cmd->index);
+        snprintf(cmds_nb_str, sizeof(cmds_nb_str), "%d", cmd->cmds_nb);
+        snprintf(pipe_nb_str, sizeof(pipe_nb_str), "%d", cmd->pipe_nb);
+
+        const char *cmd_row[] = {
+            index_str,
+            cmds_nb_str,
+            pipe_nb_str,
+            cmd->command_string,
+            shell->full_input
+        };
+
+        // Print command row
+        print_table_row(cmd_row, num_cmd_columns, cmd_widths);
+        print_horizontal_line(100);
+
+        // Print Tokens
+        printf("\nTokens:\n");
         print_tokens(cmd->token_list);
 
-        // Print redirections with detailed information
+        // Print Redirections
+        printf("\nRedirections:\n");
         print_redirections(cmd->redirections);
 
         cmd = cmd->next;
     }
 }
+
 
 
 
