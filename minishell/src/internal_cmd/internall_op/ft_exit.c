@@ -1,16 +1,18 @@
 // ft_exit.c
 #include "../internal_commands.h"
 
+/*
+token = cmd->token_list->next  -->  Skip the command token
+*/
+
 int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 	int		exit_status;
 
-	token = cmd->token_list->next; // Skip the command token
+	token = cmd->token_list->next;
 	exit_status = shell->exit_status;
-
 	printf("exit\n");
-
 	if (token)
 	{
 		if (is_numeric(token->value))
@@ -30,7 +32,6 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 			exit_status = 255;
 		}
 	}
-
 	cleanup(shell);
 	exit(exit_status);
 }
