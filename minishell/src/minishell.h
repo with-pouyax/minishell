@@ -220,4 +220,16 @@ int		execute_internal_commands(t_shell_data *shell);
 int		execute_external_commands(t_shell_data *shell);
 
 
+//ft_cd 
+
+int	ft_cd(t_shell_data *shell, t_command *cmd);
+int	handle_chdir_error(t_shell_data *shell, char *expanded_path);
+int	handle_memory_error(t_shell_data *shell);
+int	handle_no_home(t_shell_data *shell);
+int	handle_tilde_path(t_shell_data *shell, const char *path);
+int	change_to_home(t_shell_data *shell);
+
+int	ft_echo(t_shell_data *shell,t_command *cmd);
+
+
 #endif

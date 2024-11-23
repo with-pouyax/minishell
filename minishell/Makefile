@@ -42,6 +42,7 @@ SRCS            = src/main.c\
                   src/internal_cmd/internal_commands.c\
                   src/internal_cmd/internal_commands_utils.c\
                   src/internal_cmd/internall_op/ft_cd.c\
+                  src/internal_cmd/internall_op/handle_cd_errors.c \
                   src/internal_cmd/internall_op/ft_echo.c\
                   src/internal_cmd/internall_op/ft_env.c\
                   src/internal_cmd/internall_op/ft_exit.c\
