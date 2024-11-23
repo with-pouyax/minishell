@@ -1,13 +1,9 @@
 #include "internal_commands.h"
 
-
 /*
 shell->exit_status = ret
 ----> Set global exit status based on command return value
 */
-
-#include "internal_commands.h"
-
 static int execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret)
 {
     if (ft_strcmp(token->value, "echo") == 0)
@@ -60,5 +56,5 @@ int execute_internal_commands(t_shell_data *shell)
         }
         cmd = cmd->next;
     }
-    return 0;
+    return (0);
 }

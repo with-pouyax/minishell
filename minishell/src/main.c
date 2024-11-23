@@ -28,7 +28,12 @@ int main(int argc, char **argv, char **envp)
 	cleanup(&shell);
 	return (0);
 }
-
-
+// some point that we have to considered later:
+/*
+- check  ft_pwd() : there is error in this function
+- check the exit_code
+- heredoc
+- do we need to return 0 in "execute_internal_commands()"?
+*/ 
 
 

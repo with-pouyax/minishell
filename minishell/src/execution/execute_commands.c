@@ -87,7 +87,7 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
-        if (shell->commands->token_list->is_builtin)
+        if (shell->commands->token_list->is_int)
             execute_internal_commands(shell);
         else
             execute_external_commands(shell);
@@ -115,7 +115,35 @@ void execution(t_shell_data *shell)
         cmd = cmd->next;
         i++;
     }
-    // close pipes
+    close_all_pipes(shell->pipes, shell->cmds_nb); // Close all remaining pipes
     // exec_parent
-    // free
+    free_pipes(shell->pipes, shell->cmds_nb); 
 }
+
+
+void close_all_pipes(int **pipes, int nb_cmds)
+{
+    int i;
+
+    i = 0;
+    while (i < nb_cmds - 1)
+    {
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+        i++;
+    }
+}
+
+void free_pipes(int **pipes, int nb_cmds)
+{
+    int i;
+
+    i = 0;
+    while (i < nb_cmds - 1)
+    {
+        free(pipes[i]);
+        i++;
+    }
+    free(pipes);
+}
+

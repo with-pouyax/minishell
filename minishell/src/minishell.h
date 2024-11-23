@@ -217,7 +217,13 @@ int 	open_input_file(t_redir *redir, int fd_in);
 int 	open_output_file(t_redir *redir, int fd_out);
 int 	open_append_file(t_redir *redir, int fd_out);
 int		execute_internal_commands(t_shell_data *shell);
-int		execute_external_commands(t_shell_data *shell);
+void	execute_external_commands(t_shell_data *shell);
 
+// external_execution
+
+char 	*get_command_path(t_shell_data *shell, t_token *token);
+char 	*find_path_in_env(t_shell_data *shell, char *cmd);
+char	**get_paths_from_env(char **env);
+char	*check_and_return_path(const char *cmd, char **all_paths);
 
 #endif
