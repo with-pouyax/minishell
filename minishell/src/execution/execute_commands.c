@@ -80,12 +80,18 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
-    // replace_env_var();     // pouya did this part before 
+    // replace_env_var();                       // pouya did this part before 
     if_thereis_redirection(shell, cmds->redirs_list, index);
-    // check cmd if is internal or external
-    // {   execute_program();  }
-    // restore_std();
 
+    //take care of exit_status!!!!! dont forget :|
+
+    if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
+    {
+        if (shell->commands->token_list->is_builtin)
+            execute_internal_commands(shell);
+        else
+            execute_external_commands(shell);
+    }
     // Restore original stdin and stdout
     dup2(saved_stdin, STDIN_FILENO);
     dup2(saved_stdout, STDOUT_FILENO);

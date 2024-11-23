@@ -203,6 +203,7 @@ void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 
 // execution
+
 int 	calc_cmds_nb(t_shell_data *shell);
 int		calc_pipe_nb(t_shell_data *shell);
 int 	**init_pipes(int cmds_nb);
@@ -215,6 +216,8 @@ int 	open_all_files(t_redir *redir);
 int 	open_input_file(t_redir *redir, int fd_in);
 int 	open_output_file(t_redir *redir, int fd_out);
 int 	open_append_file(t_redir *redir, int fd_out);
+int		execute_internal_commands(t_shell_data *shell);
+int		execute_external_commands(t_shell_data *shell);
 
 
 #endif
