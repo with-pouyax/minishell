@@ -13,6 +13,7 @@
 # include "../libft/libft.h"
 #include <signal.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 
 
@@ -220,10 +221,16 @@ int		execute_internal_commands(t_shell_data *shell);
 void	execute_external_commands(t_shell_data *shell);
 
 // external_execution
-
 char 	*get_command_path(t_shell_data *shell, t_token *token);
 char 	*find_path_in_env(t_shell_data *shell, char *cmd);
 char	**get_paths_from_env(char **env);
 char	*check_and_return_path(const char *cmd, char **all_paths);
+void 	handle_exec_error(char *cmd, char *message, int exit_code);
+int		get_exec_error_code(int err);
+void	quit_program(int exit_code);
+void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
+char	**convert_tokens_to_argv(t_token *token_list);
+int 	token_list_length(t_token *token);
+
 
 #endif

@@ -1,6 +1,68 @@
 
 #include "minishell.h"
 
+/*
+Flow of Execution
+Parent Process:
+
+Forks a child.
+Tracks the child's PID for cleanup later.
+Child Process:
+
+Closes unused pipes.
+Executes the command using execve().
+On failure, exits with the appropriate error code.
+Post-Execution:
+
+After all commands in a pipeline are forked, the parent waits for all child processes using waitpid().
+*/
+
+int token_list_length(t_token *token)
+{
+    int count;
+	
+	count = 0;
+    while (token)
+    {
+        count++;
+        token = token->next;
+    }
+    return (count);
+}
+
+char **convert_tokens_to_argv(t_token *token_list)
+{
+    int 	count;
+	int		i;
+    char	**argv;
+
+	i = 0;
+	count = token_list_length(token_list);
+	argv = malloc(sizeof(char *) * (count + 1));
+    if (!argv)
+        exit(EXIT_FAILURE);
+    while (i < count && token_list)
+    {
+        argv[i] = ft_strdup(token_list->value);
+        if (!argv[i])
+            exit(EXIT_FAILURE);
+        token_list = token_list->next;
+		i++;
+    }
+    argv[count] = NULL;
+    return (argv);
+}
+
+
+void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
+{
+    close_all_pipes(shell->pipes, shell->cmds_nb); // Close unused pipes
+    if (execve(cmd_path, argv, shell->envp) == -1)
+    {
+        int error_code = get_exec_error_code(errno);
+        handle_exec_error(argv[0], strerror(errno), error_code);
+    }
+}
 
 void    execute_external_commands(t_shell_data *shell)
 {
