@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-int tokenize_command(t_command *cmd)
+int tokenize_command(t_shell_data *shell,t_command *cmd)
 {
     int i;
     int index;
@@ -14,7 +14,7 @@ int tokenize_command(t_command *cmd)
         skip_cmd_spaces(cmd->command_string, &i);
         if (cmd->command_string[i])
         {
-            if (process_token(cmd, &i, &index, &redir_count))
+            if (process_token(shell, cmd, &i, &index, &redir_count))
                 return (tokenize_command_error(cmd));
         }
     }
@@ -29,18 +29,18 @@ void	skip_cmd_spaces(char *str, int *i)
 		(*i)++;
 }
 
-int	process_token(t_command *cmd, int *i, int *index, int *redir_count)
+int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count)
 {
 	int	ret;
 
 	if (is_operator_char(cmd->command_string[*i]))
-		ret = process_operator(cmd->command_string, i, cmd, index, redir_count);
+		ret = process_operator(shell, cmd->command_string, i, cmd, index, redir_count);
 	else
 		ret = process_word(cmd->command_string, i, cmd, index);
 	return (ret);
 }
 
-int process_operator(char *input, int *i, t_command *cmd, int *index, int *redir_count)
+int process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, int *index, int *redir_count)
 {
 	char	*op;
 	int		ret;
@@ -58,7 +58,7 @@ int process_operator(char *input, int *i, t_command *cmd, int *index, int *redir
 
 	if (is_redirection_operator(op)) //if there is redirection operator
     {
-        if (handle_redirection(op, input, i, cmd, redir_count))
+        if (handle_redirection(shell, op, input, i, cmd, redir_count))
         {
             free(op);
             return (1);

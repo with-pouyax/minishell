@@ -15,21 +15,21 @@ void add_redirection(t_redirection **redirections, t_redirection *new_redir)
     }
 }
 
-int handle_redirection(char *op, char *input, int *i, t_command *cmd, int *redir_count)
+int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count)
 {
     t_redirection *new_redir;
-    char          *filename;
+    char          *filename_or_delimiter;
 
-    filename = NULL;
+    filename_or_delimiter = NULL;
 
-    new_redir = malloc(sizeof(t_redirection)); // Allocate memory for the new redirection 
+    new_redir = malloc(sizeof(t_redirection));
     if (!new_redir)
         return (1);
-    ft_bzero(new_redir, sizeof(t_redirection)); // Zero out the memory
+    ft_bzero(new_redir, sizeof(t_redirection));
 
     // Set redirection type
-    if (!ft_strcmp(op, "<")) // If the operator is '<'
-        new_redir->type = REDIR_INPUT; // Set the redirection type to REDIR_INPUT
+    if (!ft_strcmp(op, "<"))
+        new_redir->type = REDIR_INPUT;
     else if (!ft_strcmp(op, ">"))
         new_redir->type = REDIR_OUTPUT;
     else if (!ft_strcmp(op, ">>"))
@@ -39,26 +39,37 @@ int handle_redirection(char *op, char *input, int *i, t_command *cmd, int *redir
 
     new_redir->redir_number = (*redir_count)++;
 
-
     // Skip spaces
     while (input[*i] && ft_isspace(input[*i]))
         (*i)++;
 
     // Collect the filename or delimiter
-    if (collect_word(input, i, &filename)) // Collect the filename or delimiter
+    if (collect_word(input, i, &filename_or_delimiter))
     {
         free(new_redir);
         return (1);
     }
-    if (new_redir->type == REDIR_HEREDOC) // If the redirection type is REDIR_HEREDOC
-        new_redir->delimiter = filename; // Set the delimiter
+
+    if (new_redir->type == REDIR_HEREDOC)
+    {
+        new_redir->delimiter = filename_or_delimiter;
+        if (read_heredoc_content(shell, new_redir)) // Pass shell and new_redir
+        {
+            free(new_redir->delimiter);
+            free(new_redir);
+            return (1);
+        }
+    }
     else
-        new_redir->filename = filename;
+    {
+        new_redir->filename = filename_or_delimiter;
+    }
 
     // Add to the redirections list
-    add_redirection(&(cmd->redirections), new_redir); // Add the redirection to the redirections list 
+    add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
+
 
 int is_redirection_operator(char *op)
 {

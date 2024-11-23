@@ -15,7 +15,7 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 		return (1);
 	}
 	cmd = create_command(shell ,cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
-	if (!cmd || tokenize_command(cmd))
+	if (!cmd || tokenize_command(shell, cmd))
 	{
 		free(cmd_str);
 		free(cmd);

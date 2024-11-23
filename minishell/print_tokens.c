@@ -27,13 +27,13 @@ void print_table_row(const char *row_data[], int num_columns, int widths[]) {
 
 void print_redirections(t_redirection *redirs)
 {
-    const char *redir_headers[] = {"Type", "Redir#", "Filename", "Delimiter"};
-    int redir_widths[] = {15, 8, 15, 15};
+    const char *redir_headers[] = {"Type", "Redir#", "Filename", "Delimiter", "Heredoc File"};
+    int redir_widths[] = {15, 8, 15, 15, 20};
     int num_redir_columns = sizeof(redir_headers) / sizeof(redir_headers[0]);
 
-    print_horizontal_line(60);
+    print_horizontal_line(80);
     print_table_header(redir_headers, num_redir_columns, redir_widths);
-    print_horizontal_line(60);
+    print_horizontal_line(80);
 
     while (redirs)
     {
@@ -63,13 +63,14 @@ void print_redirections(t_redirection *redirs)
             type_str,
             redir_number_str,
             redirs->filename ? redirs->filename : "NULL",
-            redirs->delimiter ? redirs->delimiter : "NULL"
+            redirs->delimiter ? redirs->delimiter : "NULL",
+            redirs->heredoc_file ? redirs->heredoc_file : "NULL"
         };
 
         print_table_row(redir_row, num_redir_columns, redir_widths);
         redirs = redirs->next;
     }
-    print_horizontal_line(60);
+    print_horizontal_line(80);
 }
 
 

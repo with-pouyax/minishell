@@ -33,7 +33,8 @@ typedef struct s_redirection
     int                   redir_number;       // Redirection number (optional)
     char                  *filename;          // Filename for input/output redirections
     char                  *delimiter;         // Delimiter for heredoc
-    struct s_redirection  *next;              // Pointer to the next redirection (linked list)
+    char                  *heredoc_file;
+	struct s_redirection  *next;              // Pointer to the next redirection (linked list)
 }   t_redirection;
 
 
@@ -99,7 +100,7 @@ int		check_unclosed_quotes(char *input);
 
 /* Tokenization, Parsing, and Execution */
 void	split_cmd_tokenize(t_shell_data *shell);
-int		tokenize_command(t_command *cmd);
+int		tokenize_command(t_shell_data *shell, t_command *cmd);
 t_command	*create_command(t_shell_data *shell, char *cmd_str, int index);
 int		add_token(char *token_value, t_token **token_list,
 			int *index, int is_operator);
@@ -109,14 +110,14 @@ void	print_commands(t_shell_data *shell);
 void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
-int process_operator(char *input, int *i, t_command *cmd, int *index, int *redir_count);
+int process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
 int		process_word(char *input, int *i, t_command *cmd,
 			int *index);
 
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
 			t_token *heredoc_token);
-int		read_heredoc_content(t_shell_data *shell, t_token *heredoc_token);
+int read_heredoc_content(t_shell_data *shell, t_redirection *redir);
 char	*generate_temp_filename(void);
 int		is_operator_char(char c);
 int		is_valid_operator(char *op);
@@ -163,10 +164,9 @@ void	tokenize_input_error(t_shell_data *shell,int error_flag);
 int		process_quoted_delimiter(char *input, int *i);
 void	skip_until_operator_or_space(char *input, int *i);
 int		syntax_error_newline(void);
-int		check_delimiter_quotes(t_token *heredoc_token);
+int		check_delimiter_quotes(t_redirection *redir);
 int		heredoc_open_error(char *tmp_filename);
-int		handle_heredoc_line(t_shell_data *shell, char *line, t_token *heredoc_token,
-			int fd, int delimiter_quoted);
+int handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd, int delimiter_quoted);
 int		append_heredoc_full_input(char *line);
 int		expand_and_write_line(t_shell_data *shell, char *line, int fd);
 void	free_heredoc_token(t_token *token);
@@ -183,9 +183,9 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 int		extract_command_string(char *input, int i);
 
 /* tokenize_input_utils.c */
-int		tokenize_command(t_command *cmd);
+int		tokenize_command(t_shell_data *shell, t_command *cmd);
 void	skip_cmd_spaces(char *str, int *i);
-int	process_token(t_command *cmd, int *i, int *index, int *redir_count);
+int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count);
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
@@ -228,7 +228,7 @@ void    append_end_token(t_shell_data *shell);
 
 
 void add_redirection(t_redirection **redirections, t_redirection *new_redir);
-int handle_redirection(char *op, char *input, int *i, t_command *cmd, int *redir_count);
+int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count);
 int is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
 
