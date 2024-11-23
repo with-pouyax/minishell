@@ -29,6 +29,7 @@ int		handle_no_home(t_shell_data *shell);
 int		handle_tilde_path(t_shell_data *shell, const char *path);
 int		change_to_home(t_shell_data *shell);
 void 	print_env(t_shell_data *shell) 
+void    print_exit_error(const char *message, int *exit_status, int code);
 
 
 #endif
