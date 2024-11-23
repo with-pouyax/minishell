@@ -6,14 +6,12 @@ int	ft_export(t_shell_data *shell,t_command *cmd)
 	t_token	*token;
 
 	token = cmd->token_list->next; // Skip the command token
-
 	if (!token)
 	{
 		print_sorted_env(shell);
 		shell->exit_status = 0;
 		return (0);
 	}
-
 	while (token)
 	{
 		if (is_valid_identifier(token->value))
@@ -27,6 +25,5 @@ int	ft_export(t_shell_data *shell,t_command *cmd)
 		}
 		token = token->next;
 	}
-
 	return (0);
 }
