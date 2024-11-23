@@ -1,5 +1,24 @@
 #include "src/minishell.h"
 
+void	print_redirections(t_redirection *redirs)
+{
+	t_redirection	*redir;
+
+	redir = redirs;
+	while (redir)
+	{
+		if (redir->type == REDIR_INPUT)
+			printf("  Redirection: < %s\n", redir->filename);
+		else if (redir->type == REDIR_OUTPUT)
+			printf("  Redirection: > %s\n", redir->filename);
+		else if (redir->type == REDIR_APPEND)
+			printf("  Redirection: >> %s\n", redir->filename);
+		else if (redir->type == REDIR_HEREDOC)
+			printf("  Redirection: << %s\n", redir->delimiter);
+		redir = redir->next;
+	}
+}
+
 void	print_token_details(t_token *token)
 {
 	if (token->is_operator)
@@ -51,6 +70,7 @@ void	print_tokens(t_token *token_list)
 }
 
 
+
 void	print_commands(t_shell_data *shell)
 {
 	t_command	*cmd;
@@ -58,11 +78,15 @@ void	print_commands(t_shell_data *shell)
 	cmd = shell->commands;
 	while (cmd)
 	{
-		printf("Command index:%d command_nb :%d pipe_nb :%d '%s' full_cmd; %s\n", cmd->index, cmd->cmds_nb, cmd->pipe_nb, cmd->command_string, shell->full_input);
+		printf("Command index:%d cmds_nb:%d pipe_nb:%d '%s' full_cmd: %s\n",
+			cmd->index, cmd->cmds_nb, cmd->pipe_nb,
+			cmd->command_string, shell->full_input);
 		print_tokens(cmd->token_list);
+		print_redirections(cmd->redirections); // Print redirections
 		cmd = cmd->next;
 	}
 }
+
 
 
 // int debug_print_commands(t_shell_data *shell)

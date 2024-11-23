@@ -20,6 +20,23 @@
 # define PROMPT "\001\033[0;32m\002minishell> \001\033[0m\002"
 # define MAX_INPUT_LENGTH 4096
 
+typedef enum e_redirection_type {
+    REDIR_INPUT,      // <
+    REDIR_OUTPUT,     // >
+    REDIR_APPEND,     // >>
+    REDIR_HEREDOC     // <<
+}   t_redirection_type;
+
+typedef struct s_redirection
+{
+    t_redirection_type    type;               // Type of redirection
+    int                   redir_number;       // Redirection number (optional)
+    char                  *filename;          // Filename for input/output redirections
+    char                  *delimiter;         // Delimiter for heredoc
+    struct s_redirection  *next;              // Pointer to the next redirection (linked list)
+}   t_redirection;
+
+
 typedef struct s_token
 {
 	char			*value;
@@ -53,6 +70,7 @@ typedef struct s_command
 	int					cmds_nb;
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
+	t_redirection       *redirections;   // Add this line
 	struct s_command	*next;
 }				t_command;
 
@@ -91,8 +109,7 @@ void	print_commands(t_shell_data *shell);
 void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
-int		process_operator(char *input, int *i, t_command *cmd,
-			int *index);
+int process_operator(char *input, int *i, t_command *cmd, int *index, int *redir_count);
 int		process_word(char *input, int *i, t_command *cmd,
 			int *index);
 
@@ -168,7 +185,7 @@ int		extract_command_string(char *input, int i);
 /* tokenize_input_utils.c */
 int		tokenize_command(t_command *cmd);
 void	skip_cmd_spaces(char *str, int *i);
-int		process_token(t_command *cmd, int *i, int *index);
+int	process_token(t_command *cmd, int *i, int *index, int *redir_count);
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
@@ -208,6 +225,13 @@ int calc_cmds_nb(t_shell_data *shell);
 int	calc_pipe_nb(t_shell_data *shell);
 
 void    append_end_token(t_shell_data *shell);
+
+
+void add_redirection(t_redirection **redirections, t_redirection *new_redir);
+int handle_redirection(char *op, char *input, int *i, t_command *cmd, int *redir_count);
+int is_redirection_operator(char *op);
+void	free_redirections(t_redirection *redirs);
+
 
 
 #endif

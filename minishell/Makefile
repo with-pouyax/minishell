@@ -6,7 +6,7 @@
 #    By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 12:00:00 by pghajard          #+#    #+#              #
-#    Updated: 2024/11/20 19:57:20 by pghajard         ###   ########.fr        #
+#    Updated: 2024/11/23 14:29:46 by pghajard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS			= src/main.c\
 					src/processes/expand_variable/variable_expansion.c\
 					src/signal_handling/signal_handling.c\
 					src/validation/lexer.c \
+					src/cleanup/free_redirections.c\
 					print_tokens.c
 # Object files
 OBJS			= $(SRCS:.c=.o)

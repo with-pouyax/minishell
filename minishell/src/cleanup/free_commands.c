@@ -41,6 +41,7 @@ void	free_commands(t_shell_data *shell)
 	{
 		next_cmd = cmd->next;
 		free_tokens(cmd->token_list);
+		free_redirections(cmd->redirections);
 		free(cmd->command_string);
 		free(cmd);
 		cmd = next_cmd;

@@ -1,23 +1,27 @@
 #include "../../minishell.h"
 
-int	tokenize_command(t_command *cmd)
+int tokenize_command(t_command *cmd)
 {
-	int	i;
-	int	index;
+    int i;
+    int index;
+    int redir_count; // Initialize redirection count
 
-	i = 0;
-	index = 0;
-	while (cmd->command_string[i])
-	{
-		skip_cmd_spaces(cmd->command_string, &i);
-		if (cmd->command_string[i])
-		{
-			if (process_token(cmd, &i, &index))
-				return (tokenize_command_error(cmd));
-		}
-	}
-	return (0);
+    i = 0;
+    index = 0;
+    redir_count = 0;
+    while (cmd->command_string[i])
+    {
+        skip_cmd_spaces(cmd->command_string, &i);
+        if (cmd->command_string[i])
+        {
+            if (process_token(cmd, &i, &index, &redir_count))
+                return (tokenize_command_error(cmd));
+        }
+    }
+    return (0);
 }
+
+
 
 void	skip_cmd_spaces(char *str, int *i)
 {
@@ -25,18 +29,18 @@ void	skip_cmd_spaces(char *str, int *i)
 		(*i)++;
 }
 
-int	process_token(t_command *cmd, int *i, int *index)
+int	process_token(t_command *cmd, int *i, int *index, int *redir_count)
 {
 	int	ret;
 
 	if (is_operator_char(cmd->command_string[*i]))
-		ret = process_operator(cmd->command_string, i, cmd, index);
+		ret = process_operator(cmd->command_string, i, cmd, index, redir_count);
 	else
 		ret = process_word(cmd->command_string, i, cmd, index);
 	return (ret);
 }
 
-int	process_operator(char *input, int *i, t_command *cmd, int *index)
+int process_operator(char *input, int *i, t_command *cmd, int *index, int *redir_count)
 {
 	char	*op;
 	int		ret;
@@ -44,14 +48,26 @@ int	process_operator(char *input, int *i, t_command *cmd, int *index)
 	op = ft_strdup("");
 	if (!op)
 		return (1);
-	while (input[*i] && is_operator_char(input[*i]))
+	while (input[*i] && is_operator_char(input[*i])) // Loop through the input string until we find a non-operator character 
 	{
-		ret = add_char_to_token(&op, input[*i]);
+		ret = add_char_to_token(&op, input[*i]); // Add the character to the operator string (op)
 		if (ret)
 			return (free_and_return(op));
 		(*i)++;
 	}
-	ret = add_token(op, &cmd->token_list, index, 1);
+
+	if (is_redirection_operator(op)) //if there is redirection operator
+    {
+        if (handle_redirection(op, input, i, cmd, redir_count))
+        {
+            free(op);
+            return (1);
+        }
+        free(op);
+        return (0);
+    }
+
+	ret = add_token(op, &cmd->token_list, index, 1); // Add the operator to the token list
 	if (ret)
 		return (free_and_return(op));
 	process_operator_details(op, cmd, i, index);

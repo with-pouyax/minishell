@@ -1,0 +1,2 @@
+Debug: Starting handle_input()
+[?2004h[0;32mminishell> [0m^C[?2004l
