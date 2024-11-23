@@ -1,23 +1,23 @@
 #include "src/minishell.h"
 
-void	print_redirections(t_redirection *redirs)
+void print_redirections(t_redirection *redirs)
 {
-	t_redirection	*redir;
+    t_redirection *redir = redirs;
 
-	redir = redirs;
-	while (redir)
-	{
-		if (redir->type == REDIR_INPUT)
-			printf("  Redirection: < %s\n", redir->filename);
-		else if (redir->type == REDIR_OUTPUT)
-			printf("  Redirection: > %s\n", redir->filename);
-		else if (redir->type == REDIR_APPEND)
-			printf("  Redirection: >> %s\n", redir->filename);
-		else if (redir->type == REDIR_HEREDOC)
-			printf("  Redirection: << %s\n", redir->delimiter);
-		redir = redir->next;
-	}
+    while (redir)
+    {
+        printf("  Redirection: type:%s, redir_number:%d, filename:%s, delimiter:%s;\n",
+            (redir->type == REDIR_INPUT) ? "REDIR_INPUT" :
+            (redir->type == REDIR_OUTPUT) ? "REDIR_OUTPUT" :
+            (redir->type == REDIR_APPEND) ? "REDIR_APPEND" :
+            (redir->type == REDIR_HEREDOC) ? "REDIR_HEREDOC" : "UNKNOWN",
+            redir->redir_number,
+            redir->filename ? redir->filename : "NULL",
+            redir->delimiter ? redir->delimiter : "NULL");
+        redir = redir->next;
+    }
 }
+
 
 void	print_token_details(t_token *token)
 {
@@ -54,38 +54,48 @@ void	print_command_token(t_token *token)
 		printf(" - This is an external command.\n");
 }
 
-void	print_tokens(t_token *token_list)
+void print_tokens(t_token *token_list)
 {
-	t_token	*token;
+    t_token *token;
 
-	token = token_list;
-	while (token)
-	{
-		if (token->is_end)
-			printf("Token: '\\0', Index: %d (End of Input)\n", token->index);
-		else
-			printf("Token: '%s', Index: %d\n", token->value, token->index);
-		token = token->next;
-	}
+    token = token_list;
+    while (token)
+    {
+        if (token->is_end)
+            printf("Token: '\\0', Index: %d (End of Input)\n", token->index);
+        else
+            printf("Token: '%s', Index: %d\n", token->value, token->index);
+
+        // If you want to print additional token details, you can do so here
+        // For now, we'll keep it minimal as per your request
+
+        token = token->next;
+    }
 }
 
 
 
-void	print_commands(t_shell_data *shell)
+void print_commands(t_shell_data *shell)
 {
-	t_command	*cmd;
+    t_command *cmd;
 
-	cmd = shell->commands;
-	while (cmd)
-	{
-		printf("Command index:%d cmds_nb:%d pipe_nb:%d '%s' full_cmd: %s\n",
-			cmd->index, cmd->cmds_nb, cmd->pipe_nb,
-			cmd->command_string, shell->full_input);
-		print_tokens(cmd->token_list);
-		print_redirections(cmd->redirections); // Print redirections
-		cmd = cmd->next;
-	}
+    cmd = shell->commands;
+    while (cmd)
+    {
+        printf("Command index:%d cmds_nb:%d pipe_nb:%d '%s' full_cmd: %s\n",
+            cmd->index, cmd->cmds_nb, cmd->pipe_nb,
+            cmd->command_string, shell->full_input);
+
+        // Print tokens
+        print_tokens(cmd->token_list);
+
+        // Print redirections with detailed information
+        print_redirections(cmd->redirections);
+
+        cmd = cmd->next;
+    }
 }
+
 
 
 
