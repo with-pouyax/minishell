@@ -201,7 +201,6 @@ int		append_literal_char(char *input, int *i, char **result);
 void	update_quote_flags(char c, int *in_single_quote, int *in_double_quote);
 
 int		get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
-void	process_heredocs(t_shell_data *shell);
 int		is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
 char	*get_line_from_input(char *input, int *index);

@@ -49,29 +49,3 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
     redir->heredoc_file = tmp_filename; // Store the filename in redirection
     return (0);
 }
-
-
-void process_heredocs(t_shell_data *shell)
-{
-    t_command *cmd;
-    t_redirection *redir;
-
-    cmd = shell->commands;
-    while (cmd) // Loop through all commands
-    {
-        redir = cmd->redirections;
-        while (redir) // Loop through all redirections in the command
-        {
-            if (redir->type == REDIR_HEREDOC) // If the redirection is a heredoc
-            {
-                if (read_heredoc_content(shell, redir)) // Read the heredoc content
-                {
-                    shell->error_flag = 1;
-                    return;
-                }
-            }
-            redir = redir->next;
-        }
-        cmd = cmd->next;
-    }
-}
