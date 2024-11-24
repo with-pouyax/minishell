@@ -34,20 +34,6 @@ int handle_allocation(t_shell_data *shell)
     return (0);
 }
 
-int check_syntax_error(t_shell_data *shell, const char *error_message)
-{
-    if (error_message)
-    {
-        ft_putstr_fd(error_message, STDERR_FILENO);
-        free(shell->input);
-        free(shell->full_input);
-        shell->input = NULL;
-        shell->full_input = NULL;
-        shell->exit_status = 2;
-        return (1); // Skip further processing
-    }
-    return (0); // Continue processing
-}
 
 // return (1) : Indicating input was not successful (CTRL+D or error)
 // return (0) : Indicating input was successfully read

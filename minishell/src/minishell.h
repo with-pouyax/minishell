@@ -85,7 +85,7 @@ void	handle_input(t_shell_data *shell);
 void 	handle_ctrl_d(void);
 int 	check_input_length(t_shell_data *shell);
 int 	handle_allocation(t_shell_data *shell);
-int 	check_syntax_error(t_shell_data *shell, const char *error_message);
+int 	check_syntax_error(t_shell_data *shell, char *error_message);
 int 	read_input(t_shell_data *shell);
 void	process_input(t_shell_data *shell);
 int		handle_unclosed_quotes(void);

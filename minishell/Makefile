@@ -57,6 +57,7 @@ SRCS            = src/main.c\
                   src/parsing/init_env.c\
                   src/parsing/init_shell.c\
                   src/parsing/quotes.c\
+                  src/parsing/check_syntax_error.c\
                   src/parsing/tokenize/parser.c\
                   src/parsing/tokenize/process_word.c\
                   src/parsing/tokenize/split_cmd_tokenize.c\
