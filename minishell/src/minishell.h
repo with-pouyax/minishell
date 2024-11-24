@@ -111,8 +111,8 @@ void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
-int		process_word(char *input, int *i, t_command *cmd,
-			int *index);
+int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
+
 
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
@@ -185,11 +185,10 @@ int		extract_command_string(char *input, int i);
 /* tokenize_input_utils.c */
 int		tokenize_command(t_shell_data *shell, t_command *cmd);
 void	skip_cmd_spaces(char *str, int *i);
-int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count);
+int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count);
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
-int		process_word(char *input, int *i, t_command *cmd, int *index);
 int		collect_word(char *input, int *i, char **word);
 int		process_quoted_word(char *input, int *i, char **word);
 

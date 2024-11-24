@@ -29,14 +29,14 @@ void	skip_cmd_spaces(char *str, int *i)
 		(*i)++;
 }
 
-int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count)
+int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count)
 {
 	int	ret;
 
 	if (is_operator_char(cmd->command_string[*i]))
 		ret = process_operator(shell, cmd->command_string, i, cmd, index, redir_count);
 	else
-		ret = process_word(cmd->command_string, i, cmd, index);
+		ret = process_word(shell, cmd->command_string, i, cmd, index);
 	return (ret);
 }
 
