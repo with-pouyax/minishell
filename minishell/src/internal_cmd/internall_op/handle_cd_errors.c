@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	handle_chdir_error(t_shell_data *shell, char *expanded_path)
 {

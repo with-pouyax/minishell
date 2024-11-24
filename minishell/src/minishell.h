@@ -232,6 +232,7 @@ void	quit_program(int exit_code);
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
 char	**convert_tokens_to_argv(t_token *token_list);
 int 	token_list_length(t_token *token);
-
+void close_all_pipes(int **pipes, int nb_cmds);
+void free_pipes(int **pipes, int nb_cmds);
 
 #endif

@@ -22,7 +22,6 @@ int main(int argc, char **argv, char **envp)
 	}
 	init_shell(&shell);
 	// setup_signal_handlers(); // Set up signal handlers
-        // printf("before handle input");
 	handle_input(&shell);
     printf("after handle input");
 	cleanup(&shell);

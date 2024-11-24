@@ -1,7 +1,7 @@
 // ft_exit.c
 #include "../internal_commands.h"
 
-void print_exit_error(const char *message, int *exit_status, int code)
+void print_exit_error(char *message, int *exit_status, int code)
 {
     ft_putstr_fd(message, STDERR_FILENO);
     *exit_status = code;

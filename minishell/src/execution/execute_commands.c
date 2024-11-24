@@ -90,8 +90,6 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     }
     // replace_env_var();                       // pouya did this part before 
     if_thereis_redirection(shell, cmds->redirs_list, index);
-    if (has_redirs(cmds->redirs_list, "<<") == 1)
-        handle_heredoc(cmds->redirs_list);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)
@@ -120,7 +118,7 @@ void execution(t_shell_data *shell)
         cmd = cmd->next;
         i++;
     }
-    close_all_pipes(shell->pipes, shell->cmds_nb); // Close all remaining pipes
+    close_all_pipes(shell->pipes, shell->cmds_nb);
     // exec_parent
     free_pipes(shell->pipes, shell->cmds_nb); 
 }

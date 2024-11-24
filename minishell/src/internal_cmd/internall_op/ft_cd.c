@@ -2,7 +2,7 @@
 #include "../internal_commands.h"
 
 
-int	handle_tilde_path(t_shell_data *shell, const char *path)
+int	handle_tilde_path(t_shell_data *shell, char *path)
 {
 	char	*home;
 	char	*expanded_path;

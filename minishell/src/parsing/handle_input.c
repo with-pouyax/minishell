@@ -56,7 +56,6 @@ void handle_input(t_shell_data *shell)
         }
         // printf("Debug: Starting process_input()\n");
         process_input(shell);
-        // printf("Debug: Finished process_input()\n");
         printf("Debug: Starting execution()---------------------------------------\n");
         execution(shell);
         printf("Debug: Finished execution()\n");

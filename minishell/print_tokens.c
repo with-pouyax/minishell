@@ -56,7 +56,7 @@ void	print_commands(t_shell_data *shell)
 	cmd = shell->commands;
 	while (cmd)
 	{
-		printf("Command index:%d command_nb :%d pipe_nb :%d '%s' full_cmd; %s\n", cmd->index, cmd->cmds_nb, cmd->pipe_nb, cmd->command_string, shell->full_input);
+		printf("Command index:%d command_nb :%d pipe_nb :%d '%s' full_cmd; %s\n", cmd->index, shell->cmds_nb, shell->pipe_nb, cmd->command_string, shell->full_input);
 		print_tokens(cmd->token_list);
 		cmd = cmd->next;
 	}
