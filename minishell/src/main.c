@@ -1,14 +1,9 @@
 #include "minishell.h"
 
-
-
-
-
 /*
 The isatty function is used to check if a file descriptor refers to a terminal.
 first : Makes sure that the terminal is linked to the STDIN
 */
-
 
 int main(int argc, char **argv, char **envp)
 {
@@ -30,11 +25,6 @@ int main(int argc, char **argv, char **envp)
         // printf("before handle input");
 	handle_input(&shell);
     printf("after handle input");
-
-    // printf("before execution");
-    // execution();
-    //  printf("after execution");
-
 	cleanup(&shell);
 	return (0);
 }
