@@ -1,10 +1,10 @@
 #include "../minishell.h"
 
-int has_redirs(t_redir *redir, const char *type)
+int has_redirs(t_redirection *redir, t_redirection_type type )
 {
     while (redir)
     {
-        if (ft_strcmp(redir->type, type) == 0)
+        if (redir->type == type)
             return (1);
         redir = redir->next;
     }
@@ -15,7 +15,7 @@ int has_redirs(t_redir *redir, const char *type)
 // int open_file(char *file_name, int fd, int flag, mode_t )
 // {}
 
-int open_all_files(t_redir *redir)
+int open_all_files(t_redirection *redir)
 {
     int fd_input;
     int fd_output;
@@ -24,11 +24,11 @@ int open_all_files(t_redir *redir)
     fd_output = -2;
     while (redir)
     {
-        if(redir->type[0] == '<')
+        if(redir->type == REDIR_INPUT) //'>'
             fd_input = open_input_file(redir, fd_input);
-        else if (redir->type[0] == '>' && redir->type[1] == '\0' )   // ">"
+        else if (redir->type == REDIR_OUTPUT)   // ">"
             fd_output = open_output_file(redir, fd_output);
-        else if (redir->type[0] == '>' && redir->type[1] == '>')     // ">>"
+        else if (redir->type == REDIR_APPEND)     // ">>"
             fd_output = open_append_file(redir, fd_output);
         redir = redir->next; // Move to the next redirection
     }
@@ -45,7 +45,7 @@ if_thereis_redirection() :
     They are initialized to -2, a special value indicating no file is open yet.
 */
 
-void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_index)
+void    if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
     int **pipes;
     int cmds_nb;
@@ -63,12 +63,12 @@ void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_ind
     }
     else if (cmds_index == 0)                           // First command, only output redirection (if any)
     {
-        if (!has_redirs(redir, ">") && !has_redirs(redir, ">>"))
+        if (!has_redirs(redir, REDIR_OUTPUT) && !has_redirs(redir, REDIR_APPEND))
             dup2(pipes[cmds_index][1], STDOUT_FILENO);
     }
     else if (cmds_index == cmds_nb - 1)                 // Last command, only input redirection (if any)
     {
-        if (!has_redirs(redir, "<"))
+        if (!has_redirs(redir, REDIR_INPUT))
             dup2(pipes[cmds_index - 1][0], STDIN_FILENO);
     }
 }
@@ -80,7 +80,7 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
-    process_heredocs(shell);
+    // process_heredocs(shell);
     // If there was an error while processing heredocs, exit early
     if (shell->error_flag)
     {
@@ -89,7 +89,7 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
         return;
     }
     // replace_env_var();                       // pouya did this part before 
-    if_thereis_redirection(shell, cmds->redirs_list, index);
+    if_thereis_redirection(shell, cmds->redirections, index);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)

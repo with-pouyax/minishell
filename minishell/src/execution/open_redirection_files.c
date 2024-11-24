@@ -1,13 +1,13 @@
 #include "../minishell.h"
 
 
-int open_input_file(t_redir *redir, int fd_in)
+int open_input_file(t_redirection *redir, int fd_in)
 {
     int new_fd;
 
     if (fd_in != -2)
 		close(fd_in);
-    new_fd = open(redir->direction, O_RDONLY, 0);
+    new_fd = open(redir->filename, O_RDONLY, 0);
     if (new_fd == -1)
     {
         perror("open file failed");
@@ -18,13 +18,13 @@ int open_input_file(t_redir *redir, int fd_in)
     return (new_fd);
 }
 
-int open_output_file(t_redir *redir, int fd_out)
+int open_output_file(t_redirection *redir, int fd_out)
 {
   int new_fd;
 
   if (fd_out != -2)
   close(fd_out);
-  new_fd = open(redir->direction, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+  new_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
   if (new_fd == -1)
   {
       perror("open file failed");
@@ -35,13 +35,13 @@ int open_output_file(t_redir *redir, int fd_out)
   return (new_fd);
 }
 
-int open_append_file(t_redir *redir, int fd_out)
+int open_append_file(t_redirection *redir, int fd_out)
 {
   int new_fd;
 
   if (fd_out != -2)
   close(fd_out);
-  new_fd = open(redir->direction, O_WRONLY | O_CREAT | O_APPEND, 0666);
+  new_fd = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
   if (new_fd == -1)
   {
       perror("open file failed");

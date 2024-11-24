@@ -193,8 +193,8 @@ void print_commands(t_shell_data *shell)
         char cmds_nb_str[10];
         char pipe_nb_str[10];
         snprintf(index_str, sizeof(index_str), "%d", cmd->index);
-        snprintf(cmds_nb_str, sizeof(cmds_nb_str), "%d", cmd->cmds_nb);
-        snprintf(pipe_nb_str, sizeof(pipe_nb_str), "%d", cmd->pipe_nb);
+        snprintf(cmds_nb_str, sizeof(cmds_nb_str), "%d", shell->cmds_nb);
+        snprintf(pipe_nb_str, sizeof(pipe_nb_str), "%d", shell->cmds_nb);
 
         const char *cmd_row[] = {
             index_str,

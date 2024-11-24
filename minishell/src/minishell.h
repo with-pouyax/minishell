@@ -62,12 +62,12 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-typedef struct s_redir
-{
-	char			*direction;
-	char			type[2];
-	struct s_redir	*next;
-}				t_redir;
+// typedef struct s_redir
+// {
+// 	char			*direction;
+// 	char			type[2];
+// 	struct s_redir	*next;
+// }				t_redir;
 
 typedef struct s_command
 {
@@ -76,7 +76,8 @@ typedef struct s_command
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
-	struct s_command	*next;}				t_command;
+	struct s_command	*next;
+}				t_command;
 
 typedef struct s_shell_data
 {
@@ -121,14 +122,14 @@ void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
-int process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
-int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
+int 	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
+int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
 
 
 /* Heredoc Handling and Redirection */
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
 			t_token *heredoc_token);
-int read_heredoc_content(t_shell_data *shell, t_redirection *redir);
+int 	read_heredoc_content(t_shell_data *shell, t_redirection *redir);
 char	*generate_temp_filename(void);
 int		is_operator_char(char c);
 int		is_valid_operator(char *op);
@@ -177,7 +178,7 @@ void	skip_until_operator_or_space(char *input, int *i);
 int		syntax_error_newline(void);
 int		check_delimiter_quotes(t_redirection *redir);
 int		heredoc_open_error(char *tmp_filename);
-int handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd, int delimiter_quoted);
+int 	handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd, int delimiter_quoted);
 int		append_heredoc_full_input(char *line);
 int		expand_and_write_line(t_shell_data *shell, char *line, int fd);
 void	free_heredoc_token(t_token *token);
@@ -190,7 +191,7 @@ char	*get_variable_value(t_shell_data *shell, char *input, int *i, int *var_not_
 
 /* tokenize_input.c */
 void	tokenize_input(void);
-int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd);
+int		process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd);
 int		extract_command_string(char *input, int i);
 
 /* tokenize_input_utils.c */
@@ -233,12 +234,12 @@ int 	**init_pipes(int cmds_nb);
 
 void    execution(t_shell_data *shell);
 void 	exec_cmd(t_shell_data *shell ,t_command *cmds, int index);
-void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_index);
-int 	has_redirs(t_redir *redir, const char *type);
-int 	open_all_files(t_redir *redir);
-int 	open_input_file(t_redir *redir, int fd_in);
-int 	open_output_file(t_redir *redir, int fd_out);
-int 	open_append_file(t_redir *redir, int fd_out);
+void    if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index);
+int 	has_redirs(t_redirection *redir, t_redirection_type type);
+int 	open_all_files(t_redirection *redir);
+int 	open_input_file(t_redirection *redir, int fd_in);
+int 	open_output_file(t_redirection *redir, int fd_out);
+int 	open_append_file(t_redirection *redir, int fd_out);
 int		execute_internal_commands(t_shell_data *shell);
 void	execute_external_commands(t_shell_data *shell);
 
@@ -254,16 +255,16 @@ void	quit_program(int exit_code);
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
 char	**convert_tokens_to_argv(t_token *token_list);
 int 	token_list_length(t_token *token);
-void close_all_pipes(int **pipes, int nb_cmds);
-void free_pipes(int **pipes, int nb_cmds);
+void 	close_all_pipes(int **pipes, int nb_cmds);
+void 	free_pipes(int **pipes, int nb_cmds);
 
 
 void    append_end_token(t_shell_data *shell);
 
 
-void add_redirection(t_redirection **redirections, t_redirection *new_redir);
-int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count);
-int is_redirection_operator(char *op);
+void 	add_redirection(t_redirection **redirections, t_redirection *new_redir);
+int 	handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count);
+int 	is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
 
 
