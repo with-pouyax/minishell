@@ -62,6 +62,11 @@ char *get_line_from_input(char *input, int *index)
         (*index)++;
     return line;
 }
+/*
+expand_and_write_line
+- Expands variables (e.g., $VAR) in a line of heredoc input.
+- Write
+*/
 
 int expand_and_write_line(t_shell_data *shell ,char *line, int fd)
 {

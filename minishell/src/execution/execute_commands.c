@@ -4,7 +4,7 @@ int has_redirs(t_redir *redir, const char *type)
 {
     while (redir)
     {
-        if (strcmp(redir->type, type) == 0)
+        if (ft_strcmp(redir->type, type) == 0)
             return (1);
         redir = redir->next;
     }
@@ -80,11 +80,18 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
+    process_heredocs(shell);
+    // If there was an error while processing heredocs, exit early
+    if (shell->error_flag)
+    {
+        shell->exit_status = 1;
+        ft_putstr_fd("minishell: error processing heredocs\n", STDERR_FILENO);
+        return;
+    }
     // replace_env_var();                       // pouya did this part before 
     if_thereis_redirection(shell, cmds->redirs_list, index);
-
-    //take care of exit_status!!!!! dont forget :|
-
+    if (has_redirs(cmds->redirs_list, "<<") == 1)
+        handle_heredoc(cmds->redirs_list);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)
@@ -92,12 +99,10 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
         else
             execute_external_commands(shell);
     }
-    // Restore original stdin and stdout
     dup2(saved_stdin, STDIN_FILENO);
     dup2(saved_stdout, STDOUT_FILENO);
     close(saved_stdin);
     close(saved_stdout);
-
 }
 
 
@@ -118,32 +123,5 @@ void execution(t_shell_data *shell)
     close_all_pipes(shell->pipes, shell->cmds_nb); // Close all remaining pipes
     // exec_parent
     free_pipes(shell->pipes, shell->cmds_nb); 
-}
-
-
-void close_all_pipes(int **pipes, int nb_cmds)
-{
-    int i;
-
-    i = 0;
-    while (i < nb_cmds - 1)
-    {
-        close(pipes[i][0]);
-        close(pipes[i][1]);
-        i++;
-    }
-}
-
-void free_pipes(int **pipes, int nb_cmds)
-{
-    int i;
-
-    i = 0;
-    while (i < nb_cmds - 1)
-    {
-        free(pipes[i]);
-        i++;
-    }
-    free(pipes);
 }
 

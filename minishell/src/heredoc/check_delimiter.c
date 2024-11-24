@@ -24,6 +24,12 @@ int	get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token)
 	return (0);
 }
 
+/*
+check_delimiter_quotes
+- Checks if the heredoc delimiter is quoted.
+- Removes the quotes if they exist, ensuring that special character expansions (like variables) are handled appropriately.
+
+*/
 
 int	check_delimiter_quotes(t_token *heredoc_token)
 {

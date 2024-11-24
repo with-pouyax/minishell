@@ -24,6 +24,14 @@ int handle_heredoc_line(t_shell_data *shell, char *line, t_token *heredoc_token,
     free(line);
     return (0);
 }
+/*read_heredoc_content
+- Implements the heredoc reading loop:
+- Reads lines from the user (readline("> ")).
+- Compares each line with the delimiter.
+- Expands variables unless the delimiter is quoted.
+- Writes expanded or raw content into a temporary file.
+- Stores the path of the temporary file in heredoc_token.
+*/
 
 int	read_heredoc_content(t_shell_data *shell, t_token *heredoc_token)
 {
@@ -50,7 +58,12 @@ int	read_heredoc_content(t_shell_data *shell, t_token *heredoc_token)
 	heredoc_token->heredoc_file = tmp_filename; // Store the temporary filename in the heredoc_token
 	return (0);
 }
+/*
+process_heredocs
+- Iterates through all commands in the shell's commands list.
+- Processes each heredoc token by calling read_heredoc_content.
 
+*/
 
 void process_heredocs(t_shell_data *shell)
 {
