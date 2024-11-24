@@ -23,6 +23,7 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     shell->pipe_nb = calc_pipe_nb(shell);
 	cmd->is_recalled = 0;
     cmd->token_list = NULL;
+	cmd->redirections = NULL; 
     cmd->next = NULL;
 	return (cmd);
 }
