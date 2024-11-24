@@ -67,6 +67,7 @@ SRCS            = src/main.c\
                   src/processes/expand_variable/variable_expansion.c\
                   src/signal_handling/signal_handling.c\
                   src/validation/lexer.c \
+				  src/cleanup/free_redirections.c\
                   print_tokens.c
 
 # Object files and dependency files

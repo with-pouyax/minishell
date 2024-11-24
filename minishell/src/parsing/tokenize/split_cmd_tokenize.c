@@ -15,7 +15,7 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 		return (1);
 	}
 	cmd = create_command(shell ,cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
-	if (!cmd || tokenize_command(cmd))
+	if (!cmd || tokenize_command(shell, cmd))
 	{
 		free(cmd_str);
 		free(cmd);
@@ -26,6 +26,64 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 	if (shell->input[*i] == '|')
 		(*i)++;
 	return (0);
+}
+
+void    append_end_token(t_shell_data *shell)
+{
+    t_command   *cmd;
+    t_token     *last_token;
+    char        *end_token_str;
+    int         end_index;
+
+    if (!shell->commands)
+        return;
+
+    // Traverse to the last command
+    cmd = shell->commands;
+    while (cmd->next)
+        cmd = cmd->next;
+
+    // Traverse to the last token in the last command
+    last_token = cmd->token_list;
+    if (last_token)
+    {
+        while (last_token->next)
+            last_token = last_token->next;
+        end_index = last_token->index + 1;
+    }
+    else
+    {
+        // If there are no tokens, start index at 0
+        end_index = 0;
+    }
+
+    // Create a new token with value "\0"
+    end_token_str = ft_strdup("\0"); // Alternatively, use a unique string like "<END>"
+    if (!end_token_str)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+        free_commands(shell);
+        shell->commands = NULL;
+        return;
+    }
+
+    // Add the '\0' token to the token list
+    if (add_token(end_token_str, &cmd->token_list, &end_index, 0))
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+        free(end_token_str);
+        free_commands(shell);
+        shell->commands = NULL;
+        return;
+    }
+
+    // Traverse to the newly added '\0' token
+    last_token = cmd->token_list;
+    while (last_token->next)
+        last_token = last_token->next;
+
+    // Set the is_end flag
+    last_token->is_end = 1;
 }
 
 void	split_cmd_tokenize(t_shell_data *shell)
@@ -52,4 +110,10 @@ void	split_cmd_tokenize(t_shell_data *shell)
 		shell->commands = NULL;
 		handle_tokenization_error(shell, shell->error_flag);
 	}
+	else
+    {
+        // Append the '\0' token to the last command
+        append_end_token(shell);
+    }
+	
 }
