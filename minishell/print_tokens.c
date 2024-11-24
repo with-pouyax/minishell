@@ -112,18 +112,27 @@ void	print_command_token(t_token *token)
 
 void print_tokens(t_token *token_list)
 {
-    const char *token_headers[] = {"Index", "Value", "Type"};
-    int token_widths[] = {7, 15, 20};
+    const char *token_headers[] = {"Index", "Value", "Type", "Original Value"};
+    int token_widths[] = {7, 15, 20, 25};
     int num_token_columns = sizeof(token_headers) / sizeof(token_headers[0]);
 
-    print_horizontal_line(50);
+    print_horizontal_line(70); // Adjusted for wider table
     print_table_header(token_headers, num_token_columns, token_widths);
-    print_horizontal_line(50);
+    print_horizontal_line(70);
 
     while (token_list)
     {
         char token_index_str[10];
+        char original_value_str[25];
+
+        // Prepare the index string
         snprintf(token_index_str, sizeof(token_index_str), "%d", token_list->index);
+
+        // Prepare the original value string
+        if (token_list->original_value)
+            snprintf(original_value_str, sizeof(original_value_str), "%s", token_list->original_value);
+        else
+            snprintf(original_value_str, sizeof(original_value_str), "NULL");
 
         // Determine the type of token
         char type_str[20] = "";
@@ -143,14 +152,17 @@ void print_tokens(t_token *token_list)
         const char *token_row[] = {
             token_index_str,
             token_list->value,
-            type_str
+            type_str,
+            original_value_str
         };
 
         print_table_row(token_row, num_token_columns, token_widths);
         token_list = token_list->next;
     }
-    print_horizontal_line(50);
+    print_horizontal_line(70);
 }
+
+
 
 
 
