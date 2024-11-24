@@ -6,7 +6,6 @@ int	ft_unset(t_shell_data *shell,t_command *cmd)
 	t_token	*token;
 
 	token = cmd->token_list->next; // Skip the command token
-
 	while (token)
 	{
 		if (is_valid_identifier(token->value))
@@ -20,6 +19,5 @@ int	ft_unset(t_shell_data *shell,t_command *cmd)
 		}
 		token = token->next;
 	}
-
 	return (0);
 }

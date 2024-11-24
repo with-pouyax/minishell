@@ -28,8 +28,8 @@ SRCS            = src/main.c\
                   src/cleanup/cleanup.c\
                   src/cleanup/free_commands.c\
                   src/execution/execute_commands.c\
-                  src/execution/external_commands.c\
                   src/execution/init_pipes.c\
+                  src/execution/open_redirection_files.c\
                   src/helper/helper_1.c\
                   src/helper/helper_2.c\
                   src/heredoc/check_delimiter.c\
@@ -42,17 +42,22 @@ SRCS            = src/main.c\
                   src/internal_cmd/internal_commands.c\
                   src/internal_cmd/internal_commands_utils.c\
                   src/internal_cmd/internall_op/ft_cd.c\
+                  src/internal_cmd/internall_op/handle_cd_errors.c \
                   src/internal_cmd/internall_op/ft_echo.c\
                   src/internal_cmd/internall_op/ft_env.c\
                   src/internal_cmd/internall_op/ft_exit.c\
                   src/internal_cmd/internall_op/ft_export.c\
                   src/internal_cmd/internall_op/ft_pwd.c\
                   src/internal_cmd/internall_op/ft_unset.c\
+                  src/external_commands/external_commands.c\
+                  src/external_commands/get_path.c\
+                  src/external_commands/handel_error_exec.c\
                   src/parsing/check_last_pipe.c\
                   src/parsing/handle_input.c\
                   src/parsing/init_env.c\
                   src/parsing/init_shell.c\
                   src/parsing/quotes.c\
+                  src/parsing/check_syntax_error.c\
                   src/parsing/tokenize/parser.c\
                   src/parsing/tokenize/process_word.c\
                   src/parsing/tokenize/split_cmd_tokenize.c\

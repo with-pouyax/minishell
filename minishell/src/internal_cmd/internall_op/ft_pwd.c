@@ -6,8 +6,7 @@ int	ft_pwd(t_shell_data *shell,t_command *cmd)
 {
 	char	cwd[PATH_MAX];
 
-	(void)cmd; // Unused parameter
-
+	(void)cmd;
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		printf("%s\n", cwd);
@@ -18,6 +17,5 @@ int	ft_pwd(t_shell_data *shell,t_command *cmd)
 		perror("minishell: pwd");
 		shell->exit_status = 1;
 	}
-
 	return (0);
 }

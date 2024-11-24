@@ -13,6 +13,7 @@
 # include "../libft/libft.h"
 #include <signal.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 
 
@@ -61,19 +62,21 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+typedef struct s_redir
+{
+	char			*direction;
+	char			type[2];
+	struct s_redir	*next;
+}				t_redir;
 
 typedef struct s_command
 {
 	char				*command_string;
 	int					index;
-	int					pipe_nb;
-	int					**pipes;
-	int					cmds_nb;
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
-	struct s_command	*next;
-}				t_command;
+	struct s_command	*next;}				t_command;
 
 typedef struct s_shell_data
 {
@@ -81,6 +84,9 @@ typedef struct s_shell_data
 	char					*input;            //
 	char					*full_input;       //
 	t_command				*commands;
+	int						pipe_nb;
+	int						**pipes;
+	int						cmds_nb;
 	char					**envp;
 	int						exit_status;
 	int						error_flag;
@@ -94,6 +100,11 @@ typedef struct s_shell_data
 /* Shell Initialization and Input Handling */
 void	init_shell(t_shell_data *shell);
 void	handle_input(t_shell_data *shell);
+void 	handle_ctrl_d(void);
+int 	check_input_length(t_shell_data *shell);
+int 	handle_allocation(t_shell_data *shell);
+int 	check_syntax_error(t_shell_data *shell, char *error_message);
+int 	read_input(t_shell_data *shell);
 void	process_input(t_shell_data *shell);
 int		handle_unclosed_quotes(void);
 int		check_unclosed_quotes(char *input);
@@ -102,13 +113,13 @@ int		check_unclosed_quotes(char *input);
 void	split_cmd_tokenize(t_shell_data *shell);
 int		tokenize_command(t_shell_data *shell, t_command *cmd);
 t_command	*create_command(t_shell_data *shell, char *cmd_str, int index);
-int		add_token(char *token_value, t_token **token_list,
-			int *index, int is_operator);
+int		add_token(char *token_value, t_token **token_list, int *index, int is_operator);
 void	parse_tokens(t_shell_data *shell);
 void	expand_variables_in_tokens(t_shell_data *shell);
 void	print_commands(t_shell_data *shell);
 void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
+void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
 int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
@@ -126,10 +137,10 @@ int		is_valid_operator(char *op);
 char	*getenv_from_envp(t_shell_data *shell, char *name);
 int		get_var_name_len(char *str);
 char	*expand_variable_token(t_shell_data *shell, char *input, int *i,
-			int *var_not_found_flag);
+int 	*var_not_found_flag);
 char	*expand_variables_in_token(t_shell_data *shell, char *input,
-			int *var_not_found_flag);
-void expand_variables_in_input(t_shell_data *shell);
+int 	*var_not_found_flag);
+void 	expand_variables_in_input(t_shell_data *shell);
 char	*get_literal_char(char *input, int *i);
 
 /* String Manipulation Utilities */
@@ -203,24 +214,49 @@ int		get_heredoc_delimiter(char *input, int *i, t_token *heredoc_token);
 int		is_recalled_command(char *input);
 void	set_recalled_flag(t_command *commands);
 char	*get_line_from_input(char *input, int *index);
-int		execute_commands(void);
-int 	handle_internal_commands(void);
-int		execute_internal_commands(t_shell_data *shell);
-void	execute_external_commands(t_token *token);
 
 void    free_envp(t_shell_data *shell);
 char    **copy_envp(char **envp);
 int		check_trailing_pipe(char *input);
 
+// signal handler
+
 void	setup_signal_handlers(void);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
-// execution
-void    execution();
-int **init_pipes(int cmds_nb);
 
-int calc_cmds_nb(t_shell_data *shell);
-int	calc_pipe_nb(t_shell_data *shell);
+// execution
+
+int 	calc_cmds_nb(t_shell_data *shell);
+int		calc_pipe_nb(t_shell_data *shell);
+int 	**init_pipes(int cmds_nb);
+
+void    execution(t_shell_data *shell);
+void 	exec_cmd(t_shell_data *shell ,t_command *cmds, int index);
+void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_index);
+int 	has_redirs(t_redir *redir, const char *type);
+int 	open_all_files(t_redir *redir);
+int 	open_input_file(t_redir *redir, int fd_in);
+int 	open_output_file(t_redir *redir, int fd_out);
+int 	open_append_file(t_redir *redir, int fd_out);
+int		execute_internal_commands(t_shell_data *shell);
+void	execute_external_commands(t_shell_data *shell);
+
+// external_execution
+
+char 	*get_command_path(t_shell_data *shell, t_token *token);
+char 	*find_path_in_env(t_shell_data *shell, char *cmd);
+char	**get_paths_from_env(char **env);
+char	*check_and_return_path(const char *cmd, char **all_paths);
+void 	handle_exec_error(char *cmd, char *message, int exit_code);
+int		get_exec_error_code(int err);
+void	quit_program(int exit_code);
+void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
+char	**convert_tokens_to_argv(t_token *token_list);
+int 	token_list_length(t_token *token);
+void close_all_pipes(int **pipes, int nb_cmds);
+void free_pipes(int **pipes, int nb_cmds);
+
 
 void    append_end_token(t_shell_data *shell);
 
@@ -229,7 +265,6 @@ void add_redirection(t_redirection **redirections, t_redirection *new_redir);
 int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count);
 int is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
-
 
 
 #endif

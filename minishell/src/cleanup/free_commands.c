@@ -31,6 +31,15 @@ void	free_heredoc_token(t_token *token)
 		free(token->heredoc_delimiter);
 }
 
+void free_shell_resources(t_shell_data *shell)
+{
+    free_commands(shell);
+    free(shell->input);
+    free(shell->full_input);
+    shell->input = NULL;
+    shell->full_input = NULL;
+}
+
 void	free_commands(t_shell_data *shell)
 {
 	t_command	*cmd;
