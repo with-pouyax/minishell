@@ -31,20 +31,20 @@ check_delimiter_quotes
 
 */
 
-int	check_delimiter_quotes(t_token *heredoc_token)
+int check_delimiter_quotes(t_redirection *redir)
 {
-	char	*delimiter;
-	char	*unquoted_delimiter;
+    char    *delimiter;
+    char    *unquoted_delimiter;
 
-	delimiter = heredoc_token->heredoc_delimiter;
-	if (delimiter[0] == '\'' || delimiter[0] == '\"')
-	{
-		unquoted_delimiter = ft_substr(delimiter, 1, ft_strlen(delimiter) - 2);
-		if (!unquoted_delimiter)
-			return (-1);
-		free(heredoc_token->heredoc_delimiter);
-		heredoc_token->heredoc_delimiter = unquoted_delimiter;
-		return (1);
-	}
-	return (0);
+    delimiter = redir->delimiter;
+    if (delimiter[0] == '\'' || delimiter[0] == '\"')
+    {
+        unquoted_delimiter = ft_substr(delimiter, 1, ft_strlen(delimiter) - 2);
+        if (!unquoted_delimiter)
+            return (-1);
+        free(redir->delimiter);
+        redir->delimiter = unquoted_delimiter;
+        return (1);
+    }
+    return (0);
 }
