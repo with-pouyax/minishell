@@ -82,6 +82,11 @@ typedef struct s_shell_data
 /* Shell Initialization and Input Handling */
 void	init_shell(t_shell_data *shell);
 void	handle_input(t_shell_data *shell);
+void 	handle_ctrl_d(void);
+int 	check_input_length(t_shell_data *shell);
+int 	handle_allocation(t_shell_data *shell);
+int 	check_syntax_error(t_shell_data *shell, const char *error_message);
+int 	read_input(t_shell_data *shell);
 void	process_input(t_shell_data *shell);
 int		handle_unclosed_quotes(void);
 int		check_unclosed_quotes(char *input);
@@ -96,6 +101,7 @@ void	expand_variables_in_tokens(t_shell_data *shell);
 void	print_commands(t_shell_data *shell);
 void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
+void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int		process_operator(char *input, int *i, t_command *cmd, int *index);
 int		process_word(char *input, int *i, t_command *cmd, int *index);
