@@ -71,6 +71,8 @@ void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
         int error_code = get_exec_error_code(errno);
         handle_exec_error(argv[0], strerror(errno), error_code);
     }
+    fflush(stdout);  // To force any buffered output to be written out.
+
 }
 
 void    execute_external_commands(t_shell_data *shell)
@@ -90,6 +92,8 @@ void    execute_external_commands(t_shell_data *shell)
         quit_program(EXIT_FAILURE);
     if (pid == 0)
         exec_external_child(shell, cmd_path, argv);
+    else
+        wait(NULL);
     free(cmd_path);
     free(argv);
 }
