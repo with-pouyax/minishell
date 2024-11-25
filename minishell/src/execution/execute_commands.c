@@ -45,33 +45,7 @@ if_thereis_redirection() :
     They are initialized to -2, a special value indicating no file is open yet.
 */
 
-void    if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index)
-{
-    int **pipes;
-    int cmds_nb;
-    int exit_code;
 
-    pipes = shell->pipes;
-    cmds_nb = shell->cmds_nb;
-    exit_code = open_all_files(redir);
-    if (exit_code == EXIT_FAILURE)
-        return;
-    if (cmds_index != 0 && cmds_index != cmds_nb - 1)   // Set up pipes for commands that aren't the first or last
-    {
-        dup2(pipes[cmds_index - 1][0], STDIN_FILENO);   // Redirect input from the previous command's output pipe
-        dup2(pipes[cmds_index][1], STDOUT_FILENO);      // Redirect output to the next command's input pipe
-    }
-    else if (cmds_index == 0)                           // First command, only output redirection (if any)
-    {
-        if (!has_redirs(redir, REDIR_OUTPUT) && !has_redirs(redir, REDIR_APPEND))
-            dup2(pipes[cmds_index][1], STDOUT_FILENO);
-    }
-    else if (cmds_index == cmds_nb - 1)                 // Last command, only input redirection (if any)
-    {
-        if (!has_redirs(redir, REDIR_INPUT))
-            dup2(pipes[cmds_index - 1][0], STDIN_FILENO);
-    }
-}
 
 void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 {

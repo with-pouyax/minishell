@@ -13,7 +13,7 @@ int open_input_file(t_redirection *redir, int fd_in)
         perror("open file failed");
         return (EXIT_FAILURE);
     }
-    dup2(new_fd, STDIN_FILENO);     //redirect input
+    dup2(new_fd, STDIN_FILENO);
     close(new_fd); 
     return (new_fd);
 }
@@ -30,7 +30,7 @@ int open_output_file(t_redirection *redir, int fd_out)
       perror("open file failed");
       return (EXIT_FAILURE);
   }
-  dup2(new_fd, STDOUT_FILENO);    //redirect output
+  dup2(new_fd, STDOUT_FILENO);
   close(new_fd); 
   return (new_fd);
 }
