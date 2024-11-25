@@ -24,7 +24,8 @@ int token_list_length(t_token *token)
 	count = 0;
     while (token)
     {
-        count++;
+        if (!token->is_end)
+            count++;
         token = token->next;
     }
     return (count);
@@ -37,7 +38,15 @@ char **convert_tokens_to_argv(t_token *token_list)
     char	**argv;
 
 	i = 0;
+
+    printf("Token list:\n");
+    t_token *temp = token_list;
+    while (temp) {
+        printf("Token value: '%s', Index: %d\n", temp->value, temp->index);
+        temp = temp->next;
+    }
 	count = token_list_length(token_list);
+    printf("Number of tokens: %d\n", count);
 	argv = malloc(sizeof(char *) * (count + 1));
     if (!argv)
         exit(EXIT_FAILURE);

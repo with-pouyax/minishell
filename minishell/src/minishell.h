@@ -62,13 +62,6 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
-// typedef struct s_redir
-// {
-// 	char			*direction;
-// 	char			type[2];
-// 	struct s_redir	*next;
-// }				t_redir;
-
 typedef struct s_command
 {
 	char				*command_string;

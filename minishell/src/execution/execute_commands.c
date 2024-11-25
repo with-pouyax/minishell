@@ -54,6 +54,11 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
+    if (saved_stdin == -1 || saved_stdout == -1)
+    {
+        perror("dup failed");
+        return;
+    }
     // process_heredocs(shell);
     // If there was an error while processing heredocs, exit early
     if (shell->error_flag)
