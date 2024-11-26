@@ -13,6 +13,8 @@ int has_redirs(t_redirection *redir, t_redirection_type type )
 
 
 // use of fds here : to check If any of the open_file() returned -1, it means there was an error
+// ** Opens all files. Only the last of its type is left open, others are closed.
+
 
 int open_all_files(t_shell_data *shell, t_redirection *redir)
 {

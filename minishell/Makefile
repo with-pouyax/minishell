@@ -27,6 +27,7 @@ LIBFT_DIR       = ./libft
 SRCS            = src/main.c\
                   src/cleanup/cleanup.c\
                   src/cleanup/free_commands.c\
+                  src/error/write_error.c\
                   src/execution/execute_commands.c\
                   src/execution/init_pipes.c\
                   src/execution/open_redirection_files.c\
