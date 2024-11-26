@@ -25,5 +25,6 @@ void if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_
         return;
     check_input_redir(shell, redir, cmds_index);
     check_output_redir(shell, redir, cmds_index);
+    shell->exit_status = EXIT_SUCCESS;
 }
 

@@ -4,7 +4,6 @@ Number of tokens: 1
 ali.txt
 ashkan.txt
 bab.txt
-dadasho.txt
 dada.txt
 get_next_line
 libft

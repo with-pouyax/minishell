@@ -97,8 +97,6 @@ void execution(t_shell_data *shell)
         cmd = cmd->next;
         i++;
     }
-    close_all_pipes(shell->pipes, shell->cmds_nb);
-    wait_for_all_children(shell);
     free_pipes(shell->pipes, shell->cmds_nb); 
 }
 

@@ -68,6 +68,7 @@ void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 
     printf("start child proces");
     close_all_pipes(shell->pipes, shell->cmds_nb);
+    // wait_for_all_children(shell);
     if (execve(cmd_path, argv, shell->envp) == -1)
     {
         error_code = get_exec_error_code(errno);
@@ -79,25 +80,23 @@ void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 void    execute_external_commands(t_shell_data *shell)
 {
     char    *cmd_path;
-    char    **argv;
+    char    **arr_token;
 	pid_t 	pid;
 
-	argv = convert_tokens_to_argv(shell->commands->token_list);
-    if (!argv || !argv[0])                        // Empty command check
+	arr_token = convert_tokens_to_argv(shell->commands->token_list);
+    if (!arr_token || !arr_token[0])
         return;
     cmd_path = get_command_path(shell, shell->commands->token_list);
     if (!cmd_path)
 	{
-        handle_exec_error(argv[0], "command not found", 127);
+        handle_exec_error(arr_token[0], "command not found", 127);
         return;
     }
 	pid = fork();
     if (pid < 0)
         quit_program(EXIT_FAILURE);
-    if (pid == 0)
-    {
-        exec_external_child(shell, cmd_path, argv);
-    }
+    else if (pid == 0)
+        exec_external_child(shell, cmd_path, arr_token);
     else
     {
         int status;
@@ -110,6 +109,7 @@ void    execute_external_commands(t_shell_data *shell)
             // printf("Child process %d was terminated by signal %d\n", pid, WTERMSIG(status));  
         }
     }
+    store_pids(shell, pid);
     free(cmd_path);
-    free(argv);
+    free(arr_token);
 }

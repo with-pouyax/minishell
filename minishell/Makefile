@@ -54,6 +54,7 @@ SRCS            = src/main.c\
                   src/external_commands/external_commands.c\
                   src/external_commands/get_path.c\
                   src/external_commands/handel_error_exec.c\
+                  src/external_commands/store_pids.c\
                   src/parsing/check_last_pipe.c\
                   src/parsing/handle_input.c\
                   src/parsing/init_env.c\
