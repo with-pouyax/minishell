@@ -16,7 +16,7 @@ void check_output_redir(t_shell_data *shell, t_redirection *redir, int cmds_inde
 }
 
 
-void if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index)
+void set_redirection_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
     int exit_code;
 

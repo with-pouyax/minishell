@@ -12,8 +12,7 @@ int has_redirs(t_redirection *redir, t_redirection_type type )
 }
 
 
-// int open_file(char *file_name, int fd, int flag, mode_t )
-// {}
+// use of fds here : to check If any of the open_file() returned -1, it means there was an error
 
 int open_all_files(t_shell_data *shell, t_redirection *redir)
 {
@@ -68,7 +67,7 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     //     return;
     // }
     // replace_env_var();                       // pouya did this part before 
-    if_thereis_redirection(shell, cmds->redirections, index);
+    set_redirection_pipes(shell, cmds->redirections, index);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)

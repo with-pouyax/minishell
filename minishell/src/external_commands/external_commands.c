@@ -67,7 +67,7 @@ void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
     int error_code;
 
     printf("start child proces");
-    close_all_pipes(shell->pipes, shell->cmds_nb);
+    // close_all_pipes(shell->pipes, shell->cmds_nb);
     // wait_for_all_children(shell);
     if (execve(cmd_path, argv, shell->envp) == -1)
     {

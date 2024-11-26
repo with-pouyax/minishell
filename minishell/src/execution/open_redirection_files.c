@@ -27,8 +27,6 @@ int open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in)
     return (new_fd);
 }
 
-
-
 int open_output_file(t_redirection *redir, int fd_out)
 {
   int new_fd;
@@ -58,7 +56,7 @@ int open_append_file(t_redirection *redir, int fd_out)
       perror("open file failed");
       return (EXIT_FAILURE);
   }
-  dup2(new_fd, STDOUT_FILENO);    //redirect output
+  dup2(new_fd, STDOUT_FILENO);
   close(new_fd); 
   return (new_fd);
 }
