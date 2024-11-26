@@ -92,12 +92,10 @@ void    execute_external_commands(t_shell_data *shell)
         return;
     }
 	pid = fork();
-    printf("Forked process, pid = %d\n", pid); 
     if (pid < 0)
         quit_program(EXIT_FAILURE);
     if (pid == 0)
     {
-        printf ("here is the child process");
         exec_external_child(shell, cmd_path, argv);
     }
     else
@@ -105,12 +103,11 @@ void    execute_external_commands(t_shell_data *shell)
         int status;
         shell->commands->pid = pid;
         waitpid(pid, &status, 0);  // Wait for the child process to terminate
-
         // Optionally check the child's exit status
         if (WIFEXITED(status)) {
-            printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));
+            // printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));
         } else if (WIFSIGNALED(status)) {
-            printf("Child process %d was terminated by signal %d\n", pid, WTERMSIG(status));  
+            // printf("Child process %d was terminated by signal %d\n", pid, WTERMSIG(status));  
         }
     }
     free(cmd_path);

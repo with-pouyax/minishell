@@ -15,7 +15,7 @@ int has_redirs(t_redirection *redir, t_redirection_type type )
 // int open_file(char *file_name, int fd, int flag, mode_t )
 // {}
 
-int open_all_files(t_redirection *redir)
+int open_all_files(t_shell_data *shell, t_redirection *redir)
 {
     int fd_input;
     int fd_output;
@@ -25,7 +25,7 @@ int open_all_files(t_redirection *redir)
     while (redir)
     {
         if(redir->type == REDIR_INPUT)
-            fd_input = open_input_file(redir, fd_input);
+            fd_input = open_input_file(shell, redir, fd_input);
         else if (redir->type == REDIR_OUTPUT)
             fd_output = open_output_file(redir, fd_output);
         else if (redir->type == REDIR_APPEND)
