@@ -45,15 +45,21 @@ Process C:
     Reads input from pipe[1][0].
     Writes output normally (STDOUT). (when it is last cmd so not gonna do anything in check_output_redir();)
 */
-void set_redirection_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
+void set_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
     int exit_code;
 
     exit_code = open_all_files(shell, redir);
     if (exit_code == EXIT_FAILURE)
         return;
+    shell->exit_status = EXIT_SUCCESS;
+}
+
+void set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
+{
     check_input_redir(shell, redir, cmds_index);
     check_output_redir(shell, redir, cmds_index);
     shell->exit_status = EXIT_SUCCESS;
+
 }
 

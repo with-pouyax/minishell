@@ -61,13 +61,19 @@ char **convert_tokens_to_argv(t_token *token_list)
     argv[count] = NULL;
     return (argv);
 }
+/*
+We need to close all the pipes in the child process because: we already 
+changed the stdout and stdin inside set_redirs and set_pipes()
+*/
+// If execve call is successful, the following lines are never executed
+// chon : the child process will kill itself when finished
 
 void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 {
     int error_code;
 
     printf("start child proces");
-    // close_all_pipes(shell->pipes, shell->cmds_nb);
+    close_all_pipes(shell->pipes, shell->cmds_nb);
     // wait_for_all_children(shell);
     if (execve(cmd_path, argv, shell->envp) == -1)
     {

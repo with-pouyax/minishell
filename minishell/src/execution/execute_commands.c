@@ -69,7 +69,8 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     //     return;
     // }
     // replace_env_var();                       // pouya did this part before 
-    set_redirection_pipes(shell, cmds->redirections, index);
+    set_redirection(shell, cmds->redirections, index);
+    set_pipes(shell, cmds->redirections, index);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)
