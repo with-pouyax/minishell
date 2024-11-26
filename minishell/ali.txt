@@ -1,0 +1,9 @@
+Token list:
+Token value: 'cat', Index: 0
+Token value: 'masoud.txt', Index: 1
+Token value: '', Index: 2
+Number of tokens: 2
+
+this is a test
+or anything
+no matter what

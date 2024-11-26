@@ -67,10 +67,12 @@ typedef struct s_command
 	char				*command_string;
 	int					index;
 	int					is_recalled;   //pak shavad
+	pid_t				pid;           //store process IDs
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
 	struct s_command	*next;
 }				t_command;
+
 
 typedef struct s_shell_data
 {
@@ -227,9 +229,9 @@ int 	**init_pipes(int cmds_nb);
 
 void    execution(t_shell_data *shell);
 void 	exec_cmd(t_shell_data *shell ,t_command *cmds, int index);
-void if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index);
-void handle_multi_command(t_shell_data *shell, t_redirection *redir, int cmds_index);
-void handle_single_command(t_redirection *redir);
+void 	if_thereis_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index);
+void 	handle_multi_command(t_shell_data *shell, t_redirection *redir, int cmds_index);
+void 	handle_single_command(t_redirection *redir);
 int 	has_redirs(t_redirection *redir, t_redirection_type type);
 int 	open_all_files(t_redirection *redir);
 int 	open_input_file(t_redirection *redir, int fd_in);
@@ -248,9 +250,12 @@ void 	handle_exec_error(char *cmd, char *message, int exit_code);
 int		get_exec_error_code(int err);
 void	quit_program(int exit_code);
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
+void 	wait_for_all_children(t_shell_data *shell);
+
 char	**convert_tokens_to_argv(t_token *token_list);
 int 	token_list_length(t_token *token);
 void 	close_all_pipes(int **pipes, int nb_cmds);
+void 	close_pipes_after_execution(t_shell_data *shell, int cmds_index);
 void 	free_pipes(int **pipes, int nb_cmds);
 
 

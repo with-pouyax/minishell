@@ -22,6 +22,18 @@ int **init_pipes(int cmds_nb)
     }
     return (pipes);
 }
+void close_pipes_after_execution(t_shell_data *shell, int cmds_index)
+{
+    int **pipes = shell->pipes;
+    int cmds_nb = shell->cmds_nb;
+
+    // Close unused pipe file descriptors in parent process
+    if (cmds_index != 0)  // Not the first command
+        close(pipes[cmds_index - 1][0]);  // Close read end of previous pipe
+
+    if (cmds_index != cmds_nb - 1)  // Not the last command
+        close(pipes[cmds_index][1]);  // Close write end of current pipe
+}
 
 void close_all_pipes(int **pipes, int nb_cmds)
 {
@@ -43,6 +55,8 @@ void free_pipes(int **pipes, int nb_cmds)
     i = 0;
     while (i < nb_cmds - 1)
     {
+        close(pipes[i][0]);
+        close(pipes[i][1]);
         free(pipes[i]);
         i++;
     }

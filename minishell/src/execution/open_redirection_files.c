@@ -5,8 +5,9 @@ int open_input_file(t_redirection *redir, int fd_in)
 {
     int new_fd;
 
-    if (fd_in != -2)
-		close(fd_in);
+    // Close the existing file descriptor if it's valid
+    if (fd_in != -2 && fd_in >= 0)
+        close(fd_in);
     new_fd = open(redir->filename, O_RDONLY, 0);
     if (new_fd == -1)
     {
@@ -17,6 +18,8 @@ int open_input_file(t_redirection *redir, int fd_in)
     close(new_fd); 
     return (new_fd);
 }
+
+
 
 int open_output_file(t_redirection *redir, int fd_out)
 {

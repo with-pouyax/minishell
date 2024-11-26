@@ -31,6 +31,7 @@ SRCS            = src/main.c\
                   src/execution/init_pipes.c\
                   src/execution/open_redirection_files.c\
                   src/execution/check_redirection.c\
+                  src/execution/exec_parent.c\
                   src/helper/helper_1.c\
                   src/helper/helper_2.c\
                   src/heredoc/check_delimiter.c\

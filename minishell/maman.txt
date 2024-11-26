@@ -1,0 +1,19 @@
+Token list:
+Token value: 'ls', Index: 0
+Token value: '', Index: 1
+Number of tokens: 1
+get_next_line
+libft
+Makefile
+maman.txt
+masoud.txt
+mina.txt
+minishell
+output.txt
+out.txt
+print_tokens.c
+print_tokens.d
+print_tokens.o
+src
+valgrind_command.txt
+valgrind.supp

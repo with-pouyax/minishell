@@ -24,13 +24,13 @@ int open_all_files(t_redirection *redir)
     fd_output = -2;
     while (redir)
     {
-        if(redir->type == REDIR_INPUT) //'>'
+        if(redir->type == REDIR_INPUT)
             fd_input = open_input_file(redir, fd_input);
-        else if (redir->type == REDIR_OUTPUT)   // ">"
+        else if (redir->type == REDIR_OUTPUT)
             fd_output = open_output_file(redir, fd_output);
-        else if (redir->type == REDIR_APPEND)     // ">>"
+        else if (redir->type == REDIR_APPEND)
             fd_output = open_append_file(redir, fd_output);
-        redir = redir->next; // Move to the next redirection
+        redir = redir->next;
     }
     return (EXIT_SUCCESS);
 }
@@ -61,12 +61,12 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     }
     // process_heredocs(shell);
     // If there was an error while processing heredocs, exit early
-    if (shell->error_flag)
-    {
-        shell->exit_status = 1;
-        ft_putstr_fd("minishell: error processing heredocs\n", STDERR_FILENO);
-        return;
-    }
+    // if (shell->error_flag)
+    // {
+    //     shell->exit_status = 1;
+    //     ft_putstr_fd("minishell: error processing heredocs\n", STDERR_FILENO);
+    //     return;
+    // }
     // replace_env_var();                       // pouya did this part before 
     if_thereis_redirection(shell, cmds->redirections, index);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
@@ -98,7 +98,7 @@ void execution(t_shell_data *shell)
         i++;
     }
     close_all_pipes(shell->pipes, shell->cmds_nb);
-    // exec_parent
+    wait_for_all_children(shell);
     free_pipes(shell->pipes, shell->cmds_nb); 
 }
 
