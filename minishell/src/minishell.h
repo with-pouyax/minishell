@@ -229,7 +229,7 @@ int 	**init_pipes(int cmds_nb);
 
 void    execution(t_shell_data *shell);
 void 	exec_cmd(t_shell_data *shell ,t_command *cmds, int index);
-void 	set_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index);
+void 	set_redirection(t_shell_data *shell, t_redirection *redir);
 void 	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index);
 int 	has_redirs(t_redirection *redir, t_redirection_type type);
 int 	open_all_files(t_shell_data *shell, t_redirection *redir);
@@ -266,6 +266,7 @@ void 	add_redirection(t_redirection **redirections, t_redirection *new_redir);
 int 	handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count);
 int 	is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
+void	write_error(char *exec_name, char *err_message);
 
 
 #endif

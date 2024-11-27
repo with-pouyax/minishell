@@ -45,7 +45,7 @@ Process C:
     Reads input from pipe[1][0].
     Writes output normally (STDOUT). (when it is last cmd so not gonna do anything in check_output_redir();)
 */
-void set_redirection(t_shell_data *shell, t_redirection *redir, int cmds_index)
+void set_redirection(t_shell_data *shell, t_redirection *redir)
 {
     int exit_code;
 
