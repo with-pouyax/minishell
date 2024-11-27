@@ -1,13 +1,14 @@
 #include "../minishell.h"
 
-void handle_exec_error(char *cmd, char *message, int exit_code)
+void handle_exec_error(t_shell_data *shell, char *cmd, char *message, int exit_code)
 {
     ft_putstr_fd("minishell: ", STDERR_FILENO);
     ft_putstr_fd(cmd, STDERR_FILENO);
     ft_putstr_fd(": ", STDERR_FILENO);
     ft_putendl_fd(message, STDERR_FILENO);
-    exit(exit_code);
+    shell->exit_status = exit_code;
 }
+
 
 void	write_error(char *exec_name, char *err_message)
 {

@@ -1,0 +1,2 @@
+Debug: Token (Command): echo
+mina 

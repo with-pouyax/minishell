@@ -53,6 +53,7 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     int saved_stdin;
     int saved_stdout;
 
+    printf("the cmd is executing: %s\n", cmds->command_string);
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
     if (saved_stdin == -1 || saved_stdout == -1)
@@ -74,15 +75,16 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)
-            execute_internal_commands(shell);
+            execute_internal_commands(shell, cmds);
         else
-            execute_external_commands(shell);
+            execute_external_commands(shell, cmds);
     }
     dup2(saved_stdin, STDIN_FILENO);
     dup2(saved_stdout, STDOUT_FILENO);
     close(saved_stdin);
     close(saved_stdout);
 }
+
 
 
 void execution(t_shell_data *shell)

@@ -41,7 +41,8 @@ char **convert_tokens_to_argv(t_token *token_list)
 
     printf("Token list:\n");
     t_token *temp = token_list;
-    while (temp) {
+    while (temp)
+    {
         printf("Token value: '%s', Index: %d\n", temp->value, temp->index);
         temp = temp->next;
     }
@@ -78,24 +79,26 @@ void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
     if (execve(cmd_path, argv, shell->envp) == -1)
     {
         error_code = get_exec_error_code(errno);
-        handle_exec_error(argv[0], strerror(errno), error_code);
+        handle_exec_error(shell, argv[0], strerror(errno), error_code);
         printf("the cmd not executes");
     }
 }
 
-void    execute_external_commands(t_shell_data *shell)
+void    execute_external_commands(t_shell_data *shell, t_command *cmds)
 {
     char    *cmd_path;
     char    **arr_token;
 	pid_t 	pid;
 
-	arr_token = convert_tokens_to_argv(shell->commands->token_list);
+    printf("this is external executing\n");
+	arr_token = convert_tokens_to_argv(cmds->token_list);
     if (!arr_token || !arr_token[0])
         return;
-    cmd_path = get_command_path(shell, shell->commands->token_list);
+    cmd_path = get_command_path(shell, cmds->token_list);
     if (!cmd_path)
 	{
-        handle_exec_error(arr_token[0], "command not found", 127);
+        handle_exec_error(shell, arr_token[0], "command not found", 127);
+        free(arr_token);
         return;
     }
 	pid = fork();

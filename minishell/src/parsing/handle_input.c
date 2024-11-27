@@ -55,6 +55,7 @@ void handle_input(t_shell_data *shell)
     int skip_processing;
 
     skip_processing = 0;
+    
     while (1)
     {
         if (read_input(shell))
