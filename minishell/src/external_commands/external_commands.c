@@ -104,17 +104,7 @@ void    execute_external_commands(t_shell_data *shell)
     else if (pid == 0)
         exec_external_child(shell, cmd_path, arr_token);
     else
-    {
-        int status;
-        shell->commands->pid = pid;
-        waitpid(pid, &status, 0);  // Wait for the child process to terminate
-        // Optionally check the child's exit status
-        if (WIFEXITED(status)) {
-            // printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));
-        } else if (WIFSIGNALED(status)) {
-            // printf("Child process %d was terminated by signal %d\n", pid, WTERMSIG(status));  
-        }
-    }
+        wait_for_all_children(shell);
     store_pids(shell, pid);
     free(cmd_path);
     free(arr_token);

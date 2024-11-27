@@ -91,14 +91,18 @@ void execution(t_shell_data *shell)
     int         i;
 
     i = 0;
-    cmd = shell->commands;
-    shell->pipes = init_pipes(shell->cmds_nb);
-    while (i < shell->cmds_nb)
+    if (shell->cmds_nb > 0)
     {
-        exec_cmd(shell, cmd, i);
-        cmd = cmd->next;
-        i++;
+        cmd = shell->commands;
+        shell->pipes = init_pipes(shell->cmds_nb);
+        while (i < shell->cmds_nb)
+        {
+            exec_cmd(shell, cmd, i);
+            cmd = cmd->next;
+            i++;
+        }
+        close_all_pipes(shell->pipes, shell->cmds_nb);
+        free_pipes(shell->pipes, shell->cmds_nb);
     }
-    free_pipes(shell->pipes, shell->cmds_nb); 
 }
 
