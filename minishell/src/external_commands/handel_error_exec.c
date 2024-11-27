@@ -9,6 +9,15 @@ void handle_exec_error(char *cmd, char *message, int exit_code)
     exit(exit_code);
 }
 
+void	write_error(char *exec_name, char *err_message)
+{
+	ft_putstr_fd("msh: ", STDERR_FILENO);
+	ft_putstr_fd(exec_name, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(err_message, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+}
+
 int get_exec_error_code(int err)
 {
     if (err == ENOENT)

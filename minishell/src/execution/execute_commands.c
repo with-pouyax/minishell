@@ -1,10 +1,10 @@
 #include "../minishell.h"
 
-int has_redirs(t_redir *redir, const char *type)
+int has_redirs(t_redirection *redir, t_redirection_type type )
 {
     while (redir)
     {
-        if (ft_strcmp(redir->type, type) == 0)
+        if (redir->type == type)
             return (1);
         redir = redir->next;
     }
@@ -12,10 +12,11 @@ int has_redirs(t_redir *redir, const char *type)
 }
 
 
-// int open_file(char *file_name, int fd, int flag, mode_t )
-// {}
+// use of fds here : to check If any of the open_file() returned -1, it means there was an error
+// ** Opens all files. Only the last of its type is left open, others are closed.
 
-int open_all_files(t_redir *redir)
+
+int open_all_files(t_shell_data *shell, t_redirection *redir)
 {
     int fd_input;
     int fd_output;
@@ -24,13 +25,13 @@ int open_all_files(t_redir *redir)
     fd_output = -2;
     while (redir)
     {
-        if(redir->type[0] == '<')
-            fd_input = open_input_file(redir, fd_input);
-        else if (redir->type[0] == '>' && redir->type[1] == '\0' )   // ">"
+        if(redir->type == REDIR_INPUT)
+            fd_input = open_input_file(shell, redir, fd_input);
+        else if (redir->type == REDIR_OUTPUT)
             fd_output = open_output_file(redir, fd_output);
-        else if (redir->type[0] == '>' && redir->type[1] == '>')     // ">>"
+        else if (redir->type == REDIR_APPEND)
             fd_output = open_append_file(redir, fd_output);
-        redir = redir->next; // Move to the next redirection
+        redir = redir->next;
     }
     return (EXIT_SUCCESS);
 }
@@ -45,33 +46,7 @@ if_thereis_redirection() :
     They are initialized to -2, a special value indicating no file is open yet.
 */
 
-void    if_thereis_redirection(t_shell_data *shell, t_redir *redir, int cmds_index)
-{
-    int **pipes;
-    int cmds_nb;
-    int exit_code;
 
-    pipes = shell->pipes;
-    cmds_nb = shell->cmds_nb;
-    exit_code = open_all_files(redir);
-    if (exit_code == EXIT_FAILURE)
-        return;
-    if (cmds_index != 0 && cmds_index != cmds_nb - 1)   // Set up pipes for commands that aren't the first or last
-    {
-        dup2(pipes[cmds_index - 1][0], STDIN_FILENO);   // Redirect input from the previous command's output pipe
-        dup2(pipes[cmds_index][1], STDOUT_FILENO);      // Redirect output to the next command's input pipe
-    }
-    else if (cmds_index == 0)                           // First command, only output redirection (if any)
-    {
-        if (!has_redirs(redir, ">") && !has_redirs(redir, ">>"))
-            dup2(pipes[cmds_index][1], STDOUT_FILENO);
-    }
-    else if (cmds_index == cmds_nb - 1)                 // Last command, only input redirection (if any)
-    {
-        if (!has_redirs(redir, "<"))
-            dup2(pipes[cmds_index - 1][0], STDIN_FILENO);
-    }
-}
 
 void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 {
@@ -80,16 +55,22 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 
     saved_stdin = dup(STDIN_FILENO);
     saved_stdout = dup(STDOUT_FILENO);
-    process_heredocs(shell);
-    // If there was an error while processing heredocs, exit early
-    if (shell->error_flag)
+    if (saved_stdin == -1 || saved_stdout == -1)
     {
-        shell->exit_status = 1;
-        ft_putstr_fd("minishell: error processing heredocs\n", STDERR_FILENO);
+        perror("dup failed");
         return;
     }
+    // process_heredocs(shell);
+    // If there was an error while processing heredocs, exit early
+    // if (shell->error_flag)
+    // {
+    //     shell->exit_status = 1;
+    //     ft_putstr_fd("minishell: error processing heredocs\n", STDERR_FILENO);
+    //     return;
+    // }
     // replace_env_var();                       // pouya did this part before 
-    if_thereis_redirection(shell, cmds->redirs_list, index);
+    set_redirection(shell, cmds->redirections, index);
+    set_pipes(shell, cmds->redirections, index);
     if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
     {
         if (shell->commands->token_list->is_int)
@@ -118,8 +99,6 @@ void execution(t_shell_data *shell)
         cmd = cmd->next;
         i++;
     }
-    close_all_pipes(shell->pipes, shell->cmds_nb);
-    // exec_parent
     free_pipes(shell->pipes, shell->cmds_nb); 
 }
 

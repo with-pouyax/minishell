@@ -71,7 +71,7 @@ void handle_input(t_shell_data *shell)
         process_input(shell);
         printf("Debug: Starting execution()---------------------------------------\n");
         execution(shell);
-        printf("Debug: Finished execution()\n");
+        printf("Debug: Finished execution()-------------------------------------\n");
         free_shell_resources(shell);
     }
     rl_clear_history();

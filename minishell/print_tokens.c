@@ -179,7 +179,7 @@ void print_commands(t_shell_data *shell)
         printf("=========================================\n");
 
         // Define headers and their respective widths
-        const char *cmd_headers[] = {"Index", "Cmds#", "Pipes#", "Command String", "Full Command"};
+        const char *cmd_headers[] = {"Index", "Cmds#", "Pipe_nb#", "Command String", "Full Command"};
         int cmd_widths[] = {7, 7, 8, 25, 50};
         int num_cmd_columns = sizeof(cmd_headers) / sizeof(cmd_headers[0]);
 
@@ -193,8 +193,8 @@ void print_commands(t_shell_data *shell)
         char cmds_nb_str[10];
         char pipe_nb_str[10];
         snprintf(index_str, sizeof(index_str), "%d", cmd->index);
-        snprintf(cmds_nb_str, sizeof(cmds_nb_str), "%d", cmd->cmds_nb);
-        snprintf(pipe_nb_str, sizeof(pipe_nb_str), "%d", cmd->pipe_nb);
+        snprintf(cmds_nb_str, sizeof(cmds_nb_str), "%d", shell->cmds_nb);
+        snprintf(pipe_nb_str, sizeof(pipe_nb_str), "%d", shell->pipe_nb);
 
         const char *cmd_row[] = {
             index_str,
