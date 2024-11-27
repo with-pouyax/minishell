@@ -16,12 +16,12 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 	}
 	cmd = create_command(shell ,cmd_str, (*cmd_index)++); // we create a new command struct and store it in cmd
 	if (!cmd || tokenize_command(shell, cmd))
-	{
-		free(cmd_str);
-		free(cmd);
-		shell->error_flag = 2;
-		return (1);
-	}
+    {
+        free(cmd_str);
+        free(cmd);
+        shell->error_flag = 1; // Set to 1 for syntax error
+        return (1);
+    }
 	add_command_to_list(shell, last_cmd, cmd); // we add the command to the list of commands,
 	if (shell->input[*i] == '|')
 		(*i)++;

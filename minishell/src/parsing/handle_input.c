@@ -69,10 +69,25 @@ void handle_input(t_shell_data *shell)
         if (!skip_processing && check_trailing_pipe(shell->input))
             skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
         process_input(shell);
-        printf("Debug: Starting execution()---------------------------------------\n");
-        execution(shell);
-        printf("Debug: Finished execution()-------------------------------------\n");
+        
+        // ** New Conditional Execution Starts Here **
+        if (shell->commands)
+        {
+            printf("Debug: Starting execution()---------------------------------------\n");
+            execution(shell);
+            printf("Debug: Finished execution()-------------------------------------\n");
+        }
+        else
+        {
+            // If commands are NULL, it means there was a syntax error or no commands to execute
+            shell->exit_status = 2; // Optional: Ensure exit status reflects the error
+        }
+        // ** New Conditional Execution Ends Here **
+
         free_shell_resources(shell);
     }
     rl_clear_history();
 }
+
+
+
