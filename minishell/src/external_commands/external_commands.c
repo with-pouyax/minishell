@@ -103,8 +103,7 @@ void    execute_external_commands(t_shell_data *shell)
         quit_program(EXIT_FAILURE);
     else if (pid == 0)
         exec_external_child(shell, cmd_path, arr_token);
-    else
-        wait_for_all_children(shell);
+    printf("Parent Process: PID = %d, Child PID = %d\n", getpid(), pid);
     store_pids(shell, pid);
     free(cmd_path);
     free(arr_token);
