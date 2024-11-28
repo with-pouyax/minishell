@@ -54,6 +54,7 @@ void handle_input(t_shell_data *shell)
     int skip_processing;
 
     skip_processing = 0;
+    
     while (1)
     {
         if (read_input(shell))
@@ -68,6 +69,7 @@ void handle_input(t_shell_data *shell)
         if (!skip_processing && check_trailing_pipe(shell->input))
             skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
         process_input(shell);
+
         
         printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
         printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
@@ -84,7 +86,6 @@ void handle_input(t_shell_data *shell)
             shell->exit_status = 2; // Optional: Ensure exit status reflects the error
         }
         // Conditional Execution Ends Here
-
         free_shell_resources(shell);
     }
     rl_clear_history();

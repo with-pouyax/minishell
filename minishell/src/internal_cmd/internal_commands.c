@@ -32,31 +32,30 @@ static int execute_command(t_shell_data *shell, t_command *cmd, t_token *token, 
     return (ret);
 }
 
-/* Main function to execute internal commands */
-int execute_internal_commands(t_shell_data *shell)
+int execute_internal_commands(t_shell_data *shell, t_command *cmds)
 {
-    t_command *cmd;
     t_token *token;
     int ret;
 
-	cmd = shell->commands;
-    while (cmd)
+    printf("this is internal executing : %s\n", cmds->token_list->value);
+    ret = 0;
+    if (cmds)
     {
-        token = cmd->token_list;
-        while (token)
+        token = cmds->token_list;
+        while (token && token->is_end != 1)
         {
+            printf("Debug: Token (Command): %s\n\n", token->value);
 			if (token->is_end)
 				break;
             if (token->is_command && token->is_int)
             {
-                ret = execute_command(shell, cmd, token, ret);
+                ret = execute_command(shell, cmds, token, ret);
                 if (ret != 0)
                     return -1;
                 break;
             }
             token = token->next;
         }
-        cmd = cmd->next;
     }
     return (0);
 }

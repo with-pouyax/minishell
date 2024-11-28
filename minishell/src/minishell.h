@@ -67,11 +67,15 @@ typedef struct s_command
 	char				*command_string;
 	int					index;
 	int					is_recalled;   //pak shavad
-	pid_t				pid;           //store process IDs
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
 	struct s_command	*next;
 }				t_command;
+
+typedef struct s_pid_node {
+    pid_t pid;
+    struct s_pid_node *next;
+} t_pid_node;
 
 
 typedef struct s_shell_data
@@ -80,6 +84,7 @@ typedef struct s_shell_data
 	char					*input;            //
 	char					*full_input;       //
 	t_command				*commands;
+	t_pid_node 				*pid_list;           //store process IDs
 	int						pipe_nb;
 	int						**pipes;
 	int						cmds_nb;
@@ -236,8 +241,8 @@ int 	open_all_files(t_shell_data *shell, t_redirection *redir);
 int 	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in);
 int 	open_output_file(t_redirection *redir, int fd_out);
 int 	open_append_file(t_redirection *redir, int fd_out);
-int		execute_internal_commands(t_shell_data *shell);
-void	execute_external_commands(t_shell_data *shell);
+int		execute_internal_commands(t_shell_data *shell, t_command *cmds);
+void	execute_external_commands(t_shell_data *shell, t_command *cmds);
 
 // external_execution
 
@@ -246,11 +251,11 @@ char 	*find_path_in_env(t_shell_data *shell, char *cmd);
 char	**get_paths_from_env(char **env);
 char	*check_and_return_path(const char *cmd, char **all_paths);
 void 	store_pids(t_shell_data *shell, pid_t pid);
-void 	handle_exec_error(char *cmd, char *message, int exit_code);
+void 	handle_exec_error(t_shell_data *shell, char *cmd, char *message, int exit_code);
 int		get_exec_error_code(int err);
 void	quit_program(int exit_code);
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
-void 	wait_for_all_children(t_shell_data *shell);
+void execute_parent(t_shell_data *shell);
 
 char	**convert_tokens_to_argv(t_token *token_list);
 int 	token_list_length(t_token *token);
@@ -267,7 +272,7 @@ int 	handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_co
 int 	is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
 void	write_error(char *exec_name, char *err_message);
-
+void 	clear_pid_list(t_shell_data *shell);
 
 int	validate_operators(t_shell_data *shell);
 
