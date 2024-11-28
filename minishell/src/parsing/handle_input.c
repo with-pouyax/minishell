@@ -69,6 +69,8 @@ void handle_input(t_shell_data *shell)
             skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
         process_input(shell);
         
+        printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
+        printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
         // Conditional Execution Starts Here
         if (shell->commands)
         {

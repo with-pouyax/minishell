@@ -98,34 +98,47 @@ void    append_end_token(t_shell_data *shell)
     last_token->is_end = 1;
 }
 
-void	split_cmd_tokenize(t_shell_data *shell)
+void split_cmd_tokenize(t_shell_data *shell)
 {
-	int			i;
-	int			cmd_index;
-	t_command	*last_cmd;
+    int         i;
+    int         cmd_index;
+    t_command   *last_cmd;
 
-	i = 0;
-	cmd_index = 0;
-	last_cmd = NULL;
-	shell->error_flag = 0;
-	if (!shell->input)
+    i = 0;
+    cmd_index = 0;
+    last_cmd = NULL;
+    shell->error_flag = 0;
+    if (!shell->input)
         return;
-	while (shell->input[i])
-	{
-		skip_spaces(shell, &i);
-		if (process_input_segment(shell, &i, &cmd_index, &last_cmd)) // here we save each command in a linked list
-			break ;
-	}
-	if (shell->error_flag)
-	{
-		free_commands(shell);
-		shell->commands = NULL;
-		handle_tokenization_error(shell, shell->error_flag);
-	}
-	else
+    while (shell->input[i])
+    {
+        skip_spaces(shell, &i);
+        if (process_input_segment(shell, &i, &cmd_index, &last_cmd))
+            break ;
+    }
+    if (shell->error_flag)
+    {
+        free_commands(shell);
+        shell->commands = NULL;
+        handle_tokenization_error(shell, shell->error_flag);
+    }
+    else
     {
         // Append the '\0' token to the last command
         append_end_token(shell);
+
+        // Count the number of commands
+        int cmd_count = 0;
+        t_command *cmd = shell->commands;
+        while (cmd)
+        {
+            cmd_count++;
+            cmd = cmd->next;
+        }
+        shell->cmds_nb = cmd_count;
+
+        // Calculate pipe_nb
+        shell->pipe_nb = shell->cmds_nb - 1;
     }
-	
 }
+

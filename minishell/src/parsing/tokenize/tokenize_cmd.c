@@ -14,13 +14,12 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
     t_command *cmd;
 
+	(void)shell;
     cmd = malloc(sizeof(t_command));
     if (!cmd)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-	shell->cmds_nb = calc_cmds_nb(shell);
-    shell->pipe_nb = calc_pipe_nb(shell);
 	cmd->is_recalled = 0;
     cmd->token_list = NULL;
 	cmd->redirections = NULL; 
