@@ -38,5 +38,13 @@ int	extract_command_string(char *input, int i)
 		else
 			i++;
 	}
+	
+	if (input[i] == '|') {
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+		return (-1); // Indicate syntax error
+	}
+	
 	return (i);
 }
+
+

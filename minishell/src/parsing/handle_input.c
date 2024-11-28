@@ -52,42 +52,43 @@ int read_input(t_shell_data *shell)
 
 void handle_input(t_shell_data *shell)
 {
-    int skip_processing;
+	int skip_processing;
 
-    skip_processing = 0;
-    while (1)
-    {
-        if (read_input(shell))
-            break;
-        skip_processing = check_input_length(shell);
-        if (!skip_processing)
-            skip_processing = handle_allocation(shell);
-        if (ft_strlen(shell->full_input) > 0)
-            add_history(shell->full_input);
-        if (!skip_processing && check_unclosed_quotes(shell->input))
-            skip_processing = check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
-        if (!skip_processing && check_trailing_pipe(shell->input))
-            skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
-        process_input(shell);
-        
-        // ** New Conditional Execution Starts Here **
-        if (shell->commands)
-        {
-            printf("Debug: Starting execution()---------------------------------------\n");
-            execution(shell);
-            printf("Debug: Finished execution()-------------------------------------\n");
-        }
-        else
-        {
-            // If commands are NULL, it means there was a syntax error or no commands to execute
-            shell->exit_status = 2; // Optional: Ensure exit status reflects the error
-        }
-        // ** New Conditional Execution Ends Here **
-
-        free_shell_resources(shell);
-    }
-    rl_clear_history();
+	skip_processing = 0;
+	while (1)
+	{
+		if (read_input(shell))
+			break;
+		skip_processing = check_input_length(shell);
+		if (!skip_processing)
+			skip_processing = handle_allocation(shell);
+		if (ft_strlen(shell->full_input) > 0)
+			add_history(shell->full_input);
+		if (!skip_processing && check_unclosed_quotes(shell->input))
+			skip_processing = check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
+		if (!skip_processing && check_trailing_pipe(shell->input))
+			skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
+		process_input(shell);
+		
+		// ** Conditional Execution Starts Here **
+		if (shell->commands)
+		{
+			printf("Debug: Starting execution()---------------------------------------\n");
+			execution(shell);
+			printf("Debug: Finished execution()-------------------------------------\n");
+		}
+		else
+		{
+			// If commands are NULL, it means there was a syntax error or no commands to execute
+			shell->exit_status = 2; // Optional: Ensure exit status reflects the error
+		}
+		// ** Conditional Execution Ends Here **
+		
+		free_shell_resources(shell);
+	}
+	rl_clear_history();
 }
+
 
 
 
