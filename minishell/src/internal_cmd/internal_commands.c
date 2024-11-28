@@ -21,7 +21,10 @@ static int execute_command(t_shell_data *shell, t_command *cmd, t_token *token, 
     else if (ft_strcmp(token->value, "exit") == 0)
         ret = ft_exit_shell(shell, cmd);
     else
-        handle_exec_error(shell, token->value, ": command not found\n", 127);
+    {
+    	handle_exec_error(shell, token->value, ": command not found\n", 127);
+    	return (-1);
+    }
     // {
     //     ft_putstr_fd("minishell: ", STDERR_FILENO);
     //     ft_putstr_fd(token->value, STDERR_FILENO);
@@ -36,16 +39,14 @@ static int execute_command(t_shell_data *shell, t_command *cmd, t_token *token, 
 int execute_internal_commands(t_shell_data *shell, t_command *cmds)
 {
     t_token *token;
-    int ret;
+    int     ret;
 
-    printf("this is internal executing : %s\n", cmds->token_list->value);
     ret = 0;
     if (cmds)
     {
         token = cmds->token_list;
         while (token && token->is_end != 1)
         {
-            printf("Debug: Token (Command): %s\n\n", token->value);
 			if (token->is_end)
 				break;
             if (token->is_command && token->is_int)

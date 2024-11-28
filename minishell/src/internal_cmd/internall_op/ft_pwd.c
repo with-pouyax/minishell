@@ -1,4 +1,3 @@
-// ft_pwd.c
 #include "../internal_commands.h"
 
 

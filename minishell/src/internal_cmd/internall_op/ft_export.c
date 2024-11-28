@@ -1,11 +1,10 @@
-// ft_export.c
 #include "../internal_commands.h"
 
-int	ft_export(t_shell_data *shell,t_command *cmd)
+int	ft_export(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 
-	token = cmd->token_list->next; // Skip the command token
+	token = cmd->token_list->next;
 	if (!token)
 	{
 		print_sorted_env(shell);

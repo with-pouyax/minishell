@@ -1,11 +1,10 @@
-// ft_unset.c
 #include "../internal_commands.h"
 
 int	ft_unset(t_shell_data *shell,t_command *cmd)
 {
 	t_token	*token;
 
-	token = cmd->token_list->next; // Skip the command token
+	token = cmd->token_list->next;
 	while (token)
 	{
 		if (is_valid_identifier(token->value))
