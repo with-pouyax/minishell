@@ -69,7 +69,7 @@ changed the stdout and stdin inside set_redirs and set_pipes()
 // If execve call is successful, the following lines are never executed
 // chon : the child process will kill itself when finished
 
-int exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
+void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 {
     int error_code;
     int exit_status;
@@ -84,7 +84,6 @@ int exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
         handle_exec_error(shell, argv[0], strerror(errno), error_code);
         printf("the cmd not executes");
     }
-    return (exit_status);
 }
 
 void    execute_external_commands(t_shell_data *shell, t_command *cmds)
@@ -110,7 +109,7 @@ void    execute_external_commands(t_shell_data *shell, t_command *cmds)
     else if (pid == 0)
     {
         exec_external_child(shell, cmd_path, arr_token);
-        exit();
+        exit(shell->exit_status);
     }
     else 
     {
