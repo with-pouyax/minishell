@@ -1,0 +1,1 @@
+Debug: STDIN for cmd 1 redirected to pipe[0][0]

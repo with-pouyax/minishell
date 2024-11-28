@@ -1,18 +1,32 @@
 
 #include "../minishell.h"
 
-// Helper function to check for input redirection and set up piping if necessary
 void check_input_redir(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
     if (!has_redirs(redir, REDIR_INPUT) && cmds_index != 0)
-        dup2(shell->pipes[cmds_index - 1][0], STDIN_FILENO);
+    {
+        if (dup2(shell->pipes[cmds_index - 1][0], STDIN_FILENO) == -1)
+        {
+            perror("dup2 failed for input pipe");
+            shell->exit_status = EXIT_FAILURE;
+            return;
+        }
+        printf("Debug: STDIN for cmd %d redirected to pipe[%d][0]\n", cmds_index, cmds_index - 1);
+    }
 }
 
-// Helper function to check for output redirection and set up piping if necessary
 void check_output_redir(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
     if (!has_redirs(redir, REDIR_OUTPUT) && !has_redirs(redir, REDIR_APPEND) && cmds_index != shell->cmds_nb - 1)
-        dup2(shell->pipes[cmds_index][1], STDOUT_FILENO);
+    {
+        if (dup2(shell->pipes[cmds_index][1], STDOUT_FILENO) == -1)
+        {
+            perror("dup2 failed for input pipe");
+            shell->exit_status = EXIT_FAILURE;
+            return;
+        }
+        printf("Debug: STDOUT for cmd %d redirected to pipe[%d][1]\n", cmds_index, cmds_index);
+    }
 }
 /*
  in open_all_files(redirs) processes:
@@ -31,7 +45,6 @@ The last process:
         Doesn't set up piping for STDOUT since there's no next process to send data to.
 
 */
-
 /*
 diagram for a pipeline with three processes (A | B | C):
 
@@ -49,10 +62,13 @@ void set_redirection(t_shell_data *shell, t_redirection *redir)
 {
     int exit_code;
 
-    exit_code = open_all_files(shell, redir);
-    if (exit_code == EXIT_FAILURE)
-        return;
-    shell->exit_status = EXIT_SUCCESS;
+    if (redir)
+    {
+        exit_code = open_all_files(shell, redir);
+        if (exit_code == EXIT_FAILURE)
+            return;
+        shell->exit_status = EXIT_SUCCESS;
+    }
 }
 
 void set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
@@ -60,6 +76,5 @@ void set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
     check_input_redir(shell, redir, cmds_index);
     check_output_redir(shell, redir, cmds_index);
     shell->exit_status = EXIT_SUCCESS;
-
 }
 

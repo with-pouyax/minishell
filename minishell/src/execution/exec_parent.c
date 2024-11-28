@@ -30,7 +30,7 @@ void execute_parent(t_shell_data *shell)
         else
         {
             if (WIFEXITED(status))
-                printf("Child process %d exited with status %d\n", pid, WEXITSTATUS(status));
+                printf("\n\nChild process %d exited with status %d\n", pid, WEXITSTATUS(status));
             else if (WIFSIGNALED(status))
                 printf("Child process %d was terminated by signal %d\n", pid, WTERMSIG(status));
             else if (WIFSTOPPED(status))

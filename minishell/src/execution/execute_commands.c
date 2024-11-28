@@ -11,11 +11,8 @@ int has_redirs(t_redirection *redir, t_redirection_type type )
     return (0);
 }
 
-
 // use of fds here : to check If any of the open_file() returned -1, it means there was an error
 // ** Opens all files. Only the last of its type is left open, others are closed.
-
-
 int open_all_files(t_shell_data *shell, t_redirection *redir)
 {
     int fd_input;
@@ -37,7 +34,7 @@ int open_all_files(t_shell_data *shell, t_redirection *redir)
 }
 
 /*
-if_thereis_redirection() :
+set_redir() :
     handle the redirection operators in a program. 
     Redirections determine how input and output are handled for 
     commands, such as reading from a file or writing to a file.
@@ -45,8 +42,6 @@ if_thereis_redirection() :
     represent the file descriptors for input (<) and output (> or >>) files.
     They are initialized to -2, a special value indicating no file is open yet.
 */
-
-
 
 void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
 {
@@ -72,9 +67,10 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     // replace_env_var();                       // pouya did this part before 
     set_redirection(shell, cmds->redirections);
     set_pipes(shell, cmds->redirections, index);
-    if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    //should we check if there is cmd to execute or not??????
+    if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    
     {
-        if (shell->commands->token_list->is_int)
+        printf("this is is_int:%d\n\n", cmds->token_list->is_int);
+        if (cmds->token_list->is_int)
             execute_internal_commands(shell, cmds);
         else
             execute_external_commands(shell, cmds);
@@ -84,8 +80,6 @@ void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
     close(saved_stdin);
     close(saved_stdout);
 }
-
-
 
 void execution(t_shell_data *shell)
 {

@@ -70,7 +70,7 @@ void handle_input(t_shell_data *shell)
         if (!skip_processing && check_trailing_pipe(shell->input))
             skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
         process_input(shell);
-        printf("Debug: Starting execution()---------------------------------------\n");
+        printf("\n\nDebug: Starting execution()---------------------------------------\n\n\n");
         execution(shell);
         printf("Debug: Finished execution()-------------------------------------\n");
         free_shell_resources(shell);

@@ -39,7 +39,7 @@ char **convert_tokens_to_argv(t_token *token_list)
 
 	i = 0;
 
-    printf("Token list:\n");
+    printf("\n\nToken list:\n");
     t_token *temp = token_list;
     while (temp)
     {
@@ -47,7 +47,7 @@ char **convert_tokens_to_argv(t_token *token_list)
         temp = temp->next;
     }
 	count = token_list_length(token_list);
-    printf("Number of tokens: %d\n", count);
+    printf("Number of tokens: %d\n\n", count);
 	argv = malloc(sizeof(char *) * (count + 1));
     if (!argv)
         exit(EXIT_FAILURE);
@@ -69,19 +69,22 @@ changed the stdout and stdin inside set_redirs and set_pipes()
 // If execve call is successful, the following lines are never executed
 // chon : the child process will kill itself when finished
 
-void exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
+int exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 {
     int error_code;
+    int exit_status;
 
     printf("start child proces");
     close_all_pipes(shell->pipes, shell->cmds_nb);
     // wait_for_all_children(shell);
-    if (execve(cmd_path, argv, shell->envp) == -1)
+    exit_status = execve(cmd_path, argv, shell->envp);
+    if (exit_status == -1)
     {
         error_code = get_exec_error_code(errno);
         handle_exec_error(shell, argv[0], strerror(errno), error_code);
         printf("the cmd not executes");
     }
+    return (exit_status);
 }
 
 void    execute_external_commands(t_shell_data *shell, t_command *cmds)
@@ -105,9 +108,15 @@ void    execute_external_commands(t_shell_data *shell, t_command *cmds)
     if (pid < 0)
         quit_program(EXIT_FAILURE);
     else if (pid == 0)
+    {
         exec_external_child(shell, cmd_path, arr_token);
-    printf("Parent Process: PID = %d, Child PID = %d\n", getpid(), pid);
-    store_pids(shell, pid);
+        exit();
+    }
+    else 
+    {
+        printf("Parent Process: PID = %d, Child PID = %d\n\n\n", getpid(), pid);
+        store_pids(shell, pid);
+    }
     free(cmd_path);
     free(arr_token);
 }

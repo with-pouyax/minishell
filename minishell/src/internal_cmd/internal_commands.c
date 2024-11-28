@@ -44,7 +44,7 @@ int execute_internal_commands(t_shell_data *shell, t_command *cmds)
         token = cmds->token_list;
         while (token && token->is_end != 1)
         {
-            printf("Debug: Token (Command): %s\n", token->value);
+            printf("Debug: Token (Command): %s\n\n", token->value);
 			if (token->is_end)
 				break;
             if (token->is_command && token->is_int)
