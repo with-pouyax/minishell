@@ -25,13 +25,6 @@ static int execute_command(t_shell_data *shell, t_command *cmd, t_token *token, 
     	handle_exec_error(shell, token->value, ": command not found\n", 127);
     	return (-1);
     }
-    // {
-    //     ft_putstr_fd("minishell: ", STDERR_FILENO);
-    //     ft_putstr_fd(token->value, STDERR_FILENO);
-    //     ft_putstr_fd(": command not found\n", STDERR_FILENO);
-    //     shell->exit_status = 127;
-    //     return (-1);
-    // }
     shell->exit_status = ret;
     return (ret);
 }
