@@ -6,16 +6,25 @@ void preprocess_input(t_shell_data *shell)
     split_cmd_tokenize(shell);
     if (!shell->commands)
         return;
-    if (shell->error_flag) // If an error occurred during heredoc processing
+    if (shell->error_flag)
     {
-        free_commands(shell); //##important
+        free_commands(shell); // Important: Free commands if an error flag is set
         shell->commands = NULL;
         return;
     }
     parse_tokens(shell);
-    print_commands(shell); // ##debug print
-    //free_commands(shell);  //##important
+
+    // Validate operators after parsing tokens
+    if (validate_operators(shell))
+    {
+        // If a syntax error was found, skip further processing
+        return;
+    }
+
+    print_commands(shell); // Debug print
+    // free_commands(shell);  // Optional: Free commands after validation if needed
 }
+
 
 
 

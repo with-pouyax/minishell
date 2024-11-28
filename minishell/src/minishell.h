@@ -274,4 +274,7 @@ void	free_redirections(t_redirection *redirs);
 void	write_error(char *exec_name, char *err_message);
 void 	clear_pid_list(t_shell_data *shell);
 
+int	validate_operators(t_shell_data *shell);
+
+
 #endif

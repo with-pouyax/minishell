@@ -14,13 +14,12 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
     t_command *cmd;
 
+	(void)shell;
     cmd = malloc(sizeof(t_command));
     if (!cmd)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-	shell->cmds_nb = calc_cmds_nb(shell);
-    shell->pipe_nb = calc_pipe_nb(shell);
 	cmd->is_recalled = 0;
     cmd->token_list = NULL;
 	cmd->redirections = NULL; 
@@ -31,12 +30,23 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 
 int	extract_command_string(char *input, int i)
 {
-	while (input[i] && input[i] != '|') // Loop through the input string until we find a pipe
+	// loop as long the ith character is not pipe or null and the 
+	while (input[i])
 	{
+		if (input[i] == '|' && (input[i + 1] != '<' && input[i + 1] != '>'))
+			break ;
 		if (input[i] == '\'' || input[i] == '\"') // If we find a quote
 			i = skip_quotes(input, i); // Skip quotes
 		else
 			i++;
 	}
+	
+	if (input[i + 1] == '|') {
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+		return (-1); // Indicate syntax error
+	}
+	
 	return (i);
 }
+
+

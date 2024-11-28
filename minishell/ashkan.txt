@@ -1,0 +1,16 @@
+Debug: STDIN for cmd 1 redirected to pipe[0][0]
+this is is_int:0
+
+this is external executing
+
+
+Token list:
+Token value: 'grep', Index: 0
+Token value: 'Makefile', Index: 1
+Token value: '', Index: 2
+Number of tokens: 2
+
+Parent Process: PID = 74113, Child PID = 75794
+
+
+Makefile
