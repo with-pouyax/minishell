@@ -42,21 +42,31 @@ int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *
 
 int process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, int *index, int *redir_count)
 {
-	char	*op;
-	int		ret;
+    char    *op;
+    int     ret;
 
-	op = ft_strdup("");
-	if (!op)
-		return (1);
-	while (input[*i] && is_operator_char(input[*i])) // Loop through the input string until we find a non-operator character 
-	{
-		ret = add_char_to_token(&op, input[*i]); // Add the character to the operator string (op)
-		if (ret)
-			return (free_and_return(op));
-		(*i)++;
-	}
+    // Check if the current character is '|' and the next character is '<' or '>' without space
+    if (input[*i] == '|' && (input[*i + 1] == '<' || input[*i + 1] == '>') && !ft_isspace(input[*i + 1]))
+    {
+        // Skip the '|' character
+        (*i)++;
+        // Continue processing from the next character
+    }
 
-	if (is_redirection_operator(op)) //if there is redirection operator
+    // Proceed with the usual operator processing
+    op = ft_strdup("");
+    if (!op)
+        return (1);
+
+    while (input[*i] && is_operator_char(input[*i]))
+    {
+        ret = add_char_to_token(&op, input[*i]);
+        if (ret)
+            return (free_and_return(op));
+        (*i)++;
+    }
+
+    if (is_redirection_operator(op))
     {
         if (handle_redirection(shell, op, input, i, cmd, redir_count))
         {
@@ -67,12 +77,13 @@ int process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, i
         return (0);
     }
 
-	ret = add_token(op, &cmd->token_list, index, 1); // Add the operator to the token list
-	if (ret)
-		return (free_and_return(op));
-	process_operator_details(op, cmd, i, index);
-	return (0);
+    ret = add_token(op, &cmd->token_list, index, 1);
+    if (ret)
+        return (free_and_return(op));
+    process_operator_details(op, cmd, i, index);
+    return (0);
 }
+
 
 void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
 {
