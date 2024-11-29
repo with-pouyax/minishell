@@ -1,30 +1,25 @@
 // signal_handling.c
 #include "../minishell.h"
 
+volatile sig_atomic_t g_signal_status = 0;
 
-// void	sigint_handler(int sig)
-// {
-// 	(void)sig;
-// 	if (g_data.in_child_process) // Check if in child process (executing a command)
-// 	{
-// 		write(1, "\n", 1); // Write newline
-// 	}
-// 	else // Not in child process
-// 	{
-// 		write(1, "\n", 1); // Write newline
-// 		rl_replace_line("", 0); // Clear the input line
-// 		rl_on_new_line(); // Move cursor to new line
-// 		rl_redisplay(); // Redisplay the prompt
-// 	}
-// }
-
-// void	sigquit_handler(int sig)
-// {
-// 	(void)sig;
-// }
-
-// void	setup_signal_handlers(void)
-// {
-// 	signal(SIGINT, sigint_handler); // Handle SIGINT (Ctrl-C)
-// 	signal(SIGQUIT, sigquit_handler); // Handle SIGQUIT (Ctrl-\)
-// }
+// In signal_handling.c
+void sigint_handler(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+    g_signal_status = 1;
+}
+void sigquit_handler(int sig)
+{
+    (void)sig;
+}
+// In signal_handling.c
+void setup_signal_handlers(void)
+{
+    signal(SIGINT, sigint_handler);
+    signal(SIGQUIT, SIG_IGN);
+}

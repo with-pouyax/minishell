@@ -21,6 +21,8 @@
 # define PROMPT "\001\033[0;32m\002minishell> \001\033[0m\002"
 # define MAX_INPUT_LENGTH 4096
 
+extern volatile sig_atomic_t g_signal_status;
+
 typedef enum e_redirection_type {
     REDIR_INPUT,      // <
     REDIR_OUTPUT,     // >
@@ -101,7 +103,6 @@ typedef struct s_shell_data
 /* Shell Initialization and Input Handling */
 void	init_shell(t_shell_data *shell);
 void	handle_input(t_shell_data *shell);
-void 	handle_ctrl_d(void);
 int 	check_input_length(t_shell_data *shell);
 int 	handle_allocation(t_shell_data *shell);
 int 	check_syntax_error(t_shell_data *shell, char *error_message);
@@ -277,5 +278,10 @@ void 	clear_pid_list(t_shell_data *shell);
 int	validate_operators(t_shell_data *shell);
 int is_allowed_char(char c);
 
+//signal handling
+void handle_ctrl_d(void);
+void setup_signal_handlers(void);
+void sigquit_handler(int sig);
+void sigint_handler(int sig);
 
 #endif

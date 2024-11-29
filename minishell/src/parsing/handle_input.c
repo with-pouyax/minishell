@@ -3,7 +3,7 @@
 void handle_ctrl_d(void)
 {
     write(1, "exit\n", 5);
-    printf("Debug: shell->input is NULL, exiting shell\n");
+    exit(0); // Exit the shell
 }
 
 // return 1 : Skip further processing
@@ -44,42 +44,99 @@ int read_input(t_shell_data *shell)
     if (!shell->input)
     {
         handle_ctrl_d();
-        return (1); 
+        return (1); // Break the loop
     }
     return (0);
 }
 
 void handle_input(t_shell_data *shell)
 {
-    int skip_processing;
-
-    skip_processing = 0;
-    
     while (1)
     {
         if (read_input(shell))
             break;
-        skip_processing = check_input_length(shell);
-        if (!skip_processing)
-            skip_processing = handle_allocation(shell);
-        if (ft_strlen(shell->full_input) > 0)
-            add_history(shell->full_input);
-        if (!skip_processing && check_unclosed_quotes(shell->input))
-            skip_processing = check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
-        if (!skip_processing && check_leading_pipe(shell->input))
-            skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
-        if (!skip_processing && check_trailing_pipe(shell->input))
-            skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
-        process_input(shell);
-        if (shell->commands)
+
+        if (shell->input == NULL || shell->input[0] == '\0')
         {
-            printf("Debug: Starting execution()---------------------------------------\n");
-            execution(shell);
-            printf("Debug: Finished execution()-------------------------------------\n");
+            free(shell->input);
+            shell->input = NULL;
+            // Reset signal status if necessary
+            g_signal_status = 0;
+            // Continue to prompt again by skipping the rest of the loop
         }
         else
-            shell->exit_status = 2;
-        free_shell_resources(shell);
+        {
+            // Reset signal status at the start of processing
+            g_signal_status = 0;
+
+            // Check input length
+            if (check_input_length(shell))
+            {
+                free_shell_resources(shell);
+                // Skip processing and prompt again
+            }
+            else
+            {
+                // Handle allocation
+                if (handle_allocation(shell))
+                {
+                    free_shell_resources(shell);
+                    // Skip processing and prompt again
+                }
+                else
+                {
+                    // Add to history if input is not empty
+                    if (ft_strlen(shell->full_input) > 0)
+                        add_history(shell->full_input);
+
+                    // Syntax checks
+                    if (check_unclosed_quotes(shell->input))
+                    {
+                        check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
+                        free_shell_resources(shell);
+                        // Skip processing and prompt again
+                    }
+                    else if (check_leading_pipe(shell->input))
+                    {
+                        check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
+                        free_shell_resources(shell);
+                        // Skip processing and prompt again
+                    }
+                    else if (check_trailing_pipe(shell->input))
+                    {
+                        check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
+                        free_shell_resources(shell);
+                        // Skip processing and prompt again
+                    }
+                    else
+                    {
+                        // Process the input
+                        process_input(shell);
+
+                        printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
+                        printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
+
+                        // Conditional Execution Starts Here
+                        if (shell->commands)
+                        {
+                            printf("Debug: Starting execution()---------------------------------------\n");
+                            execution(shell);
+                            printf("Debug: Finished execution()-------------------------------------\n");
+                        }
+                        else
+                        {
+                            // If commands are NULL, it means there was a syntax error or no commands to execute
+                            shell->exit_status = 2; // Optional: Ensure exit status reflects the error
+                        }
+                        // Conditional Execution Ends Here
+
+                        // Free resources after processing
+                        free_shell_resources(shell);
+                    }
+                }
+            }
+        }
     }
     rl_clear_history();
 }
+
