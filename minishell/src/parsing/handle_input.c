@@ -66,6 +66,8 @@ void handle_input(t_shell_data *shell)
             add_history(shell->full_input);
         if (!skip_processing && check_unclosed_quotes(shell->input))
             skip_processing = check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
+        if (!skip_processing && check_leading_pipe(shell->input))
+            skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
         if (!skip_processing && check_trailing_pipe(shell->input))
             skip_processing = check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
         process_input(shell);

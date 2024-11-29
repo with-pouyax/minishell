@@ -1,5 +1,19 @@
 #include "../minishell.h"
 
+int	check_leading_pipe(char *input)
+{
+	int	i;
+
+	if (!input)
+		return (0);
+	i = 0;                                    // Start at the beginning of the input string
+	while (input[i] && ft_isspace(input[i]))  // Skip any leading whitespace characters
+		i++;
+	if (input[i] == '|')                      // Check if the first non-space character is a pipe
+		return (1);
+	return (0);
+}
+
 int	check_trailing_pipe(char *input)
 {
 	int	i;
