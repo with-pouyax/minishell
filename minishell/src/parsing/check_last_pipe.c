@@ -6,10 +6,10 @@ int	check_leading_pipe(char *input)
 
 	if (!input)
 		return (0);
-	i = 0;                                    // Start at the beginning of the input string
-	while (input[i] && ft_isspace(input[i]))  // Skip any leading whitespace characters
+	i = 0;
+	while (input[i] && ft_isspace(input[i]))
 		i++;
-	if (input[i] == '|')                      // Check if the first non-space character is a pipe
+	if (input[i] == '|')
 		return (1);
 	return (0);
 }
@@ -20,10 +20,10 @@ int	check_trailing_pipe(char *input)
 
 	if (!input)
 		return (0);
-	i = ft_strlen(input) - 1;                  // Get the index of the last character in the input string
-	while (i >= 0 && ft_isspace(input[i]))     // Loop through the input string from the end to find the last non-space character
+	i = ft_strlen(input) - 1;
+	while (i >= 0 && ft_isspace(input[i]))
 		i--;
-	if (i >= 0 && input[i] == '|')             // Check if the last non-space character is a pipe
+	if (i >= 0 && input[i] == '|')
 		return (1);
 	return (0);
 }

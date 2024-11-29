@@ -33,3 +33,5 @@ int	main(int argc, char **argv, char **envp)
 - heredoc
 - do we need to return 0 in "execute_internal_commands()"?
 */
+
+// expand_variables_in_token --> in this function while loop has not i++!!!

@@ -8,43 +8,39 @@ int	calc_pipe_nb(t_shell_data *shell)
 	full_input = shell->full_input;
 	pipe_nb = 0;
 	while (*full_input)
-    {
-        if (*full_input == '|')
-            pipe_nb++;
-        full_input++;
-    }
+	{
+		if (*full_input == '|')
+			pipe_nb++;
+		full_input++;
+	}
 	return (pipe_nb);
 }
- int calc_cmds_nb(t_shell_data *shell)
+
+int	calc_cmds_nb(t_shell_data *shell)
 {
-    char *input = shell->full_input; // Get the full input
-    int cmd_count = 0;
-    int i = 0;
+	char	*input;
+	int		cmd_count;
+	int		i;
 
-    if (!input || !*input) // Check if input is empty or NULL
-        return 0;
-
-    while (input[i])
-    {
-        // Skip leading spaces around commands
-        while (input[i] == ' ' || input[i] == '\t')
-            i++;
-
-        // If we're at the start of a command, increment cmd_count
-        if (input[i] && input[i] != '|')
-        {
-            cmd_count++;
-            // Move to the end of the current command
-            while (input[i] && input[i] != '|')
-                i++;
-        }
-
-        // Skip over the pipe symbol
-        if (input[i] == '|')
-            i++;
-    }
-
-    return cmd_count;
+	input = shell->full_input;
+	cmd_count = 0;
+	i = 0;
+	if (!input || !*input)
+		return (0);
+	while (input[i])
+	{
+		while (input[i] == ' ' || input[i] == '\t')
+			i++;
+		if (input[i] && input[i] != '|')
+		{
+			cmd_count++;
+			while (input[i] && input[i] != '|')
+				i++;
+		}
+		if (input[i] == '|')
+			i++;
+	}
+	return (cmd_count);
 }
 
 void	init_shell(t_shell_data *shell)
