@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	init_shell(&shell);
-	// setup_signal_handlers(); // Set up signal handlers
+	setup_signal_handlers();
 	handle_input(&shell);
 	cleanup(&shell);
 	return (0);
