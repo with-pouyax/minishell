@@ -3,7 +3,17 @@
 
 int is_allowed_char(char c)
 {
-    return (ft_isalnum(c) || c == '_' || c == '-' || c == '.');
+    return (
+        ft_isalnum(c) ||  // Alphanumeric characters
+        c == '_' ||       // Underscore
+        c == '-' ||       // Hyphen
+        c == '.' ||       // Dot
+        c == '/' ||       // Slash
+        c == '~' ||       // Tilde
+        c == '$' ||       // Dollar sign (for variable expansion)
+        c == '=' ||       // Equal sign (for assignments)
+        c == ':'          // Colon (used in paths like $PATH)
+    );
 }
 
 /* Check if a string is numeric */
