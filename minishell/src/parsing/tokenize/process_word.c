@@ -1,5 +1,9 @@
 #include "../../minishell.h"
 
+// process_word.c or a relevant file
+#include "../../minishell.h"
+
+// Function to collect a word token from input
 int collect_word(char *input, int *i, char **word)
 {
     int ret;
@@ -20,12 +24,21 @@ int collect_word(char *input, int *i, char **word)
         }
         else
         {
+            if (!in_single_quote && !in_double_quote && !is_allowed_char(input[*i]))
+            {
+                ft_putstr_fd("minishell: syntax error: unexpected character `", STDERR_FILENO);
+                ft_putchar_fd(input[*i], STDERR_FILENO);
+                ft_putstr_fd("'\n", STDERR_FILENO);
+                return (1);
+            }
+
             ret = add_char_to_token(word, input[*i]);
             (*i)++;
             if (ret)
                 return (1);
         }
     }
+
     if (in_single_quote || in_double_quote)
     {
         ft_putstr_fd("minishell: syntax error: unclosed quote\n", STDERR_FILENO);
@@ -34,6 +47,11 @@ int collect_word(char *input, int *i, char **word)
     return (0);
 }
 
+
+// process_word.c or a relevant file
+#include "../../minishell.h"
+
+// Function to process a word token
 int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
 {
     char    *word;
@@ -87,7 +105,3 @@ int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *
 
     return (0);
 }
-
-
-
-

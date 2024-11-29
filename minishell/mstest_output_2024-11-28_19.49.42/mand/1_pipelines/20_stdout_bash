@@ -1,0 +1,10 @@
+total 40
+drwxrwxr-x 5 mina mina 4096 Nov 28 19:47 .
+drwxrwxr-x 4 mina mina 4096 Nov 27 11:58 ..
+-rw-rw-r-- 1 mina mina 6148 Nov 27 10:39 .DS_Store
+drwxrwxr-x 8 mina mina 4096 Nov 28 19:46 .git
+-rw-rw-r-- 1 mina mina  439 Nov 27 10:39 .gitignore
+-rw-rw-r-- 1 mina mina 1076 Nov 27 10:39 LICENSE
+drwxrwxr-x 7 mina mina 4096 Nov 28 19:49 minishell
+-rw-rw-r-- 1 mina mina 3041 Nov 27 10:39 README.md
+drwxrwxr-x 2 mina mina 4096 Nov 27 10:39 .vscode
