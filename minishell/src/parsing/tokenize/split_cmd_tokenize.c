@@ -43,6 +43,9 @@ int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command
 
     return (0);
 }
+
+
+
 void    append_end_token(t_shell_data *shell)
 {
     t_command   *cmd;
