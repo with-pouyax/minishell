@@ -220,7 +220,6 @@ void    free_envp(t_shell_data *shell);
 char    **copy_envp(char **envp);
 int		check_trailing_pipe(char *input);
 int 	check_leading_pipe(char *input);
-
 // signal handler
 
 void	setup_signal_handlers(void);
