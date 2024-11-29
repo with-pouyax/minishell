@@ -33,7 +33,7 @@ char	**copy_envp(char **envp)
 		new_envp[i] = ft_strdup(envp[i]);
 		if (!new_envp[i])
 		{
-			ree_envp_copy(new_envp, i);
+			free_envp_copy(new_envp, i);
 			return (NULL);
 		}
 		i++;

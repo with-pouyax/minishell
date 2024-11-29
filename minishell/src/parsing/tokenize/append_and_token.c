@@ -21,7 +21,7 @@ static int	get_end_index(t_token *last_token)
 	return (0);
 }
 
-static void	handle_memory_error(t_shell_data *shell, char *end_token_str)
+static void	handle_mem_error(t_shell_data *shell, char *end_token_str)
 {
 	ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 	free(end_token_str);
@@ -45,12 +45,12 @@ void	append_end_token(t_shell_data *shell)
 	end_token_str = ft_strdup("\0");
 	if (!end_token_str)
 	{
-		handle_memory_error(shell, end_token_str);
+		handle_mem_error(shell, end_token_str);
 		return ;
 	}
 	if (add_token(end_token_str, &cmd->token_list, &end_index, 0))
 	{
-		handle_memory_error(shell, end_token_str);
+		handle_mem_error(shell, end_token_str);
 		return ;
 	}
 	last_token = cmd->token_list;

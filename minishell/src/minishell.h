@@ -287,4 +287,5 @@ void sigint_handler(int sig);
 
 void	count_commands_and_pipes(t_shell_data *shell);
 int starts_with_operator_char(char c);
+int	check_syntax_error(t_shell_data *shell, char *error_message);
 #endif
