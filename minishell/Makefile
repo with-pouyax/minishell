@@ -62,6 +62,7 @@ SRCS            = src/main.c\
                   src/parsing/init_shell.c\
                   src/parsing/quotes.c\
                   src/parsing/check_syntax_error.c\
+                  src/parsing/tokenize/append_and_token.c\
                   src/parsing/tokenize/parser.c\
                   src/parsing/tokenize/process_word.c\
                   src/parsing/tokenize/split_cmd_tokenize.c\
@@ -69,6 +70,7 @@ SRCS            = src/main.c\
                   src/parsing/tokenize/tokenize_input.c\
                   src/parsing/tokenize/tokenizer_error.c\
                   src/parsing/tokenize/token_utils.c\
+                  src/parsing/tokenize/process_input_segment.c\
                   src/processes/process.c\
                   src/processes/preprocess_input.c\
                   src/processes/expand_variable/expand_var_input.c\
@@ -76,6 +78,8 @@ SRCS            = src/main.c\
                   src/processes/expand_variable/variable_expansion.c\
                   src/signal_handling/signal_handling.c\
                   src/validation/lexer.c \
+                  src/validation/lexer2.c \
+                  src/validation/error.c \
 				  src/cleanup/free_redirections.c\
                   print_tokens.c
 

@@ -1,7 +1,13 @@
-// ft_cd.c
 #include "../internal_commands.h"
 
+/*
+	expanded_path = ft_strdup(home);                // Path is just "~"
+	expanded_path = ft_strjoin(home, &path[1]);     // Path starts with "~/"
+	in handle_exec_error:
+	ft_putstr_fd("minishell: cd: no such file or directory: ", STDERR_FILENO)
+	-> Handle cases like "~user" (optional)
 
+*/
 int	handle_tilde_path(t_shell_data *shell, char *path)
 {
 	char	*home;
@@ -11,15 +17,12 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 	if (!home)
 		return (handle_no_home(shell));
 	if (path[1] == '\0')
-		expanded_path = ft_strdup(home);                // Path is just "~"
+		expanded_path = ft_strdup(home);
 	else if (path[1] == '/')
-		expanded_path = ft_strjoin(home, &path[1]);     // Path starts with "~/"
+		expanded_path = ft_strjoin(home, &path[1]);
 	else
 	{
-		ft_putstr_fd("minishell: cd: no such file or directory: ", STDERR_FILENO);      // Handle cases like "~user" (optional)
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
-		shell->exit_status = 1;
+		handle_exec_error(shell, path, "\n", 1);
 		return (1);
 	}
 	if (!expanded_path)
@@ -33,7 +36,7 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 
 int	change_to_home(t_shell_data *shell)
 {
-	char *home;
+	char	*home;
 
 	home = getenv_from_envp(shell, "HOME");
 	if (!home)
@@ -52,22 +55,28 @@ int	change_to_home(t_shell_data *shell)
 	return (0);
 }
 
-int	ft_cd(t_shell_data *shell,t_command *cmd)
+/*
+	token = cmd->token_list->next;         // Skip the command token
+	path = token->value;                   // Argument provided
+	if (chdir(path) != 0)                  // Regular path
+
+*/
+int	ft_cd(t_shell_data *shell, t_command *cmd)
 {
 	t_token	*token;
 	char	*path;
 
-	token = cmd->token_list->next;                  // Skip the command token
+	token = cmd->token_list->next;
 	if (!token)
 		return (change_to_home(shell));
 	else
 	{
-		path = token->value;                        // Argument provided
+		path = token->value;
 		if (path[0] == '~')
 			return (handle_tilde_path(shell, path));
 		else
 		{
-			if (chdir(path) != 0)             // Regular path
+			if (chdir(path) != 0)
 			{
 				perror("minishell: cd");
 				shell->exit_status = 1;

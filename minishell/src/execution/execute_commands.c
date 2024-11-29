@@ -1,36 +1,37 @@
 #include "../minishell.h"
 
-int has_redirs(t_redirection *redir, t_redirection_type type )
+int	has_redirs(t_redirection *redir, t_redirection_type type )
 {
-    while (redir)
-    {
-        if (redir->type == type)
-            return (1);
-        redir = redir->next;
-    }
-    return (0);
+	while (redir)
+	{
+		if (redir->type == type)
+			return (1);
+		redir = redir->next;
+	}
+	return (0);
 }
 
-// use of fds here : to check If any of the open_file() returned -1, it means there was an error
-// ** Opens all files. Only the last of its type is left open, others are closed.
-int open_all_files(t_shell_data *shell, t_redirection *redir)
+// use of fds here : to check If any of the open_file() returned -1,
+// it means there was an error
+// Opens all files. Only the last of its type is left open, others are closed.
+int	open_all_files(t_shell_data *shell, t_redirection *redir)
 {
-    int fd_input;
-    int fd_output;
+	int	fd_input;
+	int	fd_output;
 
-    fd_input = -2;
-    fd_output = -2;
-    while (redir)
-    {
-        if(redir->type == REDIR_INPUT)
-            fd_input = open_input_file(shell, redir, fd_input);
-        else if (redir->type == REDIR_OUTPUT)
-            fd_output = open_output_file(redir, fd_output);
-        else if (redir->type == REDIR_APPEND)
-            fd_output = open_append_file(redir, fd_output);
-        redir = redir->next;
-    }
-    return (EXIT_SUCCESS);
+	fd_input = -2;
+	fd_output = -2;
+	while (redir)
+	{
+		if (redir->type == REDIR_INPUT)
+			fd_input = open_input_file(shell, redir, fd_input);
+		else if (redir->type == REDIR_OUTPUT)
+			fd_output = open_output_file(redir, fd_output);
+		else if (redir->type == REDIR_APPEND)
+			fd_output = open_append_file(redir, fd_output);
+		redir = redir->next;
+	}
+	return (EXIT_SUCCESS);
 }
 
 /*
@@ -42,64 +43,49 @@ set_redir() :
     represent the file descriptors for input (<) and output (> or >>) files.
     They are initialized to -2, a special value indicating no file is open yet.
 */
-
-void exec_cmd(t_shell_data *shell ,t_command *cmds, int index)
+void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 {
-    int saved_stdin;
-    int saved_stdout;
+	int	saved_stdin;
+	int	saved_stdout;
 
-    printf("the cmd is executing: %s\n", cmds->command_string);
-    saved_stdin = dup(STDIN_FILENO);
-    saved_stdout = dup(STDOUT_FILENO);
-    if (saved_stdin == -1 || saved_stdout == -1)
-    {
-        perror("dup failed");
-        return;
-    }
-    // process_heredocs(shell);
-    // If there was an error while processing heredocs, exit early
-    // if (shell->error_flag)
-    // {
-    //     shell->exit_status = 1;
-    //     ft_putstr_fd("minishell: error processing heredocs\n", STDERR_FILENO);
-    //     return;
-    // }
-    // replace_env_var();                       // pouya did this part before 
-    set_redirection(shell, cmds->redirections);
-    set_pipes(shell, cmds->redirections, index);
-    if (shell->exit_status == EXIT_SUCCESS)     //if the previou cmd execute succesfully    
-    {
-        printf("this is is_int:%d\n\n", cmds->token_list->is_int);
-        if (cmds->token_list->is_int)
-            execute_internal_commands(shell, cmds);
-        else
-            execute_external_commands(shell, cmds);
-    }
-    dup2(saved_stdin, STDIN_FILENO);
-    dup2(saved_stdout, STDOUT_FILENO);
-    close(saved_stdin);
-    close(saved_stdout);
+	printf("the cmd is executing: %s\n", cmds->command_string);
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (saved_stdin == -1 || saved_stdout == -1)
+	{
+		perror("dup failed");
+		return ;
+	}
+	set_redirection(shell, cmds->redirections);
+	set_pipes(shell, cmds->redirections, index);
+	if (shell->exit_status == EXIT_SUCCESS)
+	{
+		if (cmds->token_list->is_int)
+			execute_internal_commands(shell, cmds);
+		else
+			execute_external_commands(shell, cmds);
+	}
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
 }
 
-void execution(t_shell_data *shell)
+void	execution(t_shell_data *shell)
 {
-    t_command   *cmd;
-    int         i;
+	t_command	*cmd;
+	int		i;
 
-    i = 0;
-    if (shell->cmds_nb > 0)
-    {
-        cmd = shell->commands;
-        shell->pipes = init_pipes(shell->cmds_nb);
-        while (i < shell->cmds_nb)
-        {
-            exec_cmd(shell, cmd, i);
-            cmd = cmd->next;
-            i++;
-        }
-        close_all_pipes(shell->pipes, shell->cmds_nb);
-        execute_parent(shell);
-        free_pipes(shell->pipes, shell->cmds_nb);
-    }
+	i = 0;
+	cmd = shell->commands;
+	shell->pipes = init_pipes(shell->cmds_nb);
+	while (i < shell->cmds_nb)
+	{
+		exec_cmd(shell, cmd, i);
+		cmd = cmd->next;
+		i++;
+	}
+	close_all_pipes(shell->pipes, shell->cmds_nb);
+	execute_parent(shell);
+	free_pipes(shell->pipes, shell->cmds_nb);
 }
-

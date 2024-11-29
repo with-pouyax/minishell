@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char    *check_and_return_path(const char *cmd, char **all_paths)
+char	*check_and_return_path(const char *cmd, char **all_paths)
 {
 	char	*temp;
 	char	*path_to_search;
@@ -27,9 +27,9 @@ char    *check_and_return_path(const char *cmd, char **all_paths)
 	return (final_path);
 }
 
-char    **get_paths_from_env(char **env)
+char	**get_paths_from_env(char **env)
 {
-	int		i;
+	int	i;
 	char	**all_paths;
 
 	i = 0;
@@ -42,27 +42,28 @@ char    **get_paths_from_env(char **env)
 	return (all_paths);
 }
 
-char *find_path_in_env(t_shell_data *shell, char *cmd)
+char	*find_path_in_env(t_shell_data *shell, char *cmd)
 {
-    char **all_paths;
-    char *path;
-    int    i;
+	char	**all_paths;
+	char	*path;
+	int	i;
 
-    i = 0;
-    all_paths = get_paths_from_env(shell->envp);
-    path = NULL;
-    while (all_paths && all_paths[i])
-    {
-        path = check_and_return_path(cmd, all_paths);
-        if (path) break;
-        i++;
-    }
-    return (path);
+	i = 0;
+	all_paths = get_paths_from_env(shell->envp);
+	path = NULL;
+	while (all_paths && all_paths[i])
+	{
+		path = check_and_return_path(cmd, all_paths);
+		if (!path)
+			break ;
+		i++;
+	}
+	return (path);
 }
 
-char *get_command_path(t_shell_data *shell, t_token *token)
+char	*get_command_path(t_shell_data *shell, t_token *token)
 {
-    if (token->value[0] == '/' || token->value[0] == '.')
-        return (ft_strdup(token->value));                           // Absolute or relative path
-    return (find_path_in_env(shell, token->value));                 // Look in PATH
+	if (token->value[0] == '/' || token->value[0] == '.')
+		return (ft_strdup(token->value));
+	return (find_path_in_env(shell, token->value));
 }

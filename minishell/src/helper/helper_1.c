@@ -10,7 +10,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-
 char	*ft_strdup_free(char *s1)
 {
 	char	*dup;
@@ -61,30 +60,3 @@ char	*ft_strjoin_and_free_first(char *s1, const char *s2)
 	free(s1);
 	return (joined);
 }
-
-char	*ft_strjoin_and_free_second(const char *s1, char *s2)
-{
-	char	*joined;
-
-	joined = ft_strjoin_safe(s1, s2);
-	free(s2);
-	return (joined);
-}
-
-char	*ft_strjoin_and_free_both(char *s1, char *s2)
-{
-	char	*joined;
-
-	joined = ft_strjoin_safe(s1, s2);
-	free(s1);
-	free(s2);
-	return (joined);
-}
-
-char	*ft_strjoin_free_both(char *s1, char *s2)
-{
-	return (ft_strjoin_and_free_both(s1, s2));
-}
-
-
-

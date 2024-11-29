@@ -2,5 +2,5 @@
 
 void	process_input(t_shell_data *shell)
 {
-	preprocess_input(shell);                      // Preprocess input (tokenize, parse)
+	preprocess_input(shell);
 }

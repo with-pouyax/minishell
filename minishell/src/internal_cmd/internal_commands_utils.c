@@ -1,19 +1,16 @@
-// internal_commands_utils.c
 #include "internal_commands.h"
 
-int is_allowed_char(char c)
+int	is_allowed_char(char c)
 {
-    return (
-        ft_isalnum(c) ||  // Alphanumeric characters
-        c == '_' ||       // Underscore
-        c == '-' ||       // Hyphen
-        c == '.' ||       // Dot
-        c == '/' ||       // Slash
-        c == '~' ||       // Tilde
-        c == '$' ||       // Dollar sign (for variable expansion)
-        c == '=' ||       // Equal sign (for assignments)
-        c == ':'          // Colon (used in paths like $PATH)
-    );
+	return (ft_isalnum(c)
+		|| c == '_'
+		|| c == '-'
+		|| c == '.'
+		|| c == '/'
+		|| c == '~'
+		|| c == '$'
+		|| c == '='
+		|| c == ':');
 }
 
 /* Check if a string is numeric */
@@ -51,21 +48,20 @@ int	is_valid_identifier(const char *str)
 	}
 	return (1);
 }
+/*
+- Extract key from `str` up to the '=' character
+- Check if the key already exists in the environment variables
+- Add new variable if it doesn't exist
+- Resize envp to hold the new variable
 
-/* Add or update environment variable */
-// internal_commands_utils.c
-#include "internal_commands.h"
-
-/* internal_commands_utils.c */
-
-void add_to_env(t_shell_data *shell,const char *str)
+*/
+void	add_to_env(t_shell_data *shell, const char *str)
 {
     int     i;
     char    *key;
     char    *new_var;
     int     len;
 
-    // Extract key from `str` up to the '=' character
     len = 0;
     while (str[len] && str[len] != '=')
         len++;
@@ -76,14 +72,11 @@ void add_to_env(t_shell_data *shell,const char *str)
         shell->exit_status = 1;
         return;
     }
-
-    // Check if the key already exists in the environment variables
     i = 0;
     while (shell->envp[i])
     {
         if (ft_strncmp(shell->envp[i], key, len) == 0 && shell->envp[i][len] == '=')
         {
-            // Update existing variable with new value
             free(shell->envp[i]);
             shell->envp[i] = ft_strdup(str);
             if (!shell->envp[i])
@@ -97,8 +90,6 @@ void add_to_env(t_shell_data *shell,const char *str)
         i++;
     }
     free(key);
-
-    // Add new variable if it doesn't exist
     new_var = ft_strdup(str);
     if (!new_var)
     {
@@ -106,8 +97,6 @@ void add_to_env(t_shell_data *shell,const char *str)
         shell->exit_status = 1;
         return;
     }
-
-    // Resize envp to hold the new variable
     char **new_envp = malloc(sizeof(char *) * (i + 2)); // +1 for new var, +1 for NULL
     if (!new_envp)
     {

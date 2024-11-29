@@ -1,57 +1,44 @@
 #include "../minishell.h"
 
-int	is_operator_char(char c)
+int	validate_tokens_in_command(t_shell_data *shell, t_command *cmd)
 {
-	return (c == '|' || c == '<' || c == '>');
+	t_token		*token;
+
+	token = cmd->token_list;
+	while (token)
+	{
+		if (token->is_operator)
+		{
+			if (!is_valid_operator(token->value))
+			{
+				handle_syntax_error(shell, token);
+				return (1);
+			}
+		}
+		token = token->next;
+	}
+	return (0);
 }
 
-int	is_valid_operator(char *op)
-{
-    if (!ft_strcmp(op, "|") || !ft_strcmp(op, "<") ||
-        !ft_strcmp(op, ">") || !ft_strcmp(op, ">>") ||
-        !ft_strcmp(op, "<<") || !ft_strcmp(op, "|<") ||
-        !ft_strcmp(op, "|>") || !ft_strcmp(op, "|>>") ||
-		!ft_strcmp(op, "|<<"))
-        return (1);
-    return (0);
-}
 int	validate_operators(t_shell_data *shell)
 {
-    t_command *cmd;
-    t_token *token;
-    int error_found = 0;
+	t_command	*cmd;
+	int			error_found;
 
-    cmd = shell->commands;
-    while (cmd && !error_found)
-    {
-        token = cmd->token_list;
-        while (token && !error_found)
-        {
-            if (token->is_operator)
-            {
-                if (!is_valid_operator(token->value))
-                {
-                    ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
-                    ft_putstr_fd(token->value, STDERR_FILENO);
-                    ft_putstr_fd("'\n", STDERR_FILENO);
-                    shell->exit_status = 2;
-                    error_found = 1;
-                }
-            }
-            token = token->next;
-        }
-        cmd = cmd->next;
-    }
-
-    if (error_found)
-    {
-        free_commands(shell);
-        shell->commands = NULL;
-    }
-
-    return (error_found);
+	error_found = 0;
+	cmd = shell->commands;
+	while (cmd && !error_found)
+	{
+		error_found = validate_tokens_in_command(shell, cmd);
+		cmd = cmd->next;
+	}
+	if (error_found)
+	{
+		free_commands(shell);
+		shell->commands = NULL;
+	}
+	return (error_found);
 }
-
 
 int	add_char_to_token(char **token, char c)
 {
