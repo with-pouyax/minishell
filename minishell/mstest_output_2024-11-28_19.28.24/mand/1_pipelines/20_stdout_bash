@@ -1,0 +1,10 @@
+total 40
+drwxrwxr-x 5 pghajard pghajard 4096 Nov 28 10:31 .
+drwxr-xr-x 9 pghajard pghajard 4096 Nov 24 16:00 ..
+-rw-rw-r-- 1 pghajard pghajard 6148 Nov 24 11:09 .DS_Store
+drwxrwxr-x 8 pghajard pghajard 4096 Nov 28 19:20 .git
+-rw-rw-r-- 1 pghajard pghajard  439 Nov 24 11:09 .gitignore
+drwxrwxr-x 2 pghajard pghajard 4096 Nov 28 16:49 .vscode
+-rw-rw-r-- 1 pghajard pghajard 1076 Nov 24 11:09 LICENSE
+-rw-rw-r-- 1 pghajard pghajard 3041 Nov 24 11:09 README.md
+drwxrwxr-x 8 pghajard pghajard 4096 Nov 28 19:28 minishell

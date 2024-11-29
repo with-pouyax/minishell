@@ -219,6 +219,7 @@ char	*get_line_from_input(char *input, int *index);
 void    free_envp(t_shell_data *shell);
 char    **copy_envp(char **envp);
 int		check_trailing_pipe(char *input);
+int 	check_leading_pipe(char *input);
 
 // signal handler
 

@@ -1,0 +1,11 @@
+PWD=/home/pghajard/Desktop/minishell/minishell
+LOGNAME=pghajard
+VSCODE_GIT_ASKPASS_NODE=/home/pghajard/.vscode-server/cli/servers/Stable-65edc4939843c90c34d61f4ce11704f09d3e5cb6/server/node
+LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so
+HOME=/home/pghajard
+GIT_ASKPASS=/home/pghajard/.vscode-server/cli/servers/Stable-65edc4939843c90c34d61f4ce11704f09d3e5cb6/server/extensions/git/dist/askpass.sh
+USER=pghajard
+VSCODE_GIT_ASKPASS_MAIN=/home/pghajard/.vscode-server/cli/servers/Stable-65edc4939843c90c34d61f4ce11704f09d3e5cb6/server/extensions/git/dist/askpass-main.js
+BROWSER=/home/pghajard/.vscode-server/cli/servers/Stable-65edc4939843c90c34d61f4ce11704f09d3e5cb6/server/bin/helpers/browser.sh
+PATH=/bin:/usr/bin:/usr/sbin:/home/pghajard/.local/funcheck/host:/home/pghajard/.local/funcheck/host:/home/pghajard/.local/funcheck/host:/home/pghajard/.vscode-server/cli/servers/Stable-65edc4939843c90c34d61f4ce11704f09d3e5cb6/server/bin/remote-cli:/home/pghajard/.local/bin:/home/pghajard/.local/funcheck/host:/home/pghajard/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pghajard/.local/bin:/home/pghajard/.local/bin:/home/pghajard/.local/bin:/home/pghajard/.local/bin:/home/pghajard/.local/bin:/home/pghajard/.local/bin
+OLDPWD=/home/pghajard/42_minishell_tester
