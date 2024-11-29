@@ -1,6 +1,3 @@
-Debug: STDIN for cmd 1 redirected to pipe[0][0]
-this is is_int:0
-
 this is external executing
 
 
@@ -9,21 +6,23 @@ Token value: 'ls', Index: 0
 Token value: '', Index: 1
 Number of tokens: 1
 
-Parent Process: PID = 74113, Child PID = 74354
+Parent Process: PID = 148746, Child PID = 149047
 
 
+ashkan.txt
 baba
+file
 get_next_line
 libft
 Makefile
 maman.txt
+mina.txt
 minishell
 minisj.txt
+mstest_output_2024-11-28_19.49.42
 ot.txt
 out.txt
 print_tokens.c
-print_tokens.d
-print_tokens.o
 src
 valgrind_command.txt
 valgrind.supp
