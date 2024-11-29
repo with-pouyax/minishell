@@ -275,6 +275,7 @@ void	write_error(char *exec_name, char *err_message);
 void 	clear_pid_list(t_shell_data *shell);
 
 int	validate_operators(t_shell_data *shell);
+int is_allowed_char(char c);
 
 
 #endif

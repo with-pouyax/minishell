@@ -1,6 +1,11 @@
 // internal_commands_utils.c
 #include "internal_commands.h"
 
+int is_allowed_char(char c)
+{
+    return (ft_isalnum(c) || c == '_' || c == '-' || c == '.');
+}
+
 /* Check if a string is numeric */
 int	is_numeric(const char *str)
 {
