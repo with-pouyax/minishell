@@ -256,7 +256,7 @@ void 	handle_exec_error(t_shell_data *shell, char *cmd, char *message, int exit_
 int		get_exec_error_code(int err);
 void	quit_program(int exit_code);
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
-void execute_parent(t_shell_data *shell);
+void	execute_parent(t_shell_data *shell);
 
 char	**convert_tokens_to_argv(t_token *token_list);
 int 	token_list_length(t_token *token);
@@ -275,17 +275,21 @@ void	free_redirections(t_redirection *redirs);
 void	write_error(char *exec_name, char *err_message);
 void 	clear_pid_list(t_shell_data *shell);
 
-int	validate_operators(t_shell_data *shell);
-int is_allowed_char(char c);
+int		validate_operators(t_shell_data *shell);
+int 	is_allowed_char(char c);
 void	handle_syntax_error(t_shell_data *shell, t_token *token);
-int	validate_tokens_in_command(t_shell_data *shell, t_command *cmd);
+int		validate_tokens_in_command(t_shell_data *shell, t_command *cmd);
 //signal handling
-void handle_ctrl_d(void);
-void setup_signal_handlers(void);
-void sigquit_handler(int sig);
-void sigint_handler(int sig);
+void	handle_ctrl_d(void);
+void	setup_signal_handlers(void);
+void	sigquit_handler(int	sig);
+void	sigint_handler(int sig);
 
 void	count_commands_and_pipes(t_shell_data *shell);
-int starts_with_operator_char(char c);
-int	check_syntax_error(t_shell_data *shell, char *error_message);
+int 	starts_with_operator_char(char c);
+int		check_syntax_error(t_shell_data *shell, char *error_message);
+void	trim_trailing_spaces(char *cmd_str);
+int		handle_command_creation_error(t_shell_data *shell, char *cmd_str, t_command *cmd);
+char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_token);
+
 #endif

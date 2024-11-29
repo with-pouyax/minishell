@@ -29,7 +29,6 @@ static void	handle_mem_error(t_shell_data *shell, char *end_token_str)
 	shell->commands = NULL;
 }
 
-
 void	append_end_token(t_shell_data *shell)
 {
 	t_command	*cmd;

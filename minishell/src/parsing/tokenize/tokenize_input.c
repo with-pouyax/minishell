@@ -1,27 +1,25 @@
 #include "../../minishell.h"
 
-int tokenize_command(t_shell_data *shell,t_command *cmd)
+int	tokenize_command(t_shell_data *shell, t_command *cmd)
 {
-    int i;
-    int index;
-    int redir_count; // Initialize redirection count
+	int	i;
+	int	index;
+	int	redir_count;
 
-    i = 0;
-    index = 0;
-    redir_count = 0;
-    while (cmd->command_string[i])
-    {
-        skip_cmd_spaces(cmd->command_string, &i);
-        if (cmd->command_string[i])
-        {
-            if (process_token(shell, cmd, &i, &index, &redir_count))
-                return (tokenize_command_error(cmd));
-        }
-    }
-    return (0);
+	i = 0;
+	index = 0;
+	redir_count = 0;
+	while (cmd->command_string[i])
+	{
+		skip_cmd_spaces(cmd->command_string, &i);
+		if (cmd->command_string[i])
+		{
+			if (process_token(shell, cmd, &i, &index, &redir_count))
+				return (tokenize_command_error(cmd));
+		}
+	}
+	return (0);
 }
-
-
 
 void	skip_cmd_spaces(char *str, int *i)
 {
@@ -29,21 +27,21 @@ void	skip_cmd_spaces(char *str, int *i)
 		(*i)++;
 }
 
-int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count)
+int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count)
 {
-    int ret;
+	int	ret;
 
-    if (is_operator_char(cmd->command_string[*i]))
-        ret = process_operator(shell, cmd->command_string, i, cmd, index, redir_count);
-    else
-        ret = process_word(shell, cmd->command_string, i, cmd, index);
-    return (ret);
+	if (is_operator_char(cmd->command_string[*i]))
+		ret = process_operator(shell, cmd->command_string, i, cmd, index, redir_count);
+	else
+		ret = process_word(shell, cmd->command_string, i, cmd, index);
+	return (ret);
 }
 
-int process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, int *index, int *redir_count)
+int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, int *index, int *redir_count)
 {
-    char    *op;
-    int     ret;
+	char	*op;
+	int		ret;
 
     // Check if the current character is '|' and the next character is '<' or '>' without space
     if (input[*i] == '|' && (input[*i + 1] == '<' || input[*i + 1] == '>') && !ft_isspace(input[*i + 1]))
@@ -103,17 +101,6 @@ void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
 	else
 		(*index)++;
 }
-
-
-
-
-
-
-
-
-
-
-
 //this function not used
 
 int	process_quoted_word(char *input, int *i, char **word)
@@ -141,5 +128,3 @@ int	process_quoted_word(char *input, int *i, char **word)
 	}
 	return (0);
 }
-
-

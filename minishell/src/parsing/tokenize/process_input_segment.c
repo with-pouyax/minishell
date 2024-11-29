@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-static void	trim_trailing_spaces(char *cmd_str)
+void	trim_trailing_spaces(char *cmd_str)
 {
 	int	len;
 
@@ -11,14 +11,14 @@ static void	trim_trailing_spaces(char *cmd_str)
 		cmd_str[--len] = '\0';
 }
 
-static int	handle_command_creation_error(t_shell_data *shell, char *cmd_str, t_command *cmd)
+int	handle_command_creation_error(t_shell_data *shell,
+				char *cmd_str, t_command *cmd)
 {
 	free(cmd_str);
 	free(cmd);
 	shell->error_flag = 1;
 	return (1);
 }
-
 
 int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
 				t_command **last_cmd)
