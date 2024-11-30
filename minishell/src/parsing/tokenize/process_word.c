@@ -1,17 +1,31 @@
 #include "../../minishell.h"
 
-// process_word.c or a relevant file
-#include "../../minishell.h"
 
-// Function to collect a word token from input
+
+
+
+
+
 int collect_word(char *input, int *i, char **word)
 {
     int ret;
     int in_single_quote = 0;
     int in_double_quote = 0;
 
-    while (input[*i] && (!ft_isspace(input[*i]) || in_single_quote || in_double_quote))
+    *word = ft_strdup("");
+    if (!*word)
+        return (1);
+
+    while (input[*i])
     {
+        if (!in_single_quote && !in_double_quote)
+        {
+            if (ft_isspace(input[*i]))
+                break;
+            if (is_operator_char(input[*i]))
+                break;
+        }
+
         if (input[*i] == '\'' && !in_double_quote)
         {
             in_single_quote = !in_single_quote;
@@ -24,28 +38,33 @@ int collect_word(char *input, int *i, char **word)
         }
         else
         {
-            if (!in_single_quote && !in_double_quote && !is_allowed_char(input[*i]))
-            {
-                ft_putstr_fd("minishell: syntax error: unexpected character `", STDERR_FILENO);
-                ft_putchar_fd(input[*i], STDERR_FILENO);
-                ft_putstr_fd("'\n", STDERR_FILENO);
-                return (1);
-            }
-
             ret = add_char_to_token(word, input[*i]);
             (*i)++;
             if (ret)
+            {
+                free(*word);
                 return (1);
+            }
         }
     }
 
     if (in_single_quote || in_double_quote)
     {
         ft_putstr_fd("minishell: syntax error: unclosed quote\n", STDERR_FILENO);
+        free(*word);
         return (1);
     }
+
+    if (ft_strlen(*word) == 0)
+    {
+        free(*word);
+        *word = NULL;
+    }
+
     return (0);
 }
+
+
 
 
 // process_word.c or a relevant file

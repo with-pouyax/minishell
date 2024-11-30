@@ -20,6 +20,8 @@ int starts_with_operator_char(char c)
     return (c == '<' || c == '>' || c == '|');
 }
 
+
+
 int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count)
 {
     t_redirection *new_redir;
@@ -48,6 +50,17 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
     while (input[*i] && ft_isspace(input[*i]))
         (*i)++;
 
+    // **Check if the next character is an operator**
+    if (input[*i] && is_operator_char(input[*i]))
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+        ft_putchar_fd(input[*i], STDERR_FILENO);
+        ft_putstr_fd("'\n", STDERR_FILENO);
+        free(new_redir);
+        shell->exit_status = 2;
+        return (1);
+    }
+
     // Collect the filename or delimiter
     if (collect_word(input, i, &filename_or_delimiter))
     {
@@ -55,8 +68,8 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
         return (1);
     }
 
-    // ** Added Validation Check for NULL filename_or_delimiter **
-    if (!filename_or_delimiter)
+    // **Check if filename_or_delimiter is empty**
+    if (!filename_or_delimiter || ft_strlen(filename_or_delimiter) == 0)
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
         free(new_redir);
@@ -100,8 +113,6 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
     add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
-
-
 
 
 
