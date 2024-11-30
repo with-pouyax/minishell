@@ -1,0 +1,4 @@
+Debug: STDIN for cmd 2 redirected to pipe[1][0]
+Debug: STDOUT for cmd 1 redirected to pipe[1][1]$
+Debug: STDOUT for cmd 0 redirected to pipe[0][1]$$
+ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz$$
