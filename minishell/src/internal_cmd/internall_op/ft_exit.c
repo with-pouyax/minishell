@@ -25,7 +25,7 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 			token = token->next;
 			if (token)
 			{
-				print_exit_error("exit:many arguments\n", &shell->exit_status, 1);
+				print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
 				return (1);
 			}
 		}

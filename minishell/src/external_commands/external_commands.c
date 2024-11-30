@@ -33,7 +33,7 @@ int	token_list_length(t_token *token)
 char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 				char **arr_token)
 {
-	char	cmd_path;
+	char	*cmd_path;
 
 	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
