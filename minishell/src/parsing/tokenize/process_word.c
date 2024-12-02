@@ -26,15 +26,22 @@ int collect_word(char *input, int *i, char **word)
                 break;
         }
 
-        if (input[*i] == '\'' && !in_double_quote)
+        if ((input[*i] == '\'' && !in_double_quote) || (input[*i] == '\"' && !in_single_quote))
         {
-            in_single_quote = !in_single_quote;
+            // Toggle the corresponding quote flag
+            if (input[*i] == '\'')
+                in_single_quote = !in_single_quote;
+            else
+                in_double_quote = !in_double_quote;
+
+            // Add the quote character to the word
+            ret = add_char_to_token(word, input[*i]);
             (*i)++;
-        }
-        else if (input[*i] == '\"' && !in_single_quote)
-        {
-            in_double_quote = !in_double_quote;
-            (*i)++;
+            if (ret)
+            {
+                free(*word);
+                return (1);
+            }
         }
         else
         {
@@ -63,6 +70,7 @@ int collect_word(char *input, int *i, char **word)
 
     return (0);
 }
+
 
 
 
