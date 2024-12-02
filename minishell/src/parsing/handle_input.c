@@ -122,7 +122,7 @@ void handle_input(t_shell_data *shell)
                         {
                             printf("Debug: Starting execution()---------------------------------------\n");
                             execution(shell);
-                            printf("Debug: Finished execution()-------------------------------------\n");
+                            // printf("Debug: Finished execution()-------------------------------------\n");
                         }
                         else
                         {
