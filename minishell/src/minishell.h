@@ -293,5 +293,6 @@ int		handle_command_creation_error(t_shell_data *shell, char *cmd_str, t_command
 char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_token);
 void handle_heredoc(t_shell_data *shell, t_redirection *redir);
 void cleanup_heredocs(t_redirection *redir);
+void restore_org_in_out(int saved_stdin, int saved_stdout);
 
 #endif

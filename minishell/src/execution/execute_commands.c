@@ -33,6 +33,18 @@ int	open_all_files(t_shell_data *shell, t_redirection *redir)
 	}
 	return (EXIT_SUCCESS);
 }
+/*
+Restore the original stdin and stdout
+Close the saved file descriptors
+
+*/
+void restore_org_in_out(int saved_stdin, int saved_stdout)
+{
+    dup2(saved_stdin, STDIN_FILENO);
+    dup2(saved_stdout, STDOUT_FILENO);
+    close(saved_stdin);
+    close(saved_stdout);
+}
 
 /*
 set_redir() :
@@ -65,10 +77,7 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		else
 			execute_external_commands(shell, cmds);
 	}
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
+	restore_org_in_out(saved_stdin, saved_stdout);
 }
 
 void	execution(t_shell_data *shell)
