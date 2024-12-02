@@ -11,6 +11,7 @@ int collect_word(char *input, int *i, char **word)
     int ret;
     int in_single_quote = 0;
     int in_double_quote = 0;
+    char prev_char = '\0'; // Keep track of the previous character
 
     *word = ft_strdup("");
     if (!*word)
@@ -26,25 +27,37 @@ int collect_word(char *input, int *i, char **word)
                 break;
         }
 
-        if (input[*i] == '\'' && !in_double_quote)
+        if ((input[*i] == '\'' && !in_double_quote) || (input[*i] == '\"' && !in_single_quote))
         {
-            in_single_quote = !in_single_quote;
-            (*i)++;
-        }
-        else if (input[*i] == '\"' && !in_single_quote)
-        {
-            in_double_quote = !in_double_quote;
-            (*i)++;
-        }
-        else
-        {
+            // Toggle the quote flag only if we're not already in the same quote
+            if (input[*i] != prev_char)
+            {
+                if (input[*i] == '\'')
+                    in_single_quote = !in_single_quote;
+                else
+                    in_double_quote = !in_double_quote;
+            }
+
+            // Add the quote character to the word
             ret = add_char_to_token(word, input[*i]);
-            (*i)++;
             if (ret)
             {
                 free(*word);
                 return (1);
             }
+            prev_char = input[*i];
+            (*i)++;
+        }
+        else
+        {
+            ret = add_char_to_token(word, input[*i]);
+            if (ret)
+            {
+                free(*word);
+                return (1);
+            }
+            prev_char = input[*i];
+            (*i)++;
         }
     }
 
@@ -63,12 +76,6 @@ int collect_word(char *input, int *i, char **word)
 
     return (0);
 }
-
-
-
-
-// process_word.c or a relevant file
-#include "../../minishell.h"
 
 // Function to process a word token
 int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
