@@ -16,7 +16,6 @@ void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	(void)redir;
-	
 	if (cmds_index != shell->cmds_nb - 1)
 	{
 		if (dup2(shell->pipes[cmds_index][1], STDOUT_FILENO) == -1)
@@ -60,22 +59,22 @@ void	set_redirection(t_shell_data *shell, t_redirection *redir)
 	int	exit_code;
 
 	while (redir)
-    {
-        if (redir->type == REDIR_HEREDOC)
-        {
-            handle_heredoc(shell, redir);
-            if (shell->exit_status == EXIT_FAILURE)
-                return ;
-        }
-        else
-        {
-            exit_code = open_all_files(shell, redir);
-            if (exit_code == EXIT_FAILURE)
-                return ;
-        }
-        redir = redir->next;
-    }
-    shell->exit_status = EXIT_SUCCESS;
+	{
+		if (redir->type == REDIR_HEREDOC)
+		{
+			handle_heredoc(shell, redir);
+			if (shell->exit_status == EXIT_FAILURE)
+				return ;
+		}
+		else
+		{
+			exit_code = open_all_files(shell, redir);
+			if (exit_code == EXIT_FAILURE)
+				return ;
+		}
+		redir = redir->next;
+	}
+	shell->exit_status = EXIT_SUCCESS;
 }
 
 void	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)

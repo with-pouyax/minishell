@@ -48,7 +48,6 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	int	saved_stdin;
 	int	saved_stdout;
 
-	// printf("the cmd is executing: %s\n", cmds->command_string);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	if (saved_stdin == -1 || saved_stdout == -1)
