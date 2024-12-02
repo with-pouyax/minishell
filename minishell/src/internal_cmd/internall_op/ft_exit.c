@@ -33,5 +33,6 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 			print_exit_error("exit:numeric arg required\n", &exit_status, 255);
 	}
 	cleanup(shell);
+	rl_clear_history();
 	exit(exit_status);
 }

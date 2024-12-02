@@ -1,9 +1,10 @@
 #include "../minishell.h"
 
-void handle_ctrl_d(void)
+void handle_ctrl_d(t_shell_data *shell)
 {
     write(1, "exit\n", 5);
-    exit(0); // Exit the shell
+    cleanup(shell); // Free all allocated resources
+    exit(0);        // Exit the shell
 }
 
 // return 1 : Skip further processing
@@ -43,7 +44,7 @@ int read_input(t_shell_data *shell)
     shell->input = readline(PROMPT);
     if (!shell->input)
     {
-        handle_ctrl_d();
+        handle_ctrl_d(shell);
         return (1); // Break the loop
     }
     return (0);

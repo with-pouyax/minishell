@@ -280,7 +280,7 @@ int 	is_allowed_char(char c);
 void	handle_syntax_error(t_shell_data *shell, t_token *token);
 int		validate_tokens_in_command(t_shell_data *shell, t_command *cmd);
 //signal handling
-void	handle_ctrl_d(void);
+void	handle_ctrl_d(t_shell_data *shell);
 void	setup_signal_handlers(void);
 void	sigquit_handler(int	sig);
 void	sigint_handler(int sig);
