@@ -13,9 +13,12 @@ int collect_word(char *input, int *i, char **word)
     int in_double_quote = 0;
     char prev_char = '\0'; // Keep track of the previous character
 
-    *word = ft_strdup("");
     if (!*word)
-        return (1);
+    {
+        *word = ft_strdup("");
+        if (!*word)
+            return (1);
+    }
 
     while (input[*i])
     {
@@ -80,7 +83,7 @@ int collect_word(char *input, int *i, char **word)
 // Function to process a word token
 int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
 {
-    char    *word;
+    char    *word = NULL;
     char    *expanded_word;
     char    *original_word;
     int     var_not_found_flag;
@@ -92,7 +95,8 @@ int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *
         return (1);
     if (collect_word(input, i, &word))
     {
-        free(word);
+        if (word)
+            free(word);
         return (1);
     }
 

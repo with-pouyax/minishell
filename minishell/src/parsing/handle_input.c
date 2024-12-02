@@ -121,7 +121,7 @@ void handle_input(t_shell_data *shell)
                         if (shell->commands)
                         {
                             printf("Debug: Starting execution()---------------------------------------\n");
-                            execution(shell);
+                            //execution(shell);
                             printf("Debug: Finished execution()-------------------------------------\n");
                         }
                         else
