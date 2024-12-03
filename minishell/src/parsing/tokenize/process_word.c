@@ -104,61 +104,75 @@ int	collect_word(char *input, int *i, char **word, t_shell_data *shell)
 
 
 
+//======================================================
 
-
-
-// Function to process a word token
-int process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
+// Frees the word and returns the specified value
+int	free_word_and_return(char *word, int ret)
 {
-    char    *word = NULL;
-    char    *expanded_word;
-    char    *original_word;
-    int     var_not_found_flag;
+    free(word);
+    return (ret);
+}
+
+// Frees the original_word and expanded_word (if not NULL) and returns the specified value
+int	free_original_and_expanded_and_return(char *original_word, char *expanded_word, int ret)
+{
+    free(original_word);
+    if (expanded_word)
+        free(expanded_word);
+    return (ret);
+}
+
+// Saves the original word and expands it
+int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, char **original_word)
+{
+    *original_word = ft_strdup(word);
+    if (!*original_word)
+        return (1);
+    *expanded_word = expand_variables_in_token(shell, word, &(shell->var_not_found_flag));
+    if (!*expanded_word)
+    {
+        free(*original_word);
+        return (1);
+    }
+    return (0);
+}
+
+// Adds the token to the command's token list
+int	add_token_to_command(t_command *cmd, char *word)
+{
+    if (add_token(word, &cmd->token_list, &(cmd->token_index), 0))
+        return (1);
+    return (0);
+}
+
+// Sets the original_value field in the last token
+int	set_original_value(t_command *cmd, char *original_word)
+{
     t_token *last_token;
 
-    var_not_found_flag = 0;
-    word = ft_strdup("");
-    if (!word)
-        return (1);
-    if (collect_word(input, i, &word, shell))
-    {
-        if (word)
-            free(word);
-        return (1);
-    }
-
-    // Save the original word before expansion
-    original_word = ft_strdup(word);
-    if (!original_word)
-    {
-        free(word);
-        return (1);
-    }
-
-    // Expand variables in the word
-    expanded_word = expand_variables_in_token(shell, word, &var_not_found_flag);
-    free(word);
-    if (!expanded_word)
-    {
-        free(original_word);
-        return (1);
-    }
-    word = expanded_word;
-
-    // Add the token with the expanded word
-    if (add_token(word, &cmd->token_list, index, 0))
-    {
-        free(word);
-        free(original_word);
-        return (1);
-    }
-
-    // Set the original_value in the last token added
     last_token = cmd->token_list;
     while (last_token->next)
         last_token = last_token->next;
-
     last_token->original_value = original_word;
+    return (0);
+}
 
+int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
+{
+    char	*word = ft_strdup("");
+    char	*original_word;
+    char	*expanded_word;
+
+    if (!word || collect_word(input, i, &word, shell))
+        return (free_word_and_return(word, 1));
+    if (!word)
+        return (0);
+    if (save_and_expand_word(shell, word, &expanded_word, &original_word))
+        return (free_word_and_return(word, 1));
+    free(word);
+    if (add_token_to_command(cmd, expanded_word))
+        return (free_original_and_expanded_and_return(original_word, expanded_word, 1));
+    if (set_original_value(cmd, original_word))
+        return (1);
     return (0);
 }

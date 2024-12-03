@@ -69,6 +69,7 @@ typedef struct s_command
 {
 	char				*command_string;
 	int					index;
+	int                 token_index;
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
@@ -98,6 +99,7 @@ typedef struct s_shell_data
 	int in_single_quote;
     int in_double_quote;
     char prev_char;
+	int var_not_found_flag;
 }				t_shell_data;
 
 #include"internal_cmd/internal_commands.h"
@@ -127,7 +129,7 @@ void	free_commands(t_shell_data *shell);
 void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int 	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
-int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
+int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
 
 
 /* Heredoc Handling and Redirection */
@@ -304,8 +306,8 @@ void	add_to_history_if_needed(t_shell_data *shell);
 int		check_and_handle_syntax_errors(t_shell_data *shell);
 void	process_and_execute_commands(t_shell_data *shell);
 
-// process_word.c
 
+// collect_word
 int	initialize_word(char **word);
 int	should_break(const t_shell_data *shell, char c);
 void	toggle_quotes(t_shell_data *shell, char c);
@@ -313,5 +315,12 @@ int	add_current_char(t_shell_data *shell, char c, char **word);
 int	handle_unclosed_quotes(t_shell_data *shell, char **word);
 int	finalize_word(char **word);
 int	process_character(t_shell_data *shell, char c, char **word);
+
+// process_word
+int	free_word_and_return(char *word, int ret);
+int	free_original_and_expanded_and_return(char *original_word, char *expanded_word, int ret);
+int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, char **original_word);
+int	add_token_to_command(t_command *cmd, char *word);
+int	set_original_value(t_command *cmd, char *original_word);
 
 #endif
