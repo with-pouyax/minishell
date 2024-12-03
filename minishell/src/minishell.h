@@ -292,4 +292,13 @@ void	trim_trailing_spaces(char *cmd_str);
 int		handle_command_creation_error(t_shell_data *shell, char *cmd_str, t_command *cmd);
 char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_token);
 
+// handle_input.c
+
+void	handle_empty_input(t_shell_data *shell);
+int		validate_input_length(t_shell_data *shell);
+int		allocate_resources(t_shell_data *shell);
+void	add_to_history_if_needed(t_shell_data *shell);
+int		check_and_handle_syntax_errors(t_shell_data *shell);
+void	process_and_execute_commands(t_shell_data *shell);
+
 #endif
