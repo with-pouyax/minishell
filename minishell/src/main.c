@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 		shell.interactive_mode = 1;
+
 	ft_bzero(&shell, sizeof(t_shell_data));
 	shell.envp = copy_envp(envp); // okey
 	if (!shell.envp)

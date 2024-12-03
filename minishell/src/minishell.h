@@ -11,9 +11,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-#include <signal.h>
-#include <sys/wait.h>
-#include <errno.h>
+# include <sys/stat.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <libgen.h>
 
 
 
@@ -241,8 +243,8 @@ void 	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index);
 int 	has_redirs(t_redirection *redir, t_redirection_type type);
 int 	open_all_files(t_shell_data *shell, t_redirection *redir);
 int 	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in);
-int 	open_output_file(t_redirection *redir, int fd_out);
-int 	open_append_file(t_redirection *redir, int fd_out);
+int 	open_output_file(t_shell_data *shell, t_redirection *redir, int fd_out);
+int 	open_append_file(t_shell_data *shell, t_redirection *redir, int fd_out);
 int		execute_internal_commands(t_shell_data *shell, t_command *cmds);
 void	execute_external_commands(t_shell_data *shell, t_command *cmds);
 
@@ -295,5 +297,5 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_toke
 void handle_heredoc(t_shell_data *shell, t_redirection *redir);
 void cleanup_heredocs(t_redirection *redir);
 void restore_org_in_out(int saved_stdin, int saved_stdout);
-
+int	create_directory_path(const char *dir_path);
 #endif

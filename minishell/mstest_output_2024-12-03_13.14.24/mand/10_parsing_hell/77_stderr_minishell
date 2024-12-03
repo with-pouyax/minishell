@@ -1,0 +1,3 @@
+Non-interactive mode detected
+minishell: export: `': not a valid identifier
+minishell: echo segfault | grep segfault: command not found
