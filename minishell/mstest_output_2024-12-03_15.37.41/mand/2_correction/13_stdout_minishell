@@ -1,8 +1,0 @@
-
-Debug: shell->cmds_nb: 1
-
-
-Debug: shell->pipe_nb: 0
-
-Debug: Starting execution()---------------------------------------
-42 -n Debug: Finished execution()-------------------------------------

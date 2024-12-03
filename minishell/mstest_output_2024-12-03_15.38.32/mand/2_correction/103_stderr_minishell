@@ -1,5 +1,0 @@
-Non-interactive mode detected
-mkdir: cannot create directory ‘tmp_path_test1’: File exists
-mkdir: cannot create directory ‘tmp_path_test2’: File exists
-minishell: export: `': not a valid identifier
-minishell: export: `': not a valid identifier

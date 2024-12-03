@@ -12,6 +12,7 @@ Makefile
 minishell
 mstest_output_2024-12-03_16.40.27
 mstest_output_2024-12-03_17.49.05
+out
 print_tokens.c
 print_tokens.d
 print_tokens.o

@@ -1,8 +1,0 @@
-tmp_x_file1: command not found
-./tmp_x_file1: Permission denied
-export: `': not a valid identifier
-tmp_x_file1: command not found
-./tmp_x_file1: Permission denied
-unset: `': not a valid identifier
-tmp_x_file1: command not found
-./tmp_x_file1: Permission denied

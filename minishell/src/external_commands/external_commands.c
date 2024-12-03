@@ -107,7 +107,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 		return ;
 	pid = fork();
 	if (pid < 0)
-		quit_program(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		exec_external_child(shell, cmd_path, arr_token);

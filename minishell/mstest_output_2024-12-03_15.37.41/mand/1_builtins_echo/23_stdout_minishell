@@ -1,9 +1,0 @@
-
-Debug: shell->cmds_nb: 1
-
-
-Debug: shell->pipe_nb: 0
-
-Debug: Starting execution()---------------------------------------
-cat lol.c | cat > lol.c 
-Debug: Finished execution()-------------------------------------
