@@ -113,16 +113,12 @@ void handle_input(t_shell_data *shell)
                     {
                         // Process the input
                         process_input(shell);
-
-                        printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
-                        printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
-
                         // Conditional Execution Starts Here
                         if (shell->commands)
                         {
-                            printf("Debug: Starting execution()---------------------------------------\n");
-                            //execution(shell);
-                            printf("Debug: Finished execution()-------------------------------------\n");
+                            // printf("Debug: Starting execution()---------------------------------------\n");
+                            execution(shell);
+                            // printf("Debug: Finished execution()-------------------------------------\n");
                         }
                         else
                         {

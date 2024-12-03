@@ -1,0 +1,50 @@
+check the pwd:
+------------------------------------------
+pwd
+cd
+pwd
+
+cd ..
+cd $OLDPWD
+
+cd ..
+cd $OLDPWD
+
+
+
+
+
+
+
+check the output:
+----------------------------------------------
+cd -
+cd bark bark
+
+
+
+
+
+
+wrong error massage:
+-----------------------------------------------
+
+cd - ananas dot jpeg
+cd includes/ djhwbdhwbd wgdyuhgw jdwjdh wuiydjwh
+cd $HOME asd w dd q asd
+
+
+
+
+i test all exept these two:
+-------------------------------------------------
+# might need to change the directory by yourself, that supposed to be valid =)
+pwd
+cd ../libft
+pwd
+
+# might need to change the directory by yourself, that supposed to be valid =)
+pwd
+cd ../libft ojid iowjiojwoid joijd owjoid jwojd
+pwd
+   

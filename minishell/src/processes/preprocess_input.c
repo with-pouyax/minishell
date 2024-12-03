@@ -17,6 +17,6 @@ void	preprocess_input(t_shell_data *shell)
 	{
 		return ;
 	}
-	print_commands(shell);
+	// print_commands(shell);
 	// free_commands(shell);
 }
