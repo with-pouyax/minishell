@@ -323,4 +323,24 @@ int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, 
 int	add_token_to_command(t_command *cmd, char *word);
 int	set_original_value(t_command *cmd, char *original_word);
 
+
+
+t_redirection *create_new_redirection(char *op, int *redir_count);
+void skip_whitespace(char *input, int *i);
+int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, char unexpected_char);
+int handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir);
+int handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir, char *token);
+int process_filename_or_delimiter(
+    t_shell_data *shell,
+    char *input,
+    int *i,
+    t_redirection *new_redir,
+    char **filename_or_delimiter
+);
+int handle_heredoc_redirection(
+    t_shell_data *shell,
+    t_redirection *new_redir,
+    char *filename_or_delimiter
+);
+
 #endif
