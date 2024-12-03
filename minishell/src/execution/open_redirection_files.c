@@ -26,8 +26,11 @@ int	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in_prev)
 	new_fd = open(redir->filename, O_RDONLY, 0);
 	if (new_fd == -1)
 	{
-		shell->last_error_file = redir->filename;
-		shell->exit_status = errno;
+		if (!shell->last_error_file)
+		{
+			shell->last_error_file = redir->filename;
+			shell->exit_status = errno;
+		}
 	}
 	else
 	{
