@@ -28,25 +28,26 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 }
 
 
-int	extract_command_string(char *input, int i)
+int extract_command_string(char *input, int i)
 {
-	// loop as long the ith character is not pipe or null and the 
-	while (input[i])
-	{
-		if (input[i] == '|' && (input[i + 1] != '<' && input[i + 1] != '>'))
-			break ;
-		if (input[i] == '\'' || input[i] == '\"') // If we find a quote
-			i = skip_quotes(input, i); // Skip quotes
-		else
-			i++;
-	}
-	
-	if (input[i + 1] == '|') {
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
-		return (-1); // Indicate syntax error
-	}
-	
-	return (i);
+    while (input[i])
+    {
+        if (input[i] == '|' && (input[i + 1] != '<' && input[i + 1] != '>'))
+            break ;
+        if (input[i] == '\'' || input[i] == '\"')
+            i = skip_quotes(input, i);
+        else
+            i++;
+    }
+
+    // Add this condition to prevent out-of-bounds access
+    if (input[i] && input[i + 1] == '|')
+    {
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+        return (-1);
+    }
+
+    return (i);
 }
 
 
