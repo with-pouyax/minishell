@@ -11,9 +11,11 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-#include <signal.h>
-#include <sys/wait.h>
-#include <errno.h>
+# include <sys/stat.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <libgen.h>
 
 
 
@@ -96,6 +98,7 @@ typedef struct s_shell_data
 	int						exit_status;
 	int						error_flag;
 	int						in_child_process; // Add this line
+	int						interactive_mode;
 	int in_single_quote;
     int in_double_quote;
     char prev_char;
@@ -245,8 +248,8 @@ void 	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index);
 int 	has_redirs(t_redirection *redir, t_redirection_type type);
 int 	open_all_files(t_shell_data *shell, t_redirection *redir);
 int 	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in);
-int 	open_output_file(t_redirection *redir, int fd_out);
-int 	open_append_file(t_redirection *redir, int fd_out);
+int 	open_output_file(t_shell_data *shell, t_redirection *redir, int fd_out);
+int 	open_append_file(t_shell_data *shell, t_redirection *redir, int fd_out);
 int		execute_internal_commands(t_shell_data *shell, t_command *cmds);
 void	execute_external_commands(t_shell_data *shell, t_command *cmds);
 
@@ -345,5 +348,8 @@ int handle_heredoc_redirection(
     t_redirection *new_redir,
     char *filename_or_delimiter
 );
+
+
+// int	create_directory_path(const char *dir_path);
 
 #endif

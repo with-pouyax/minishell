@@ -26,12 +26,15 @@ int	open_all_files(t_shell_data *shell, t_redirection *redir)
 		if (redir->type == REDIR_INPUT)
 			fd_input = open_input_file(shell, redir, fd_input);
 		else if (redir->type == REDIR_OUTPUT)
-			fd_output = open_output_file(redir, fd_output);
+			fd_output = open_output_file(shell, redir, fd_output);
 		else if (redir->type == REDIR_APPEND)
-			fd_output = open_append_file(redir, fd_output);
+			fd_output = open_append_file(shell, redir, fd_output);
 		redir = redir->next;
 	}
-	return (EXIT_SUCCESS);
+	if (fd_input == -1 || fd_output == -1)
+		return (EXIT_FAILURE);
+	else
+		return (EXIT_SUCCESS);
 }
 /*
 Restore the original stdin and stdout
@@ -68,10 +71,10 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		return ;
 	}
 	set_redirection(shell, cmds->redirections);
-	set_pipes(shell, cmds->redirections, index);
-	cleanup_heredocs(cmds->redirections);
 	if (shell->exit_status == EXIT_SUCCESS)
 	{
+		set_pipes(shell, cmds->redirections, index);
+		cleanup_heredocs(cmds->redirections);
 		if (cmds->token_list->is_int)
 			execute_internal_commands(shell, cmds);
 		else

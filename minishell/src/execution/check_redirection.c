@@ -81,5 +81,5 @@ void	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	check_input(shell, redir, cmds_index);
 	check_output(shell, redir, cmds_index);
-	shell->exit_status = EXIT_SUCCESS;
+	// shell->exit_status = EXIT_SUCCESS;
 }

@@ -5,6 +5,7 @@
 ------------------------------------------------
 
 /bin/echo <123 <456 hi | /bin/echo 42
+/bin/echo $USER$TESTNOTFOUND$HOME$
 
 		double free()
 ----------------------------------------------
@@ -13,6 +14,7 @@
 /bin/echo ''
 /bin/echo ""
 /bin/echo '' ""
+
 
 
 well done pouya :)))

@@ -4,15 +4,21 @@
 The isatty function is used to check if a file descriptor refers to a terminal.
 first : Makes sure that the terminal is linked to the STDIN
 */
-
+// /bin/echo hi >./outfiles/outfile01 | /bin/echo bye
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell_data	shell;
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(STDIN_FILENO))
-		exit(EXIT_FAILURE);
+	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
+	{
+		ft_putstr_fd("Non-interactive mode detected\n", STDERR_FILENO);
+		shell.interactive_mode = 0;
+	}
+	else
+		shell.interactive_mode = 1;
+
 	ft_bzero(&shell, sizeof(t_shell_data));
 	shell.envp = copy_envp(envp); // okey
 	if (!shell.envp)

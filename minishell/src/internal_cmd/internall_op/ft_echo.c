@@ -3,6 +3,9 @@
 /*
 while (token && ft_strcmp(token->value, "-n") == 0)-> Handle multiple -n options
 while (token)                                      -> Print arguments
+Only print the newline if we're in interactive mode
+    	if (newline && shell->interactive_mode)
+
 */
 int	ft_echo(t_shell_data *shell, t_command *cmd)
 {
@@ -23,8 +26,9 @@ int	ft_echo(t_shell_data *shell, t_command *cmd)
 			printf(" ");
 		token = token->next;
 	}
-	if (newline)
+    if (newline )
 		printf("\n");
-	shell->exit_status = 0;
+	if (shell->interactive_mode)
+		printf("\n");
 	return (0);
 }
