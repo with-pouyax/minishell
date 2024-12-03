@@ -33,7 +33,11 @@ char	*ft_strjoin_safe(const char *s1, const char *s2)
 		s2_len = ft_strlen(s2);
 	res = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!res)
+	{
+		// Write an error message to STDERR
+		write(STDERR_FILENO, "minishell: malloc failed\n", 25);
 		return (NULL);
+	}
 	if (s1)
 		ft_memcpy(res, s1, s1_len);
 	if (s2)

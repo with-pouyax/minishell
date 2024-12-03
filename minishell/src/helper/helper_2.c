@@ -20,6 +20,12 @@ char	*ft_strjoin_and_free_both(char *s1, char *s2)
 	char	*joined;
 
 	joined = ft_strjoin_safe(s1, s2);
+	if (!joined)
+	{
+		free(s1);
+		free(s2);
+		return (NULL);
+	}
 	free(s1);
 	free(s2);
 	return (joined);
