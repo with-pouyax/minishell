@@ -1,0 +1,33 @@
+total 500
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 ".
+-rw-rw-r--  1 mina mina      0 Dec  3 16:09 ">"
+drwxrwxr-x 15 mina mina   4096 Dec  3 16:09 .
+drwxrwxr-x  5 mina mina   4096 Dec  3 16:08 ..
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 "$H"OM"E"
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 $HOME
+-rw-rw-r--  1 mina mina      0 Dec  3 16:09 $notexists
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 "$USER"
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 '$USER'
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 "$USER'$USER'"
+-rw-rw-r--  1 mina mina      0 Dec  3 16:09 echo
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:32 get_next_line
+drwxrwxr-x  2 mina mina   4096 Dec  3 16:09 libft
+-rw-rw-r--  1 mina mina   5350 Dec  3 15:32 Makefile
+-rwxrwxr-x  1 mina mina 386704 Dec  3 16:09 minishell
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:37 mstest_output_2024-12-03_15.37.41
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:38 mstest_output_2024-12-03_15.38.32
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:51 mstest_output_2024-12-03_15.51.36
+drwxrwxr-x  3 mina mina   4096 Dec  3 16:00 mstest_output_2024-12-03_16.00.21
+drwxrwxr-x  3 mina mina   4096 Dec  3 16:06 mstest_output_2024-12-03_16.06.24
+drwxrwxr-x  3 mina mina   4096 Dec  3 16:07 mstest_output_2024-12-03_16.07.52
+drwxrwxr-x  3 mina mina   4096 Dec  3 16:09 mstest_output_2024-12-03_16.09.10
+-rw-rw-r--  1 mina mina   8724 Dec  3 15:46 print_tokens.c
+-rw-rw-r--  1 mina mina    140 Dec  3 16:09 print_tokens.d
+-rw-rw-r--  1 mina mina  29160 Dec  3 16:09 print_tokens.o
+drwxrwxr-x 13 mina mina   4096 Dec  3 16:09 src
+-rw-rw-r--  1 mina mina    109 Dec  3 15:32 valgrind_command.txt
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 .vscode
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 we_have_problem
+exit
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_1

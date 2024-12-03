@@ -1,0 +1,9 @@
+Non-interactive mode detected
+tmp_x_file1: command not found
+./tmp_x_file1: Permission denied
+minishell: export: `': not a valid identifier
+tmp_x_file1: command not found
+./tmp_x_file1: Permission denied
+minishell: unset: `': not a valid identifier
+tmp_x_file1: command not found
+./tmp_x_file1: Permission denied

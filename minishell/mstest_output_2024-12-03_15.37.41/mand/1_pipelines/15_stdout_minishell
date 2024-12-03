@@ -1,0 +1,9 @@
+_=./minishell
+
+Debug: shell->cmds_nb: 2
+
+
+Debug: shell->pipe_nb: 1
+
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------

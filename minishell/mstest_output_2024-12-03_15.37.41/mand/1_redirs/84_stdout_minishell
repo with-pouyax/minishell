@@ -1,0 +1,12 @@
+mina
+
+/home/mina
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0
+Debug: Finished execution()-------------------------------------

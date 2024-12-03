@@ -1,0 +1,34 @@
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+100 
+Debug: Finished execution()-------------------------------------
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+ 
+Debug: Finished execution()-------------------------------------

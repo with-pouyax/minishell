@@ -1,0 +1,69 @@
+total 512
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 ".
+-rw-rw-r--  1 mina mina      0 Dec  3 15:37 ">"
+drwxrwxr-x  9 mina mina   4096 Dec  3 15:38 .
+drwxrwxr-x  5 mina mina   4096 Dec  3 15:32 ..
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 "$H"OM"E"
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 $HOME
+-rw-rw-r--  1 mina mina      0 Dec  3 15:37 $notexists
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 "$USER"
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 '$USER'
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 "$USER'$USER'"
+-rw-rw-r--  1 mina mina      6 Dec  3 15:32 ashkan
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 ashkan.txt
+-rw-rw-r--  1 mina mina     21 Dec  3 15:32 cat.txt
+-rw-rw-r--  1 mina mina      0 Dec  3 15:37 echo
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 file2
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 filename,
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:32 get_next_line
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:37 libft
+-rw-rw-r--  1 mina mina   5350 Dec  3 15:32 Makefile
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 mina.txt
+-rwxrwxr-x  1 mina mina 390816 Dec  3 15:37 minishell
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:37 mstest_output_2024-12-03_15.37.41
+-rw-rw-r--  1 mina mina   2090 Dec  3 15:38 out
+-rw-rw-r--  1 mina mina      0 Dec  3 15:38 out0
+-rw-rw-r--  1 mina mina      3 Dec  3 15:32 outfile01
+-rw-rw-r--  1 mina mina      3 Dec  3 15:32 outfile02
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 outfiles
+-rw-rw-r--  1 mina mina   8724 Dec  3 15:32 print_tokens.c
+-rw-rw-r--  1 mina mina    140 Dec  3 15:37 print_tokens.d
+-rw-rw-r--  1 mina mina  29160 Dec  3 15:37 print_tokens.o
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 sana
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 si
+-rw-rw-r--  1 mina mina      0 Dec  3 15:32 sin
+-rw-rw-r--  1 mina mina    271 Dec  3 15:32 sina.txt
+drwxrwxr-x 13 mina mina   4096 Dec  3 15:37 src
+-rw-rw-r--  1 mina mina      8 Dec  3 15:32 tt
+-rw-rw-r--  1 mina mina    109 Dec  3 15:32 valgrind_command.txt
+-rw-rw-r--  1 mina mina     83 Dec  3 15:32 valgrind.supp
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 .vscode
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 we_have_problem
+
+Debug: shell->cmds_nb: 8
+
+
+Debug: shell->pipe_nb: 7
+
+Debug: Starting execution()---------------------------------------
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_1
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_2
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_3
+Debug: Finished execution()-------------------------------------
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------

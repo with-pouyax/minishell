@@ -96,6 +96,7 @@ typedef struct s_shell_data
 	int						cmds_nb;
 	char					**envp;
 	int						exit_status;
+	char  *last_error_file;
 	int						error_flag;
 	int						in_child_process; // Add this line
 	int						interactive_mode;

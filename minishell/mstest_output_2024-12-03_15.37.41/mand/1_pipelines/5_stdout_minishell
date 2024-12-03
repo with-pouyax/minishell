@@ -1,0 +1,9 @@
+GHOST=123
+
+Debug: shell->cmds_nb: 3
+
+
+Debug: shell->pipe_nb: 2
+
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------

@@ -26,11 +26,14 @@ int	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in_prev)
 	new_fd = open(redir->filename, O_RDONLY, 0);
 	if (new_fd == -1)
 	{
-		write_error(redir->filename, strerror(errno));
+		shell->last_error_file = redir->filename;
 		shell->exit_status = errno;
 	}
-	dup2(new_fd, STDIN_FILENO);
-	close(new_fd);
+	else
+	{
+		dup2(new_fd, STDIN_FILENO);
+		close(new_fd);
+	}
 	return (new_fd);
 }
 
@@ -43,11 +46,14 @@ int	open_output_file(t_shell_data *shell, t_redirection *redir, int fd_out_prev)
 	new_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (new_fd == -1)
 	{
-		perror(redir->filename);
+		shell->last_error_file = redir->filename;
 		shell->exit_status = errno;
 	}
-	dup2(new_fd, STDOUT_FILENO);
-	close(new_fd);
+	else
+	{
+		dup2(new_fd, STDOUT_FILENO);
+		close(new_fd);
+	}
 	return (new_fd);
 }
 
@@ -61,10 +67,12 @@ int	open_append_file(t_shell_data *shell, t_redirection *redir, int fd_out_prev)
 	new_fd = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (new_fd == -1)
 	{
-		perror("open file failed");
+		shell->last_error_file = redir->filename;
 		shell->exit_status = errno;
 	}
-	dup2(new_fd, STDOUT_FILENO);
-	close(new_fd);
+	{
+		dup2(new_fd, STDOUT_FILENO);
+		close(new_fd);
+	}
 	return (new_fd);
 }

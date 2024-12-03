@@ -1,0 +1,4 @@
+minishell: export: `': not a valid identifier
+/bin/echo 42: No such file or directory
+/bin/echo 42: No such file or directory
+minishell: export: `': not a valid identifier
