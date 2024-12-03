@@ -1,10 +1,16 @@
 #include "../minishell.h"
 
+/*
+		Save the exit status of the last child process:
+(WIFEXITED(status))    --->  Normal termination
+(WIFSIGNALED(status))  ---> Terminated by a signal
+shell->exit_status = 1 ---> Fallback for unexpected cases
+*/
 void	execute_parent(t_shell_data *shell)
 {
 	t_pid_node	*current;
 	pid_t		pid;
-	int		status;
+	int			status;
 
 	current = shell->pid_list;
 	while (current != NULL)
@@ -12,6 +18,15 @@ void	execute_parent(t_shell_data *shell)
 		pid = current->pid;
 		if (waitpid(pid, &status, 0) == -1)
 			perror("waitpid failed");
+		else
+		{
+            if (WIFEXITED(status))
+                shell->exit_status = WEXITSTATUS(status);
+            else if (WIFSIGNALED(status))
+                shell->exit_status = 128 + WTERMSIG(status);
+            else
+                shell->exit_status = 1;
+        }
 		current = current->next;
 	}
 	clear_pid_list(shell);
