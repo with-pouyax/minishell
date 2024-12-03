@@ -15,7 +15,7 @@ void	process_and_execute_commands(t_shell_data *shell)
 	if (shell->commands)
 	{
 		printf("Debug: Starting execution()---------------------------------------\n");
-		// execution(shell); // Currently commented out
+		execution(shell); // Currently commented out
 		printf("Debug: Finished execution()-------------------------------------\n");
 	}
 	else
