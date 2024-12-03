@@ -109,9 +109,10 @@ void	skip_whitespace(char *input, int *i)
 }
 
 
-t_redirection	*create_new_redirection(char *op, int *redir_count)
+t_redirection	*create_new_redirection(char *op)
 {
 	t_redirection	*new_redir;
+	static int		i = 0;
 
 	new_redir = malloc(sizeof(t_redirection));
 	if (!new_redir)
@@ -125,37 +126,64 @@ t_redirection	*create_new_redirection(char *op, int *redir_count)
 		new_redir->type = REDIR_APPEND;
 	else if (!ft_strcmp(op, "<<"))
 		new_redir->type = REDIR_HEREDOC;
-	new_redir->redir_number = (*redir_count)++;
+	new_redir->redir_number = i++;
 	return (new_redir);
 }
 
-
-
-int	handle_redirection(t_shell_data *shell, char *op, char *input, int *i,
-						t_command *cmd, int *redir_count)
+int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir, char *filename_or_delimiter)
 {
-	t_redirection	*new_redir;
-	char			*filename_or_delimiter = NULL;
-
-	new_redir = create_new_redirection(op, redir_count);
-	if (!new_redir)
-		return (1);
-	skip_whitespace(input, i);
-	if (input[*i] && is_operator_char(input[*i]))
-		return (handle_syntax_error_s(shell, new_redir, input[*i]));
-	if (process_filename_or_delimiter(shell, input, i, new_redir,
-			&filename_or_delimiter))
-		return (1);
-	if (new_redir->type == REDIR_HEREDOC)
-	{
-		if (handle_heredoc_redirection(shell, new_redir, filename_or_delimiter))
-			return (1);
-	}
-	else
-		new_redir->filename = filename_or_delimiter;
-	add_redirection(&(cmd->redirections), new_redir);
-	return (0);
+    if (new_redir->type == REDIR_HEREDOC)
+    {
+        if (handle_heredoc_redirection(shell, new_redir, filename_or_delimiter))
+            return (1);
+    }
+    else
+        new_redir->filename = filename_or_delimiter;
+    return (0);
 }
+
+
+int	check_operator_error(t_shell_data *shell, char unexpected_char, t_redirection *new_redir)
+{
+    if (unexpected_char && is_operator_char(unexpected_char))
+        return (handle_syntax_error_s(shell, new_redir, unexpected_char));
+    return (0);
+}
+
+
+int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
+{
+    char *op = cmd->current_op;
+
+    if (!op)
+        return (1);
+    *new_redir = create_new_redirection(op);
+    free(op); // Free op after use
+    cmd->current_op = NULL; // Reset current_op after handling
+    return (!(*new_redir)); // Return 1 on allocation failure
+}
+
+
+
+int	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
+{
+    t_redirection	*new_redir;
+    char			*filename_or_delimiter = NULL;
+
+    if (prepare_redirection(cmd, &new_redir))
+        return (1);
+    skip_whitespace(input, i);
+    if (check_operator_error(shell, input[*i], new_redir))
+        return (1);
+    if (process_filename_or_delimiter(shell, input, i, new_redir, &filename_or_delimiter))
+        return (1);
+    if (finalize_redirection(shell, new_redir, filename_or_delimiter))
+        return (1);
+    add_redirection(&(cmd->redirections), new_redir);
+    return (0);
+}
+
+
 
 
 //=================================

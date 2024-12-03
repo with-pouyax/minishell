@@ -75,6 +75,7 @@ typedef struct s_command
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
+	char                *current_op;
 	struct s_command	*next;
 }				t_command;
 
@@ -131,7 +132,7 @@ void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
-int 	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
+int 	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
 int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
 
 
@@ -206,7 +207,7 @@ int		extract_command_string(char *input, int i);
 /* tokenize_input_utils.c */
 int		tokenize_command(t_shell_data *shell, t_command *cmd);
 void	skip_cmd_spaces(char *str, int *i);
-int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count);
+int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index);
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
@@ -277,7 +278,7 @@ void    append_end_token(t_shell_data *shell);
 
 
 void 	add_redirection(t_redirection **redirections, t_redirection *new_redir);
-int 	handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_command *cmd, int *redir_count);
+int 	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd);
 int 	is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
 void	write_error(char *exec_name, char *err_message);
@@ -331,7 +332,7 @@ int	set_original_value(t_command *cmd, char *original_word);
 
 
 
-t_redirection *create_new_redirection(char *op, int *redir_count);
+t_redirection *create_new_redirection(char *op);
 void skip_whitespace(char *input, int *i);
 int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, char unexpected_char);
 int handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir);

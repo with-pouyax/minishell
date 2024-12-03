@@ -15,7 +15,4 @@ void	preprocess_input(t_shell_data *shell)
 	parse_tokens(shell);
 	if (validate_operators(shell))
 		return ;
-	}
-	// print_commands(shell);
-	// free_commands(shell);
 }

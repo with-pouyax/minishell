@@ -4,17 +4,15 @@ int	tokenize_command(t_shell_data *shell, t_command *cmd)
 {
 	int	i;
 	int	index;
-	int	redir_count;
 
 	i = 0;
 	index = 0;
-	redir_count = 0;
 	while (cmd->command_string[i])
 	{
 		skip_cmd_spaces(cmd->command_string, &i);
 		if (cmd->command_string[i])
 		{
-			if (process_token(shell, cmd, &i, &index, &redir_count))
+			if (process_token(shell, cmd, &i, &index))
 				return (tokenize_command_error(cmd));
 		}
 	}
@@ -27,18 +25,18 @@ void	skip_cmd_spaces(char *str, int *i)
 		(*i)++;
 }
 
-int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *redir_count)
+int	process_token(t_shell_data *shell, t_command *cmd, int *i, int *index)
 {
 	int	ret;
 
 	if (is_operator_char(cmd->command_string[*i]))
-		ret = process_operator(shell, cmd->command_string, i, cmd, index, redir_count);
+		ret = process_operator(shell, cmd->command_string, i, cmd, index);
 	else
 		ret = process_word(shell, cmd->command_string, i, cmd);
 	return (ret);
 }
 
-int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, int *index, int *redir_count)
+int	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index)
 {
 	char	*op;
 	int		ret;
@@ -57,12 +55,13 @@ int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, i
     }
     if (is_redirection_operator(op))
     {
-        if (handle_redirection(shell, op, input, i, cmd, redir_count))
+        cmd->current_op = op; // Store op in t_command
+        if (handle_redirection(shell, input, i, cmd))
         {
-            free(op);
+            // handle_redirection now handles freeing op
             return (1);
         }
-        free(op);
+        // No need to free(op) here as it's handled in handle_redirection
         return (0);
     }
     ret = add_token(op, &cmd->token_list, index, 1);
@@ -71,6 +70,7 @@ int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, i
     process_operator_details(op, cmd, i, index);
     return (0);
 }
+
 
 void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
 {
