@@ -43,19 +43,11 @@ int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, i
 	char	*op;
 	int		ret;
 
-    // Check if the current character is '|' and the next character is '<' or '>' without space
     if (input[*i] == '|' && (input[*i + 1] == '<' || input[*i + 1] == '>') && !ft_isspace(input[*i + 1]))
-    {
-        // Skip the '|' character
         (*i)++;
-        // Continue processing from the next character
-    }
-
-    // Proceed with the usual operator processing
     op = ft_strdup("");
     if (!op)
         return (1);
-
     while (input[*i] && is_operator_char(input[*i]))
     {
         ret = add_char_to_token(&op, input[*i]);
@@ -63,7 +55,6 @@ int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, i
             return (free_and_return(op));
         (*i)++;
     }
-
     if (is_redirection_operator(op))
     {
         if (handle_redirection(shell, op, input, i, cmd, redir_count))
@@ -74,14 +65,12 @@ int	process_operator(t_shell_data *shell ,char *input, int *i, t_command *cmd, i
         free(op);
         return (0);
     }
-
     ret = add_token(op, &cmd->token_list, index, 1);
     if (ret)
         return (free_and_return(op));
     process_operator_details(op, cmd, i, index);
     return (0);
 }
-
 
 void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
 {
@@ -100,31 +89,4 @@ void	process_operator_details(char *op, t_command *cmd, int *i, int *index)
 	}
 	else
 		(*index)++;
-}
-//this function not used
-
-int	process_quoted_word(char *input, int *i, char **word)
-{
-	char	quote;
-	int		ret;
-
-	quote = input[*i];
-	(*i)++; // Skip the opening quote
-	while (input[*i] && input[*i] != quote)
-	{
-		ret = add_char_to_token(word, input[*i]);
-		(*i)++;
-		if (ret)
-			return (1);
-	}
-	if (input[*i] == quote)
-	{
-		(*i)++; // Skip the closing quote
-	}
-	else
-	{
-		ft_putstr_fd("minishell: syntax error: unclosed quote\n", STDERR_FILENO);
-		return (1);
-	}
-	return (0);
 }

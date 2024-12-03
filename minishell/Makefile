@@ -71,7 +71,6 @@ SRCS            = src/main.c\
                   src/parsing/tokenize/tokenizer_error.c\
                   src/parsing/tokenize/token_utils.c\
                   src/parsing/tokenize/process_input_segment.c\
-                  src/processes/process.c\
                   src/processes/preprocess_input.c\
                   src/processes/expand_variable/expand_var_input.c\
                   src/processes/expand_variable/expand_var_tokens.c\

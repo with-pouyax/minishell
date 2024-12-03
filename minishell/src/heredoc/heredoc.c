@@ -1,8 +1,5 @@
 #include "../minishell.h"
 
-
-
-
 int	process_quoted_delimiter(char *input, int *i)
 {
 	char	quote;

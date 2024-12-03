@@ -9,11 +9,9 @@ void handle_ctrl_d(t_shell_data *shell)
 
 void	process_and_execute_commands(t_shell_data *shell)
 {
-	process_input(shell);
-
+    preprocess_input(shell);
 	printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
 	printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
-
 	if (shell->commands)
 	{
 		printf("Debug: Starting execution()---------------------------------------\n");
@@ -21,10 +19,7 @@ void	process_and_execute_commands(t_shell_data *shell)
 		printf("Debug: Finished execution()-------------------------------------\n");
 	}
 	else
-	{
 		shell->exit_status = 2;
-	}
-
 	free_shell_resources(shell);
 }
 
@@ -124,10 +119,8 @@ void	handle_input(t_shell_data *shell)
 	{
 		if (read_input(shell))
 			break;
-
 		if (shell->input == NULL || shell->input[0] == '\0')
 		    handle_empty_input(shell);
-		
 		else
 		{
 			g_signal_status = 0;

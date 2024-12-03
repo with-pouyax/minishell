@@ -9,7 +9,6 @@ void	add_command_to_list(t_shell_data *shell, t_command **last_cmd, t_command *c
 	*last_cmd = cmd;
 }
 
-
 t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
     t_command *cmd;
@@ -27,7 +26,6 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 	return (cmd);
 }
 
-
 int extract_command_string(char *input, int i)
 {
     while (input[i])
@@ -39,15 +37,10 @@ int extract_command_string(char *input, int i)
         else
             i++;
     }
-
-    // Add this condition to prevent out-of-bounds access
     if (input[i] && input[i + 1] == '|')
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
         return (-1);
     }
-
     return (i);
 }
-
-

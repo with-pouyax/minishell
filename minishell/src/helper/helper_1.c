@@ -46,21 +46,3 @@ char	*ft_strjoin_safe(const char *s1, const char *s2)
 	return (res);
 }
 
-// char	*ft_strjoin_free(char *s1, char *s2)
-// {
-// 	char	*joined;
-
-// 	joined = ft_strjoin_safe(s1, s2);
-// 	free(s1);
-// 	free(s2);
-// 	return (joined);
-// }
-
-// char	*ft_strjoin_and_free_first(char *s1, const char *s2)
-// {
-// 	char	*joined;
-
-// 	joined = ft_strjoin_safe(s1, s2);
-// 	free(s1);
-// 	return (joined);
-// }

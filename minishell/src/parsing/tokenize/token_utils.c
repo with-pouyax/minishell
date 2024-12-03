@@ -28,13 +28,10 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
     char *filename_or_delimiter;
 
     filename_or_delimiter = NULL;
-
     new_redir = malloc(sizeof(t_redirection));
     if (!new_redir)
         return (1);
     ft_bzero(new_redir, sizeof(t_redirection));
-
-    // Set redirection type
     if (!ft_strcmp(op, "<"))
         new_redir->type = REDIR_INPUT;
     else if (!ft_strcmp(op, ">"))
@@ -43,14 +40,9 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
         new_redir->type = REDIR_APPEND;
     else if (!ft_strcmp(op, "<<"))
         new_redir->type = REDIR_HEREDOC;
-
     new_redir->redir_number = (*redir_count)++;
-
-    // Skip spaces
     while (input[*i] && ft_isspace(input[*i]))
         (*i)++;
-
-    // **Check if the next character is an operator**
     if (input[*i] && is_operator_char(input[*i]))
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
@@ -60,15 +52,11 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
         shell->exit_status = 2;
         return (1);
     }
-
-    // Collect the filename or delimiter
     if (collect_word(input, i, &filename_or_delimiter))
     {
         free(new_redir);
         return (1);
     }
-
-    // **Check if filename_or_delimiter is empty**
     if (!filename_or_delimiter || ft_strlen(filename_or_delimiter) == 0)
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
@@ -76,24 +64,16 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
         shell->exit_status = 2;
         return (1);
     }
-
-    // Existing Validation Check
     if (is_valid_operator(filename_or_delimiter) || starts_with_operator_char(filename_or_delimiter[0]))
     {
-        // Report syntax error
         ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
         ft_putstr_fd(filename_or_delimiter, STDERR_FILENO);
         ft_putstr_fd("'\n", STDERR_FILENO);
-
-        // Cleanup
         free(filename_or_delimiter);
         free(new_redir);
-
-        // Set exit status for syntax error
         shell->exit_status = 2;
         return (1);
     }
-
     if (new_redir->type == REDIR_HEREDOC)
     {
         new_redir->delimiter = filename_or_delimiter;
@@ -105,23 +85,16 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
         }
     }
     else
-    {
         new_redir->filename = filename_or_delimiter;
-    }
-
-    // Add to the redirections list
     add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
-
-
 
 int is_redirection_operator(char *op)
 {
     return (!ft_strcmp(op, "<") || !ft_strcmp(op, ">") ||
             !ft_strcmp(op, ">>") || !ft_strcmp(op, "<<"));
 }
-
 
 int	add_token(char *token_value, t_token **token_list,
 		int *index, int is_operator)
@@ -142,11 +115,6 @@ int	add_token(char *token_value, t_token **token_list,
 			current = current->next;
 		current->next = new_token;
 	}
-
-
-
-	//printf("add_token: Added token #%d: %s (Operator: %d)\n", new_token->index, new_token->value, is_operator); // ##debug print
-
 	return (0);
 }
 
@@ -167,7 +135,4 @@ void	initialize_new_token(t_token *new_token, char *token_value,
 	new_token->heredoc_file = NULL;
 	new_token->is_end = 0; // Initialize is_end to 0
 	new_token->next = NULL;
-
-	//printf("initialize_new_token: Initialized token #%d: %s\n", new_token->index, new_token->value); // ##debug print
 }
-
