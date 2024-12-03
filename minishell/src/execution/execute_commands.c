@@ -71,10 +71,10 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		return ;
 	}
 	set_redirection(shell, cmds->redirections);
-	set_pipes(shell, cmds->redirections, index);
-	cleanup_heredocs(cmds->redirections);
 	if (shell->exit_status == EXIT_SUCCESS)
 	{
+		set_pipes(shell, cmds->redirections, index);
+		cleanup_heredocs(cmds->redirections);
 		if (cmds->token_list->is_int)
 			execute_internal_commands(shell, cmds);
 		else
