@@ -4,14 +4,15 @@ char *expand_variables_in_token(t_shell_data *shell, char *input, int *var_not_f
 {
     char *result;
     int i;
-    int in_single_quote = 0;
-    int in_double_quote = 0;
+    int in_single_quote;
+    int in_double_quote;
 
+    in_single_quote = 0;
+    in_double_quote = 0;
     result = ft_strdup("");
     if (!result)
         return (NULL);
     i = 0;
-
     while (input[i])
     {
         if (input[i] == '\'' && !in_double_quote)

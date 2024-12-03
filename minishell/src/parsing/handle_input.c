@@ -7,8 +7,44 @@ void handle_ctrl_d(t_shell_data *shell)
     exit(0);        // Exit the shell
 }
 
-// return 1 : Skip further processing
-// return 0 : Continue processing
+void	process_and_execute_commands(t_shell_data *shell)
+{
+    preprocess_input(shell);
+	printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
+	printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
+	if (shell->commands)
+	{
+		printf("Debug: Starting execution()---------------------------------------\n");
+		execution(shell); // Currently commented out
+		printf("Debug: Finished execution()-------------------------------------\n");
+	}
+	else
+		shell->exit_status = 2;
+	free_shell_resources(shell);
+}
+
+int	check_and_handle_syntax_errors(t_shell_data *shell)
+{
+	if (check_unclosed_quotes(shell->input))
+	{
+		check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
+		cleanup(shell);
+		return (1);
+	}
+	else if (check_leading_pipe(shell->input))
+	{
+		check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
+		cleanup(shell);
+		return (1);
+	}
+	else if (check_trailing_pipe(shell->input))
+	{
+		check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
+		cleanup(shell);
+		return (1);
+	}
+	return (0);
+}
 
 int check_input_length(t_shell_data *shell)
 {
@@ -20,8 +56,12 @@ int check_input_length(t_shell_data *shell)
     }
     return (0);
 }
-// return 1 : Skip further processing
-// return 0 : Continue processing
+
+void	add_to_history_if_needed(t_shell_data *shell)
+{
+	if (ft_strlen(shell->full_input) > 0)
+		add_history(shell->full_input);
+}
 
 int handle_allocation(t_shell_data *shell)
 {
@@ -35,10 +75,6 @@ int handle_allocation(t_shell_data *shell)
     return (0);
 }
 
-
-// return (1) : Indicating input was not successful (CTRL+D or error)
-// return (0) : Indicating input was successfully read
-
 int read_input(t_shell_data *shell)
 {
     shell->input = readline(PROMPT);
@@ -50,90 +86,55 @@ int read_input(t_shell_data *shell)
     return (0);
 }
 
-void handle_input(t_shell_data *shell)
+int	allocate_resources(t_shell_data *shell)
 {
-    while (1)
-    {
-        if (read_input(shell))
-            break;
+	if (handle_allocation(shell))
+	{
+		cleanup(shell);
+		return (1);
+	}
+	return (0);
+}
 
-        if (shell->input == NULL || shell->input[0] == '\0')
-        {
-            free(shell->input);
-            shell->input = NULL;
-            // Reset signal status if necessary
-            g_signal_status = 0;
-            // Continue to prompt again by skipping the rest of the loop
-        }
-        else
-        {
-            // Reset signal status at the start of processing
-            g_signal_status = 0;
+int	validate_input_length(t_shell_data *shell)
+{
+	if (check_input_length(shell))
+	{
+		cleanup(shell);
+		return (1);
+	}
+	return (0);
+}
 
-            // Check input length
-            if (check_input_length(shell))
-            {
-                free_shell_resources(shell);
-                // Skip processing and prompt again
-            }
-            else
-            {
-                // Handle allocation
-                if (handle_allocation(shell))
-                {
-                    free_shell_resources(shell);
-                    // Skip processing and prompt again
-                }
-                else
-                {
-                    // Add to history if input is not empty
-                    if (ft_strlen(shell->full_input) > 0)
-                        add_history(shell->full_input);
+void	handle_empty_input(t_shell_data *shell)
+{
+	free(shell->input);
+	shell->input = NULL;
+	g_signal_status = 0;
+}
 
-                    // Syntax checks
-                    if (check_unclosed_quotes(shell->input))
-                    {
-                        check_syntax_error(shell, "minishell: syntax error: unclosed quotes\n");
-                        free_shell_resources(shell);
-                        // Skip processing and prompt again
-                    }
-                    else if (check_leading_pipe(shell->input))
-                    {
-                        check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
-                        free_shell_resources(shell);
-                        // Skip processing and prompt again
-                    }
-                    else if (check_trailing_pipe(shell->input))
-                    {
-                        check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
-                        free_shell_resources(shell);
-                        // Skip processing and prompt again
-                    }
-                    else
-                    {
-                        // Process the input
-                        process_input(shell);
-                        // Conditional Execution Starts Here
-                        if (shell->commands)
-                        {
-                            // printf("Debug: Starting execution()---------------------------------------\n");
-                            execution(shell);
-                            // printf("Debug: Finished execution()-------------------------------------\n");
-                        }
-                        else
-                        {
-                            // If commands are NULL, it means there was a syntax error or no commands to execute
-                            shell->exit_status = 2; // Optional: Ensure exit status reflects the error
-                        }
-                        // Conditional Execution Ends Here
-
-                        // Free resources after processing
-                        free_shell_resources(shell);
-                    }
-                }
-            }
-        }
-    }
-    rl_clear_history();
+void	handle_input(t_shell_data *shell)
+{
+	while (1)
+	{
+		if (read_input(shell))
+			break;
+		if (shell->input == NULL || shell->input[0] == '\0')
+		    handle_empty_input(shell);
+		else
+		{
+			g_signal_status = 0;
+			if (!validate_input_length(shell))
+			{
+				if (!allocate_resources(shell))
+				{
+					add_to_history_if_needed(shell);
+					if (!check_and_handle_syntax_errors(shell))
+						process_and_execute_commands(shell);
+				}
+			}
+		}
+	}
+	rl_clear_history();
 }
 
