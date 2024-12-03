@@ -37,6 +37,7 @@ typedef struct s_redirection
     char                  *filename;          // Filename for input/output redirections
     char                  *delimiter;         // Delimiter for heredoc
     char                  *heredoc_file;
+	int                   delimiter_quoted;
 	struct s_redirection  *next;              // Pointer to the next redirection (linked list)
 }   t_redirection;
 
@@ -94,6 +95,9 @@ typedef struct s_shell_data
 	int						exit_status;
 	int						error_flag;
 	int						in_child_process; // Add this line
+	int in_single_quote;
+    int in_double_quote;
+    char prev_char;
 }				t_shell_data;
 
 #include"internal_cmd/internal_commands.h"
@@ -108,7 +112,6 @@ int 	handle_allocation(t_shell_data *shell);
 int 	check_syntax_error(t_shell_data *shell, char *error_message);
 int 	read_input(t_shell_data *shell);
 void	process_input(t_shell_data *shell);
-int		handle_unclosed_quotes(void);
 int		check_unclosed_quotes(char *input);
 
 /* Tokenization, Parsing, and Execution */
@@ -179,7 +182,7 @@ void	skip_until_operator_or_space(char *input, int *i);
 int		syntax_error_newline(void);
 int		check_delimiter_quotes(t_redirection *redir);
 int		heredoc_open_error(char *tmp_filename);
-int 	handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd, int delimiter_quoted);
+int 	handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd);
 int		append_heredoc_full_input(char *line);
 int		expand_and_write_line(t_shell_data *shell, char *line, int fd);
 void	free_heredoc_token(t_token *token);
@@ -202,7 +205,7 @@ int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
-int		collect_word(char *input, int *i, char **word);
+int	collect_word(char *input, int *i, char **word, t_shell_data *shell);
 int		process_quoted_word(char *input, int *i, char **word);
 
 /* expand_variables_in_token.c */
@@ -300,5 +303,15 @@ int		allocate_resources(t_shell_data *shell);
 void	add_to_history_if_needed(t_shell_data *shell);
 int		check_and_handle_syntax_errors(t_shell_data *shell);
 void	process_and_execute_commands(t_shell_data *shell);
+
+// process_word.c
+
+int	initialize_word(char **word);
+int	should_break(const t_shell_data *shell, char c);
+void	toggle_quotes(t_shell_data *shell, char c);
+int	add_current_char(t_shell_data *shell, char c, char **word);
+int	handle_unclosed_quotes(t_shell_data *shell, char **word);
+int	finalize_word(char **word);
+int	process_character(t_shell_data *shell, char c, char **word);
 
 #endif

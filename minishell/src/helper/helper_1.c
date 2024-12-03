@@ -34,7 +34,6 @@ char	*ft_strjoin_safe(const char *s1, const char *s2)
 	res = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!res)
 	{
-		// Write an error message to STDERR
 		write(STDERR_FILENO, "minishell: malloc failed\n", 25);
 		return (NULL);
 	}

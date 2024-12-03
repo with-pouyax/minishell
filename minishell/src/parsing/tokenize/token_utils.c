@@ -52,7 +52,7 @@ int handle_redirection(t_shell_data *shell, char *op, char *input, int *i, t_com
         shell->exit_status = 2;
         return (1);
     }
-    if (collect_word(input, i, &filename_or_delimiter))
+    if (collect_word(input, i, &filename_or_delimiter, shell))
     {
         free(new_redir);
         return (1);
