@@ -1,4 +1,0 @@
-ERROR: ld.so: object '/home/mina/42_minishell_tester/utils/libintercept/libintercept.so' from LD_PRELOAD cannot be preloaded (file too short): ignored.
-Non-interactive mode detected
-minishell: export: `': not a valid identifier
-ERROR: ld.so: object '/home/mina/42_minishell_tester/utils/libintercept/libintercept.so' from LD_PRELOAD cannot be preloaded (file too short): ignored.

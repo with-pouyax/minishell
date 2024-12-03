@@ -3,7 +3,7 @@
 void	handle_exec_error(t_shell_data *shell, char *cmd, char *message,
 			int exit_code)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	// ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(message, STDERR_FILENO);
@@ -12,7 +12,7 @@ void	handle_exec_error(t_shell_data *shell, char *cmd, char *message,
 
 void	write_error(char *exec_name, char *err_message)
 {
-	ft_putstr_fd("msh: ", STDERR_FILENO);
+	// ft_putstr_fd("msh: ", STDERR_FILENO);
 	ft_putstr_fd(exec_name, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(err_message, STDERR_FILENO);

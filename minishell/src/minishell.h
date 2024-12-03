@@ -39,6 +39,7 @@ typedef struct s_redirection
     char                  *filename;          // Filename for input/output redirections
     char                  *delimiter;         // Delimiter for heredoc
     char                  *heredoc_file;
+	int                   delimiter_quoted;
 	struct s_redirection  *next;              // Pointer to the next redirection (linked list)
 }   t_redirection;
 
@@ -70,6 +71,7 @@ typedef struct s_command
 {
 	char				*command_string;
 	int					index;
+	int                 token_index;
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
 	t_redirection       *redirections;   // Add this line
@@ -97,6 +99,10 @@ typedef struct s_shell_data
 	int						error_flag;
 	int						in_child_process; // Add this line
 	int						interactive_mode;
+	int in_single_quote;
+    int in_double_quote;
+    char prev_char;
+	int var_not_found_flag;
 }				t_shell_data;
 
 #include"internal_cmd/internal_commands.h"
@@ -111,7 +117,6 @@ int 	handle_allocation(t_shell_data *shell);
 int 	check_syntax_error(t_shell_data *shell, char *error_message);
 int 	read_input(t_shell_data *shell);
 void	process_input(t_shell_data *shell);
-int		handle_unclosed_quotes(void);
 int		check_unclosed_quotes(char *input);
 
 /* Tokenization, Parsing, and Execution */
@@ -127,7 +132,7 @@ void	free_commands(t_shell_data *shell);
 void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int 	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index, int *redir_count);
-int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
+int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
 
 
 /* Heredoc Handling and Redirection */
@@ -182,7 +187,7 @@ void	skip_until_operator_or_space(char *input, int *i);
 int		syntax_error_newline(void);
 int		check_delimiter_quotes(t_redirection *redir);
 int		heredoc_open_error(char *tmp_filename);
-int 	handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd, int delimiter_quoted);
+int 	handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd);
 int		append_heredoc_full_input(char *line);
 int		expand_and_write_line(t_shell_data *shell, char *line, int fd);
 void	free_heredoc_token(t_token *token);
@@ -205,7 +210,7 @@ int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index, int *
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
-int		collect_word(char *input, int *i, char **word);
+int	collect_word(char *input, int *i, char **word, t_shell_data *shell);
 int		process_quoted_word(char *input, int *i, char **word);
 
 /* expand_variables_in_token.c */
@@ -297,5 +302,54 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_toke
 void handle_heredoc(t_shell_data *shell, t_redirection *redir);
 void cleanup_heredocs(t_redirection *redir);
 void restore_org_in_out(int saved_stdin, int saved_stdout);
-int	create_directory_path(const char *dir_path);
+
+// handle_input.c
+
+void	handle_empty_input(t_shell_data *shell);
+int		validate_input_length(t_shell_data *shell);
+int		allocate_resources(t_shell_data *shell);
+void	add_to_history_if_needed(t_shell_data *shell);
+int		check_and_handle_syntax_errors(t_shell_data *shell);
+void	process_and_execute_commands(t_shell_data *shell);
+
+
+// collect_word
+int	initialize_word(char **word);
+int	should_break(const t_shell_data *shell, char c);
+void	toggle_quotes(t_shell_data *shell, char c);
+int	add_current_char(t_shell_data *shell, char c, char **word);
+int	handle_unclosed_quotes(t_shell_data *shell, char **word);
+int	finalize_word(char **word);
+int	process_character(t_shell_data *shell, char c, char **word);
+
+// process_word
+int	free_word_and_return(char *word, int ret);
+int	free_original_and_expanded_and_return(char *original_word, char *expanded_word, int ret);
+int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, char **original_word);
+int	add_token_to_command(t_command *cmd, char *word);
+int	set_original_value(t_command *cmd, char *original_word);
+
+
+
+t_redirection *create_new_redirection(char *op, int *redir_count);
+void skip_whitespace(char *input, int *i);
+int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, char unexpected_char);
+int handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir);
+int handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir, char *token);
+int process_filename_or_delimiter(
+    t_shell_data *shell,
+    char *input,
+    int *i,
+    t_redirection *new_redir,
+    char **filename_or_delimiter
+);
+int handle_heredoc_redirection(
+    t_shell_data *shell,
+    t_redirection *new_redir,
+    char *filename_or_delimiter
+);
+
+
+// int	create_directory_path(const char *dir_path);
+
 #endif

@@ -1,1 +1,0 @@
-ERROR: ld.so: object '/home/mina/42_minishell_tester/utils/libintercept/libintercept.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.

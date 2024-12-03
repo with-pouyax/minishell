@@ -1,2 +1,0 @@
-exit
-| echo lala | echo | echo 0 

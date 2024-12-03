@@ -1,4 +1,0 @@
-Non-interactive mode detected
-minishell: syntax error: unclosed quote
-free(): double free detected in tcache 2
-/home/mina/42_minishell_tester/tester.sh: line 633: 409107 Aborted                 (core dumped) LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so ./minishell
