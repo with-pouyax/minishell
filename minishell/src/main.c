@@ -11,8 +11,13 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(STDIN_FILENO))
-		exit(EXIT_FAILURE);
+	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
+	{
+		ft_putstr_fd("Non-interactive mode detected\n", STDERR_FILENO);
+		shell.interactive_mode = 0;
+	}
+	else
+		shell.interactive_mode = 1;
 	ft_bzero(&shell, sizeof(t_shell_data));
 	shell.envp = copy_envp(envp); // okey
 	if (!shell.envp)

@@ -94,6 +94,7 @@ typedef struct s_shell_data
 	int						exit_status;
 	int						error_flag;
 	int						in_child_process; // Add this line
+	int						interactive_mode;
 }				t_shell_data;
 
 #include"internal_cmd/internal_commands.h"

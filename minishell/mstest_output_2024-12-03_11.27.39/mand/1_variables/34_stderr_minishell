@@ -1,0 +1,5 @@
+Non-interactive mode detected
+minishell: export: `': not a valid identifier
+minishell: /bin/echo 42: No such file or directory
+minishell: /bin/echo 42: No such file or directory
+minishell: export: `': not a valid identifier
