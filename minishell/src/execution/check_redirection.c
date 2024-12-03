@@ -10,14 +10,13 @@ void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 			shell->exit_status = EXIT_FAILURE;
 			return ;
 		}
-	printf("Debug: STDIN for cmd %d redirected to pipe[%d][0]\n", cmds_index, cmds_index - 1);
 	}
 }
 
 void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
-	if (!has_redirs(redir, REDIR_OUTPUT) && !has_redirs(redir, REDIR_APPEND)
-		&& cmds_index != shell->cmds_nb - 1)
+	(void)redir;
+	if (cmds_index != shell->cmds_nb - 1)
 	{
 		if (dup2(shell->pipes[cmds_index][1], STDOUT_FILENO) == -1)
 		{
@@ -25,7 +24,6 @@ void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 			shell->exit_status = EXIT_FAILURE;
 			return ;
 		}
-        printf("Debug: STDOUT for cmd %d redirected to pipe[%d][1]\n", cmds_index, cmds_index);
 	}
 }
 
@@ -60,13 +58,23 @@ void	set_redirection(t_shell_data *shell, t_redirection *redir)
 {
 	int	exit_code;
 
-	if (redir)
+	while (redir)
 	{
-		exit_code = open_all_files(shell, redir);
-		if (exit_code == EXIT_FAILURE)
-			return ;
-		shell->exit_status = EXIT_SUCCESS;
+		if (redir->type == REDIR_HEREDOC)
+		{
+			handle_heredoc(shell, redir);
+			if (shell->exit_status == EXIT_FAILURE)
+				return ;
+		}
+		else
+		{
+			exit_code = open_all_files(shell, redir);
+			if (exit_code == EXIT_FAILURE)
+				return ;
+		}
+		redir = redir->next;
 	}
+	shell->exit_status = EXIT_SUCCESS;
 }
 
 void	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)

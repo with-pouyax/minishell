@@ -33,6 +33,18 @@ int	open_all_files(t_shell_data *shell, t_redirection *redir)
 	}
 	return (EXIT_SUCCESS);
 }
+/*
+Restore the original stdin and stdout
+Close the saved file descriptors
+
+*/
+void restore_org_in_out(int saved_stdin, int saved_stdout)
+{
+    dup2(saved_stdin, STDIN_FILENO);
+    dup2(saved_stdout, STDOUT_FILENO);
+    close(saved_stdin);
+    close(saved_stdout);
+}
 
 /*
 set_redir() :
@@ -48,7 +60,6 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	int	saved_stdin;
 	int	saved_stdout;
 
-	printf("the cmd is executing: %s\n", cmds->command_string);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	if (saved_stdin == -1 || saved_stdout == -1)
@@ -58,6 +69,7 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	}
 	set_redirection(shell, cmds->redirections);
 	set_pipes(shell, cmds->redirections, index);
+	cleanup_heredocs(cmds->redirections);
 	if (shell->exit_status == EXIT_SUCCESS)
 	{
 		if (cmds->token_list->is_int)
@@ -65,10 +77,7 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		else
 			execute_external_commands(shell, cmds);
 	}
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
+	restore_org_in_out(saved_stdin, saved_stdout);
 }
 
 void	execution(t_shell_data *shell)
