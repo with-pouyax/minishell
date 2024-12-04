@@ -27,6 +27,7 @@ int	process_token(t_shell_data *shell, t_command *cmd, int *i)
 {
 	int	ret;
 
+	
 	if (is_operator_char(cmd->command_string[*i]))
 		ret = process_operator(shell, i, cmd);
 	else
@@ -47,6 +48,7 @@ char	*collect_operator(t_shell_data *shell, int *i)
 	char	*op;
 	int		ret;
 
+	
 	op = ft_strdup("");
 	if (!op)
 		return (NULL);
@@ -67,10 +69,11 @@ int	process_collected_operator(t_shell_data *shell, char *op, t_command *cmd, in
 {
 	int	ret;
 
-	if (is_redirection_operator(op))
+	if (is_redirection_operator(op)) // if the operator is redirection operator
 	{
-		cmd->current_op = op; // Store op in t_command
-		if (handle_redirection(shell, shell->input, i, cmd))
+		cmd->current_op = op; // set the current operator to the collected operator
+		
+		if (handle_redirection(shell, shell->input, i, cmd)) // handle redirection
 			return (1);
 		return (0);
 	}
@@ -80,6 +83,7 @@ int	process_collected_operator(t_shell_data *shell, char *op, t_command *cmd, in
 		free(op);
 		return (1);
 	}
+	
 	process_operator_details(op, cmd, i, &cmd->token_index);
 	return (0);
 }
@@ -90,15 +94,13 @@ int	process_operator(t_shell_data *shell, int *i, t_command *cmd)
 	char	*op;
 
 	/* Handle initial pipe followed by redirection operator */
-	handle_initial_pipe(shell->input, i);
+	//handle_initial_pipe(shell->input, i);
 
 	/* Collect operator characters */
 	op = collect_operator(shell, i);
 	if (!op)
 		return (1);
-
-	/* Process the collected operator */
-	if (process_collected_operator(shell, op, cmd, i))
+	if (process_collected_operator(shell, op, cmd, i)) // we process the collected operator
 		return (1);
 
 	return (0);
