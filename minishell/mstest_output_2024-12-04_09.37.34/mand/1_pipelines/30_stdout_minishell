@@ -1,0 +1,35 @@
+total 492
+drwxrwxr-x  2 mina mina   4096 Dec  3 20:18 ".
+-rw-rw-r--  1 mina mina      0 Dec  4 09:37 ">"
+drwxrwxr-x 11 mina mina   4096 Dec  4 09:37 .
+drwxrwxr-x  5 mina mina   4096 Dec  4 09:27 ..
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 "$H"OM"E"
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 $HOME
+-rw-rw-r--  1 mina mina      0 Dec  4 09:37 $notexists
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 "$USER"
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 '$USER'
+-rw-rw-r--  1 mina mina      0 Dec  3 15:51 "$USER'$USER'"
+-rw-rw-r--  1 mina mina      0 Dec  4 09:37 echo
+drwxrwxr-x  3 mina mina   4096 Dec  3 15:32 get_next_line
+drwxrwxr-x  2 mina mina   4096 Dec  4 09:37 libft
+-rw-rw-r--  1 mina mina   5350 Dec  3 15:32 Makefile
+-rwxrwxr-x  1 mina mina 390392 Dec  4 09:37 minishell
+drwxrwxr-x  3 mina mina   4096 Dec  4 09:16 mstest_output_2024-12-04_09.16.15
+drwxrwxr-x  3 mina mina   4096 Dec  4 09:27 mstest_output_2024-12-04_09.27.09
+drwxrwxr-x  3 mina mina   4096 Dec  4 09:37 mstest_output_2024-12-04_09.37.34
+-rw-rw-r--  1 mina mina   1574 Dec  4 09:37 out
+-rw-rw-r--  1 mina mina      0 Dec  4 09:37 out0
+-rw-rw-r--  1 mina mina   8724 Dec  3 15:46 print_tokens.c
+-rw-rw-r--  1 mina mina    140 Dec  4 09:37 print_tokens.d
+-rw-rw-r--  1 mina mina  29216 Dec  4 09:37 print_tokens.o
+drwxrwxr-x 13 mina mina   4096 Dec  4 09:37 src
+-rw-rw-r--  1 mina mina      0 Dec  3 21:16 token_list-
+-rw-rw-r--  1 mina mina    109 Dec  3 15:32 valgrind_command.txt
+-rw-rw-r--  1 mina mina      0 Dec  3 21:16 value
+drwxrwxr-x  2 mina mina   4096 Dec  3 15:32 .vscode
+drwxrwxr-x  2 mina mina   4096 Dec  3 16:45 we_have_problem
+exit
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_1
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_2
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_3

@@ -1,0 +1,8 @@
+/home/mina
+HOME=/home/mina
+42
+HOME=42
+exit
+DEBUG: Command env returned 0
+DEBUG: Command export returned 0
+DEBUG: Command env returned 0

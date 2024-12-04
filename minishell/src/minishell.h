@@ -272,7 +272,7 @@ int 	token_list_length(t_token *token);
 void 	close_all_pipes(int **pipes, int nb_cmds);
 void 	close_pipes_after_execution(t_shell_data *shell, int cmds_index);
 void 	free_pipes(int **pipes, int nb_cmds);
-
+void free_paths(char **paths);
 
 void    append_end_token(t_shell_data *shell);
 

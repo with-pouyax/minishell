@@ -1,0 +1,10 @@
+SESSION_MANAGER=local/mina-Prestige-14-A10RB:@/tmp/.ICE-unix/1839,unix/mina-Prestige-14-A10RB:/tmp/.ICE-unix/1839
+PWD=/home/mina/Desktop/new/minishell/minishell
+LOGNAME=mina
+LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so
+HOME=/home/mina
+USERNAME=mina
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/18cf7e5b_eca6_4067_b1e7_bf192186b998
+USER=mina
+PATH=/bin:/usr/bin:/usr/sbin:/home/mina/.local/funcheck/host:/home/mina/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+OLDPWD=/home/mina/42_minishell_tester

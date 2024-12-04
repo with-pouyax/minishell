@@ -1,0 +1,7 @@
+exit
+/home/mina/Desktop/new/minishell/minishell
+DEBUG: Command pwd returned 0
+DEBUG: Command cd returned 0
+DEBUG: Command cd returned 1
+/home/mina
+DEBUG: Command pwd returned 0

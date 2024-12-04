@@ -1,0 +1,4 @@
+exit
+test
+DEBUG: Command echo returned 0
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0

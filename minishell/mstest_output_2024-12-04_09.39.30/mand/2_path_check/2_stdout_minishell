@@ -1,0 +1,13 @@
+exit
+DEBUG: Command unset returned 0
+42 
+DEBUG: Command echo returned 0
+DEBUG: Command unset returned 0
+DEBUG: Command unset returned 0
+DEBUG: Command unset returned 0
+ 
+DEBUG: Command echo returned 0
+1 
+DEBUG: Command echo returned 0
+42 
+DEBUG: Command echo returned 0

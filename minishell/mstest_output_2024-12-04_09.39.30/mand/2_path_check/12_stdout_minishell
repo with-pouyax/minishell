@@ -1,0 +1,19 @@
+exit
+127 
+DEBUG: Command echo returned 0
+139 
+DEBUG: Command echo returned 0
+DEBUG: Command export returned 0
+/home/mina 
+DEBUG: Command echo returned 0
+127 
+DEBUG: Command echo returned 0
+139 
+DEBUG: Command echo returned 0
+DEBUG: Command unset returned 0
+127 
+DEBUG: Command echo returned 0
+139 
+DEBUG: Command echo returned 0
+42 
+DEBUG: Command echo returned 0

@@ -11,11 +11,11 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 	{
 		temp = ft_strjoin(*all_paths++, "/");
 		if (!temp)
-			exit(EXIT_FAILURE);
+			return (NULL);
 		path_to_search = ft_strjoin(temp, cmd);
 		free(temp);
 		if (!path_to_search)
-			exit(EXIT_FAILURE);
+			return (NULL);
 		if (access(path_to_search, F_OK) == 0)
 		{
 			final_path = ft_strdup(path_to_search);
@@ -51,6 +51,11 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 	i = 0;
 	all_paths = get_paths_from_env(shell->envp);
 	path = NULL;
+	if (!all_paths)
+    {
+        write_error(cmd, "PATH not set");
+        return (NULL);
+    }
 	while (all_paths && all_paths[i])
 	{
 		path = check_and_return_path(cmd, all_paths);
@@ -58,6 +63,7 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 			break ;
 		i++;
 	}
+	free_paths(all_paths);
 	return (path);
 }
 

@@ -1,0 +1,5 @@
+exit
+env | /usr/bin/wc -l
+DEBUG: Command echo returned 0
+126 
+DEBUG: Command echo returned 0

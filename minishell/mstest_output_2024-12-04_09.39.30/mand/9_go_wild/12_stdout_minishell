@@ -1,0 +1,10 @@
+exit
+/bin:/usr/bin:/usr/sbin:/home/mina/.local/funcheck/host:/home/mina/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin 
+DEBUG: Command echo returned 0
+/home/mina 
+DEBUG: Command echo returned 0
+DEBUG: Command unset returned 0
+ 
+DEBUG: Command echo returned 0
+ 
+DEBUG: Command echo returned 0

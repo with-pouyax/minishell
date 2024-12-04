@@ -1,13 +1,12 @@
 #include "../minishell.h"
 
-void	handle_exec_error(t_shell_data *shell, char *cmd, char *message,
-			int exit_code)
-{
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(message, STDERR_FILENO);
-	shell->exit_status = exit_code;
-}
+// void	handle_exec_error(t_shell_data *shell, char *cmd, char *message,
+// 			int exit_code)
+// {
+// 	ft_putstr_fd(cmd, STDERR_FILENO);
+// 	ft_putstr_fd(": ", STDERR_FILENO);
+// 	ft_putendl_fd(message, STDERR_FILENO);
+// }
 
 void	write_error(char *exec_name, char *err_message)
 {
@@ -25,3 +24,20 @@ int	get_exec_error_code(int err)
 		return (126);
 	return (1);
 }
+
+void free_paths(char **paths)
+{
+    int i;
+
+    if (!paths)
+        return;
+
+    i = 0;
+    while (paths[i])
+    {
+        free(paths[i]); // Free each string in the array
+        i++;
+    }
+    free(paths); // Free the array itself
+}
+

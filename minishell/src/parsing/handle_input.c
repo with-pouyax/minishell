@@ -12,6 +12,7 @@ void	process_and_execute_commands(t_shell_data *shell)
     preprocess_input(shell);
 	// printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
 	// printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
+	// print_commands(shell);
 	if (shell->commands)
 	{
 		// printf("Debug: Starting execution()---------------------------------------\n");
