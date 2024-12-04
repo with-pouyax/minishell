@@ -12,13 +12,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
-	{
-		ft_putstr_fd("Non-interactive mode detected\n", STDERR_FILENO);
 		shell.interactive_mode = 0;
-	}
 	else
 		shell.interactive_mode = 1;
-
 	ft_bzero(&shell, sizeof(t_shell_data));
 	shell.envp = copy_envp(envp); // okey
 	if (!shell.envp)
@@ -32,6 +28,19 @@ int	main(int argc, char **argv, char **envp)
 	cleanup(&shell);
 	return (0);
 }
+
+
+
+
+
+/*
+do it first
+run :
+ulimit -n 1048576
+ulimit -u 62899
+in terinal then run ./minishell
+
+*/
 // some point that we have to considered later:
 /*
 - check  ft_pwd() : there is error in this function

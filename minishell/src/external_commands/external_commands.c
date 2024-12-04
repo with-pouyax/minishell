@@ -38,8 +38,10 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
 	{
-		handle_exec_error(shell, arr_token[0], "command not found", 127);
+		write_error(arr_token[0], "command not found");
+		shell->exit_status = 127;
 		free(arr_token);
+		return (NULL);
 	}
 	return (cmd_path);
 }
@@ -88,8 +90,10 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 	if (exit_status == -1)
 	{
 		error_code = get_exec_error_code(errno);
-		handle_exec_error(shell, argv[0], strerror(errno), error_code);
-		printf("the cmd not executes");
+		free(argv); 
+		free(cmd_path);
+		write_error(argv[0], strerror(errno));
+		shell->exit_status = error_code;
 	}
 }
 
@@ -107,7 +111,12 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 		return ;
 	pid = fork();
 	if (pid < 0)
-		quit_program(EXIT_FAILURE);
+	{
+		write_error("Fork failed", strerror(errno));
+		free(cmd_path);
+		free(arr_token);
+		return ;
+	}
 	else if (pid == 0)
 	{
 		exec_external_child(shell, cmd_path, arr_token);

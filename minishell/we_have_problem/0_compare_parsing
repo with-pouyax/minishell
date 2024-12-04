@@ -1,22 +1,17 @@
 				compare parsinf file:
 
 
-		output little different:
+		parsing problem:
+nput bayad aval 456 save beshe bad 123
+ama man fln handle kardan ta bebinim chi mishe
 ------------------------------------------------
 
 /bin/echo <123 <456 hi | /bin/echo 42
+
+bayad akhar $ chap beshe
+------------------------------------------------
 /bin/echo $USER$TESTNOTFOUND$HOME$
 
-		double free()
-----------------------------------------------
-/bin/echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
-
-/bin/echo ''
-/bin/echo ""
-/bin/echo '' ""
 
 
 
-well done pouya :)))
-I test eveery thing in this file
-other than 

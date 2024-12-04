@@ -97,6 +97,7 @@ typedef struct s_shell_data
 	int						cmds_nb;
 	char					**envp;
 	int						exit_status;
+	char  *last_error_file;
 	int						error_flag;
 	int						in_child_process; // Add this line
 	int						interactive_mode;
@@ -272,7 +273,7 @@ int 	token_list_length(t_token *token);
 void 	close_all_pipes(int **pipes, int nb_cmds);
 void 	close_pipes_after_execution(t_shell_data *shell, int cmds_index);
 void 	free_pipes(int **pipes, int nb_cmds);
-
+void free_paths(char **paths);
 
 void    append_end_token(t_shell_data *shell);
 

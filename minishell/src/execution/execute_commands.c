@@ -21,6 +21,8 @@ int	open_all_files(t_shell_data *shell, t_redirection *redir)
 
 	fd_input = -2;
 	fd_output = -2;
+	shell->last_error_file = NULL;
+
 	while (redir)
 	{
 		if (redir->type == REDIR_INPUT)
@@ -31,6 +33,8 @@ int	open_all_files(t_shell_data *shell, t_redirection *redir)
 			fd_output = open_append_file(shell, redir, fd_output);
 		redir = redir->next;
 	}
+	if (shell->exit_status != 0 && shell->last_error_file)
+		write_error(shell->last_error_file, strerror(shell->exit_status));
 	if (fd_input == -1 || fd_output == -1)
 		return (EXIT_FAILURE);
 	else

@@ -22,7 +22,8 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 		expanded_path = ft_strjoin(home, &path[1]);
 	else
 	{
-		handle_exec_error(shell, path, "\n", 1);
+		write_error(path, "\n");
+		shell->exit_status = 1;
 		return (1);
 	}
 	if (!expanded_path)

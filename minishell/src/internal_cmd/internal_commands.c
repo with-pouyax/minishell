@@ -7,6 +7,8 @@ shell->exit_status = ret
 static int	execute_command(t_shell_data *shell, t_command *cmd,
 				t_token *token, int ret)
 {
+	if (!shell || !cmd || !token)
+        return (-1);
 	if (ft_strcmp(token->value, "echo") == 0)
 		ret = ft_echo(shell, cmd);
 	else if (ft_strcmp(token->value, "cd") == 0)
@@ -23,35 +25,36 @@ static int	execute_command(t_shell_data *shell, t_command *cmd,
 		ret = ft_exit_shell(shell, cmd);
 	else
 	{
-		handle_exec_error(shell, token->value, ": command not found\n", 127);
+		write_error(token->value, ": command not found\n");
+		shell->exit_status = 127;
 		return (-1);
 	}
+	// printf("DEBUG: Command %s returned %d\n", token->value, ret);
 	shell->exit_status = ret;
 	return (ret);
 }
 
-int	execute_internal_commands(t_shell_data *shell, t_command *cmds)
+int execute_internal_commands(t_shell_data *shell, t_command *cmds)
 {
-	t_token	*token;
-	int	ret;
+    t_token *token;
+	int		ret;
 
-	ret = 0;
-	if (cmds)
-	{
-		token = cmds->token_list;
-		while (token && token->is_end != 1)
-		{
-			if (token->is_end)
-				break ;
-			if (token->is_command && token->is_int)
-			{
-				ret = execute_command(shell, cmds, token, ret);
-				if (ret != 0)
-					return (-1);
-				break ;
-			}
-			token = token->next;
-		}
+    if (!cmds || !cmds->token_list)
+    {
+		return (0);
 	}
-	return (0);
+    token = cmds->token_list;
+    while (token)
+    {
+        if (token->is_command && token->is_int)
+        {
+            ret = execute_command(shell, cmds, token, 0);
+            if (ret == -1)
+				return (-1);
+        }
+        // if (token->is_end)
+        //     break;
+        token = token->next;
+    }
+    return (0);
 }
