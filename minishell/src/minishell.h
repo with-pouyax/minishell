@@ -133,7 +133,7 @@ void	print_tokens(t_token *token_list);
 void	free_commands(t_shell_data *shell);
 void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
-int 	process_operator(t_shell_data *shell, char *input, int *i, t_command *cmd, int *index);
+int 	process_operator(t_shell_data *shell, int *i, t_command *cmd);
 int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
 
 
@@ -196,7 +196,7 @@ void	free_heredoc_token(t_token *token);
 int		tokenize_command_error(t_command *cmd);
 void	print_operator_token(t_token *token);
 void	print_command_token(t_token *token);
-void	process_operator_details(char *op, t_command *cmd, int *i, int *index);
+void	process_operator_details(char *op, t_command *cmd, int *i, int *token_index);
 int		free_and_return(char *str);
 char	*get_variable_value(t_shell_data *shell, char *input, int *i, int *var_not_found_flag);
 
@@ -208,7 +208,7 @@ int		extract_command_string(char *input, int i);
 /* tokenize_input_utils.c */
 int		tokenize_command(t_shell_data *shell, t_command *cmd);
 void	skip_cmd_spaces(char *str, int *i);
-int process_token(t_shell_data *shell, t_command *cmd, int *i, int *index);
+int process_token(t_shell_data *shell, t_command *cmd, int *i);
 int		tokenize_command_error(t_command *cmd);
 
 /* process_word function */
