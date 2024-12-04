@@ -40,25 +40,27 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 
 
 int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
-								t_redirection *new_redir, char **filename_or_delimiter)
+									t_redirection *new_redir)
 {
-	if (collect_word(input, i, filename_or_delimiter, shell))
+	if (collect_word(input, i, &shell->filename_or_delimiter, shell))
 	{
 		free(new_redir);
 		return (1);
 	}
-	if (!*filename_or_delimiter || ft_strlen(*filename_or_delimiter) == 0)
+	if (!shell->filename_or_delimiter || ft_strlen(shell->filename_or_delimiter) == 0)
 	{
-		// Free filename_or_delimiter before returning
-		free(*filename_or_delimiter);
+		// Free shell->filename_or_delimiter before returning
+		free(shell->filename_or_delimiter);
+		shell->filename_or_delimiter = NULL;
 		return (handle_missing_filename_error(shell, new_redir));
 	}
-	if (is_valid_operator(*filename_or_delimiter) ||
-		starts_with_operator_char((*filename_or_delimiter)[0]))
+	if (is_valid_operator(shell->filename_or_delimiter) ||
+		starts_with_operator_char(shell->filename_or_delimiter[0]))
 	{
-		// Free filename_or_delimiter before returning
-		free(*filename_or_delimiter);
-		return (handle_unexpected_token_error(shell, new_redir, *filename_or_delimiter));
+		// Free shell->filename_or_delimiter before returning
+		free(shell->filename_or_delimiter);
+		shell->filename_or_delimiter = NULL;
+		return (handle_unexpected_token_error(shell, new_redir, shell->filename_or_delimiter));
 	}
 	return (0);
 }
@@ -130,16 +132,17 @@ t_redirection	*create_new_redirection(char *op)
 	return (new_redir);
 }
 
-int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir, char *filename_or_delimiter)
+int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 {
     if (new_redir->type == REDIR_HEREDOC)
-    {
-        if (handle_heredoc_redirection(shell, new_redir, filename_or_delimiter))
-            return (1);
-    }
-    else
-        new_redir->filename = filename_or_delimiter;
-    return (0);
+	{
+		if (handle_heredoc_redirection(shell, new_redir, shell->filename_or_delimiter))
+			return (1);
+	}
+	else
+		new_redir->filename = shell->filename_or_delimiter;
+	shell->filename_or_delimiter = NULL;
+	return (0);
 }
 
 
@@ -168,16 +171,16 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 int	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
     t_redirection	*new_redir;
-    char			*filename_or_delimiter = NULL;
 
+	shell->filename_or_delimiter = NULL;
     if (prepare_redirection(cmd, &new_redir))
         return (1);
     skip_whitespace(input, i);
     if (check_operator_error(shell, input[*i], new_redir))
         return (1);
-    if (process_filename_or_delimiter(shell, input, i, new_redir, &filename_or_delimiter))
+    if (process_filename_or_delimiter(shell, input, i, new_redir))
         return (1);
-    if (finalize_redirection(shell, new_redir, filename_or_delimiter))
+    if (finalize_redirection(shell, new_redir))
         return (1);
     add_redirection(&(cmd->redirections), new_redir);
     return (0);

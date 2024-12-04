@@ -104,6 +104,7 @@ typedef struct s_shell_data
     int in_double_quote;
     char prev_char;
 	int var_not_found_flag;
+	char			*filename_or_delimiter;
 }				t_shell_data;
 
 #include"internal_cmd/internal_commands.h"
@@ -341,8 +342,7 @@ int process_filename_or_delimiter(
     t_shell_data *shell,
     char *input,
     int *i,
-    t_redirection *new_redir,
-    char **filename_or_delimiter
+    t_redirection *new_redir
 );
 int handle_heredoc_redirection(
     t_shell_data *shell,
