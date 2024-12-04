@@ -21,7 +21,7 @@ void toggle_quotes_and_skip(char current_char, int *in_single_quote, int *in_dou
 
 int handle_variable_expansion(t_shell_data *shell, char *input, int *i, char **result)
 {
-    if (process_variable_expansion(shell, input, i, result, &shell->var_not_found_flag))
+    if (process_variable_expansion(shell, input, i, result))
     {
         free(*result);
         return (1);

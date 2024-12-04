@@ -215,7 +215,7 @@ int	collect_word(char *input, int *i, char **word, t_shell_data *shell);
 int		process_quoted_word(char *input, int *i, char **word);
 
 /* expand_variables_in_token.c */
-int		process_variable_expansion(t_shell_data *shell, char *input, int *i, char **result, int *flag);
+int		process_variable_expansion(t_shell_data *shell, char *input, int *i, char **result);
 int		append_literal_char(char *input, int *i, char **result);
 
 /* variable_expansion_utils.c */
