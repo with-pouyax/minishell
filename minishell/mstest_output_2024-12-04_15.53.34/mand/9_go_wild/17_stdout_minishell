@@ -1,0 +1,269 @@
+
+Debug: shell->cmds_nb: 1
+
+
+Debug: shell->pipe_nb: 0
+
+
+=========================================
+Command #0
+=========================================
+----------------------------------------------------------------------------------------------------
+| Index | Cmds# | Pipe_nb# | Command String          | Full Command                                     |
+----------------------------------------------------------------------------------------------------
+| 0     | 1     | 0      | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit. | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit. |
+----------------------------------------------------------------------------------------------------
+
+Tokens:
+----------------------------------------------------------------------
+| Index | Value         | Type               | Original Value          |
+----------------------------------------------------------------------
+| 0     | Lorem         | Command            | Lorem                   |
+| 1     | ipsum         |                    | ipsum                   |
+| 2     | dolor         |                    | dolor                   |
+| 3     | sit           |                    | sit                     |
+| 4     | amet,         |                    | amet,                   |
+| 5     | consectetur   |                    | consectetur             |
+| 6     | adipiscing    |                    | adipiscing              |
+| 7     | elit.         |                    | elit.                   |
+| 8     | Morbi         |                    | Morbi                   |
+| 9     | imperdiet     |                    | imperdiet               |
+| 10    | orci          |                    | orci                    |
+| 11    | nec           |                    | nec                     |
+| 12    | quam          |                    | quam                    |
+| 13    | lobortis      |                    | lobortis                |
+| 14    | scelerisque.  |                    | scelerisque.            |
+| 15    | Morbi         |                    | Morbi                   |
+| 16    | scelerisque   |                    | scelerisque             |
+| 17    | leo           |                    | leo                     |
+| 18    | molestie      |                    | molestie                |
+| 19    | justo         |                    | justo                   |
+| 20    | semper        |                    | semper                  |
+| 21    | condimentum.  |                    | condimentum.            |
+| 22    | Proin         |                    | Proin                   |
+| 23    | hendrerit     |                    | hendrerit               |
+| 24    | ut            |                    | ut                      |
+| 25    | nulla         |                    | nulla                   |
+| 26    | in            |                    | in                      |
+| 27    | mattis.       |                    | mattis.                 |
+| 28    | Curabitur     |                    | Curabitur               |
+| 29    | velit         |                    | velit                   |
+| 30    | turpis,       |                    | turpis,                 |
+| 31    | congue        |                    | congue                  |
+| 32    | ut            |                    | ut                      |
+| 33    | aliquam       |                    | aliquam                 |
+| 34    | id,           |                    | id,                     |
+| 35    | condimentum   |                    | condimentum             |
+| 36    | at            |                    | at                      |
+| 37    | dolor.        |                    | dolor.                  |
+| 38    | Quisque       |                    | Quisque                 |
+| 39    | ultricies     |                    | ultricies               |
+| 40    | neque         |                    | neque                   |
+| 41    | in            |                    | in                      |
+| 42    | tellus        |                    | tellus                  |
+| 43    | pretium,      |                    | pretium,                |
+| 44    | vitae         |                    | vitae                   |
+| 45    | porta         |                    | porta                   |
+| 46    | ipsum         |                    | ipsum                   |
+| 47    | vestibulum.   |                    | vestibulum.             |
+| 48    | Vivamus       |                    | Vivamus                 |
+| 49    | cursus        |                    | cursus                  |
+| 50    | volutpat      |                    | volutpat                |
+| 51    | diam,         |                    | diam,                   |
+| 52    | at            |                    | at                      |
+| 53    | interdum      |                    | interdum                |
+| 54    | erat          |                    | erat                    |
+| 55    | fringilla     |                    | fringilla               |
+| 56    | ac.           |                    | ac.                     |
+| 57    | In            |                    | In                      |
+| 58    | nisl          |                    | nisl                    |
+| 59    | quam,         |                    | quam,                   |
+| 60    | ultrices      |                    | ultrices                |
+| 61    | vitae         |                    | vitae                   |
+| 62    | cursus        |                    | cursus                  |
+| 63    | ut,           |                    | ut,                     |
+| 64    | aliquam       |                    | aliquam                 |
+| 65    | sed           |                    | sed                     |
+| 66    | lacus.        |                    | lacus.                  |
+| 67    | Suspendisse   |                    | Suspendisse             |
+| 68    | ac            |                    | ac                      |
+| 69    | turpis        |                    | turpis                  |
+| 70    | fermentum,    |                    | fermentum,              |
+| 71    | pulvinar      |                    | pulvinar                |
+| 72    | risus         |                    | risus                   |
+| 73    | quis,         |                    | quis,                   |
+| 74    | molestie      |                    | molestie                |
+| 75    | elit.         |                    | elit.                   |
+| 76    | Mauris        |                    | Mauris                  |
+| 77    | faucibus      |                    | faucibus                |
+| 78    | eget          |                    | eget                    |
+| 79    | est           |                    | est                     |
+| 80    | vitae         |                    | vitae                   |
+| 81    | efficitur.    |                    | efficitur.              |
+| 82    | Mauris        |                    | Mauris                  |
+| 83    | feugiat       |                    | feugiat                 |
+| 84    | enim          |                    | enim                    |
+| 85    | in            |                    | in                      |
+| 86    | posuere       |                    | posuere                 |
+| 87    | auctor.       |                    | auctor.                 |
+| 88    | Morbi         |                    | Morbi                   |
+| 89    | lorem         |                    | lorem                   |
+| 90    | lorem,        |                    | lorem,                  |
+| 91    | pellentesque  |                    | pellentesque            |
+| 92    | et            |                    | et                      |
+| 93    | viverra       |                    | viverra                 |
+| 94    | vitae,        |                    | vitae,                  |
+| 95    | ullamcorper   |                    | ullamcorper             |
+| 96    | a             |                    | a                       |
+| 97    | mauris.       |                    | mauris.                 |
+| 98    | Cras          |                    | Cras                    |
+| 99    | blandit       |                    | blandit                 |
+| 100   | pulvinar      |                    | pulvinar                |
+| 101   | accumsan.     |                    | accumsan.               |
+| 102   | Pellentesque  |                    | Pellentesque            |
+| 103   | habitant      |                    | habitant                |
+| 104   | morbi         |                    | morbi                   |
+| 105   | tristique     |                    | tristique               |
+| 106   | senectus      |                    | senectus                |
+| 107   | et            |                    | et                      |
+| 108   | netus         |                    | netus                   |
+| 109   | et            |                    | et                      |
+| 110   | malesuada     |                    | malesuada               |
+| 111   | fames         |                    | fames                   |
+| 112   | ac            |                    | ac                      |
+| 113   | turpis        |                    | turpis                  |
+| 114   | egestas.      |                    | egestas.                |
+| 115   | Aenean        |                    | Aenean                  |
+| 116   | id            |                    | id                      |
+| 117   | hendrerit     |                    | hendrerit               |
+| 118   | elit.         |                    | elit.                   |
+| 119   | Lorem         |                    | Lorem                   |
+| 120   | ipsum         |                    | ipsum                   |
+| 121   | dolor         |                    | dolor                   |
+| 122   | sit           |                    | sit                     |
+| 123   | amet,         |                    | amet,                   |
+| 124   | consectetur   |                    | consectetur             |
+| 125   | adipiscing    |                    | adipiscing              |
+| 126   | elit.         |                    | elit.                   |
+| 127   | Morbi         |                    | Morbi                   |
+| 128   | imperdiet     |                    | imperdiet               |
+| 129   | orci          |                    | orci                    |
+| 130   | nec           |                    | nec                     |
+| 131   | quam          |                    | quam                    |
+| 132   | lobortis      |                    | lobortis                |
+| 133   | scelerisque.  |                    | scelerisque.            |
+| 134   | Morbi         |                    | Morbi                   |
+| 135   | scelerisque   |                    | scelerisque             |
+| 136   | leo           |                    | leo                     |
+| 137   | molestie      |                    | molestie                |
+| 138   | justo         |                    | justo                   |
+| 139   | semper        |                    | semper                  |
+| 140   | condimentum.  |                    | condimentum.            |
+| 141   | Proin         |                    | Proin                   |
+| 142   | hendrerit     |                    | hendrerit               |
+| 143   | ut            |                    | ut                      |
+| 144   | nulla         |                    | nulla                   |
+| 145   | in            |                    | in                      |
+| 146   | mattis.       |                    | mattis.                 |
+| 147   | Curabitur     |                    | Curabitur               |
+| 148   | velit         |                    | velit                   |
+| 149   | turpis,       |                    | turpis,                 |
+| 150   | congue        |                    | congue                  |
+| 151   | ut            |                    | ut                      |
+| 152   | aliquam       |                    | aliquam                 |
+| 153   | id,           |                    | id,                     |
+| 154   | condimentum   |                    | condimentum             |
+| 155   | at            |                    | at                      |
+| 156   | dolor.        |                    | dolor.                  |
+| 157   | Quisque       |                    | Quisque                 |
+| 158   | ultricies     |                    | ultricies               |
+| 159   | neque         |                    | neque                   |
+| 160   | in            |                    | in                      |
+| 161   | tellus        |                    | tellus                  |
+| 162   | pretium,      |                    | pretium,                |
+| 163   | vitae         |                    | vitae                   |
+| 164   | porta         |                    | porta                   |
+| 165   | ipsum         |                    | ipsum                   |
+| 166   | vestibulum.   |                    | vestibulum.             |
+| 167   | Vivamus       |                    | Vivamus                 |
+| 168   | cursus        |                    | cursus                  |
+| 169   | volutpat      |                    | volutpat                |
+| 170   | diam,         |                    | diam,                   |
+| 171   | at            |                    | at                      |
+| 172   | interdum      |                    | interdum                |
+| 173   | erat          |                    | erat                    |
+| 174   | fringilla     |                    | fringilla               |
+| 175   | ac.           |                    | ac.                     |
+| 176   | In            |                    | In                      |
+| 177   | nisl          |                    | nisl                    |
+| 178   | quam,         |                    | quam,                   |
+| 179   | ultrices      |                    | ultrices                |
+| 180   | vitae         |                    | vitae                   |
+| 181   | cursus        |                    | cursus                  |
+| 182   | ut,           |                    | ut,                     |
+| 183   | aliquam       |                    | aliquam                 |
+| 184   | sed           |                    | sed                     |
+| 185   | lacus.        |                    | lacus.                  |
+| 186   | Suspendisse   |                    | Suspendisse             |
+| 187   | ac            |                    | ac                      |
+| 188   | turpis        |                    | turpis                  |
+| 189   | fermentum,    |                    | fermentum,              |
+| 190   | pulvinar      |                    | pulvinar                |
+| 191   | risus         |                    | risus                   |
+| 192   | quis,         |                    | quis,                   |
+| 193   | molestie      |                    | molestie                |
+| 194   | elit.         |                    | elit.                   |
+| 195   | Mauris        |                    | Mauris                  |
+| 196   | faucibus      |                    | faucibus                |
+| 197   | eget          |                    | eget                    |
+| 198   | est           |                    | est                     |
+| 199   | vitae         |                    | vitae                   |
+| 200   | efficitur.    |                    | efficitur.              |
+| 201   | Mauris        |                    | Mauris                  |
+| 202   | feugiat       |                    | feugiat                 |
+| 203   | enim          |                    | enim                    |
+| 204   | in            |                    | in                      |
+| 205   | posuere       |                    | posuere                 |
+| 206   | auctor.       |                    | auctor.                 |
+| 207   | Morbi         |                    | Morbi                   |
+| 208   | lorem         |                    | lorem                   |
+| 209   | lorem,        |                    | lorem,                  |
+| 210   | pellentesque  |                    | pellentesque            |
+| 211   | et            |                    | et                      |
+| 212   | viverra       |                    | viverra                 |
+| 213   | vitae,        |                    | vitae,                  |
+| 214   | ullamcorper   |                    | ullamcorper             |
+| 215   | a             |                    | a                       |
+| 216   | mauris.       |                    | mauris.                 |
+| 217   | Cras          |                    | Cras                    |
+| 218   | blandit       |                    | blandit                 |
+| 219   | pulvinar      |                    | pulvinar                |
+| 220   | accumsan.     |                    | accumsan.               |
+| 221   | Pellentesque  |                    | Pellentesque            |
+| 222   | habitant      |                    | habitant                |
+| 223   | morbi         |              exit
+      | morbi                   |
+| 224   | tristique     |                    | tristique               |
+| 225   | senectus      |                    | senectus                |
+| 226   | et            |                    | et                      |
+| 227   | netus         |                    | netus                   |
+| 228   | et            |                    | et                      |
+| 229   | malesuada     |                    | malesuada               |
+| 230   | fames         |                    | fames                   |
+| 231   | ac            |                    | ac                      |
+| 232   | turpis        |                    | turpis                  |
+| 233   | egestas.      |                    | egestas.                |
+| 234   | Aenean        |                    | Aenean                  |
+| 235   | id            |                    | id                      |
+| 236   | hendrerit     |                    | hendrerit               |
+| 237   | elit.         |                    | elit.                   |
+| 238   |               | End                | NULL                    |
+----------------------------------------------------------------------
+
+Redirections:
+--------------------------------------------------------------------------------
+| Type          | Redir# | Filename      | Delimiter     | Heredoc File       |
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Debug: Starting execution()---------------------------------------
+Debug: Finished execution()-------------------------------------

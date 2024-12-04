@@ -11,14 +11,15 @@ ashkan.txt
 cat.txt
 file2
 filename,
+file.txt
+fole.txt
 get_next_line
 libft
 Makefile
 mina.txt
 minishell
-mstest_output_2024-11-28_19.49.42
-mstest_output_2024-12-03_14.10.40
-mstest_output_2024-12-03_14.38.23
+mstest_output_2024-12-04_15.53.34
+mstest_output_2024-12-04_15.58.24
 outfile01
 outfile02
 outfiles
@@ -35,4 +36,3 @@ tt
 valgrind_command.txt
 valgrind.supp
 we_have_problem
-zafar

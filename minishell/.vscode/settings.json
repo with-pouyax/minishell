@@ -59,6 +59,7 @@
   "files.associations": {
     "minishell.h": "c",
     "libft.h": "c",
-    "internal_commands.h": "c"
+    "internal_commands.h": "c",
+    "readline.h": "c"
   }
 }
