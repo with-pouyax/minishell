@@ -51,27 +51,19 @@ int cleanup_and_return_null(char *result)
 
 
 
-
-
-
-
-char *expand_variables_in_token(t_shell_data *shell, char *input)
+char	*expand_variables_in_token(t_shell_data *shell, char *input)
 {
-    char    *result;
-    int     i;
-    int     in_single_quote;
-    int     in_double_quote;
+    char	*result;
+    int		i;
+    int		in_single_quote;
+    int		in_double_quote;
 
-    /* Initialize expansion variables */
     if (initialize_expansion(&result, &in_single_quote, &in_double_quote))
         return (NULL);
-    
     i = 0;
     while (input[i])
     {
-        if (input[i] == '\'' && !in_double_quote)
-            toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);
-        else if (input[i] == '\"' && !in_single_quote)
+        if ((input[i] == '\'' && !in_double_quote) || (input[i] == '\"' && !in_single_quote))
             toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);
         else if (input[i] == '$' && !in_single_quote)
         {
