@@ -43,11 +43,9 @@ expand_and_write_line
 
 int expand_and_write_line(t_shell_data *shell ,char *line, int fd)
 {
-    int     var_not_found_flag;
     char    *temp;
 
-    var_not_found_flag = 0;
-    temp = expand_variables_in_token(shell, line, &var_not_found_flag); // Expand the variables in the line
+    temp = expand_variables_in_token(shell, line); // Expand the variables in the line
     if (!temp)
         return (1);
     write(fd, temp, ft_strlen(temp)); // Write the expanded line to the file

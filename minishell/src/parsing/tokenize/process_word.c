@@ -128,7 +128,7 @@ int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, 
     *original_word = ft_strdup(word);
     if (!*original_word)
         return (1);
-    *expanded_word = expand_variables_in_token(shell, word, &(shell->var_not_found_flag));
+    *expanded_word = expand_variables_in_token(shell, word);
     if (!*expanded_word)
     {
         free(*original_word);

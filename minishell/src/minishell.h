@@ -150,8 +150,7 @@ char	*getenv_from_envp(t_shell_data *shell, char *name);
 int		get_var_name_len(char *str);
 char	*expand_variable_token(t_shell_data *shell, char *input, int *i,
 int 	*var_not_found_flag);
-char	*expand_variables_in_token(t_shell_data *shell, char *input,
-int 	*var_not_found_flag);
+char	*expand_variables_in_token(t_shell_data *shell, char *input);
 void 	expand_variables_in_input(t_shell_data *shell);
 char	*get_literal_char(char *input, int *i);
 

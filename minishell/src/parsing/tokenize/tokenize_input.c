@@ -104,8 +104,6 @@ int	process_operator(t_shell_data *shell, int *i, t_command *cmd)
 	return (0);
 }
 
-
-
 void	process_operator_details(char *op, t_command *cmd, int *i, int *token_index)
 {
 	t_token	*last_token;
