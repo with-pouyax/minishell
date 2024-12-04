@@ -41,6 +41,7 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 		write_error(arr_token[0], "command not found");
 		shell->exit_status = 127;
 		free(arr_token);
+		return (NULL);
 	}
 	return (cmd_path);
 }

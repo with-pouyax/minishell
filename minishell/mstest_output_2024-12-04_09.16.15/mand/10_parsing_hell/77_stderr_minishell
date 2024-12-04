@@ -1,2 +1,0 @@
-minishell: export: `': not a valid identifier
-echo segfault | grep segfault: command not found

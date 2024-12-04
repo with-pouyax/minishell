@@ -37,6 +37,7 @@ static int	execute_command(t_shell_data *shell, t_command *cmd,
 int execute_internal_commands(t_shell_data *shell, t_command *cmds)
 {
     t_token *token;
+	int		ret;
 
     if (!cmds || !cmds->token_list)
     {
@@ -47,11 +48,12 @@ int execute_internal_commands(t_shell_data *shell, t_command *cmds)
     {
         if (token->is_command && token->is_int)
         {
-            int ret = execute_command(shell, cmds, token, 0);
-            return (ret == 0) ? 0 : -1;
+            ret = execute_command(shell, cmds, token, 0);
+            if (ret == -1)
+				return (-1);
         }
-        if (token->is_end)
-            break;
+        // if (token->is_end)
+        //     break;
         token = token->next;
     }
     return (0);

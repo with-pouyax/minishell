@@ -116,22 +116,31 @@ void	handle_empty_input(t_shell_data *shell)
 
 void	handle_input(t_shell_data *shell)
 {
-	while (1)
+	int	running;
+
+	running = 1;
+	while (running)
 	{
-		if (read_input(shell))
-			break;
-		if (shell->input == NULL || shell->input[0] == '\0')
-		    handle_empty_input(shell);
+		if (read_input(shell) == -1)  // Assuming read_input returns -1 on error
+		{
+			ft_putstr_fd("Error: Failed to read input\n", STDERR_FILENO);
+			running = 0;  // Exit the loop on error
+		}
 		else
 		{
-			g_signal_status = 0;
-			if (!validate_input_length(shell))
+			if (shell->input == NULL || shell->input[0] == '\0')
+				handle_empty_input(shell);
+			else
 			{
-				if (!allocate_resources(shell))
+				g_signal_status = 0;
+				if (!validate_input_length(shell))
 				{
-					add_to_history_if_needed(shell);
-					if (!check_and_handle_syntax_errors(shell))
-						process_and_execute_commands(shell);
+					if (!allocate_resources(shell))
+					{
+						add_to_history_if_needed(shell);
+						if (!check_and_handle_syntax_errors(shell))
+							process_and_execute_commands(shell);
+					}
 				}
 			}
 		}

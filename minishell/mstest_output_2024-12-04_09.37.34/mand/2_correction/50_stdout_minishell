@@ -1,3 +1,0 @@
-exit
-1 || echo 2 
-DEBUG: Command echo returned 0

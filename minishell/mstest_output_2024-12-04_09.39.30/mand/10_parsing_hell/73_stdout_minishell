@@ -1,4 +1,0 @@
-exit
-DEBUG: Command export returned 0
-segfault < grep segfault 
-DEBUG: Command echo returned 0
