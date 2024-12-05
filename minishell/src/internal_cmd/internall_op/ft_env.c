@@ -34,7 +34,7 @@ int	ft_env(t_shell_data *shell, t_command *cmd)
 	}
 	if (arg_count > 0)
 	{
-		ft_putstr_fd("minishell: env: too many arguments\n", STDERR_FILENO);
+		//ft_putstr_fd("mina: env: too many arguments\n", STDERR_FILENO);
 		shell->exit_status = 1;
 		return (1);
 	}
