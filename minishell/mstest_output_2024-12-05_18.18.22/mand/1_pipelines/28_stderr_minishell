@@ -1,0 +1,7 @@
+cat: '|'ls: : No such file or directorycannot access '|'
+: No such file or directory
+cat: '|': No such file or directory
+ls: cannot access '|': No such file or directory
+ls: cannot access '|'cat: '|': No such file or directory
+: No such file or directory
+ls: cannot access '|': No such file or directory

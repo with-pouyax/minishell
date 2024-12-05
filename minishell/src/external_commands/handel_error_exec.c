@@ -30,14 +30,13 @@ void free_paths(char **paths)
     int i;
 
     if (!paths)
-        return;
-
+        return ;
     i = 0;
     while (paths[i])
     {
-        free(paths[i]); // Free each string in the array
+        free(paths[i]);
         i++;
     }
-    free(paths); // Free the array itself
+    free(paths);
 }
 
