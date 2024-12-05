@@ -13,18 +13,20 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
     t_command *cmd;
 
-	(void)shell;
+    (void)shell;
     cmd = malloc(sizeof(t_command));
     if (!cmd)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-	cmd->is_recalled = 0;
+    cmd->is_recalled = 0;
     cmd->token_list = NULL;
-	cmd->redirections = NULL; 
+    cmd->redirections = NULL;
+    cmd->token_index = 0; // Initialize token_index to 0
     cmd->next = NULL;
-	return (cmd);
+    return (cmd);
 }
+
 
 int extract_command_string(char *input, int i)
 {
