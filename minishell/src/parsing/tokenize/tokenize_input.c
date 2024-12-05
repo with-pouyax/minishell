@@ -94,41 +94,62 @@ int	process_collected_operator(t_shell_data *shell, char *op, t_command *cmd, in
 }
 
 
-int process_operator(t_shell_data *shell, int *i, t_command *cmd)
-{
-    char *op;
+//==================================================
 
-    op = collect_operator(cmd, i);
-    if (!op)
-        return 1;
-    if (is_valid_operator(op))
-    {
-        if (is_redirection_operator(op))
-        {
-            cmd->current_op = op; // Store op in t_command
-            if (handle_redirection(shell, cmd->command_string, i, cmd))
-                return 1;
-        }
-        else // It's a pipe '|'
-        {
-            if (add_token(op, &cmd->token_list, &cmd->token_index, 1))
-            {
-                free(op);
-                return 1;
-            }
-        }
-    }
-    else // Invalid operator
-    {
-        ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
-        ft_putstr_fd(op, STDERR_FILENO);
-        ft_putstr_fd("'\n", STDERR_FILENO);
-        shell->exit_status = 2;
-        free(op);
-        return 1;
-    }
-    return 0;
+int	handle_redirection_operator(t_shell_data *shell, char *op, t_command *cmd, int *i)
+{
+	cmd->current_op = op; // Store operator in command
+	if (handle_redirection(shell, cmd->command_string, i, cmd))
+		return (1);
+	return (0);
 }
+
+int	handle_pipe_operator(char *op, t_command *cmd)
+{
+	if (add_token(op, &cmd->token_list, &cmd->token_index, 1))
+	{
+		free(op);
+		return (1);
+	}
+	return (0);
+}
+
+int	handle_invalid_operator(t_shell_data *shell, char *op)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+	ft_putstr_fd(op, STDERR_FILENO);
+	ft_putstr_fd("'\n", STDERR_FILENO);
+	shell->exit_status = 2;
+	free(op);
+	return (1);
+}
+
+int	process_operator(t_shell_data *shell, int *i, t_command *cmd)
+{
+	char	*op;
+	int		ret;
+
+	op = collect_operator(cmd, i);
+	if (!op)
+		return (1);
+	if (is_valid_operator(op))
+	{
+		if (is_redirection_operator(op))
+			ret = handle_redirection_operator(shell, op, cmd, i);
+		else // It's a pipe '|'
+			ret = handle_pipe_operator(op, cmd);
+		if (ret)
+			return (1);
+	}
+	else // Invalid operator
+	{
+		ret = handle_invalid_operator(shell, op);
+		return (ret);
+	}
+	return (0);
+}
+
+//==================================================
 
 void	process_operator_details(char *op, t_command *cmd, int *i, int *token_index)
 {
