@@ -14,7 +14,7 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     t_command *cmd;
 
 	(void)shell;
-    cmd = malloc(sizeof(t_command));
+    cmd = NULL;//malloc(sizeof(t_command));
     if (!cmd)
         return (NULL);
     cmd->command_string = cmd_str;

@@ -114,7 +114,7 @@ typedef struct s_shell_data
 
 /* Shell Initialization and Input Handling */
 void	init_shell(t_shell_data *shell);
-void	handle_input(t_shell_data *shell);
+int	handle_input(t_shell_data *shell);
 int 	check_input_length(t_shell_data *shell);
 int 	handle_allocation(t_shell_data *shell);
 int 	check_syntax_error(t_shell_data *shell, char *error_message);
@@ -123,7 +123,7 @@ void	process_input(t_shell_data *shell);
 int		check_unclosed_quotes(char *input);
 
 /* Tokenization, Parsing, and Execution */
-void	split_cmd_tokenize(t_shell_data *shell);
+int	split_cmd_tokenize(t_shell_data *shell);
 int		tokenize_command(t_shell_data *shell, t_command *cmd);
 t_command	*create_command(t_shell_data *shell, char *cmd_str, int index);
 int		add_token(char *token_value, t_token **token_list, int *index, int is_operator);
@@ -170,7 +170,7 @@ int		skip_quotes(char *input, int i);
 void	handle_tokenization_error(t_shell_data *shell, int error_flag);
 
 /* Preprocessing */
-void	preprocess_input(t_shell_data *shell);
+int	preprocess_input(t_shell_data *shell);
 void	cleanup(t_shell_data *shell);
 
 /* Additional Helper Functions */
@@ -312,7 +312,7 @@ int		validate_input_length(t_shell_data *shell);
 int		allocate_resources(t_shell_data *shell);
 void	add_to_history_if_needed(t_shell_data *shell);
 int		check_and_handle_syntax_errors(t_shell_data *shell);
-void	process_and_execute_commands(t_shell_data *shell);
+int	process_and_execute_commands(t_shell_data *shell);
 
 
 // collect_word

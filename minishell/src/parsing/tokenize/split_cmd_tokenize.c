@@ -23,7 +23,7 @@ void	handle_tokenization_failure(t_shell_data *shell)
 	handle_tokenization_error(shell, shell->error_flag);
 }
 
-void	split_cmd_tokenize(t_shell_data *shell)
+int	split_cmd_tokenize(t_shell_data *shell)
 {
 	int		i;
 	int		cmd_index;
@@ -34,12 +34,12 @@ void	split_cmd_tokenize(t_shell_data *shell)
 	last_cmd = NULL;
 	shell->error_flag = 0;
 	if (!shell->input)
-		return ;
+		return (1);
 	while (shell->input[i])
 	{
 		skip_spaces(shell, &i);
-		if (process_input_segment(shell, &i, &cmd_index, &last_cmd))
-			break ;
+		if (process_input_segment(shell, &i, &cmd_index, &last_cmd) > 0)
+			return (1);
 	}
 	if (shell->error_flag)
 		handle_tokenization_failure(shell);
@@ -48,4 +48,5 @@ void	split_cmd_tokenize(t_shell_data *shell)
 		// append_end_token(shell);
 		count_commands_and_pipes(shell);
 	}
+	return (0);
 }

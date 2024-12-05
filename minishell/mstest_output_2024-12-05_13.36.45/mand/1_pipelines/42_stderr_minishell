@@ -1,0 +1,4 @@
+cat: Makefile: No such file or directory
+cat: '|': No such file or directory
+ls: cannot access '|': No such file or directory
+/home/pghajard/42_minishell_tester/tester.sh: line 633: 2502203 Segmentation fault      (core dumped) LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so ./minishell

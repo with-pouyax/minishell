@@ -7,12 +7,15 @@ void handle_ctrl_d(t_shell_data *shell)
     exit(0);        // Exit the shell
 }
 
-void	process_and_execute_commands(t_shell_data *shell)
+int	process_and_execute_commands(t_shell_data *shell)
 {
-    preprocess_input(shell);
+    if (preprocess_input(shell) != 0)
+	{
+		return 1;
+	}
 	// printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
 	// printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
-	print_commands(shell);
+	//print_commands(shell);
 	if (shell->commands)
 	{
 		//printf("Debug: Starting execution()---------------------------------------\n");
@@ -22,7 +25,7 @@ void	process_and_execute_commands(t_shell_data *shell)
 	else
 		shell->exit_status = 2;
 	free_shell_resources(shell);
-	
+	return (0);
 }
 
 int	check_and_handle_syntax_errors(t_shell_data *shell)
@@ -115,7 +118,7 @@ void	handle_empty_input(t_shell_data *shell)
 	g_signal_status = 0;
 }
 
-void	handle_input(t_shell_data *shell)
+int	handle_input(t_shell_data *shell)
 {
 	int	running;
 
@@ -140,12 +143,14 @@ void	handle_input(t_shell_data *shell)
 					{
 						add_to_history_if_needed(shell);
 						if (!check_and_handle_syntax_errors(shell))
-							process_and_execute_commands(shell);
+							if(process_and_execute_commands(shell) != 0)
+								return 1;
 					}
 				}
 			}
 		}
 	}
 	rl_clear_history();
+	return (0);
 }
 

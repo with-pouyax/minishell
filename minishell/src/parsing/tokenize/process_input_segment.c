@@ -28,6 +28,7 @@ int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
     t_command *cmd;
 
     start = *i;
+    (void)start;
     *i = extract_command_string(shell->input, *i);
     if (*i == -1)
         return (shell->error_flag = 1, 1);

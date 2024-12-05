@@ -9,6 +9,7 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 	final_path = NULL;
 	while (*all_paths)
 	{
+		(void)cmd;
 		temp = ft_strjoin(*all_paths++, "/");
 		if (!temp)
 			return (NULL);

@@ -1,0 +1,11 @@
+total 28
+drwxr-xr-x  5 pghajard 2024_vienna  128 Dec  5 13:13 .
+drwxr-xr-x  6 pghajard 2024_vienna  115 Dec  4 13:09 ..
+-rw-r--r--  1 pghajard 2024_vienna 6148 Dec  4 08:15 .DS_Store
+drwxr-xr-x  8 pghajard 2024_vienna 4096 Dec  5 13:20 .git
+-rw-r--r--  1 pghajard 2024_vienna  439 Dec  4 08:15 .gitignore
+-rw-r--r--  1 pghajard 2024_vienna 1076 Dec  4 08:15 LICENSE
+drwxr-xr-x 11 pghajard 2024_vienna 4096 Dec  5 13:36 minishell
+-rw-r--r--  1 pghajard 2024_vienna    0 Dec  5 13:13 out
+-rw-r--r--  1 pghajard 2024_vienna 3041 Dec  4 08:15 README.md
+drwxr-xr-x  2 pghajard 2024_vienna   75 Dec  4 08:15 .vscode
