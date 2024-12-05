@@ -45,7 +45,7 @@ void	split_cmd_tokenize(t_shell_data *shell)
 		handle_tokenization_failure(shell);
 	else
 	{
-		append_end_token(shell);
+		// append_end_token(shell);
 		count_commands_and_pipes(shell);
 	}
 }

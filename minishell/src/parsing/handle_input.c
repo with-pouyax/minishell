@@ -2,7 +2,7 @@
 
 void handle_ctrl_d(t_shell_data *shell)
 {
-    write(1, "exit\n", 5);
+    //write(1, "exit\n", 5);
     cleanup(shell); // Free all allocated resources
     exit(0);        // Exit the shell
 }
@@ -12,7 +12,7 @@ void	process_and_execute_commands(t_shell_data *shell)
     preprocess_input(shell);
 	// printf("\nDebug: shell->cmds_nb: %d\n\n", shell->cmds_nb);
 	// printf("\nDebug: shell->pipe_nb: %d\n\n", shell->pipe_nb);
-	//print_commands(shell);
+	print_commands(shell);
 	if (shell->commands)
 	{
 		//printf("Debug: Starting execution()---------------------------------------\n");

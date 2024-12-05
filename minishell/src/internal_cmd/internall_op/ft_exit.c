@@ -16,7 +16,7 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 
 	token = cmd->token_list->next;
 	exit_status = shell->exit_status;
-	printf("exit\n");
+	//printf("exit\n");
 	if (token)
 	{
 		if (is_numeric(token->value))
