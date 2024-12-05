@@ -39,17 +39,36 @@ int extract_command_string(char *input, int i)
 		else
 			i++;
 	}
-    if (input[i] == '|') // If we encounter a pipe
+
+    if (input[i + 1] == '|')
     {
-        i++; // Move past the pipe
-        while (input[i] && input[i] == ' ') // Skip spaces after the pipe
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+        return (-1);
+    }
+
+    if (input[i + 1] == ' ')
+    {
+        while (input[i] && input[i] == ' ')
             i++;
-        if (input[i] == '|') // If the next character is also a pipe
+        if (input[i] == '|')
         {
             ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
             return (-1);
         }
     }
+
+
+    // if (input[i] == '|') // If we encounter a pipe
+    // {
+    //     i++; // Move past the pipe
+    //     while (input[i] && input[i] == ' ') // Skip spaces after the pipe
+    //         i++;
+    //     if (input[i] == '|') // If the next character is also a pipe
+    //     {
+    //         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+    //         return (-1);
+    //     }
+    // }
    
         
     return (i);
