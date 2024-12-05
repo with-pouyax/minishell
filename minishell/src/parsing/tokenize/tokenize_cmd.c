@@ -13,23 +13,23 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
     t_command *cmd;
 
-	(void)shell;
+    (void)shell;
     cmd = malloc(sizeof(t_command));
     if (!cmd)
         return (NULL);
     cmd->command_string = cmd_str;
     cmd->index = index;
-	cmd->is_recalled = 0;
+    cmd->is_recalled = 0;
     cmd->token_list = NULL;
-	cmd->redirections = NULL; 
+    cmd->redirections = NULL;
+    cmd->token_index = 0; // Initialize token_index to 0
     cmd->next = NULL;
-	return (cmd);
+    return (cmd);
 }
+
 
 int extract_command_string(char *input, int i)
 {
-
-
     while (input[i] && input[i] != '|') // Loop through the input string until we find a pipe
 	{
 		if (input[i] == '\'' || input[i] == '\"') // If we find a quote
@@ -37,18 +37,20 @@ int extract_command_string(char *input, int i)
 		else
 			i++;
 	}
-    if (input[i] == '|') // If we encounter a pipe
+    if (input[i + 1] == '|')
     {
-        i++; // Move past the pipe
-        while (input[i] && input[i] == ' ') // Skip spaces after the pipe
+        ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
+        return (-1);
+    }
+    if (input[i + 1] == ' ')
+    {
+        while (input[i] && input[i] == ' ')
             i++;
-        if (input[i] == '|') // If the next character is also a pipe
+        if (input[i] == '|')
         {
             ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
             return (-1);
         }
-    }
-   
-        
+    }    
     return (i);
 }

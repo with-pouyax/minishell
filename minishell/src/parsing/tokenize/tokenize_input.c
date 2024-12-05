@@ -106,13 +106,12 @@ int	handle_redirection_operator(t_shell_data *shell, char *op, t_command *cmd, i
 
 int	handle_pipe_operator(char *op, t_command *cmd)
 {
-	if (add_token(op, &cmd->token_list, &cmd->token_index, 1))
-	{
-		free(op);
-		return (1);
-	}
-	return (0);
+	(void)cmd;
+    // The pipe operator is a separator and should not be added as a token within a command.
+    free(op);
+    return (0);
 }
+
 
 int	handle_invalid_operator(t_shell_data *shell, char *op)
 {

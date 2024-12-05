@@ -1,0 +1,11 @@
+../:
+total 40
+drwxrwxr-x 5 pghajard pghajard 4096 Dec  5 09:18 .
+drwxr-xr-x 3 pghajard pghajard 4096 Dec  3 19:40 ..
+-rw-rw-r-- 1 pghajard pghajard 6148 Dec  3 19:40 .DS_Store
+drwxrwxr-x 8 pghajard pghajard 4096 Dec  5 15:31 .git
+-rw-rw-r-- 1 pghajard pghajard  439 Dec  3 19:40 .gitignore
+drwxrwxr-x 2 pghajard pghajard 4096 Dec  3 19:40 .vscode
+-rw-rw-r-- 1 pghajard pghajard 1076 Dec  3 19:40 LICENSE
+-rw-rw-r-- 1 pghajard pghajard 3041 Dec  3 19:40 README.md
+drwxrwxr-x 9 pghajard pghajard 4096 Dec  5 16:10 minishell
