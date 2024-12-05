@@ -1,0 +1,4 @@
+filedoesnotexist: No such file or directory
+cat: '|'head: cannot open '|' for readinggrep: |: No such file or directory
+: No such file or directory
+: No such file or directory
