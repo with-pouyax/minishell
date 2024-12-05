@@ -79,7 +79,8 @@ int	ft_cd(t_shell_data *shell, t_command *cmd)
 		{
 			if (chdir(path) != 0)
 			{
-				perror("minishell: cd");
+				ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+				perror(path);
 				shell->exit_status = 1;
 				return (1);
 			}
