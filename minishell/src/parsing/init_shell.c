@@ -54,5 +54,5 @@ void	init_shell(t_shell_data *shell)
     shell->in_single_quote = 0;
     shell->in_double_quote = 0;
     shell->prev_char = '\0';
-    shell->var_not_found_flag = 0; // Initialize the flag
+    shell->var_not_found_flag = 0;
 }

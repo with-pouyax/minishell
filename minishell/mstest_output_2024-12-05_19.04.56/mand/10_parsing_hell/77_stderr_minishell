@@ -1,1 +1,0 @@
-echo segfault | grep segfault: command not found
