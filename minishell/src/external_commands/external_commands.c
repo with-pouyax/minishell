@@ -90,9 +90,9 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 	if (exit_status == -1)
 	{
 		error_code = get_exec_error_code(errno);
-		free(argv); 
 		free(cmd_path);
 		write_error(argv[0], strerror(errno));
+		free(argv); 
 		shell->exit_status = error_code;
 	}
 }

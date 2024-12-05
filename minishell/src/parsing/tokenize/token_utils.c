@@ -12,7 +12,9 @@ void add_redirection(t_redirection **redirections, t_redirection *new_redir)
         while (current->next) // Loop through the redirections list until we reach the last redirection
             current = current->next; // Move to the next redirection
         current->next = new_redir; // Add the new redirection to the end of the list
-    }
+        new_redir->redir_number = current->redir_number + 1;
+
+	}
 }
 
 int starts_with_operator_char(char c)
@@ -114,7 +116,6 @@ void	skip_whitespace(char *input, int *i)
 t_redirection	*create_new_redirection(char *op)
 {
 	t_redirection	*new_redir;
-	static int		i = 0;
 
 	new_redir = malloc(sizeof(t_redirection));
 	if (!new_redir)
@@ -128,7 +129,7 @@ t_redirection	*create_new_redirection(char *op)
 		new_redir->type = REDIR_APPEND;
 	else if (!ft_strcmp(op, "<<"))
 		new_redir->type = REDIR_HEREDOC;
-	new_redir->redir_number = i++;
+	
 	return (new_redir);
 }
 
@@ -172,7 +173,7 @@ int	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
     t_redirection	*new_redir;
 
-	shell->filename_or_delimiter = NULL;
+    shell->filename_or_delimiter = NULL;
     if (prepare_redirection(cmd, &new_redir))
         return (1);
     skip_whitespace(input, i);

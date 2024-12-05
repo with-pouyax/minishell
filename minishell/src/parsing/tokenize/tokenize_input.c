@@ -51,21 +51,21 @@ int	handle_initial_pipe(char *input, int *i)
 	return (0);
 }
 
-char *collect_operator(t_shell_data *shell, int *i)
+char *collect_operator(t_command *cmd, int *i)
 {
     char *op;
     int start;
 
     start = *i;
-    if (is_operator_char(shell->input[*i]))
+    if (is_operator_char(cmd->command_string[*i]))
     {
         (*i)++;
         // Check for double-character operators like '<<' or '>>'
-        if ((shell->input[*i - 1] == '<' || shell->input[*i - 1] == '>') &&
-            shell->input[*i] == shell->input[*i - 1])
+        if ((cmd->command_string[*i - 1] == '<' || cmd->command_string[*i - 1] == '>') &&
+            cmd->command_string[*i] == cmd->command_string[*i - 1])
             (*i)++;
     }
-    op = ft_substr(shell->input, start, *i - start);
+    op = ft_substr(cmd->command_string, start, *i - start);
     return op;
 }
 
@@ -98,7 +98,7 @@ int process_operator(t_shell_data *shell, int *i, t_command *cmd)
 {
     char *op;
 
-    op = collect_operator(shell, i);
+    op = collect_operator(cmd, i);
     if (!op)
         return 1;
     if (is_valid_operator(op))
