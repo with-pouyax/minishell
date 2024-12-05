@@ -106,7 +106,7 @@ int process_operator(t_shell_data *shell, int *i, t_command *cmd)
         if (is_redirection_operator(op))
         {
             cmd->current_op = op; // Store op in t_command
-            if (handle_redirection(shell, shell->input, i, cmd))
+            if (handle_redirection(shell, cmd->command_string, i, cmd))
                 return 1;
         }
         else // It's a pipe '|'
