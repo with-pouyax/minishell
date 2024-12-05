@@ -1,2 +1,0 @@
-Non-interactive mode detected
-/home/pghajard/42_minishell_tester/tester.sh: line 633: 2039274 Segmentation fault      (core dumped) LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so ./minishell
