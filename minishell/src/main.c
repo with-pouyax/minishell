@@ -4,7 +4,7 @@
 The isatty function is used to check if a file descriptor refers to a terminal.
 first : Makes sure that the terminal is linked to the STDIN
 */
-// /bin/echo hi >./outfiles/outfile01 | /bin/echo bye
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell_data	shell;
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 	else
 		shell.interactive_mode = 1;
 	ft_bzero(&shell, sizeof(t_shell_data));
-	shell.envp = copy_envp(envp); // okey
+	shell.envp = copy_envp(envp);
 	if (!shell.envp)
 	{
 		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);

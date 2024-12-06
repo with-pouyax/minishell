@@ -27,7 +27,6 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     return (cmd);
 }
 
-
 int extract_command_string(char *input, int i)
 {
     while (input[i] && input[i] != '|') // Loop through the input string until we find a pipe

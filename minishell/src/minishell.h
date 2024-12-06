@@ -97,15 +97,16 @@ typedef struct s_shell_data
 	int						cmds_nb;
 	char					**envp;
 	int						exit_status;
-	char  *last_error_file;
+	char  					*last_error_file;
 	int						error_flag;
 	int						in_child_process; // Add this line
 	int						interactive_mode;
-	int in_single_quote;
-    int in_double_quote;
-    char prev_char;
-	int var_not_found_flag;
-	char			*filename_or_delimiter;
+	int 					in_single_quote;
+    int 					in_double_quote;
+    char					 prev_char;
+	int 					var_not_found_flag;
+	char					*filename_or_delimiter;
+	char    				*prev_dir;
 }				t_shell_data;
 
 #include"internal_cmd/internal_commands.h"
