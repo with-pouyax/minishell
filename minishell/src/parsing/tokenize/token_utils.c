@@ -37,36 +37,60 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 	}
 	return (0);
 }
-
-
-
-int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
-									t_redirection *new_redir)
+int	collect_and_expand_redirection_word(t_shell_data *shell, char *input,
+			int *i, char **expanded_word, char **original_word)
 {
-	if (collect_word(input, i, &shell->filename_or_delimiter, shell))                   //we collect the filename or delimiter for the redirection and store it in shell->filename_or_delimiter
+	char	*word;
+
+	word = NULL;
+	if (collect_word(input, i, &word, shell))
+		return (1);
+	if (!word || ft_strlen(word) == 0)
 	{
-		free(new_redir);
+		free(word);
 		return (1);
 	}
-	if (!shell->filename_or_delimiter || ft_strlen(shell->filename_or_delimiter) == 0) //we check that the filename is not empty
+	if (save_and_expand_word(shell, word, expanded_word, original_word))
 	{
-		// Free shell->filename_or_delimiter before returning
-		free(shell->filename_or_delimiter);
-		shell->filename_or_delimiter = NULL;
-		return (handle_missing_filename_error(shell, new_redir));
+		free(word);
+		return (1);
 	}
-	if (is_valid_operator(shell->filename_or_delimiter) ||
-		starts_with_operator_char(shell->filename_or_delimiter[0]))                    //we check that the filename is not an operator
-	{
-		// Free shell->filename_or_delimiter before returning
-		free(shell->filename_or_delimiter);
-		shell->filename_or_delimiter = NULL;
-		return (handle_unexpected_token_error(shell, new_redir, shell->filename_or_delimiter));
-	}
+	free(word);
 	return (0);
 }
 
+int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
+			t_redirection *redir)
+{
+	char	*expanded_word;
+	char	*original_word;
 
+	if (collect_and_expand_redirection_word(shell, input, i,
+			&expanded_word, &original_word))
+		return (handle_missing_filename_error(shell, redir));
+	if (!expanded_word || ft_strlen(expanded_word) == 0)
+	{
+		free(expanded_word);
+		free(original_word);
+		return (handle_missing_filename_error(shell, redir));
+	}
+	if (is_valid_operator(expanded_word) ||
+		starts_with_operator_char(expanded_word[0]))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `",
+			STDERR_FILENO);
+		ft_putstr_fd(expanded_word, STDERR_FILENO);
+		ft_putstr_fd("'\n", STDERR_FILENO);
+		free(expanded_word);
+		free(original_word);
+		shell->exit_status = 2;
+		return (1);
+	}
+	redir->filename = expanded_word;
+	shell->filename_or_delimiter = redir->filename;
+	free(original_word);
+	return (0);
+}
 
 int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir,
 								char *token)
