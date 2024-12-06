@@ -74,12 +74,6 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		perror("dup failed");
 		return ;
 	}
-	if (!cmds->token_list || !cmds->token_list->value)
-    {
-        shell->exit_status = 2; // Syntax error exit code
-        restore_org_in_out(saved_stdin, saved_stdout);
-        return;
-    }
 	set_redirection(shell, cmds->redirections);
 	if (shell->exit_status == EXIT_SUCCESS)
 	{
