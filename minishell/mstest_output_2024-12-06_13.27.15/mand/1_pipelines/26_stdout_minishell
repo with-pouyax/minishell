@@ -1,0 +1,13 @@
+total 20
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 ">"
+drwx------  2 mina mina  4096 Dec  6 13:27 .
+drwxrwxrwt 30 root root 16384 Dec  6 13:27 ..
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 "$H"OM"E"
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 $HOME
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 $notexists
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 "$USER"
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 '$USER'
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 "$USER'$USER'"
+-rw-rw-r--  1 mina mina     0 Dec  6 13:27 echo
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_1
