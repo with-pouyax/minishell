@@ -203,7 +203,6 @@ char	*get_variable_value(t_shell_data *shell, char *input, int *i, int *var_not_
 /* tokenize_input.c */
 void	tokenize_input(void);
 int		process_input_segment(t_shell_data *shell, int *i, int *cmd_index, t_command **last_cmd);
-int		extract_command_string(char *input, int i);
 
 /* tokenize_input_utils.c */
 int		tokenize_command(t_shell_data *shell, t_command *cmd);

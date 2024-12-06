@@ -47,10 +47,6 @@ static int	append_str_to_result(char **result, char *str)
 	return (0);
 }
 
-/*
-** Handle $? expansion: convert exit_status to string and append to result.
-** Returns 1 on error, 0 on success.
-*/
 static int	handle_exit_status(t_shell_data *shell, char **result)
 {
 	char	*exit_str;
@@ -63,11 +59,6 @@ static int	handle_exit_status(t_shell_data *shell, char **result)
 	return (0);
 }
 
-/*
-** Handle $VAR expansion: extract variable name, get its value, append to result.
-** i points to the character after '$' on entry.
-** Returns 1 on error, 0 on success.
-*/
 static int	handle_variable_expansion(t_shell_data *shell, char *input, int *i, char **result)
 {
 	char	*var_value;
@@ -77,38 +68,18 @@ static int	handle_variable_expansion(t_shell_data *shell, char *input, int *i, c
 	var_value = get_variable_value(shell, input, i, &var_not_found_flag);
 	if (!var_value)
 		return (1);
-	/* var_value will be "" if not found, so just append it (no error). */
 	if (append_str_to_result(result, var_value))
 		return (1);
 	return (0);
 }
 
-/*
-** Handle cases where $ is followed by a digit or invalid variable name:
-** We skip the invalid characters (if any), resulting in empty expansion.
-** Example: $9abc -> empty, just move i past '9abc'.
-** Returns 0 always since no error, just skip var chars.
-*/
-static void	skip_invalid_var_chars(char *input, int *i)
-{
-	int	var_len;
-
-	var_len = get_var_name_len(&input[*i]);
-	*i += var_len;
-	/* Empty expansion appended (no var), do nothing. */
-}
-
-/*
-** Handle $ expansions. If no valid variable follows, append literal '$' if needed.
-** Called only when we see '$' and we are not in single quotes.
-** Returns 1 on error, 0 on success.
-*/
 static int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result)
 {
-	(*i)++; /* Skip '$' */
+	(*i)++; // Skip the '$' character
+
 	if (input[*i] == '?')
 	{
-		(*i)++;
+		(*i)++; // Skip the '?' character
 		if (handle_exit_status(shell, result))
 			return (1);
 	}
@@ -118,62 +89,42 @@ static int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result
 			return (1);
 	}
 	else if (ft_isdigit((unsigned char)input[*i]))
-	{
-		skip_invalid_var_chars(input, i);
-		/* Expands to empty string: do nothing */
-	}
+		(*i)++;
 	else
 	{
-		/*
-		** No valid var name after '$'. Treat '$' as literal.
-		** We already advanced i by one, so '$' is consumed.
-		** Let's just append '$' literally if we want to represent it.
-		*/
-		{
-			//int tmp_i = 0;
-			char *temp = ft_strdup("$");
-			if (!temp)
-				return (1);
-			if (append_str_to_result(result, temp))
-				return (1);
-		}
+		char *temp = ft_strdup("$");
+		if (!temp)
+			return (1);
+		if (append_str_to_result(result, temp))
+			return (free(temp), 1);
 	}
 	return (0);
 }
 
-
-
 char	*expand_variables_in_token(t_shell_data *shell, char *input)
 {
-    char	*result;
-    int		i;
-    int		in_single_quote;
-    int		in_double_quote;
+	char	*result;
+	int		i;
+	int		in_single_quote;
+	int		in_double_quote;
 
-    if (initialize_expansion(&result, &in_single_quote, &in_double_quote))                                  //we intialize everything for the expansion of the variables in the token
-        return (NULL);
-    i = 0;
-    while (input[i])
-    {
-        if ((input[i] == '\'' && !in_double_quote) || (input[i] == '\"' && !in_single_quote))               //if we reach a single quote and we are not in a double quote or if we reach a double quote and we are not in a single quote
-            toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);                       //we reverse the quote flags and skip the character
-    else if (input[i] == '$' && !in_single_quote)
+	if (initialize_expansion(&result, &in_single_quote, &in_double_quote))
+		return (NULL);
+	i = 0;
+	while (input[i])
+	{
+		if ((input[i] == '\'' && !in_double_quote) ||
+			(input[i] == '\"' && !in_single_quote))
+			toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);
+		else if (input[i] == '$' && !in_single_quote)
 		{
-			/* Handle variable expansion */
 			if (handle_dollar(shell, input, &i, &result))
-			{
-				free(result);
-				return (NULL);
-			}
+				return (free(result), NULL);
 		}
 		else
 		{
-			/* Append literal character */
 			if (append_literal_char(input, &i, &result))
-			{
-				free(result);
-				return (NULL);
-			}
+				return (free(result), NULL);
 		}
 	}
 	return (result);
