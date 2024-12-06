@@ -1,4 +1,0 @@
-minishell: cd: too many arguments
-cat: '|'ls: cannot access '|': No such file or directory
-: No such file or directory
-/home/mina/42_minishell_tester/tester.sh: line 633: 1499711 Segmentation fault      (core dumped) LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so ./minishell

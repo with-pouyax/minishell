@@ -27,7 +27,6 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     return (cmd);
 }
 
-
 int extract_command_string(char *input, int i)
 {
     while (input[i] && input[i] != '|') // Loop through the input string until we find a pipe
@@ -37,15 +36,18 @@ int extract_command_string(char *input, int i)
 		else
 			i++;
 	}
-    if (input[i + 1] == '|')
+    if (input[i] == '|' && input[i + 1] == '|')
     {
         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
         return (-1);
     }
-    if (input[i + 1] == ' ')
+    if (input[i] && input[i + 1] == ' ')
     {
+        i++;
         while (input[i] && input[i] == ' ')
             i++;
+        // if(input[i] )
+        //     printf("*****%c\n", input[i]);
         if (input[i] == '|')
         {
             ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO);
