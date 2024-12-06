@@ -1,0 +1,13 @@
+total 16
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 "$H"OM"E"
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 "$USER"
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 "$USER'$USER'"
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 ">"
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 $HOME
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 $notexists
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 '$USER'
+drwx------  2 pghajard pghajard  4096 Dec  5 23:31 .
+drwxrwxrwt 24 root     root     12288 Dec  5 23:31 ..
+-rw-rw-r--  1 pghajard pghajard     0 Dec  5 23:30 echo
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_0
+Debug: Heredoc file deleted: /tmp/minishell_heredoc_1

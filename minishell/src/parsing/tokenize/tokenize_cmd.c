@@ -22,7 +22,7 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     cmd->is_recalled = 0;
     cmd->token_list = NULL;
     cmd->redirections = NULL;
-    cmd->token_index = 0; // Initialize token_index to 0
+    cmd->token_index = 0;
     cmd->next = NULL;
     return (cmd);
 }

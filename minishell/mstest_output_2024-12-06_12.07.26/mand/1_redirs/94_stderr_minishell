@@ -1,0 +1,1 @@
+/home/mina/42_minishell_tester/tester.sh: line 635: 2697547 Segmentation fault      (core dumped) LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so /home/mina/Desktop/new/minishell/minishell/minishell

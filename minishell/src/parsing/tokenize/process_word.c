@@ -11,10 +11,10 @@ int	initialize_word(char **word)
 // Determine if the loop should break
 int	should_break(const t_shell_data *shell, char c)
 {
-    if (!shell->in_single_quote && !shell->in_double_quote)
+    if (!shell->in_single_quote && !shell->in_double_quote)                      //if we are not in a single or double quote
     {
-        if (ft_isspace(c) || is_operator_char(c))
-            return (1);
+        if (ft_isspace(c) || is_operator_char(c))                                //if the character is a space or an operator
+            return (1);                                                          // return 1
     }
     return (0);
 }
@@ -69,11 +69,11 @@ int	finalize_word(char **word)
 // Process a single character, toggling quotes and adding to word
 int	process_character(t_shell_data *shell, char c, char **word)
 {
-    if ((c == '\'' && !shell->in_double_quote) || (c == '\"' && !shell->in_single_quote))
+    if ((c == '\'' && !shell->in_double_quote) || (c == '\"' && !shell->in_single_quote))     //if the character is a single not inside a double quote or a double quote not inside a single quote
     {
-        toggle_quotes(shell, c);
+        toggle_quotes(shell, c);                                                              //toggle the quotes, i.e. if we are in a single quote, we exit it and vice versa
     }
-    if (add_current_char(shell, c, word))
+    if (add_current_char(shell, c, word))                                                     //add the current character to the word
         return (1);
     return (0);
 }
@@ -83,23 +83,23 @@ int	collect_word(char *input, int *i, char **word, t_shell_data *shell)
 {
     int	ret;
 
-    if (!*word)
+    if (!*word)                                                           // If the word is NULL, initialize it
     {
-        if (initialize_word(word))
+        if (initialize_word(word))                                        // allocate memory for the word
             return (1);
     }
-    while (input[*i])
+    while (input[*i])                                                     // loop through the input string
     {
-        if (should_break(shell, input[*i]))
-            break;
-        ret = process_character(shell, input[*i], word);
+        if (should_break(shell, input[*i]))                               //if we are not in a single or double quote and the character is a space or an operator
+            break;                                                        // break the loop
+        ret = process_character(shell, input[*i], word);                  // process the character and store it in the word
         if (ret)
             return (1);
         (*i)++;
     }
-    if (handle_unclosed_quotes(shell, word))
+    if (handle_unclosed_quotes(shell, word))                               // we check the word for unclosed quotes and report syntax errors if any are found
         return (1);
-    return (finalize_word(word));
+    return (finalize_word(word));                                          // we check if the word is empty or not
 }
 
 
@@ -125,10 +125,10 @@ int	free_original_and_expanded_and_return(char *original_word, char *expanded_wo
 // Saves the original word and expands it
 int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, char **original_word)
 {
-    *original_word = ft_strdup(word);
+    *original_word = ft_strdup(word);                                      //first we allocate memory for the original word and store the word in it
     if (!*original_word)
         return (1);
-    *expanded_word = expand_variables_in_token(shell, word);
+    *expanded_word = expand_variables_in_token(shell, word);               //we expand the word
     if (!*expanded_word)
     {
         free(*original_word);
@@ -159,15 +159,15 @@ int	set_original_value(t_command *cmd, char *original_word)
 
 int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    char	*word = ft_strdup("");
+    char	*word = ft_strdup("");                                                           //first we allocate memory for the word
     char	*original_word;
     char	*expanded_word;
 
-    if (!word || collect_word(input, i, &word, shell))
+    if (!word || collect_word(input, i, &word, shell))                                     //we collect the word from the input string and store it in word
         return (free_word_and_return(word, 1));
     if (!word)
         return (0);
-    if (save_and_expand_word(shell, word, &expanded_word, &original_word))
+    if (save_and_expand_word(shell, word, &expanded_word, &original_word))                  //we save the original word and expand it
         return (free_word_and_return(word, 1));
     free(word);
     if (add_token_to_command(cmd, expanded_word))

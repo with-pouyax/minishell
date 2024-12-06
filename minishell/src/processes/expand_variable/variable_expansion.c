@@ -47,25 +47,7 @@ char	*get_literal_char(char *input, int *i)
 	return (str);
 }
 
-/*
-(*i)++;// Skip the $ character
-*result = ft_strjoin_free_both(*result, temp); 
-      // Join the result and the expanded variable and store the result in result
-*/
-int	process_variable_expansion(t_shell_data *shell, char *input, int *i,
-				char **result)
-{
-	char	*temp;
 
-	(*i)++;
-	temp = expand_variable_token(shell, input, i, &shell->var_not_found_flag);
-	if (!temp)
-		return (1);
-	*result = ft_strjoin_free_both(*result, temp);
-	if (!*result)
-		return (1);
-	return (0);
-}
 
 /*
  (literal characters are characters that are not $ characters and are not part
