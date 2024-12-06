@@ -3,7 +3,7 @@
 int	preprocess_input(t_shell_data *shell)
 {
 	shell->commands = NULL;
-	if (split_cmd_tokenize(shell) != 0)
+	if (split_cmd_tokenize(shell) != 0)								// if there are pipes, we split the commands separated by pipes
 		return 1;
 	if (!shell->commands)
 		return 1;

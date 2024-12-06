@@ -4,16 +4,15 @@ void add_redirection(t_redirection **redirections, t_redirection *new_redir)
 {
     t_redirection *current;
 
-    if (!*redirections) // If the redirections list is empty
-        *redirections = new_redir; // Set the redirections list to the new redirection
-    else // If the redirections list is not empty
+    if (!*redirections)                            // If the redirections list is empty
+        *redirections = new_redir;                 // Set the redirections list to the new redirection
+    else                                           // If the redirections list is not empty
     {
-        current = *redirections; // Set the current redirection to the first redirection in the list
-        while (current->next) // Loop through the redirections list until we reach the last redirection
-            current = current->next; // Move to the next redirection
-        current->next = new_redir; // Add the new redirection to the end of the list
-        new_redir->redir_number = current->redir_number + 1;
-
+        current = *redirections;                   // Set the current redirection to the first redirection in the list
+        while (current->next)                      // Loop through the redirections list until we reach the last redirection
+            current = current->next;               // Move to the next redirection
+        current->next = new_redir;                 // Add the new redirection to the end of the list
+        new_redir->redir_number = current->redir_number + 1; 
 	}
 }
 
@@ -28,8 +27,8 @@ int starts_with_operator_char(char c)
 int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 							char *filename_or_delimiter)
 {
-	new_redir->delimiter = filename_or_delimiter;
-	if (read_heredoc_content(shell, new_redir))
+	new_redir->delimiter = filename_or_delimiter;         					//we store the delimiter in the new redirection struct
+	if (read_heredoc_content(shell, new_redir))                             //we read the content of the heredoc redirection
 	{
 		// Free new_redir and its members if necessary
 		free(new_redir->delimiter);
@@ -44,12 +43,12 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
 									t_redirection *new_redir)
 {
-	if (collect_word(input, i, &shell->filename_or_delimiter, shell))
+	if (collect_word(input, i, &shell->filename_or_delimiter, shell))                   //we collect the filename or delimiter for the redirection and store it in shell->filename_or_delimiter
 	{
 		free(new_redir);
 		return (1);
 	}
-	if (!shell->filename_or_delimiter || ft_strlen(shell->filename_or_delimiter) == 0)
+	if (!shell->filename_or_delimiter || ft_strlen(shell->filename_or_delimiter) == 0) //we check that the filename is not empty
 	{
 		// Free shell->filename_or_delimiter before returning
 		free(shell->filename_or_delimiter);
@@ -57,7 +56,7 @@ int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
 		return (handle_missing_filename_error(shell, new_redir));
 	}
 	if (is_valid_operator(shell->filename_or_delimiter) ||
-		starts_with_operator_char(shell->filename_or_delimiter[0]))
+		starts_with_operator_char(shell->filename_or_delimiter[0]))                    //we check that the filename is not an operator
 	{
 		// Free shell->filename_or_delimiter before returning
 		free(shell->filename_or_delimiter);
@@ -135,14 +134,14 @@ t_redirection	*create_new_redirection(char *op)
 
 int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 {
-    if (new_redir->type == REDIR_HEREDOC)
+    if (new_redir->type == REDIR_HEREDOC)                                                    //if the redirection is a heredoc redirection
 	{
-		if (handle_heredoc_redirection(shell, new_redir, shell->filename_or_delimiter))
+		if (handle_heredoc_redirection(shell, new_redir, shell->filename_or_delimiter))      //we handle the heredoc redirection
 			return (1);
 	}
-	else
-		new_redir->filename = shell->filename_or_delimiter;
-	shell->filename_or_delimiter = NULL;
+	else                                                                                     //if the redirection is not a heredoc redirection
+		new_redir->filename = shell->filename_or_delimiter;                                  //we store the filename in the new redirection struct
+	shell->filename_or_delimiter = NULL;                                                     //we reset the filename_or_delimiter
 	return (0);
 }
 
@@ -157,33 +156,33 @@ int	check_operator_error(t_shell_data *shell, char unexpected_char, t_redirectio
 
 int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 {
-    char *op = cmd->current_op;
+    char *op = cmd->current_op;                     // we get the current operator from the command struct
 
     if (!op)
         return (1);
-    *new_redir = create_new_redirection(op);
-    free(op); // Free op after use
-    cmd->current_op = NULL; // Reset current_op after handling
-    return (!(*new_redir)); // Return 1 on allocation failure
+    *new_redir = create_new_redirection(op);        // we create a new redirection struct
+    free(op);
+    cmd->current_op = NULL;						    // Reset current_op 
+    return (!(*new_redir));                         // if we successfully created the redirection struct, we return 0, else 1
 }
 
 
 
 int	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    t_redirection	*new_redir;
+    t_redirection	*new_redir;                       				//first we create a new redirection struct
 
     shell->filename_or_delimiter = NULL;
-    if (prepare_redirection(cmd, &new_redir))
+    if (prepare_redirection(cmd, &new_redir))         				//we store the operator in the new redirection struct amd set also the type of redirection
         return (1);
-    skip_whitespace(input, i);
+    skip_whitespace(input, i);                         				//we skip the whitespaces after the operator in the input string
     if (check_operator_error(shell, input[*i], new_redir))
         return (1);
-    if (process_filename_or_delimiter(shell, input, i, new_redir))
+    if (process_filename_or_delimiter(shell, input, i, new_redir)) //we store the filename or delimiter for the redirection in shell->filename_or_delimiter
         return (1);
-    if (finalize_redirection(shell, new_redir))
+    if (finalize_redirection(shell, new_redir))                    // we check if the word we found is a filename or delimiter and we store it in proper field of the redirection struct
         return (1);
-    add_redirection(&(cmd->redirections), new_redir);
+    add_redirection(&(cmd->redirections), new_redir);              // we add the redirection to the list of redirections in the command struct
     return (0);
 }
 
