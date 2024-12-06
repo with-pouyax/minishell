@@ -57,7 +57,7 @@ int	process_variable_expansion(t_shell_data *shell, char *input, int *i,
 {
 	char	*temp;
 
-	(*i)++;
+	(*i)++; 
 	temp = expand_variable_token(shell, input, i, &shell->var_not_found_flag);
 	if (!temp)
 		return (1);

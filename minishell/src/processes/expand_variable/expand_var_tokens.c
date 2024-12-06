@@ -21,7 +21,7 @@ void toggle_quotes_and_skip(char current_char, int *in_single_quote, int *in_dou
 
 int handle_variable_expansion(t_shell_data *shell, char *input, int *i, char **result)
 {
-    if (process_variable_expansion(shell, input, i, result))
+    if (process_variable_expansion(shell, input, i, result))                             //we process the variable expansion
     {
         free(*result);
         return (1);
@@ -58,16 +58,16 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
     int		in_single_quote;
     int		in_double_quote;
 
-    if (initialize_expansion(&result, &in_single_quote, &in_double_quote))
+    if (initialize_expansion(&result, &in_single_quote, &in_double_quote))                                  //we intialize everything for the expansion of the variables in the token
         return (NULL);
     i = 0;
     while (input[i])
     {
-        if ((input[i] == '\'' && !in_double_quote) || (input[i] == '\"' && !in_single_quote))
-            toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);
-        else if (input[i] == '$' && !in_single_quote)
+        if ((input[i] == '\'' && !in_double_quote) || (input[i] == '\"' && !in_single_quote))               //if we reach a single quote and we are not in a double quote or if we reach a double quote and we are not in a single quote
+            toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);                       //we reverse the quote flags and skip the character
+        else if (input[i] == '$' && !in_single_quote)                                                       //if we reach a dollar sign and we are not in a single quote
         {
-            if (handle_variable_expansion(shell, input, &i, &result))
+            if (handle_variable_expansion(shell, input, &i, &result))                                       //we handle the variable expansion
                 return (NULL);
         }
         else
