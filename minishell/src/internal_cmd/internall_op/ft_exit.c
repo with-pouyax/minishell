@@ -36,8 +36,6 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
         } else {
             print_exit_error2("exit: %s: numeric argument required\n", token->value, &exit_status, 255);
         }
-    } else {
-        print_exit_error2("exit: : numeric argument required\n", NULL, &exit_status, 255);
     }
 	cleanup(shell);
 	rl_clear_history();
