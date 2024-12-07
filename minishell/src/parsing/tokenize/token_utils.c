@@ -68,6 +68,7 @@ int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
 	if (collect_and_expand_redirection_word(shell, input, i,
 			&expanded_word, &original_word))
 		return (handle_missing_filename_error(shell, redir));
+	printf("expanded_word: %s\n", expanded_word);
 	if (!expanded_word || ft_strlen(expanded_word) == 0)
 	{
 		free(expanded_word);
@@ -86,8 +87,7 @@ int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
 		shell->exit_status = 2;
 		return (1);
 	}
-	redir->filename = expanded_word;
-	shell->filename_or_delimiter = redir->filename;
+	shell->filename_or_delimiter = expanded_word;
 	free(original_word);
 	return (0);
 }
