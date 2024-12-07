@@ -45,7 +45,6 @@ int	ft_echo(t_shell_data *shell, t_command *cmd)
 
 	token = cmd->token_list->next;
 	newline = 1;
-	// while (token && ft_strcmp(token->value, "-n") == 0)
 	while (token && is_valid_n_flag(token->value))
 	{
 		newline = 0;
