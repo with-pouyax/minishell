@@ -2,17 +2,15 @@
 
 int handle_cd_minus(t_shell_data *shell)
 {
+    char *current_dir;
+
     if (shell->prev_dir == NULL)
     {
         ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
         shell->exit_status = 1;
         return (1);
     }
-
-    // Save the current directory before changing
-    char *current_dir = getcwd(NULL, 0);
-
-    // Change to the previous directory
+    current_dir = getcwd(NULL, 0);
     if (chdir(shell->prev_dir) != 0)
     {
         ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
@@ -20,17 +18,12 @@ int handle_cd_minus(t_shell_data *shell)
         shell->exit_status = 1;
         return (1);
     }
-
-    // Print the previous directory after changing
     printf("%s\n", shell->prev_dir);
-
-    // After switching, update prev_dir to the current directory
     if (current_dir)
     {
-        free(shell->prev_dir);  // Free any previous memory for prev_dir
-        shell->prev_dir = current_dir;  // Save the current directory as prev_dir for the next `cd -`
+        free(shell->prev_dir);
+        shell->prev_dir = current_dir;
     }
-
     shell->exit_status = 0;
     return (0);
 }
