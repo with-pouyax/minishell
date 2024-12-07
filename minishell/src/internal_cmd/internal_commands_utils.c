@@ -16,20 +16,25 @@ int	is_allowed_char(char c)
 /* Check if a string is numeric */
 int	is_numeric(const char *str)
 {
-	int	i;
+	long long num;
+	char *end_ptr;
 
-	i = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (str[i] == '\0' || !ft_isdigit(str[i]))
+	// Skip leading spaces
+	while (*str == ' ' || *str == '\t' || *str == '\n')
+		str++;
+
+	errno = 0; // Clear errno before calling strtoll
+	num = strtoll(str, &end_ptr, 10); // Convert to long long
+
+	// Skip trailing spaces
+	while (*end_ptr == ' ' || *end_ptr == '\t' || *end_ptr == '\n')
+		end_ptr++;
+
+	// Check for non-numeric characters, range errors, or unconverted characters
+	if (*end_ptr != '\0' || errno == ERANGE || num < LONG_MIN || num > LONG_MAX)
 		return (0);
-	while (str[i] && ft_isdigit(str[i]))
-		i++;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
-		i++;
-	return (str[i] == '\0');
+
+	return (1);
 }
 
 /* Validate identifier for export and unset */
