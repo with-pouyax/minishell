@@ -1,5 +1,54 @@
 #include "../minishell.h"
 
+#include <sys/stat.h>
+#include <stdio.h>
+#include "../minishell.h"
+
+// Join two strings and free the first one after joining
+char *join_path(const char *prefix, const char *suffix)
+{
+    char *result;
+    char *temp = ft_strjoin(prefix, "/");
+    if (!temp)
+        return (NULL);
+    result = ft_strjoin(temp, suffix);
+    free(temp);
+    return (result);
+}
+
+// Check if a path exists and is not a directory
+int is_valid_file(const char *path)
+{
+    struct stat st;
+    return (stat(path, &st) == 0 && !S_ISDIR(st.st_mode));
+}
+
+char *check_and_return_path(const char *cmd, char **all_paths)
+{
+    char *path_to_search;
+    char *final_path = NULL;
+    struct stat st;
+
+    while (*all_paths)
+    {
+        path_to_search = join_path(*all_paths++, cmd);
+        if (!path_to_search)
+            return (NULL);
+        if (access(path_to_search, F_OK) == 0 && is_valid_file(path_to_search))
+        {
+            final_path = ft_strdup(path_to_search);
+            free(path_to_search);
+            break;
+        }
+        if (stat(path_to_search, &st) == 0 && S_ISDIR(st.st_mode)) // Check if it's a directory
+        {
+            free(path_to_search);
+            break;
+        }
+        free(path_to_search);
+    }
+    return (final_path);
+}
 
 
 char	**get_paths_from_env(t_shell_data *shell, char **env)
