@@ -37,58 +37,69 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 	}
 	return (0);
 }
-int	collect_and_expand_redirection_word(t_shell_data *shell, char *input,
-			int *i, char **expanded_word, char **original_word)
+int collect_and_expand_redirection_word(t_shell_data *shell, char *input,
+                                        int *i, t_expanded_words *words)
 {
-	char	*word;
+    char *word;
 
-	word = NULL;
-	if (collect_word(input, i, &word, shell))
-		return (1);
-	if (!word || ft_strlen(word) == 0)
-	{
-		free(word);
-		return (1);
-	}
-	if (save_and_expand_word(shell, word, expanded_word, original_word))
-	{
-		free(word);
-		return (1);
-	}
-	free(word);
-	return (0);
+    word = NULL;
+    if (collect_word(input, i, &word, shell))
+        return (1);
+    if (!word || ft_strlen(word) == 0)
+    {
+        free(word);
+        return (1);
+    }
+    if (save_and_expand_word(shell, word, &(words->expanded), &(words->original)))
+    {
+        free(word);
+        return (1);
+    }
+    free(word);
+    return (0);
 }
 
-int	process_filename_or_delimiter(t_shell_data *shell, char *input, int *i,
-			t_redirection *redir)
+void	assign_redirection(t_shell_data *shell, char *expanded_word, char *original_word)
 {
-	char	*expanded_word;
-	char	*original_word;
+	shell->filename_or_delimiter = expanded_word;
+	free(original_word);
+}
 
-	if (collect_and_expand_redirection_word(shell, input, i,
-			&expanded_word, &original_word))
-		return (handle_missing_filename_error(shell, redir));
-	printf("expanded_word: %s\n", expanded_word);
-	if (!expanded_word || ft_strlen(expanded_word) == 0)
-	{
-		free(expanded_word);
-		free(original_word);
-		return (handle_missing_filename_error(shell, redir));
-	}
+int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
+{
 	if (is_valid_operator(expanded_word) ||
 		starts_with_operator_char(expanded_word[0]))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `",
-			STDERR_FILENO);
+					STDERR_FILENO);
 		ft_putstr_fd(expanded_word, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
-		free(expanded_word);
-		free(original_word);
 		shell->exit_status = 2;
 		return (1);
 	}
-	shell->filename_or_delimiter = expanded_word;
-	free(original_word);
+	return (0);
+}
+
+int	process_filename_or_delimiter(t_shell_data *shell, char *input,
+			int *i, t_redirection *redir)
+{
+	t_expanded_words	words;
+
+	if (collect_and_expand_redirection_word(shell, input, i, &words))
+		return (handle_missing_filename_error(shell, redir));
+	if (!words.expanded || ft_strlen(words.expanded) == 0)
+	{
+		free(words.expanded);
+		free(words.original);
+		return (1);
+	}
+	if (validate_expanded_word(shell, words.expanded))
+	{
+		free(words.expanded);
+		free(words.original);
+		return (1);
+	}
+	assign_redirection(shell, words.expanded, words.original);
 	return (0);
 }
 
