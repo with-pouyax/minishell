@@ -102,6 +102,7 @@ int ft_cd(t_shell_data *shell, t_command *cmd)
 {
     t_token *token;
     char *path;
+    char *current_dir;
 
 	token = cmd->token_list->next;
     if (!token)
@@ -120,7 +121,7 @@ int ft_cd(t_shell_data *shell, t_command *cmd)
 
     if (path[0] == '~')
         return (handle_tilde_path(shell, path));
-    char *current_dir = getcwd(NULL, 0);  
+    current_dir = getcwd(NULL, 0);  
     if (chdir(path) != 0)
     {
         ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
@@ -133,7 +134,6 @@ int ft_cd(t_shell_data *shell, t_command *cmd)
         free(shell->prev_dir);
         shell->prev_dir = current_dir;
     }
-
     shell->exit_status = 0;
     return (0);
 }

@@ -1,0 +1,11 @@
+total 20
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 ">"
+drwx------  2 mina mina  4096 Dec  7 11:49 .
+drwxrwxrwt 32 root root 16384 Dec  7 11:49 ..
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 "$H"OM"E"
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 $HOME
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 $notexists
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 "$USER"
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 '$USER'
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 "$USER'$USER'"
+-rw-rw-r--  1 mina mina     0 Dec  7 11:49 echo

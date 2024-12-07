@@ -25,7 +25,7 @@ static int	execute_command(t_shell_data *shell, t_command *cmd,
 		ret = ft_exit_shell(shell, cmd);
 	else
 	{
-		write_error(token->value, ": command not found\n");
+		write_error(token->value, ": No such file or directory\n");
 		shell->exit_status = 127;
 		return (-1);
 	}
