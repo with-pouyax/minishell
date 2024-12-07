@@ -1,23 +1,6 @@
 #include "../minishell.h"
 
-int	process_quoted_delimiter(char *input, int *i)
-{
-	char	quote;
 
-	quote = input[*i];
-	(*i)++;
-	while (input[*i] && input[*i] != quote)
-		(*i)++;
-	if (input[*i] == quote)
-		(*i)++;
-	else
-	{
-		ft_putstr_fd("minishell: syntax error: unclosed quote in "
-			"heredoc delimiter\n", STDERR_FILENO);
-		return (-1);
-	}
-	return (0);
-}
 
 void	skip_until_operator_or_space(char *input, int *i)
 {

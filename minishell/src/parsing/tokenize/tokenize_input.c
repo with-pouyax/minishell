@@ -69,29 +69,6 @@ char *collect_operator(t_command *cmd, int *i)
 }
 
 
-int	process_collected_operator(t_shell_data *shell, char *op, t_command *cmd, int *i)
-{
-	int	ret;
-
-	if (is_redirection_operator(op)) // if the operator is redirection operator
-	{
-		cmd->current_op = op; // set the current operator to the collected operator
-		
-		if (handle_redirection(shell, shell->input, i, cmd)) // handle redirection
-			return (1);
-		return (0);
-	}
-	ret = add_token(op, &cmd->token_list, &cmd->token_index, 1);
-	if (ret)
-	{
-		free(op);
-		return (1);
-	}
-	
-	process_operator_details(op, cmd, i, &cmd->token_index);
-	return (0);
-}
-
 
 //==================================================
 
@@ -149,21 +126,4 @@ int	process_operator(t_shell_data *shell, int *i, t_command *cmd)
 
 //==================================================
 
-void	process_operator_details(char *op, t_command *cmd, int *i, int *token_index)
-{
-	t_token	*last_token;
 
-	if (!is_valid_operator(op))
-		cmd->token_list->wrong_operator = 1;
-	last_token = cmd->token_list;
-	while (last_token->next)
-		last_token = last_token->next;
-	if (ft_strcmp(op, "<<") == 0)
-	{
-		last_token->is_heredoc = 1;
-		if (get_heredoc_delimiter(cmd->command_string, i, last_token))
-			cmd->token_list->wrong_operator = 1;
-	}
-	else
-		(*token_index)++;
-}
