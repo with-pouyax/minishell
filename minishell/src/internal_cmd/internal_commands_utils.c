@@ -14,28 +14,21 @@ int	is_allowed_char(char c)
 }
 
 /* Check if a string is numeric */
-int	is_numeric(const char *str)
-{
-	long long num;
-	char *end_ptr;
+// int	is_numeric(const char *str)
+// {
+// 	long long num;
+// 	char *end_ptr;
 
-	// Skip leading spaces
-	while (*str == ' ' || *str == '\t' || *str == '\n')
-		str++;
-
-	errno = 0; // Clear errno before calling strtoll
-	num = strtoll(str, &end_ptr, 10); // Convert to long long
-
-	// Skip trailing spaces
-	while (*end_ptr == ' ' || *end_ptr == '\t' || *end_ptr == '\n')
-		end_ptr++;
-
-	// Check for non-numeric characters, range errors, or unconverted characters
-	if (*end_ptr != '\0' || errno == ERANGE || num < LONG_MIN || num > LONG_MAX)
-		return (0);
-
-	return (1);
-}
+// 	while (*str == ' ' || *str == '\t' || *str == '\n')
+// 		str++;
+// 	errno = 0;
+// 	num = strtoll(str, &end_ptr, 10);
+// 	while (*end_ptr == ' ' || *end_ptr == '\t' || *end_ptr == '\n')
+// 		end_ptr++;
+// 	if (*end_ptr != '\0' || errno == ERANGE || num < LONG_MIN || num > LONG_MAX)
+// 		return (0);
+// 	return (1);
+// }
 
 /* Validate identifier for export and unset */
 int	is_valid_identifier(const char *str)
