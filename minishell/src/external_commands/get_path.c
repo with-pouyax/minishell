@@ -1,31 +1,6 @@
 #include "../minishell.h"
 
-char	*check_and_return_path(const char *cmd, char **all_paths)
-{
-	char	*temp;
-	char	*path_to_search;
-	char	*final_path;
 
-	final_path = NULL;
-	while (*all_paths)
-	{
-		temp = ft_strjoin(*all_paths++, "/");
-		if (!temp)
-			return (NULL);
-		path_to_search = ft_strjoin(temp, cmd);
-		free(temp);
-		if (!path_to_search)
-			return (NULL);
-		if (access(path_to_search, F_OK) == 0)
-		{
-			final_path = ft_strdup(path_to_search);
-			free(path_to_search);
-			break ;
-		}
-		free(path_to_search);
-	}
-	return (final_path);
-}
 
 char	**get_paths_from_env(t_shell_data *shell, char **env)
 {

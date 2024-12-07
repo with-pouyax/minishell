@@ -308,7 +308,8 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_toke
 void handle_heredoc(t_shell_data *shell, t_redirection *redir);
 void cleanup_heredocs(t_redirection *redir);
 void restore_org_in_out(int saved_stdin, int saved_stdout);
-
+char *join_path(const char *prefix, const char *suffix);
+int is_valid_file(const char *path);
 // handle_input.c
 
 void	handle_empty_input(t_shell_data *shell);
