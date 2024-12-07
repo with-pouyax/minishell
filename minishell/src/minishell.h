@@ -25,6 +25,11 @@
 
 extern volatile sig_atomic_t g_signal_status;
 
+typedef struct s_expanded_words {
+    char *expanded;
+    char *original;
+} t_expanded_words;
+
 typedef enum e_redirection_type {
     REDIR_INPUT,      // <
     REDIR_OUTPUT,     // >
