@@ -30,34 +30,37 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 	new_redir->delimiter = filename_or_delimiter;         					//we store the delimiter in the new redirection struct
 	if (read_heredoc_content(shell, new_redir))                             //we read the content of the heredoc redirection
 	{
-		// Free new_redir and its members if necessary
 		free(new_redir->delimiter);
 		free(new_redir);
 		return (1);
 	}
 	return (0);
 }
-int collect_and_expand_redirection_word(t_shell_data *shell, char *input,
-                                        int *i, t_expanded_words *words)
+
+int collect_and_expand_redirection_word(t_parse_context *ctx, t_expanded_words *words)
 {
     char *word;
 
     word = NULL;
-    if (collect_word(input, i, &word, shell))
+    if (collect_word(ctx->input, ctx->i, &word, ctx->shell))
         return (1);
     if (!word || ft_strlen(word) == 0)
+        return (free(word), 1);
+    if (ctx->redir->type != REDIR_HEREDOC)
     {
-        free(word);
-        return (1);
+        if (save_and_expand_word(ctx->shell, word, &(words->expanded), &(words->original)))
+            return (free(word),1);
     }
-    if (save_and_expand_word(shell, word, &(words->expanded), &(words->original)))
+    else
     {
-        free(word);
-        return (1);
+        words->expanded = ft_strdup(word);
+        words->original = ft_strdup(word);
+        if (!words->expanded || !words->original)
+            return (free(word),1);
     }
-    free(word);
-    return (0);
+    return (free(word),0);
 }
+
 
 void	assign_redirection(t_shell_data *shell, char *expanded_word, char *original_word)
 {
@@ -80,27 +83,33 @@ int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
 	return (0);
 }
 
-int	process_filename_or_delimiter(t_shell_data *shell, char *input,
-			int *i, t_redirection *redir)
-{
-	t_expanded_words	words;
 
-	if (collect_and_expand_redirection_word(shell, input, i, &words))
-		return (handle_missing_filename_error(shell, redir));
-	if (!words.expanded || ft_strlen(words.expanded) == 0)
-	{
-		free(words.expanded);
-		free(words.original);
-		return (1);
-	}
-	if (validate_expanded_word(shell, words.expanded))
-	{
-		free(words.expanded);
-		free(words.original);
-		return (1);
-	}
-	assign_redirection(shell, words.expanded, words.original);
-	return (0);
+int process_filename_or_delimiter(t_shell_data *shell, char *input,
+                                  int *i, t_redirection *redir)
+{
+    t_expanded_words    words;
+    t_parse_context     ctx;
+
+    ctx.shell = shell;
+    ctx.input = input;
+    ctx.i = i;
+    ctx.redir = redir;
+    if (collect_and_expand_redirection_word(&ctx, &words))
+        return (handle_missing_filename_error(shell, redir));
+    if (!words.expanded || ft_strlen(words.expanded) == 0)
+    {
+        free(words.expanded);
+        free(words.original);
+        return (1);
+    }
+    if (validate_expanded_word(shell, words.expanded))
+    {
+        free(words.expanded);
+        free(words.original);
+        return (1);
+    }
+    assign_redirection(shell, words.expanded, words.original);
+    return (0);
 }
 
 int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir,
@@ -203,21 +212,21 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 
 
 
-int	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
+int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    t_redirection	*new_redir;                       				//first we create a new redirection struct
+    t_redirection   *new_redir;
 
     shell->filename_or_delimiter = NULL;
-    if (prepare_redirection(cmd, &new_redir))         				//we store the operator in the new redirection struct amd set also the type of redirection
+    if (prepare_redirection(cmd, &new_redir))
         return (1);
-    skip_whitespace(input, i);                         				//we skip the whitespaces after the operator in the input string
+    skip_whitespace(input, i);
     if (check_operator_error(shell, input[*i], new_redir))
         return (1);
-    if (process_filename_or_delimiter(shell, input, i, new_redir)) //we store the filename or delimiter for the redirection in shell->filename_or_delimiter
+    if (process_filename_or_delimiter(shell, input, i, new_redir))
         return (1);
-    if (finalize_redirection(shell, new_redir))                    // we check if the word we found is a filename or delimiter and we store it in proper field of the redirection struct
+    if (finalize_redirection(shell, new_redir))
         return (1);
-    add_redirection(&(cmd->redirections), new_redir);              // we add the redirection to the list of redirections in the command struct
+    add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
 

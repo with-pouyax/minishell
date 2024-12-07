@@ -1,0 +1,6 @@
+total 20
+drwx------  2 pghajard pghajard  4096 Dec  7 22:53 .
+drwxrwxrwt 24 root     root     12288 Dec  7 22:53 ..
+-rw-rw-r--  1 pghajard pghajard     0 Dec  7 22:53 echo
+-rw-rw-r--  1 pghajard pghajard   227 Dec  7 22:53 out
+-rw-rw-r--  1 pghajard pghajard     0 Dec  7 22:53 out0
