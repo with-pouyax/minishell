@@ -38,7 +38,7 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
 	{
-		write_error(arr_token[0], "No such file or directory");
+		write_error(arr_token[0], "command not found");
 		shell->exit_status = 127;
 		free(arr_token);
 		return (NULL);

@@ -27,7 +27,7 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 	return (final_path);
 }
 
-char	**get_paths_from_env(char **env)
+char	**get_paths_from_env(t_shell_data *shell, char **env)
 {
 	int	i;
 	char	**all_paths;
@@ -38,8 +38,13 @@ char	**get_paths_from_env(char **env)
 	if (env[i])
 		all_paths = ft_split(env[i] + 5, ':');
 	else
-		return (NULL);
-	return (all_paths);
+		all_paths = NULL;
+    if (!all_paths)
+    {
+        free_paths(all_paths); // Ensure memory is freed if all_paths was allocated
+        all_paths = ft_split(shell->prev_dir, ':'); // Split prev_dir into paths
+    }
+    return (all_paths);
 }
 
 char	*find_path_in_env(t_shell_data *shell, char *cmd)
@@ -49,11 +54,11 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 	int	i;
 
 	i = 0;
-	all_paths = get_paths_from_env(shell->envp);
+	all_paths = get_paths_from_env(shell, shell->envp);
 	path = NULL;
 	if (!all_paths)
     {
-        write_error(cmd, "PATH not set");
+        // write_error(cmd, "PATH not set");
         return (NULL);
     }
 	while (all_paths && all_paths[i])

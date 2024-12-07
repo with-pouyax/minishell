@@ -259,7 +259,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds);
 
 char 	*get_command_path(t_shell_data *shell, t_token *token);
 char 	*find_path_in_env(t_shell_data *shell, char *cmd);
-char	**get_paths_from_env(char **env);
+char	**get_paths_from_env(t_shell_data *shell, char **env);
 char	*check_and_return_path(const char *cmd, char **all_paths);
 void 	store_pids(t_shell_data *shell, pid_t pid);
 void 	handle_exec_error(t_shell_data *shell, char *cmd, char *message, int exit_code);
