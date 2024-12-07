@@ -39,10 +39,7 @@ void	cleanup_heredocs(t_redirection *redir)
 		if (redir->type == REDIR_HEREDOC && redir->heredoc_file)
 		{
 			unlink(redir->heredoc_file);
-<<<<<<< HEAD
-=======
 			//printf("Debug: Heredoc file deleted: %s\n", redir->heredoc_file);
->>>>>>> 843fed8d63edd84342ae881ffe8a74e1380183d6
 		}
 		redir = redir->next;
 	}

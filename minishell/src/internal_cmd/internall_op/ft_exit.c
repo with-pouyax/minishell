@@ -6,6 +6,11 @@ void	print_exit_error(char *message, int *exit_status, int code)
 	*exit_status = code;
 }
 
+
+void print_exit_error2(char *format, char *arg, int *exit_status, int code) {
+    fprintf(stderr, format, arg); // Use fprintf to print directly to stderr
+    *exit_status = code;
+}
 /*
 token = cmd->token_list->next  -->  Skip the command token
 */
@@ -28,10 +33,12 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 				print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
 				return (1);
 			}
-		}
-		else
-			print_exit_error("exit:numeric arg required\n", &exit_status, 255);
-	}
+        } else {
+            print_exit_error2("exit: %s: numeric argument required\n", token->value, &exit_status, 255);
+        }
+    } else {
+        print_exit_error2("exit: : numeric argument required\n", NULL, &exit_status, 255);
+    }
 	cleanup(shell);
 	rl_clear_history();
 	exit(exit_status);
