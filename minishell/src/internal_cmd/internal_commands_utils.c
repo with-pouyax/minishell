@@ -19,17 +19,17 @@ int	is_numeric(const char *str)
 	int	i;
 
 	i = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	if (str[i] == '\0')
+	if (str[i] == '\0' || !ft_isdigit(str[i]))
 		return (0);
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
+	while (str[i] && ft_isdigit(str[i]))
 		i++;
-	}
-	return (1);
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+		i++;
+	return (str[i] == '\0');
 }
 
 /* Validate identifier for export and unset */
