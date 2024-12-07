@@ -34,6 +34,7 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 				char **arr_token)
 {
 	char	*cmd_path;
+	struct stat path_stat;
 
 	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
@@ -43,6 +44,14 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 		free(arr_token);
 		return (NULL);
 	}
+	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
+    {
+        write_error(cmd_path, "Is a directory");
+        shell->exit_status = 126; // Return 126 for directory errors
+        free(cmd_path);
+        free(arr_token);
+        return (NULL);
+    }
 	return (cmd_path);
 }
 
