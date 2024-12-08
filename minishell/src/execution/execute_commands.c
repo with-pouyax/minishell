@@ -79,10 +79,7 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	{
 		set_pipes(shell, cmds->redirections, index);
 		cleanup_heredocs(cmds->redirections);
-		if (cmds->token_list && cmds->token_list->is_int)
-			execute_internal_commands(shell, cmds);
-		else
-			execute_external_commands(shell, cmds);
+		forking(shell, cmds);
 	}
 	restore_org_in_out(saved_stdin, saved_stdout);
 }

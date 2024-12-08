@@ -28,7 +28,6 @@ int handle_cd_minus(t_shell_data *shell)
     return (0);
 }
 
-
 /*
 	expanded_path = ft_strdup(home);                // Path is just "~"
 	expanded_path = ft_strjoin(home, &path[1]);     // Path starts with "~/"
@@ -89,7 +88,6 @@ int	change_to_home(t_shell_data *shell)
 	token = cmd->token_list->next;         // Skip the command token
 	path = token->value;                   // Argument provided
 	if (chdir(path) != 0)                  // Regular path
-
 */
 int ft_cd(t_shell_data *shell, t_command *cmd)
 {
@@ -111,7 +109,6 @@ int ft_cd(t_shell_data *shell, t_command *cmd)
     path = token->value;
     if (strcmp(path, "-") == 0)
         return (handle_cd_minus(shell));
-
     if (path[0] == '~')
         return (handle_tilde_path(shell, path));
     current_dir = getcwd(NULL, 0);  

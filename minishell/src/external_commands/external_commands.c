@@ -136,3 +136,11 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	free(cmd_path);
 	free(arr_token);
 }
+
+void	forking(t_shell_data *shell, t_command *cmds)
+{
+	if (cmds->token_list && cmds->token_list->is_int)
+		execute_internal_commands(shell, cmds);
+	else
+		execute_external_commands(shell, cmds);
+}

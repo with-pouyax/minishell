@@ -1,10 +1,49 @@
 #include "internal_commands.h"
 
+int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
+{
+    pid_t pid;
+
+    pid = fork();
+    if (pid < 0)
+    {
+        write_error("Fork failed", strerror(errno));
+        return (-1);
+    }
+    else if (pid == 0)
+    {
+        if (execute_command(shell, cmds, token, 0) == -1)
+            exit(127);
+        exit(shell->exit_status);
+    }
+    else
+        store_pids(shell, pid);
+    return (0);
+}
+
+
+int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
+{
+    if (!shell || !cmds || !token)
+        return (-1);
+    return execute_command(shell, cmds, token, 0);
+}
+
+
+int is_parent_command(const char *cmd)
+{
+    return (ft_strcmp(cmd, "cd") == 0 ||
+            ft_strcmp(cmd, "exit") == 0 ||
+            ft_strcmp(cmd, "export") == 0 ||
+            ft_strcmp(cmd, "unset") == 0);
+}
+
+
 /*
 shell->exit_status = ret
 ----> Set global exit status based on command return value
 */
-static int	execute_command(t_shell_data *shell, t_command *cmd,
+int	execute_command(t_shell_data *shell, t_command *cmd,
 				t_token *token, int ret)
 {
 	if (!shell || !cmd || !token)
@@ -29,7 +68,6 @@ static int	execute_command(t_shell_data *shell, t_command *cmd,
 		shell->exit_status = 127;
 		return (-1);
 	}
-	// printf("DEBUG: Command %s returned %d\n", token->value, ret);
 	shell->exit_status = ret;
 	return (ret);
 }
@@ -37,7 +75,6 @@ static int	execute_command(t_shell_data *shell, t_command *cmd,
 int execute_internal_commands(t_shell_data *shell, t_command *cmds)
 {
     t_token *token;
-	int		ret;
 
     if (!cmds || !cmds->token_list)
     {
@@ -46,15 +83,20 @@ int execute_internal_commands(t_shell_data *shell, t_command *cmds)
     token = cmds->token_list;
     while (token)
     {
-        if (token->is_command && token->is_int)
+        if (token->is_command)
         {
-            ret = execute_command(shell, cmds, token, 0);
-            if (ret == -1)
-				return (-1);
+			if (is_parent_command(token->value))
+            {
+                if (execute_parent_command(shell, cmds, token) == -1)
+                    return (-1);
+            }
+			else
+            {
+				if (fork_and_execute(shell, cmds, token) == -1)
+                    return (-1);
+            }
         }
-        // if (token->is_end)
-        //     break;
         token = token->next;
     }
-    return (0);
+    return 0;
 }

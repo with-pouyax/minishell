@@ -30,5 +30,8 @@ void	print_and_free_env(char **sorted_envp);
 void	add_to_env(t_shell_data *shell, const char *str);
 void	remove_from_env(t_shell_data *shell, const char *name);
 void	print_sorted_env(t_shell_data *shell);
-
+int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
+int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token);
+int is_parent_command(const char *cmd);
+int	execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret);
 #endif
