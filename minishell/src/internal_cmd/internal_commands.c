@@ -32,10 +32,10 @@ int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
 
 int is_parent_command(const char *cmd)
 {
-    return (ft_strcmp(cmd, "cd") == 0 ||
-            ft_strcmp(cmd, "exit") == 0 ||
-            ft_strcmp(cmd, "export") == 0 ||
-            ft_strcmp(cmd, "unset") == 0);
+    return (ft_strcmp(cmd, "cd") == 0
+            || ft_strcmp(cmd, "exit") == 0
+            || ft_strcmp(cmd, "export") == 0
+            || ft_strcmp(cmd, "unset") == 0);
 }
 
 

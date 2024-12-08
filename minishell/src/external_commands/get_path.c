@@ -26,9 +26,10 @@ int is_valid_file(const char *path)
 char *check_and_return_path(const char *cmd, char **all_paths)
 {
     char *path_to_search;
-    char *final_path = NULL;
+    char *final_path;
     struct stat st;
 
+    final_path = NULL;
     while (*all_paths)
     {
         path_to_search = join_path(*all_paths++, cmd);
@@ -45,7 +46,8 @@ char *check_and_return_path(const char *cmd, char **all_paths)
             free(path_to_search);
             break;
         }
-        free(path_to_search);
+        else
+            free(path_to_search);
     }
     return (final_path);
 }

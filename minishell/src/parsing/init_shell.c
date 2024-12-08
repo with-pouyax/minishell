@@ -61,4 +61,6 @@ void	init_shell(t_shell_data *shell)
 		perror("getcwd");
 		exit(EXIT_FAILURE);
 	}
+	else
+		free(shell->prev_dir);
 }
