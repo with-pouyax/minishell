@@ -16,7 +16,7 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd);
 
 /* Helper Functions */
 int	is_numeric(const char *str);
-int	is_valid_identifier(const char *str);
+int is_valid_identifier(const char *str, int allow_equals);
 int	is_internal_command(char *token);
 int	handle_chdir_error(t_shell_data *shell, char *expanded_path);
 int	handle_memory_error(t_shell_data *shell);

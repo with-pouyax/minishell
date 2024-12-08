@@ -14,21 +14,31 @@ int	is_allowed_char(char c)
 }
 
 /* Validate identifier for export and unset */
-int	is_valid_identifier(const char *str)
-{
-	int	i;
+int is_valid_identifier(const char *str, int allow_equals) {
+    int i = 0;
 
-	i = 0;
-    if (!ft_isalpha(str[i]) && str[i] != '_')
-        return (0);
-    while (str[i] && str[i] != '=')
-    {
-        if (!ft_isalnum(str[i]) && str[i] != '_')
-            return (0);
+    // Check if the first character is valid (a-z, A-Z, or _)
+    if (!str || (!ft_isalpha(str[i]) && str[i] != '_'))
+        return 0;
+
+    // Validate the rest of the string
+    while (str[i]) {
+        if (!ft_isalnum(str[i]) && str[i] != '_') {
+            // Allow '=' only if `allow_equals` is set
+            if (allow_equals && str[i] == '=')
+                return 1; // It's valid up to '=' for export
+            return 0; // Invalid for unset or other cases
+        }
         i++;
     }
-    return (1);
+
+    // If '=' is not allowed, reject strings that contain it
+    if (!allow_equals && ft_strchr(str, '='))
+        return 0;
+
+    return 1;
 }
+
 /*
 - Extract key from `str` up to the '=' character
 - Check if the key already exists in the environment variables

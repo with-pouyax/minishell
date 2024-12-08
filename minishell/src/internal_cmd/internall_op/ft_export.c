@@ -13,7 +13,7 @@ int	ft_export(t_shell_data *shell, t_command *cmd)
 	}
 	while (token)
 	{
-		if (is_valid_identifier(token->value))
+		if (is_valid_identifier(token->value, 1))
 			add_to_env(shell, token->value);
 		else
 		{

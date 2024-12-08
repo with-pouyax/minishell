@@ -7,7 +7,7 @@ int ft_unset(t_shell_data *shell, t_command *cmd)
     token = cmd->token_list->next;
     while (token)
     {
-        if (is_valid_identifier(token->value))
+        if (is_valid_identifier(token->value, 0))
         {
             remove_from_env(shell, token->value);
         }
