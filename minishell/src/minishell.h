@@ -24,6 +24,7 @@
 
 extern volatile sig_atomic_t g_signal_status;
 
+
 typedef struct s_expanded_words {
     char *expanded;
     char *original;
@@ -112,6 +113,15 @@ typedef struct s_shell_data
 	char					*filename_or_delimiter;
 	char    				*prev_dir;
 }				t_shell_data;
+
+typedef struct s_parse_context
+{
+    t_shell_data    *shell;
+    char            *input;
+    int             *i;
+    t_redirection   *redir;
+}                   t_parse_context;
+
 
 #include"internal_cmd/internal_commands.h"
 
@@ -358,4 +368,7 @@ int handle_heredoc_redirection(
 
 // int	create_directory_path(const char *dir_path);
 
+
+int initialize_expansion(char **result, int *in_single_quote, int *in_double_quote);
+int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
 #endif

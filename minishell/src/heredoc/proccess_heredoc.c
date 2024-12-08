@@ -1,5 +1,8 @@
 #include "../minishell.h"
 
+
+
+
 int handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd)
 {
     if (ft_strcmp(line, redir->delimiter) == 0)
