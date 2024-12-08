@@ -368,4 +368,7 @@ int handle_heredoc_redirection(
 
 // int	create_directory_path(const char *dir_path);
 
+
+int initialize_expansion(char **result, int *in_single_quote, int *in_double_quote);
+int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
 #endif

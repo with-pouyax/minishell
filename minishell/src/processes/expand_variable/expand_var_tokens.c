@@ -73,7 +73,7 @@ static int	handle_variable_expansion(t_shell_data *shell, char *input, int *i, c
 	return (0);
 }
 
-static int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result)
+int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result)
 {
 	(*i)++; // Skip the '$' character
 

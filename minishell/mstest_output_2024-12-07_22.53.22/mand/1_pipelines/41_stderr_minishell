@@ -1,2 +1,0 @@
-cat: Makefile: No such file or directory
-/home/pghajard/42_minishell_tester/tester.sh: line 635: 250629 Segmentation fault      (core dumped) LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so /home/pghajard/Desktop/minishell/minishell/minishell
