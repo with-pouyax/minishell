@@ -19,7 +19,6 @@
 
 
 
-
 # define PROMPT "\001\033[0;32m\002minishell> \001\033[0m\002"
 # define MAX_INPUT_LENGTH 4096
 
@@ -274,7 +273,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds);
 
 char 	*get_command_path(t_shell_data *shell, t_token *token);
 char 	*find_path_in_env(t_shell_data *shell, char *cmd);
-char	**get_paths_from_env(char **env);
+char	**get_paths_from_env(t_shell_data *shell, char **env);
 char	*check_and_return_path(const char *cmd, char **all_paths);
 void 	store_pids(t_shell_data *shell, pid_t pid);
 void 	handle_exec_error(t_shell_data *shell, char *cmd, char *message, int exit_code);
@@ -288,8 +287,8 @@ int 	token_list_length(t_token *token);
 void 	close_all_pipes(int **pipes, int nb_cmds);
 void 	close_pipes_after_execution(t_shell_data *shell, int cmds_index);
 void 	free_pipes(int **pipes, int nb_cmds);
-void free_paths(char **paths);
-
+void 	free_paths(char **paths);
+void	forking(t_shell_data *shell, t_command *cmds);
 void    append_end_token(t_shell_data *shell);
 
 
@@ -319,7 +318,8 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds, char **arr_toke
 void handle_heredoc(t_shell_data *shell, t_redirection *redir);
 void cleanup_heredocs(t_redirection *redir);
 void restore_org_in_out(int saved_stdin, int saved_stdout);
-
+char *join_path(const char *prefix, const char *suffix);
+int is_valid_file(const char *path);
 // handle_input.c
 
 void	handle_empty_input(t_shell_data *shell);

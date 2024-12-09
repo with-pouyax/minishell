@@ -16,7 +16,7 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd);
 
 /* Helper Functions */
 int	is_numeric(const char *str);
-int	is_valid_identifier(const char *str);
+int is_valid_identifier(const char *str, int allow_equals);
 int	is_internal_command(char *token);
 int	handle_chdir_error(t_shell_data *shell, char *expanded_path);
 int	handle_memory_error(t_shell_data *shell);
@@ -30,5 +30,8 @@ void	print_and_free_env(char **sorted_envp);
 void	add_to_env(t_shell_data *shell, const char *str);
 void	remove_from_env(t_shell_data *shell, const char *name);
 void	print_sorted_env(t_shell_data *shell);
-
+int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
+int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token);
+int is_parent_command(const char *cmd);
+int	execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret);
 #endif

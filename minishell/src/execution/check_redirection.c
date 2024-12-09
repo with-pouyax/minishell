@@ -2,7 +2,9 @@
 
 void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
-	if (!has_redirs(redir, REDIR_INPUT) && cmds_index != 0)
+	if (has_redirs(redir, REDIR_INPUT))
+        return ;
+	if (cmds_index != 0)
 	{
 		if (dup2(shell->pipes[cmds_index - 1][0], STDIN_FILENO) == -1)
 		{
@@ -16,6 +18,8 @@ void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	(void)redir;
+	if (has_redirs(redir, REDIR_OUTPUT) || has_redirs(redir, REDIR_APPEND))
+		return ;
 	if (cmds_index != shell->cmds_nb - 1)
 	{
 		if (dup2(shell->pipes[cmds_index][1], STDOUT_FILENO) == -1)
@@ -81,5 +85,4 @@ void	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	check_input(shell, redir, cmds_index);
 	check_output(shell, redir, cmds_index);
-	// shell->exit_status = EXIT_SUCCESS;
 }
