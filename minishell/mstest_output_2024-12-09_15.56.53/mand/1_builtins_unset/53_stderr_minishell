@@ -1,0 +1,1 @@
+minishell: unset: `/bin:/usr/bin:/usr/sbin:/home/mhoushma/.local/funcheck/host:/home/mhoushma/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/share/rust/cargo/bin': not a valid identifier
