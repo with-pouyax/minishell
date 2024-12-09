@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-volatile sig_atomic_t	g_signal_status = 0;
+t_signal g_signal = {0, 0};
 
 void	sigint_handler(int sig)
 {
@@ -9,7 +9,7 @@ void	sigint_handler(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_signal_status = 1;
+	g_signal.signal_status = 1;
 }
 
 void	sigquit_handler(int sig)

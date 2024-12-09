@@ -115,7 +115,7 @@ void	handle_empty_input(t_shell_data *shell)
 {
 	free(shell->input);
 	shell->input = NULL;
-	g_signal_status = 0;
+	g_signal.signal_status = 0;
 }
 
 int	handle_input(t_shell_data *shell)
@@ -136,7 +136,7 @@ int	handle_input(t_shell_data *shell)
 				handle_empty_input(shell);
 			else
 			{
-				g_signal_status = 0;
+				g_signal.signal_status = 0;
 				if (!validate_input_length(shell))
 				{
 					if (!allocate_resources(shell))

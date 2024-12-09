@@ -22,7 +22,12 @@
 # define PROMPT "\001\033[0;32m\002minishell> \001\033[0m\002"
 # define MAX_INPUT_LENGTH 4096
 
-extern volatile sig_atomic_t g_signal_status;
+typedef struct s_signal {
+    volatile sig_atomic_t signal_status;
+    int rl_done;
+} t_signal;
+
+extern t_signal g_signal;
 
 
 typedef struct s_expanded_words {
