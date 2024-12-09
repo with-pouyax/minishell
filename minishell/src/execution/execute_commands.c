@@ -34,6 +34,7 @@ int	open_all_files(t_shell_data *shell, t_redirection *redir)
 		if (fd_input == -1 || fd_output == -1)
 		{
 			write_error(shell->last_error_file, strerror(shell->exit_status));
+			shell->exit_status = 1;
 			return (EXIT_FAILURE);
 		}
 		else
