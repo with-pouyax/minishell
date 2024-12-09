@@ -26,6 +26,8 @@ int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
 {
     if (!shell || !cmds || !token)
         return (-1);
+    if(shell->cmds_nb > 1)
+        return (1);
     return execute_command(shell, cmds, token, 0);
 }
 
