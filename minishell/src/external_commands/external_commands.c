@@ -94,6 +94,7 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 	int	error_code;
 	int	exit_status;
 
+	signal(SIGINT, SIG_DFL);
 	close_all_pipes(shell->pipes, shell->cmds_nb);
 	exit_status = execve(cmd_path, argv, shell->envp);
 	if (exit_status == -1)

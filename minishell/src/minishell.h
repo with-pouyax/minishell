@@ -250,6 +250,7 @@ int 	check_leading_pipe(char *input);
 void	setup_signal_handlers(void);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
+void	catch_sigquit(int signum);
 
 // execution
 
