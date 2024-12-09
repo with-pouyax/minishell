@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	setup_signal_handlers();
 	handle_input(&shell);
 	cleanup(&shell);
-	return (0);
+	return (shell.exit_status);
 }
 
 
