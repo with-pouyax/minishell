@@ -44,10 +44,18 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 		free(arr_token);
 		return (NULL);
 	}
+	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
+    {
+        write_error(cmd_path, "command not found");
+        shell->exit_status = 127;
+        free(cmd_path);
+        free(arr_token);
+        return (NULL);
+    }
 	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
     {
         write_error(cmd_path, "Is a directory");
-        shell->exit_status = 126; // Return 126 for directory errors
+        shell->exit_status = 126;
         free(cmd_path);
         free(arr_token);
         return (NULL);
