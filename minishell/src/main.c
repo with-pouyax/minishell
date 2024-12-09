@@ -11,6 +11,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	if (argc > 1) // Check if there are extra arguments
+	{
+		ft_putstr_fd("Error: This program does not accept arguments\n", STDERR_FILENO);
+		return (EXIT_FAILURE);
+	}
 	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
 		shell.interactive_mode = 0;
 	else
