@@ -2,6 +2,11 @@
 
 int handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, int fd)
 {
+    if (g_signal.signal_status)
+    {
+        free(line);
+        return (1);
+    }
     if (ft_strcmp(line, redir->delimiter) == 0)
     {
         free(line);
@@ -38,11 +43,15 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
     fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
     if (fd < 0)
         return (heredoc_open_error(tmp_filename));
+    setup_signal_handlers(1);
     while (1)
     {
         line = readline("> ");
         if (!line || handle_heredoc_line(shell, line, redir, fd))
+        {
+            setup_signal_handlers(1);
             break;
+        }
     }
     close(fd);
     redir->heredoc_file = tmp_filename; // Store the filename in redirection

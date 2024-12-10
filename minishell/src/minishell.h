@@ -252,7 +252,7 @@ int		check_trailing_pipe(char *input);
 int 	check_leading_pipe(char *input);
 // signal handler
 
-void	setup_signal_handlers(void);
+void	setup_signal_handlers(int type);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 
@@ -310,7 +310,6 @@ void	handle_syntax_error(t_shell_data *shell, t_token *token);
 int		validate_tokens_in_command(t_shell_data *shell, t_command *cmd);
 //signal handling
 void	handle_ctrl_d(t_shell_data *shell);
-void	setup_signal_handlers(void);
 void	sigquit_handler(int	sig);
 void	sigint_handler(int sig);
 
