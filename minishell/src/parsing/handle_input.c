@@ -110,6 +110,7 @@ int	validate_input_length(t_shell_data *shell)
 	}
 	return (0);
 }
+//----------------------------------------------------------
 
 void	handle_empty_input(t_shell_data *shell)
 {
@@ -118,39 +119,57 @@ void	handle_empty_input(t_shell_data *shell)
 	g_signal.signal_status = 0;
 }
 
-int	handle_input(t_shell_data *shell)
+int	is_input_empty(t_shell_data *shell)
 {
-	int	running;
+	return (shell->input == NULL || shell->input[0] == '\0');
+}
 
-	running = 1;
-	while (running)
+
+int handle_user_input(t_shell_data *shell)
+{
+	if (is_input_empty(shell))
 	{
-		if (read_input(shell) == -1)  // Assuming read_input returns -1 on error
+		handle_empty_input(shell);
+	}
+	else
+	{
+		g_signal.signal_status = 0;
+		if (!validate_input_length(shell))
 		{
-			ft_putstr_fd("Error: Failed to read input\n", STDERR_FILENO);
-			running = 0;  // Exit the loop on error
-		}
-		else
-		{
-			if (shell->input == NULL || shell->input[0] == '\0')
-				handle_empty_input(shell);
-			else
+			if (!allocate_resources(shell))
 			{
-				g_signal.signal_status = 0;
-				if (!validate_input_length(shell))
+				add_to_history_if_needed(shell);
+				if (!check_and_handle_syntax_errors(shell))
 				{
-					if (!allocate_resources(shell))
-					{
-						add_to_history_if_needed(shell);
-						if (!check_and_handle_syntax_errors(shell))
-							if(process_and_execute_commands(shell) != 0)
-								return 1;
-					}
+					if (process_and_execute_commands(shell) != 0)
+						return (0); // Optionally handle execution error
 				}
 			}
 		}
 	}
+	return (1); // Continue running
+}
+
+int	handle_read_error(void)
+{
+	ft_putstr_fd("Error: Failed to read input\n", STDERR_FILENO);
+	return (0); // Stop running
+}
+
+int	handle_input(t_shell_data *shell)
+{
+	int	running;
+	int	status;
+
+	running = 1;
+	while (running)
+	{
+		status = read_input(shell);
+		if (status == -1)
+			running = handle_read_error();
+		else
+			running = handle_user_input(shell);
+	}
 	rl_clear_history();
 	return (0);
 }
-
