@@ -8,7 +8,6 @@ void	sigint_hd_handler(int sig)
 {
 	(void)sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	//rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	g_signal.signal_status = 1;

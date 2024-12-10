@@ -8,7 +8,7 @@ int tokenize_command(t_shell_data *shell, t_command *cmd)
     while (cmd->command_string[i])                                           //we loop through the characters of the command
     {
         skip_cmd_spaces(cmd->command_string, &i);                           
-        if (cmd->command_string[i])                                          //if there is there is a character there
+        if (cmd->command_string[i])                                          //if there is a character there
         {
             if (is_operator_char(cmd->command_string[i]))                    //if the character is an operator('|', '<', '>')
             {

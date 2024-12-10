@@ -29,7 +29,7 @@ int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
 
     start = *i;
     (void)start;
-    *i = extract_command_string(shell->input, *i);                   //here we find the command in the input string separated by pipes
+    *i = extract_command_string(shell->input, *i);                   //here we find the command in the input string separated by pipes [x]
     if (*i == -1)                                                
         return (shell->error_flag = 1, 1);
     cmd_str = ft_substr(shell->input, start, *i - start);           //we put the command, we found in the input, in cmd_str
@@ -40,7 +40,7 @@ int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
     if (!cmd || tokenize_command(shell, cmd))                      // we tokenize the command we found
         return (handle_command_creation_error(shell, cmd_str, cmd));
     add_command_to_list(shell, last_cmd, cmd);                     //we store the list of commands
-    if (shell->input[*i] == '|')                                   //if the next character aftr the command we just created is a pipe, we increment i
+    if (shell->input[*i] == '|')                                   //if the next character after the command we just created is a pipe, we increment i
         (*i)++;
     return (0);
 }
