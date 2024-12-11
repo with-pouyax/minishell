@@ -26,9 +26,10 @@ int is_valid_file(const char *path)
 char *check_and_return_path(const char *cmd, char **all_paths)
 {
     char *path_to_search;
-    char *final_path = NULL;
+    char *final_path;
     struct stat st;
 
+    final_path = NULL;
     while (*all_paths)
     {
         path_to_search = join_path(*all_paths++, cmd);
@@ -57,17 +58,13 @@ char	**get_paths_from_env(t_shell_data *shell, char **env)
 	char	**all_paths;
 
 	i = 0;
+    all_paths = NULL;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
 		i++;
 	if (env[i])
 		all_paths = ft_split(env[i] + 5, ':');
-	else
-		all_paths = NULL;
-    if (!all_paths)
-    {
-        free_paths(all_paths); // Ensure memory is freed if all_paths was allocated
-        all_paths = ft_split(shell->prev_dir, ':'); // Split prev_dir into paths
-    }
+    else if (shell->prev_dir)
+        all_paths = ft_split(shell->prev_dir, ':');
     return (all_paths);
 }
 
