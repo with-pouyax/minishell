@@ -124,9 +124,10 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 	if (exit_status == -1)
 	{
 		error_code = get_exec_error_code(errno);
-		write_error(argv[0], strerror(errno));
 		free(cmd_path);
-		free_argv(argv, token_list_length(shell->commands->token_list));
+		write_error(argv[0], strerror(errno));
+		free(argv);
+		argv = NULL;
 		shell->exit_status = error_code;
 	}
 }
@@ -142,27 +143,24 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 		return ;
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
-	{
-		free_argv(arr_token, token_list_length(cmds->token_list));
 		return ;
-	}
 	pid = fork();
 	if (pid < 0)
 	{
 		write_error("Fork failed", strerror(errno));
 		free(cmd_path);
-		free_argv(arr_token, token_list_length(cmds->token_list));
+		free(arr_token);
 		return ;
 	}
 	else if (pid == 0)
 	{
 		exec_external_child(shell, cmd_path, arr_token);
-		// exit(shell->exit_status);
+		exit(shell->exit_status);
 	}
 	else
 		store_pids(shell, pid);
 	free(cmd_path);
-	free_argv(arr_token, token_list_length(cmds->token_list));
+	free(arr_token);
 }
 
 void	forking(t_shell_data *shell, t_command *cmds)
