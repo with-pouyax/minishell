@@ -1,5 +1,18 @@
 #include "../minishell.h"
 
+void free_argv(char **argv, int count)
+{
+	int i;
+
+	i = 0;
+    while (i < count)
+    {
+		free(argv[i]);
+		i++;
+	}
+    free(argv);
+}
+
 /*
 Flow of Execution
 Parent Process:
@@ -41,7 +54,7 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	{
 		write_error(arr_token[0], "command not found");
 		shell->exit_status = 127;
-		free(arr_token);
+		free_argv(arr_token, token_list_length(cmds->token_list));
 		return (NULL);
 	}
 	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
@@ -49,7 +62,7 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
         write_error(cmd_path, "command not found");
         shell->exit_status = 127;
         free(cmd_path);
-        free(arr_token);
+        free_argv(arr_token, token_list_length(cmds->token_list));
         return (NULL);
     }
 	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
@@ -57,11 +70,12 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
         write_error(cmd_path, "Is a directory");
         shell->exit_status = 126;
         free(cmd_path);
-        free(arr_token);
+        free_argv(arr_token, token_list_length(cmds->token_list));
         return (NULL);
     }
 	return (cmd_path);
 }
+
 
 char	**convert_tokens_to_argv(t_token *token_list)
 {
@@ -77,12 +91,15 @@ char	**convert_tokens_to_argv(t_token *token_list)
 	count = token_list_length(token_list);
 	argv = malloc(sizeof(char *) * (count + 1));
 	if (!argv)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	while (i < count && token_list)
 	{
 		argv[i] = ft_strdup(token_list->value);
 		if (!argv[i])
-			exit(EXIT_FAILURE);
+		{
+			free_argv(argv, i);
+			return (NULL);
+		}
 		token_list = token_list->next;
 		i++;
 	}
@@ -107,9 +124,9 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 	if (exit_status == -1)
 	{
 		error_code = get_exec_error_code(errno);
-		free(cmd_path);
 		write_error(argv[0], strerror(errno));
-		free(argv); 
+		free(cmd_path);
+		free_argv(argv, token_list_length(shell->commands->token_list));
 		shell->exit_status = error_code;
 	}
 }
@@ -125,24 +142,27 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 		return ;
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
+	{
+		free_argv(arr_token, token_list_length(cmds->token_list));
 		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 	{
 		write_error("Fork failed", strerror(errno));
 		free(cmd_path);
-		free(arr_token);
+		free_argv(arr_token, token_list_length(cmds->token_list));
 		return ;
 	}
 	else if (pid == 0)
 	{
 		exec_external_child(shell, cmd_path, arr_token);
-		exit(shell->exit_status);
+		// exit(shell->exit_status);
 	}
 	else
 		store_pids(shell, pid);
 	free(cmd_path);
-	free(arr_token);
+	free_argv(arr_token, token_list_length(cmds->token_list));
 }
 
 void	forking(t_shell_data *shell, t_command *cmds)
