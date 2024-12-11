@@ -22,7 +22,12 @@
 # define PROMPT "\001\033[0;32m\002minishell> \001\033[0m\002"
 # define MAX_INPUT_LENGTH 4096
 
-extern volatile sig_atomic_t g_signal_status;
+typedef struct s_signal {
+    volatile sig_atomic_t signal_status;
+    int rl_done;
+} t_signal;
+
+extern t_signal g_signal;
 
 
 typedef struct s_expanded_words {
@@ -111,6 +116,7 @@ typedef struct s_shell_data
     char					 prev_char;
 	int 					var_not_found_flag;
 	char					*filename_or_delimiter;
+	int						in_heredoc;
 	char    				*prev_dir;
 }				t_shell_data;
 
@@ -247,7 +253,7 @@ int		check_trailing_pipe(char *input);
 int 	check_leading_pipe(char *input);
 // signal handler
 
-void	setup_signal_handlers(void);
+void	setup_signal_handlers(int type);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 
@@ -305,7 +311,6 @@ void	handle_syntax_error(t_shell_data *shell, t_token *token);
 int		validate_tokens_in_command(t_shell_data *shell, t_command *cmd);
 //signal handling
 void	handle_ctrl_d(t_shell_data *shell);
-void	setup_signal_handlers(void);
 void	sigquit_handler(int	sig);
 void	sigint_handler(int sig);
 

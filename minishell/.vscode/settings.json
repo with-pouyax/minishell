@@ -60,6 +60,8 @@
     "minishell.h": "c",
     "libft.h": "c",
     "internal_commands.h": "c",
-    "readline.h": "c"
+    "readline.h": "c",
+    "stdio.h": "c",
+    "stdlib.h": "c"
   }
 }

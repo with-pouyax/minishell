@@ -33,7 +33,7 @@ int	split_cmd_tokenize(t_shell_data *shell)
 	cmd_index = 0;
 	last_cmd = NULL;
 	shell->error_flag = 0;
-	if (!shell->input)
+	if (!shell->input) 														      //if there is no input means the user pressed ctrl+d
 		return (1);
 	while (shell->input[i])                                                       //input is a string and i is the index, so here we loop through each character of the input
 	{
