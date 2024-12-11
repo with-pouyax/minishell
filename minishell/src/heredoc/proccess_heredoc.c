@@ -44,9 +44,15 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
     if (fd < 0)
         return (heredoc_open_error(tmp_filename));
     setup_signal_handlers(1);
+    shell->in_heredoc = 1;
     while (1)
     {
         line = readline("> ");
+        if (!line)
+        {
+            printf("minishell: warning: here-document delimited by end-of-file (wanted '%s')\n", shell->filename_or_delimiter);
+            break;
+        }
         if (!line || handle_heredoc_line(shell, line, redir, fd))
         {
             setup_signal_handlers(1);
@@ -54,6 +60,7 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
         }
     }
     close(fd);
+    shell->in_heredoc = 0;
     redir->heredoc_file = tmp_filename; // Store the filename in redirection
     return (0);
 }

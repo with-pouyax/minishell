@@ -139,8 +139,13 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 
 void	forking(t_shell_data *shell, t_command *cmds)
 {
+	setup_signal_handlers(2);
 	if (cmds->token_list && cmds->token_list->is_int)
+	{
 		execute_internal_commands(shell, cmds);
+	}
 	else
+	{
 		execute_external_commands(shell, cmds);
+	}
 }

@@ -56,6 +56,7 @@ void	init_shell(t_shell_data *shell)
     shell->prev_char = '\0';
     shell->var_not_found_flag = 0;
 	shell->prev_dir = getcwd(NULL, 0);
+	shell->in_heredoc = 0;
 	if (!shell->prev_dir)
 	{
 		perror("getcwd");

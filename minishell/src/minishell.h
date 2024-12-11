@@ -116,6 +116,7 @@ typedef struct s_shell_data
     char					 prev_char;
 	int 					var_not_found_flag;
 	char					*filename_or_delimiter;
+	int						in_heredoc;
 	char    				*prev_dir;
 }				t_shell_data;
 
