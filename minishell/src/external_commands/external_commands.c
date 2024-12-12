@@ -7,7 +7,8 @@ void free_argv(char **argv, int count)
 	i = 0;
     while (i < count)
     {
-		free(argv[i]);
+		if (argv[i])
+            free(argv[i]);
 		i++;
 	}
     free(argv);
@@ -77,34 +78,26 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 }
 
 
-char	**convert_tokens_to_argv(t_token *token_list)
+int	convert_tokens_to_argv(t_token *token_list, char **argv)
 {
-	int	count;
-	int	i;
-	char	**argv;
-	t_token	*temp;
+    int		i;
+    t_token	*temp;
 
-	i = 0;
-	temp = token_list;
-	while (temp)
-		temp = temp->next;
-	count = token_list_length(token_list);
-	argv = malloc(sizeof(char *) * (count + 1));
-	if (!argv)
-		return (NULL);
-	while (i < count && token_list)
-	{
-		argv[i] = ft_strdup(token_list->value);
-		if (!argv[i])
-		{
-			free_argv(argv, i);
-			return (NULL);
-		}
-		token_list = token_list->next;
-		i++;
-	}
-	argv[count] = NULL;
-	return (argv);
+    i = 0;
+    temp = token_list;
+    while (temp)
+    {
+        argv[i] = ft_strdup(temp->value);
+        if (!argv[i])
+        {
+            free_argv(argv, i);
+            return -1;
+        }
+        temp = temp->next;
+        i++;
+    }
+    argv[i] = NULL;
+    return 0;
 }
 
 /*
@@ -137,10 +130,25 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	char	*cmd_path;
 	char	**arr_token;
 	pid_t	pid;
+	int token_count;
 
-	arr_token = convert_tokens_to_argv(cmds->token_list);
-	if (!arr_token || !arr_token[0])
-		return ;
+	token_count = token_list_length(cmds->token_list);
+    arr_token = malloc(sizeof(char *) * (token_count + 1));
+    if (!arr_token)
+    {
+        write_error("Memory allocation failed", strerror(errno));
+        return;
+    }
+    if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
+    {
+        free(arr_token);
+        return;
+    }
+    if (!arr_token[0])
+    {
+        free(arr_token);
+        return;
+    }
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
 		return ;

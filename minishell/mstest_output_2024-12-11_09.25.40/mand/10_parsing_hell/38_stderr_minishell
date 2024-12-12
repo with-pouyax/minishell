@@ -1,3 +1,0 @@
-ECHO: command not found
-free(): double free detected in tcache 2
-/home/mina/42_minishell_tester/tester.sh: line 635: 110630 Aborted                 (core dumped) LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so /home/mina/Desktop/new/minishell/minishell/minishell
