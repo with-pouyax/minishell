@@ -19,6 +19,7 @@
 
 
 
+
 # define PROMPT "\001\033[0;32m\002minishell> \001\033[0m\002"
 # define MAX_INPUT_LENGTH 4096
 
@@ -288,7 +289,7 @@ void	quit_program(int exit_code);
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
 void	execute_parent(t_shell_data *shell);
 
-char	**convert_tokens_to_argv(t_token *token_list);
+int	convert_tokens_to_argv(t_token *token_list, char **argv);
 int 	token_list_length(t_token *token);
 void 	close_all_pipes(int **pipes, int nb_cmds);
 void 	close_pipes_after_execution(t_shell_data *shell, int cmds_index);
@@ -296,7 +297,7 @@ void 	free_pipes(int **pipes, int nb_cmds);
 void 	free_paths(char **paths);
 void	forking(t_shell_data *shell, t_command *cmds);
 void    append_end_token(t_shell_data *shell);
-
+void handle_special_directory_error(char *token, t_shell_data *shell, char **arr_token);
 
 void 	add_redirection(t_redirection **redirections, t_redirection *new_redir);
 int 	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd);

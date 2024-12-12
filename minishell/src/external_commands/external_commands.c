@@ -1,5 +1,19 @@
 #include "../minishell.h"
 
+void free_argv(char **argv, int count)
+{
+	int i;
+
+	i = 0;
+    while (i < count)
+    {
+		if (argv[i])
+            free(argv[i]);
+		i++;
+	}
+    free(argv);
+}
+
 /*
 Flow of Execution
 Parent Process:
@@ -41,45 +55,49 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	{
 		write_error(arr_token[0], "command not found");
 		shell->exit_status = 127;
-		free(arr_token);
+		free_argv(arr_token, token_list_length(cmds->token_list));
 		return (NULL);
 	}
+	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
+    {
+        write_error(cmd_path, "command not found");
+        shell->exit_status = 127;
+        free(cmd_path);
+        free_argv(arr_token, token_list_length(cmds->token_list));
+        return (NULL);
+    }
 	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
     {
         write_error(cmd_path, "Is a directory");
-        shell->exit_status = 126; // Return 126 for directory errors
+        shell->exit_status = 126;
         free(cmd_path);
-        free(arr_token);
+        free_argv(arr_token, token_list_length(cmds->token_list));
         return (NULL);
     }
 	return (cmd_path);
 }
 
-char	**convert_tokens_to_argv(t_token *token_list)
-{
-	int	count;
-	int	i;
-	char	**argv;
-	t_token	*temp;
 
-	i = 0;
-	temp = token_list;
-	while (temp)
-		temp = temp->next;
-	count = token_list_length(token_list);
-	argv = malloc(sizeof(char *) * (count + 1));
-	if (!argv)
-		exit(EXIT_FAILURE);
-	while (i < count && token_list)
-	{
-		argv[i] = ft_strdup(token_list->value);
-		if (!argv[i])
-			exit(EXIT_FAILURE);
-		token_list = token_list->next;
-		i++;
-	}
-	argv[count] = NULL;
-	return (argv);
+int	convert_tokens_to_argv(t_token *token_list, char **argv)
+{
+    int		i;
+    t_token	*temp;
+
+    i = 0;
+    temp = token_list;
+    while (temp)
+    {
+        argv[i] = ft_strdup(temp->value);
+        if (!argv[i])
+        {
+            free_argv(argv, i);
+            return -1;
+        }
+        temp = temp->next;
+        i++;
+    }
+    argv[i] = NULL;
+    return 0;
 }
 
 /*
@@ -101,7 +119,8 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 		error_code = get_exec_error_code(errno);
 		free(cmd_path);
 		write_error(argv[0], strerror(errno));
-		free(argv); 
+		free(argv);
+		argv = NULL;
 		shell->exit_status = error_code;
 	}
 }
@@ -111,10 +130,25 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	char	*cmd_path;
 	char	**arr_token;
 	pid_t	pid;
+	int token_count;
 
-	arr_token = convert_tokens_to_argv(cmds->token_list);
-	if (!arr_token || !arr_token[0])
-		return ;
+	token_count = token_list_length(cmds->token_list);
+    arr_token = malloc(sizeof(char *) * (token_count + 1));
+    if (!arr_token)
+    {
+        write_error("Memory allocation failed", strerror(errno));
+        return;
+    }
+    if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
+    {
+        free(arr_token);
+        return;
+    }
+    if (!arr_token[0])
+    {
+        free(arr_token);
+        return;
+    }
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
 		return ;

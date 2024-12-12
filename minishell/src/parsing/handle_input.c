@@ -3,7 +3,7 @@
 void handle_ctrl_d(t_shell_data *shell)
 {
     cleanup(shell); // Free all allocated resources
-    exit(0);        // Exit the shell
+    exit(shell->exit_status);        // Exit the shell
 }
 
 int	process_and_execute_commands(t_shell_data *shell)
