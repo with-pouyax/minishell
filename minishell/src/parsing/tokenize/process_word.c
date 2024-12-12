@@ -159,20 +159,57 @@ int	set_original_value(t_command *cmd, char *original_word)
 
 int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    char	*word = ft_strdup("");                                                           //first we allocate memory for the word
+    char	*word = ft_strdup("");
     char	*original_word;
     char	*expanded_word;
+    char    **expanded_word_arr;
+    int     j;
 
-    if (!word || collect_word(input, i, &word, shell))                                     //we collect the word from the input string and store it in word
+    expanded_word_arr = NULL;
+    if (!word || collect_word(input, i, &word, shell))
         return (free_word_and_return(word, 1));
     if (!word)
         return (0);
-    if (save_and_expand_word(shell, word, &expanded_word, &original_word))                  //we save the original word and expand it
+    if (save_and_expand_word(shell, word, &expanded_word, &original_word))
         return (free_word_and_return(word, 1));
     free(word);
-    if (add_token_to_command(cmd, expanded_word))
-        return (free_original_and_expanded_and_return(original_word, expanded_word, 1));
-    if (set_original_value(cmd, original_word))
-        return (1);
+
+    if (shell->expanded)
+    {
+        expanded_word_arr = ft_split(expanded_word, ' ');
+        if (!expanded_word_arr)
+        {
+            free(expanded_word);
+            free(original_word);
+            return (1);
+        }
+        j = 0;
+        while (expanded_word_arr[j])
+        {
+            if (add_token_to_command(cmd, expanded_word_arr[j]))
+            {
+                free(expanded_word_arr[j]);
+                while (j > 0)
+                    free(expanded_word_arr[--j]);
+                free(expanded_word_arr);
+                free(expanded_word);
+                free(original_word);
+                return (1);
+            }
+            original_word = NULL;
+            j++;
+        }
+        free(expanded_word_arr);
+        free(expanded_word);
+        free(original_word);
+        shell->expanded = 0;
+    }
+    else
+    {
+        if (add_token_to_command(cmd, expanded_word))
+            return (free_original_and_expanded_and_return(original_word, expanded_word, 1));
+        if (set_original_value(cmd, original_word))
+            return (1);
+    }
     return (0);
 }
