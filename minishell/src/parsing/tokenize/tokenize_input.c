@@ -8,7 +8,7 @@ int tokenize_command(t_shell_data *shell, t_command *cmd)
     while (cmd->command_string[i])                                           //we loop through the characters of the command
     {
         skip_cmd_spaces(cmd->command_string, &i);                           
-        if (cmd->command_string[i])                                          //if there is there is a character there
+        if (cmd->command_string[i])                                          //if there is a character there
         {
             if (is_operator_char(cmd->command_string[i]))                    //if the character is an operator('|', '<', '>')
             {
@@ -31,17 +31,17 @@ void	skip_cmd_spaces(char *str, int *i)
 		(*i)++;
 }
 
-int	process_token(t_shell_data *shell, t_command *cmd, int *i)
-{
-	int	ret;
+// int	process_token(t_shell_data *shell, t_command *cmd, int *i)
+// {
+// 	int	ret;
 
 	
-	if (is_operator_char(cmd->command_string[*i])) // if the character is an operator
-		ret = process_operator(shell, i, cmd); // process the operator
-	else // if the character is not an operator
-		ret = process_word(shell, cmd->command_string, i, cmd); // process the word
-	return (ret);
-}
+// 	if (is_operator_char(cmd->command_string[*i])) // if the character is an operator
+// 		ret = process_operator(shell, i, cmd); // process the operator
+// 	else // if the character is not an operator
+// 		ret = process_word(shell, cmd->command_string, i, cmd); // process the word
+// 	return (ret);
+// }
 int	handle_initial_pipe(char *input, int *i)
 {
 	if (input[*i] == '|' && (input[*i + 1] == '<' || input[*i + 1] == '>') && !ft_isspace(input[*i + 1]))

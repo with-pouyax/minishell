@@ -43,22 +43,23 @@ int	calc_cmds_nb(t_shell_data *shell)
 	return (cmd_count);
 }
 
-	void	init_shell(t_shell_data *shell)
+void	init_shell(t_shell_data *shell)
+{
+    shell->input = NULL;
+    shell->full_input = NULL;
+    shell->exit_status = 0;
+    shell->commands = NULL;
+    shell->error_flag = 0;
+    shell->signal_status = 0;
+    shell->in_single_quote = 0;
+    shell->in_double_quote = 0;
+    shell->prev_char = '\0';
+    shell->var_not_found_flag = 0;
+	shell->prev_dir = getcwd(NULL, 0);
+	shell->in_heredoc = 0;
+	if (!shell->prev_dir)
 	{
-		shell->input = NULL;
-		shell->full_input = NULL;
-		shell->exit_status = 0;
-		shell->commands = NULL;
-		shell->error_flag = 0;
-		shell->signal_status = 0;
-		shell->in_single_quote = 0;
-		shell->in_double_quote = 0;
-		shell->prev_char = '\0';
-		shell->var_not_found_flag = 0;
-		shell->prev_dir = getcwd(NULL, 0);
-		if (!shell->prev_dir)
-		{
-			perror("getcwd");
-			exit(EXIT_FAILURE);
-		}
+		perror("getcwd");
+		exit(EXIT_FAILURE);
 	}
+}

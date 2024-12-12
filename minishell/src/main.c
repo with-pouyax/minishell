@@ -11,19 +11,22 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO))
+	if (argc > 1)
+		return (ft_putstr_fd("no arguments are allowed\n", \
+		STDERR_FILENO), EXIT_FAILURE);
+	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO)) 
 		shell.interactive_mode = 0;
 	else
 		shell.interactive_mode = 1;
-	ft_bzero(&shell, sizeof(t_shell_data));
+	ft_bzero(&shell, sizeof(t_shell_data)); 
 	shell.envp = copy_envp(envp);
 	if (!shell.envp)
 	{
-		ft_putstr_fd("Error: failed to allocate memory\n", STDERR_FILENO);
+		ft_putstr_fd("malloc failed\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	init_shell(&shell);
-	setup_signal_handlers();
+	setup_signal_handlers(0);
 	handle_input(&shell);
 	cleanup(&shell);
 	return (shell.exit_status);
