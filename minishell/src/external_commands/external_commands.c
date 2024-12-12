@@ -5,10 +5,15 @@ void free_argv(char **argv, int count)
 	int i;
 
 	i = 0;
+	if (!argv)
+        return ;
     while (i < count)
     {
 		if (argv[i])
-            free(argv[i]);
+        {
+			free(argv[i]);
+			argv[i] = NULL;
+		}
 		i++;
 	}
     free(argv);
