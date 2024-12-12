@@ -156,6 +156,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
     {
+		//free(cmd_path);
         // free(arr_token);
         return;
     }
