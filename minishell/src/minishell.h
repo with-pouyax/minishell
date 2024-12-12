@@ -120,6 +120,7 @@ typedef struct s_shell_data
 	int						in_heredoc;
 	int						expanded;
 	char    				*prev_dir;
+	char                    *original_word;
 }				t_shell_data;
 
 typedef struct s_parse_context

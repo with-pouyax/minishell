@@ -157,7 +157,7 @@ int	set_original_value(t_command *cmd, char *original_word)
     return (0);
 }
 
-static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, char **expanded_word, char **original_word)
+static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, char **expanded_word)
 {
 	char	*word;
 
@@ -166,7 +166,7 @@ static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, cha
 		return (free_word_and_return(word, 1));
 	if (!word)
 		return (0);
-	if (save_and_expand_word(shell, word, expanded_word, original_word))
+	if (save_and_expand_word(shell, word, expanded_word, &shell->original_word))
 		return (free_word_and_return(word, 1));
 	free(word);
 	return (0);
@@ -249,8 +249,10 @@ int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 	char	*expanded_word;
 	char	*original_word;
 
-	if (collect_and_expand_word(shell, input, i, &expanded_word, &original_word))
+    
+	if (collect_and_expand_word(shell, input, i, &expanded_word))
 		return (1);
+    original_word = shell->original_word;
 	if (shell->expanded)
 	{
 		if (handle_expanded(shell, cmd, expanded_word, original_word))

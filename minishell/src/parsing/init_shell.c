@@ -58,6 +58,7 @@ void	init_shell(t_shell_data *shell)
 	shell->prev_dir = getcwd(NULL, 0);
 	shell->in_heredoc = 0;
 	shell->expanded = 0;
+	shell->original_word = NULL;
 	if (!shell->prev_dir)
 	{
 		perror("getcwd");
