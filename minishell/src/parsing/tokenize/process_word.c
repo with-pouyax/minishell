@@ -172,42 +172,68 @@ static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, cha
 	return (0);
 }
 
-/* Helper Function: Handle Expanded Words */
+static void	free_expanded_word_arr(char **expanded_word_arr, int j)
+{
+	while (j > 0)
+		free(expanded_word_arr[--j]);
+	free(expanded_word_arr);
+}
+
+static int	handle_token_addition_failure(char **expanded_word_arr, int j, char *expanded_word, char *original_word)
+{
+	free(expanded_word_arr[j]);
+	free_expanded_word_arr(expanded_word_arr, j);
+	free(expanded_word);
+	free(original_word);
+	return (1);
+}
+
+static int	add_tokens_to_command(t_command *cmd, char **expanded_word_arr)
+{
+	int	j;
+
+	j = 0;
+	while (expanded_word_arr[j])
+	{
+		if (add_token_to_command(cmd, expanded_word_arr[j]))
+			return (handle_token_addition_failure(expanded_word_arr, j, expanded_word_arr[j], NULL));
+		j++;
+	}
+	return (0);
+}
+
+static char	**split_expanded_word(char *expanded_word)
+{
+	char	**expanded_word_arr;
+
+	expanded_word_arr = ft_split(expanded_word, ' ');
+	return (expanded_word_arr);
+}
+static void	free_all_resources(char **expanded_word_arr, char *expanded_word, char *original_word)
+{
+	free(expanded_word_arr);
+	free(expanded_word);
+	free(original_word);
+}
+
 static int	handle_expanded(t_shell_data *shell, t_command *cmd, char *expanded_word, char *original_word)
 {
 	char	**expanded_word_arr;
-	int		j;
 
-	expanded_word_arr = ft_split(expanded_word, ' ');
+	expanded_word_arr = split_expanded_word(expanded_word);
 	if (!expanded_word_arr)
 	{
 		free(expanded_word);
 		free(original_word);
 		return (1);
 	}
-	j = 0;
-	while (expanded_word_arr[j])
-	{
-		if (add_token_to_command(cmd, expanded_word_arr[j]))
-		{
-			free(expanded_word_arr[j]);
-			while (j > 0)
-				free(expanded_word_arr[--j]);
-			free(expanded_word_arr);
-			free(expanded_word);
-			free(original_word);
-			return (1);
-		}
-		j++;
-	}
-	free(expanded_word_arr);
-	free(expanded_word);
-	free(original_word);
+	if (add_tokens_to_command(cmd, expanded_word_arr))
+		return (1);
+	free_all_resources(expanded_word_arr, expanded_word, original_word);
 	shell->expanded = 0;
 	return (0);
 }
 
-/* Helper Function: Handle Non-Expanded Words */
 static int	handle_non_expanded(t_shell_data *shell, t_command *cmd, char *expanded_word, char *original_word)
 {
     (void)shell;
@@ -218,7 +244,6 @@ static int	handle_non_expanded(t_shell_data *shell, t_command *cmd, char *expand
 	return (0);
 }
 
-/* Refactored `process_word` Function */
 int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
 	char	*expanded_word;
