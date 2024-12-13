@@ -157,22 +157,112 @@ int	set_original_value(t_command *cmd, char *original_word)
     return (0);
 }
 
+static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, char **expanded_word)
+{
+	char	*word;
+
+	word = ft_strdup("");
+	if (!word || collect_word(input, i, &word, shell))
+		return (free_word_and_return(word, 1));
+	if (!word)
+		return (0);
+	if (save_and_expand_word(shell, word, expanded_word, &shell->original_word))
+		return (free_word_and_return(word, 1));
+	free(word);
+	return (0);
+}
+
+static void	free_expanded_word_arr(char **expanded_word_arr, int j)
+{
+	while (j > 0)
+		free(expanded_word_arr[--j]);
+	free(expanded_word_arr);
+}
+
+static int	handle_token_addition_failure(char **expanded_word_arr, int j, char *expanded_word, char *original_word)
+{
+	free(expanded_word_arr[j]);
+	free_expanded_word_arr(expanded_word_arr, j);
+	free(expanded_word);
+	free(original_word);
+	return (1);
+}
+
+static int	add_tokens_to_command(t_command *cmd, char **expanded_word_arr)
+{
+	int	j;
+
+	j = 0;
+	while (expanded_word_arr[j])
+	{
+		if (add_token_to_command(cmd, expanded_word_arr[j]))
+			return (handle_token_addition_failure(expanded_word_arr, j, expanded_word_arr[j], NULL));
+		j++;
+	}
+	return (0);
+}
+
+static char	**split_expanded_word(char *expanded_word)
+{
+	char	**expanded_word_arr;
+
+	expanded_word_arr = ft_split(expanded_word, ' ');
+	return (expanded_word_arr);
+}
+static void	free_all_resources(char **expanded_word_arr, char *expanded_word, char *original_word)
+{
+	free(expanded_word_arr);
+	free(expanded_word);
+	free(original_word);
+}
+
+static int	handle_expanded(t_shell_data *shell, t_command *cmd, char *expanded_word, char *original_word)
+{
+	char	**expanded_word_arr;
+
+	expanded_word_arr = split_expanded_word(expanded_word);
+	if (!expanded_word_arr)
+	{
+		free(expanded_word);
+		free(original_word);
+		return (1);
+	}
+	if (add_tokens_to_command(cmd, expanded_word_arr))
+		return (1);
+	free_all_resources(expanded_word_arr, expanded_word, original_word);
+	shell->expanded = 0;
+    shell->double_quoted = 0;
+	return (0);
+}
+
+static int	handle_non_expanded(t_shell_data *shell, t_command *cmd, char *expanded_word, char *original_word)
+{
+    (void)shell;
+	if (add_token_to_command(cmd, expanded_word))
+		return (free_original_and_expanded_and_return(original_word, expanded_word, 1));
+	if (set_original_value(cmd, original_word))
+		return (1);
+	return (0);
+}
+
 int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    char	*word = ft_strdup("");                                                           //first we allocate memory for the word
-    char	*original_word;
-    char	*expanded_word;
+	char	*expanded_word;
+	char	*original_word;
 
-    if (!word || collect_word(input, i, &word, shell))                                     //we collect the word from the input string and store it in word
-        return (free_word_and_return(word, 1));
-    if (!word)
-        return (0);
-    if (save_and_expand_word(shell, word, &expanded_word, &original_word))                  //we save the original word and expand it
-        return (free_word_and_return(word, 1));
-    free(word);
-    if (add_token_to_command(cmd, expanded_word))
-        return (free_original_and_expanded_and_return(original_word, expanded_word, 1));
-    if (set_original_value(cmd, original_word))
-        return (1);
-    return (0);
+    
+	if (collect_and_expand_word(shell, input, i, &expanded_word))
+		return (1);
+    original_word = shell->original_word;
+	if (shell->expanded && !shell->double_quoted)
+	{
+		if (handle_expanded(shell, cmd, expanded_word, original_word))
+			return (1);
+	}
+	else
+	{
+		if (handle_non_expanded(shell, cmd, expanded_word, original_word))
+			return (1);
+	}
+	return (0);
 }
