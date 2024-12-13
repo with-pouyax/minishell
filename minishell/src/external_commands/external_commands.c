@@ -5,10 +5,15 @@ void free_argv(char **argv, int count)
 	int i;
 
 	i = 0;
+	if (!argv)
+        return ;
     while (i < count)
     {
 		if (argv[i])
-            free(argv[i]);
+        {
+			free(argv[i]);
+			argv[i] = NULL;
+		}
 		i++;
 	}
     free(argv);
@@ -37,8 +42,7 @@ int	token_list_length(t_token *token)
 	count = 0;
 	while (token)
 	{
-		if (!token->is_end)
-			count++;
+		count++;
 		token = token->next;
 	}
 	return (count);
@@ -91,13 +95,13 @@ int	convert_tokens_to_argv(t_token *token_list, char **argv)
         if (!argv[i])
         {
             free_argv(argv, i);
-            return -1;
+            return (-1);
         }
         temp = temp->next;
         i++;
     }
     argv[i] = NULL;
-    return 0;
+    return (0);
 }
 
 /*
@@ -142,22 +146,26 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
     if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
     {
         free(arr_token);
-        return;
+        return ;
     }
     if (!arr_token[0])
     {
         free(arr_token);
-        return;
+        return ;
     }
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
-		return ;
+    {
+		//free(cmd_path);
+        // free(arr_token);
+        return;
+    }
 	pid = fork();
 	if (pid < 0)
 	{
 		write_error("Fork failed", strerror(errno));
 		free(cmd_path);
-		free(arr_token);
+		free_argv(arr_token, token_count);
 		return ;
 	}
 	else if (pid == 0)
@@ -168,7 +176,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	else
 		store_pids(shell, pid);
 	free(cmd_path);
-	free(arr_token);
+	free_argv(arr_token, token_count);
 }
 
 void	forking(t_shell_data *shell, t_command *cmds)

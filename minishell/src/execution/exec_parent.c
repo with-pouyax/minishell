@@ -20,13 +20,13 @@ void	execute_parent(t_shell_data *shell)
 			perror("waitpid failed");
 		else
 		{
-            if (WIFEXITED(status))
-                shell->exit_status = WEXITSTATUS(status);
-            else if (WIFSIGNALED(status))
-                shell->exit_status = 128 + WTERMSIG(status);
-            else
-                shell->exit_status = 1;
-        }
+			if (WIFEXITED(status))
+				shell->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				shell->exit_status = 128 + WTERMSIG(status);
+			else
+				shell->exit_status = 1;
+		}
 		current = current->next;
 	}
 	clear_pid_list(shell);
