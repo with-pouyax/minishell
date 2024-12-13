@@ -53,6 +53,7 @@ SRCS            = src/main.c\
                   src/internal_cmd/internall_op/ft_export.c\
                   src/internal_cmd/internall_op/ft_pwd.c\
                   src/internal_cmd/internall_op/ft_unset.c\
+                  src/execution/open_files.c\
                   src/external_commands/external_commands.c\
                   src/external_commands/get_path.c\
                   src/external_commands/handel_error_exec.c\
