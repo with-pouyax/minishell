@@ -3,7 +3,7 @@
 void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	if (has_redirs(redir, REDIR_INPUT))
-        return ;
+		return ;
 	if (cmds_index != 0)
 	{
 		if (dup2(shell->pipes[cmds_index - 1][0], STDIN_FILENO) == -1)
