@@ -118,6 +118,7 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 			toggle_quotes_and_skip(input[i], &in_single_quote, &in_double_quote, &i);
 		else if (input[i] == '$' && !in_single_quote)
 		{
+			shell->double_quoted = in_double_quote;
 			shell->expanded = 1;
 			if (handle_dollar(shell, input, &i, &result))
 				return (free(result), NULL);

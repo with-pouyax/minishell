@@ -231,6 +231,7 @@ static int	handle_expanded(t_shell_data *shell, t_command *cmd, char *expanded_w
 		return (1);
 	free_all_resources(expanded_word_arr, expanded_word, original_word);
 	shell->expanded = 0;
+    shell->double_quoted = 0;
 	return (0);
 }
 
@@ -253,7 +254,7 @@ int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 	if (collect_and_expand_word(shell, input, i, &expanded_word))
 		return (1);
     original_word = shell->original_word;
-	if (shell->expanded)
+	if (shell->expanded && !shell->double_quoted)
 	{
 		if (handle_expanded(shell, cmd, expanded_word, original_word))
 			return (1);
