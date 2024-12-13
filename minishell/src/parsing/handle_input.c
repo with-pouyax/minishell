@@ -139,7 +139,7 @@ int handle_user_input(t_shell_data *shell)
 				if (!check_and_handle_syntax_errors(shell)) 		// Check for syntax errors
 				{
 					if (process_and_execute_commands(shell) != 0)  	// Process and execute commands
-						return (0);
+						return (1);
 				}
 			}
 		}
