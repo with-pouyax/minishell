@@ -163,9 +163,10 @@ static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, cha
 
 	word = ft_strdup("");
 	if (!word || collect_word(input, i, &word, shell))
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (free_word_and_return(word, 1));
-	if (!word)
-		return (0);
+    }
 	if (save_and_expand_word(shell, word, expanded_word, &shell->original_word))
 		return (free_word_and_return(word, 1));
 	free(word);
