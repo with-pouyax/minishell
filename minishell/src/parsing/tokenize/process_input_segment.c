@@ -16,7 +16,8 @@ int	handle_command_creation_error(t_shell_data *shell,
 {
 	free(cmd_str);
 	free(cmd);
-	shell->error_flag = 1;
+	shell->error_flag = 3;
+    //ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 	return (1);
 }
 

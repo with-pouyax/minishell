@@ -1,0 +1,6 @@
+LOGNAME=pghajard
+LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so
+HOME=/home/pghajard
+USER=pghajard
+PATH=/bin:/usr/bin:/usr/sbin:/home/pghajard/.local/bin:/home/pghajard/.local/funcheck/host:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pghajard/.local/bin:/home/pghajard/.local/bin
+OLDPWD=/home/pghajard/Desktop/minishell/minishell

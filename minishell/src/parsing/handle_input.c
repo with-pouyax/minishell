@@ -141,6 +141,8 @@ int handle_user_input(t_shell_data *shell)
 					{
 						if (shell->error_flag == 2)  
 							return (0);
+						else if (shell->error_flag == 3)
+							return (0);
 						return (1);
 					}	
 				}

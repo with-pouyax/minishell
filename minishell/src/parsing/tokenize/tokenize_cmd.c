@@ -16,7 +16,10 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     (void)shell;
     cmd = malloc(sizeof(t_command));
     if (!cmd)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
         return (NULL);
+    }
     cmd->command_string = cmd_str;
     cmd->index = index;
     cmd->is_recalled = 0;
