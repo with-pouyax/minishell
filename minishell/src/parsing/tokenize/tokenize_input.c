@@ -56,7 +56,8 @@ char *collect_operator(t_command *cmd, int *i)
     char *op;
     int start;
 
-    start = *i; 															  //we store the index of the character we recieved as start
+    start = *i;
+	(void)start; 															  //we store the index of the character we recieved as start
     if (is_operator_char(cmd->command_string[*i]))                            //if the character is an operator
     {
         (*i)++;                                        						  // we go to the next character
@@ -65,7 +66,9 @@ char *collect_operator(t_command *cmd, int *i)
             (*i)++;                                                           //we go to the next character
     }
     op = ft_substr(cmd->command_string, start, *i - start);                   //we store the operator we found in op using i as the end index and start as the start index
-    return op;
+    if (!op)
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+	return op;
 }
 
 
