@@ -126,7 +126,7 @@ int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir,
 
 int	handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
+	ft_putstr_fd("syntax error near unexpected token `newline'\n", STDERR_FILENO);
 	free(new_redir);
 	shell->exit_status = 2;
 	return (1);

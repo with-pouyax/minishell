@@ -37,7 +37,7 @@ int	check_and_handle_syntax_errors(t_shell_data *shell)
 	}
 	else if (check_leading_pipe(shell->input)) 		     // Check for leading pipe
 	{
-		check_syntax_error(shell, "minishell: syntax error near unexpected token `|'\n");
+		check_syntax_error(shell, "syntax error near unexpected token `|'\n");
 		cleanup(shell);
 		return (1);
 	}
