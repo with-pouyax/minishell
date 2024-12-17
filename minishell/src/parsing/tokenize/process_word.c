@@ -85,8 +85,11 @@ int	collect_word(char *input, int *i, char **word, t_shell_data *shell)
 
     if (!*word)                                                           // If the word is NULL, initialize it
     {
-        if (initialize_word(word))                                        // allocate memory for the word
+        if (initialize_word(word))
+        {
+            shell->error_flag = 4;
             return (1);
+        }                                        // allocate memory for the word
     }
     while (input[*i])                                                     // loop through the input string
     {
