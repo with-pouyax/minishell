@@ -4,9 +4,12 @@ int initialize_expansion(char **result, int *in_single_quote, int *in_double_quo
 {
     *in_single_quote = 0;
     *in_double_quote = 0;
-    *result = ft_strdup("");
+    *result = ft_strdup("");    // [x]
     if (!*result)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
         return (1);
+	}
     return (0);
 }
 
@@ -108,7 +111,7 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 	int		in_single_quote;
 	int		in_double_quote;
 
-	if (initialize_expansion(&result, &in_single_quote, &in_double_quote))
+	if (initialize_expansion(&result, &in_single_quote, &in_double_quote)) // [x]
 		return (NULL);
 	i = 0;
 	while (input[i])
