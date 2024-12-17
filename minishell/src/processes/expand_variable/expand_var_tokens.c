@@ -45,7 +45,10 @@ static int	append_str_to_result(char **result, char *str)
 
 	temp = ft_strjoin_free_both(*result, str);
 	if (!temp)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (1);
+	}
 	*result = temp;
 	return (0);
 }
