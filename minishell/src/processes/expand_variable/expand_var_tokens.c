@@ -129,12 +129,12 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 		{
 			shell->double_quoted = in_double_quote;
 			shell->expanded = 1;
-			if (handle_dollar(shell, input, &i, &result))
+			if (handle_dollar(shell, input, &i, &result)) // [x]
 				return (free(result), NULL);
 		}
 		else
 		{
-			if (append_literal_char(input, &i, &result))
+			if (append_literal_char(input, &i, &result)) // [x]
 				return (free(result), NULL);
 		}
 	}

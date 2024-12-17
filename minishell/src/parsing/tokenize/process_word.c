@@ -134,7 +134,7 @@ int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, 
         ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
         return (1);
     }
-    *expanded_word = expand_variables_in_token(shell, word);               //we expand the word
+    *expanded_word = expand_variables_in_token(shell, word); //[x]               //we expand the word
     if (!*expanded_word)
     {
         free(*original_word);
@@ -213,8 +213,12 @@ static char	**split_expanded_word(char *expanded_word)
 {
 	char	**expanded_word_arr;
 
-	expanded_word_arr = ft_split(expanded_word, ' ');
-	return (expanded_word_arr);
+	expanded_word_arr = ft_split(expanded_word, ' '); // [x]
+    if (!expanded_word_arr)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+    }
+    return (expanded_word_arr);
 }
 static void	free_all_resources(char **expanded_word_arr, char *expanded_word, char *original_word)
 {
