@@ -41,8 +41,12 @@ return (str); // Return the character
 char	*get_literal_char(char *input, int *i)
 {
 	char	*str;
-
+	(void)input;
 	str = ft_substr(input, *i, 1);
+	if (!str)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+	}
 	(*i)++;
 	return (str);
 }
