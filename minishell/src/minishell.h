@@ -359,7 +359,7 @@ int	set_original_value(t_command *cmd, char *original_word);
 
 t_redirection *create_new_redirection(char *op);
 void skip_whitespace(char *input, int *i);
-int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, char unexpected_char);
+int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, const char *unexpected_token);
 int handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir);
 int handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir, char *token);
 int process_filename_or_delimiter(
@@ -380,4 +380,5 @@ int handle_heredoc_redirection(
 
 int initialize_expansion(char **result, int *in_single_quote, int *in_double_quote);
 int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
+int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir);
 #endif
