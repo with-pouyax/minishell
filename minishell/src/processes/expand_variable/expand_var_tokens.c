@@ -96,11 +96,14 @@ int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result)
 	}
 	else if (ft_isdigit((unsigned char)input[*i]))
 		(*i)++;
-	else
+	else // If the character after the '$' is not a valid character
 	{
 		char *temp = ft_strdup("$");
 		if (!temp)
+		{
+			ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 			return (1);
+		}
 		if (append_str_to_result(result, temp))
 			return (free(temp), 1);
 	}
