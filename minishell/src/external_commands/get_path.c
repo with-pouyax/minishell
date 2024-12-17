@@ -73,23 +73,17 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 {
 	char	**all_paths;
 	char	*path;
-	// int	i;
 
-	// i = 0;
     path = NULL;
 	all_paths = get_paths_from_env(shell, shell->envp);
 	if (!all_paths)
         return (NULL);
-	// while (all_paths[i])
-	// {
-		path = check_and_return_path(cmd, all_paths);
-		if (!path)
-		{
-            free_paths(all_paths);
-            return (NULL);// break ;
-        }
-	// 	i++;
-	// }
+    path = check_and_return_path(cmd, all_paths);
+    if (!path)
+    {
+        free_paths(all_paths);
+        return (NULL);
+    }
 	free_paths(all_paths);
 	return (path);
 }
