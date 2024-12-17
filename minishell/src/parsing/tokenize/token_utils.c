@@ -160,9 +160,12 @@ t_redirection	*create_new_redirection(char *op)
 {
 	t_redirection	*new_redir;
 
-	new_redir = malloc(sizeof(t_redirection));
+	new_redir = malloc(sizeof(t_redirection));  //[x]
 	if (!new_redir)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (NULL);
+	}
 	ft_bzero(new_redir, sizeof(t_redirection));
 	if (!ft_strcmp(op, "<"))
 		new_redir->type = REDIR_INPUT;
@@ -204,7 +207,7 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 
     if (!op)
         return (1);
-    *new_redir = create_new_redirection(op);        // we create a new redirection struct
+    *new_redir = create_new_redirection(op);        // [x]we create a new redirection struct
     free(op);
     cmd->current_op = NULL;						    // Reset current_op 
     return (!(*new_redir));                         // if we successfully created the redirection struct, we return 0, else 1
@@ -217,7 +220,7 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
     t_redirection   *new_redir;
 
     shell->filename_or_delimiter = NULL;
-    if (prepare_redirection(cmd, &new_redir))
+    if (prepare_redirection(cmd, &new_redir))  //[x]
         return (1);
     skip_whitespace(input, i);
     if (check_operator_error(shell, input[*i], new_redir))

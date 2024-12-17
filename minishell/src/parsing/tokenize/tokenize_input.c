@@ -65,7 +65,7 @@ char *collect_operator(t_command *cmd, int *i)
             cmd->command_string[*i] == cmd->command_string[*i - 1])           //if the lst character is '<' or '>' and current character is equal to the last character
             (*i)++;                                                           //we go to the next character
     }
-    op = ft_substr(cmd->command_string, start, *i - start);                   //we store the operator we found in op using i as the end index and start as the start index
+    op = ft_substr(cmd->command_string, start, *i - start);                   //[x]we store the operator we found in op using i as the end index and start as the start index
     if (!op)
 		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 	return op;

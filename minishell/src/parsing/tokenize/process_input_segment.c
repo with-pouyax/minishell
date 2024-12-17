@@ -40,7 +40,7 @@ int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
         return (shell->error_flag = 2, 1);
     }
     trim_trailing_spaces(cmd_str);                                 //if there are spaces at the end of the command, we remove them
-    cmd = create_command(shell, cmd_str, (*cmd_index)++);          // here we create a command struct for the command we found          
+    cmd = create_command(shell, cmd_str, (*cmd_index)++);          //[x] here we create a command struct for the command we found          
     if (!cmd || tokenize_command(shell, cmd))                      // we tokenize the command we found
         return (handle_command_creation_error(shell, cmd_str, cmd));
     add_command_to_list(shell, last_cmd, cmd);                     //we store the list of commands
