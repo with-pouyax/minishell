@@ -42,7 +42,7 @@ int collect_and_expand_redirection_word(t_parse_context *ctx, t_expanded_words *
     char *word;
 
     word = NULL;
-    if (collect_word(ctx->input, ctx->i, &word, ctx->shell))
+    if (collect_word(ctx->input, ctx->i, &word, ctx->shell)) //[x]
         return (1);
     if (!word || ft_strlen(word) == 0)
         return (free(word), 1);
