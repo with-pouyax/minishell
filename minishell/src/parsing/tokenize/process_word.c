@@ -231,7 +231,7 @@ static int	handle_expanded(t_shell_data *shell, t_command *cmd, char *expanded_w
 {
 	char	**expanded_word_arr;
 
-	expanded_word_arr = split_expanded_word(expanded_word);
+	expanded_word_arr = split_expanded_word(expanded_word);  // [x]
 	if (!expanded_word_arr)
 	{
 		free(expanded_word);

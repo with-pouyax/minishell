@@ -260,7 +260,10 @@ int	add_token(char *token_value, t_token **token_list,
 
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (1);
+	}
 	initialize_new_token(new_token, token_value, index, is_operator);
 	if (!*token_list)
 		*token_list = new_token;
