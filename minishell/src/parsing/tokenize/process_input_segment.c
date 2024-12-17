@@ -33,9 +33,12 @@ int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
     *i = extract_command_string(shell->input, *i);                   //here we find the command in the input string separated by pipes [x]
     if (*i == -1)                                                
         return (shell->error_flag = 1, 1);
-    cmd_str = ft_substr(shell->input, start, *i - start);           //we put the command, we found in the input, in cmd_str
+    cmd_str = ft_substr(shell->input, start, *i - start);           //[x]we put the command, we found in the input, in cmd_str
     if (!cmd_str)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
         return (shell->error_flag = 2, 1);
+    }
     trim_trailing_spaces(cmd_str);                                 //if there are spaces at the end of the command, we remove them
     cmd = create_command(shell, cmd_str, (*cmd_index)++);          // here we create a command struct for the command we found          
     if (!cmd || tokenize_command(shell, cmd))                      // we tokenize the command we found

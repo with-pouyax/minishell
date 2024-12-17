@@ -132,7 +132,7 @@ int handle_user_input(t_shell_data *shell)
 		g_signal.signal_status = 0; 		   						// Reset signal status
 		if (!validate_input_length(shell))     						//check if input length is less than MAX_INPUT_LENGTH
 		{
-			if (!allocate_resources(shell))    						// Allocate resources for full_input field in shell 
+			if (!allocate_resources(shell))    						// [x]Allocate resources for full_input field in shell 
 			{
 				add_to_history_if_needed(shell);   					// Add input to history if it is not empty
 				if (!check_and_handle_syntax_errors(shell)) 		// Check for syntax errors
