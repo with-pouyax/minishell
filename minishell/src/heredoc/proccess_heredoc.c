@@ -45,7 +45,7 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
     tmp_filename = generate_temp_filename(); // [x] 
     if (!tmp_filename)
         return (1);
-    fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+    fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600); // [x]
     if (fd < 0)
         return (heredoc_open_error(tmp_filename));
     setup_signal_handlers(1);

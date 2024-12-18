@@ -32,7 +32,7 @@ int toggle_quotes_and_append(char current_char, int *in_single_quote, int *in_do
         *in_double_quote = !(*in_double_quote);
 
     // Append the quote character to the result
-    if (add_char_to_token(result, current_char))
+    if (add_char_to_token(result, current_char)) // [x]
         return (1); // Indicate failure if memory allocation fails
 
     (*i)++;
@@ -46,7 +46,7 @@ char	*expand_variables_in_heredoc(t_shell_data *shell, char *input)
     int		in_single_quote;
     int		in_double_quote;
 
-    if (initialize_expansion(&result, &in_single_quote, &in_double_quote))
+    if (initialize_expansion(&result, &in_single_quote, &in_double_quote)) // [x]
         return (NULL);
     i = 0;
     while (input[i])
