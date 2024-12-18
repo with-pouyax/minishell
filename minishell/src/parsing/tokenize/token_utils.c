@@ -113,6 +113,7 @@ int process_filename_or_delimiter(t_shell_data *shell, char *input,
     {
         free(words.expanded);
         free(words.original);
+        free_redirections(redir);
         return (1);
     }
     assign_redirection(shell, words.expanded, words.original);
