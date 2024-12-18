@@ -37,6 +37,11 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
     char *tmp_filename;
 
     redir->delimiter_quoted = check_delimiter_quotes(redir); // Adjusted to use redirection
+    if (redir->delimiter_quoted < 0)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+        return (1);
+    }
     tmp_filename = generate_temp_filename();
     if (!tmp_filename)
         return (1);

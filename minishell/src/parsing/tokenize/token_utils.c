@@ -101,7 +101,7 @@ int process_filename_or_delimiter(t_shell_data *shell, char *input,
     ctx.input = input;
     ctx.i = i;
     ctx.redir = redir;
-    if (collect_and_expand_redirection_word(shell, &ctx, &words))
+    if (collect_and_expand_redirection_word(shell, &ctx, &words)) //[x]
         return (handle_missing_filename_error(shell, redir));
     if (!words.expanded || ft_strlen(words.expanded) == 0)
     {
@@ -289,7 +289,7 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
         return (1);
 
     // Continue with processing if no syntax errors
-    if (process_filename_or_delimiter(shell, input, i, new_redir))
+    if (process_filename_or_delimiter(shell, input, i, new_redir)) //[x]
         return (1);
     if (finalize_redirection(shell, new_redir))
         return (1);
