@@ -1,2 +1,0 @@
-munmap_chunk(): invalid pointer
-/home/pghajard/42_minishell_tester/tester.sh: line 635: 1006957 Aborted                 (core dumped) LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so /home/pghajard/Desktop/minishell/minishell/minishell

@@ -146,7 +146,7 @@ int	save_and_expand_word(t_shell_data *shell, char *word, char **expanded_word, 
 // Adds the token to the command's token list
 int	add_token_to_command(t_command *cmd, char *word)
 {
-    if (add_token(word, &cmd->token_list, &(cmd->token_index), 0))
+    if (add_token(word, &cmd->token_list, &(cmd->token_index), 0)) // [x]
         return (1);
     return (0);
 }
