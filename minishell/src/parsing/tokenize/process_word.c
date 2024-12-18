@@ -167,7 +167,7 @@ static int	collect_and_expand_word(t_shell_data *shell, char *input, int *i, cha
 {
 	char	*word;
 
-	word = ft_strdup("");
+	word = ft_strdup(""); // [x]
 	if (!word || collect_word(input, i, &word, shell)) 
     {
         ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
@@ -238,7 +238,7 @@ static int	handle_expanded(t_shell_data *shell, t_command *cmd, char *expanded_w
 		free(original_word);
 		return (1);
 	}
-	if (add_tokens_to_command(cmd, expanded_word_arr))
+	if (add_tokens_to_command(cmd, expanded_word_arr)) // [x]
 		return (1);
 	free_all_resources(expanded_word_arr, expanded_word, original_word);
 	shell->expanded = 0;
@@ -262,17 +262,17 @@ int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 	char	*original_word;
 
     
-	if (collect_and_expand_word(shell, input, i, &expanded_word))
+	if (collect_and_expand_word(shell, input, i, &expanded_word)) // [x]
 		return (1);
     original_word = shell->original_word;
 	if (shell->expanded && !shell->double_quoted)
 	{
-		if (handle_expanded(shell, cmd, expanded_word, original_word))
+		if (handle_expanded(shell, cmd, expanded_word, original_word)) // [x]
 			return (1);
 	}
 	else
 	{
-		if (handle_non_expanded(shell, cmd, expanded_word, original_word))
+		if (handle_non_expanded(shell, cmd, expanded_word, original_word)) // [x]
 			return (1);
 	}
 	return (0);

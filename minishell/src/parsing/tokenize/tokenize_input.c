@@ -12,12 +12,12 @@ int tokenize_command(t_shell_data *shell, t_command *cmd)
         {
             if (is_operator_char(cmd->command_string[i]))                    //if the character is an operator('|', '<', '>')
             {
-                if (process_operator(shell, &i, cmd))						 // we process the operator and store it in the command struct
+                if (process_operator(shell, &i, cmd))						 //[x] we process the operator and store it in the command struct
                     return (tokenize_command_error(cmd));
             }
             else                                                             // if the character is not an operator
             {
-                if (process_word(shell, cmd->command_string, &i, cmd))		// we process the word and store it in the command struct
+                if (process_word(shell, cmd->command_string, &i, cmd))		//[x] we process the word and store it in the command struct
                     return (tokenize_command_error(cmd));
             }
         }
@@ -113,7 +113,7 @@ int	process_operator(t_shell_data *shell, int *i, t_command *cmd)
 	if (is_valid_operator(op))                                         // if the operator we stored is a valid operator
 	{
 		if (is_redirection_operator(op))							   // if the operator is a redirection operator
-			ret = handle_redirection_operator(shell, op, cmd, i);      // we handle the redirection operator 
+			ret = handle_redirection_operator(shell, op, cmd, i);      //[x] we handle the redirection operator 
 		else                                                           // if it is a pipe operator
 			ret = handle_pipe_operator(op, cmd);                       // we handle the pipe operator
 		if (ret)													   

@@ -14,7 +14,7 @@ int handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, i
     }
     if (!redir->delimiter_quoted)
     {
-        if (expand_and_write_line(shell, line, fd))
+        if (expand_and_write_line(shell, line, fd)) // [x]
         {
             free(line);
             return (1);

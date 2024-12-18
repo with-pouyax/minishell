@@ -8,7 +8,7 @@ void handle_ctrl_d(t_shell_data *shell)
 
 int	process_and_execute_commands(t_shell_data *shell)
 {
-    if (preprocess_input(shell) != 0)              // Preprocess input
+    if (preprocess_input(shell) != 0)              //[x] Preprocess input
 	{
 		return 1;
 	}

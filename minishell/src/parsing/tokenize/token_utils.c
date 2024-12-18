@@ -291,9 +291,9 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
     // Continue with processing if no syntax errors
     if (process_filename_or_delimiter(shell, input, i, new_redir)) //[x]
         return (1);
-    if (finalize_redirection(shell, new_redir))
+    if (finalize_redirection(shell, new_redir)) //[x]
         return (1);
-    add_redirection(&(cmd->redirections), new_redir);
+    add_redirection(&(cmd->redirections), new_redir); //[x] 
     return (0);
 }
 
