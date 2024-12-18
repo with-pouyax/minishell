@@ -3,11 +3,6 @@
 
 
 t_signal g_signal = {0, 0};
-void child_sigquit_handler(int sig) 
-{
-    (void)sig; 
-	write(1, "Quit (core dumped)\n", 19);
-}
 
 
 
@@ -58,11 +53,11 @@ void	setup_signal_handlers(int type)
 	else if (type == 2)
 	{
 		signal(SIGINT, child_sigint_handler);
-		signal(SIGQUIT, child_sigquit_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (type == 3)
 	{
 		signal(SIGINT, child_sigint_handler);
-		signal(SIGQUIT, child_sigquit_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }
