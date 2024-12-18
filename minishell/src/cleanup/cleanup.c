@@ -24,7 +24,7 @@ void	free_envp(t_shell_data *shell)
 
 void	cleanup(t_shell_data *shell)
 {
-	free(shell->input);
+	free(shell->input); 
 	shell->input = NULL;
 	free(shell->full_input);
 	shell->full_input = NULL;
