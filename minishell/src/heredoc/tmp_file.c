@@ -6,10 +6,14 @@ char	*generate_temp_filename(void)
 	char		*filename;
 	char		*counter_str;
 
-	counter_str = ft_itoa(counter++); // Convert the counter to a string
+	counter_str = ft_itoa(counter++); // [x] Convert the counter to a string
+	if (!counter_str)
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 	if (!counter_str)
 		return (NULL);
-	filename = ft_strjoin("/tmp/minishell_heredoc_", counter_str); // Join the prefix and the counter string
+	filename = ft_strjoin("/tmp/minishell_heredoc_", counter_str); //[x] Join the prefix and the counter string
+	if (!filename)
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 	free(counter_str);
 	return (filename);
 }

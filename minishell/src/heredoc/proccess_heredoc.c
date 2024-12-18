@@ -14,7 +14,7 @@ int handle_heredoc_line(t_shell_data *shell, char *line, t_redirection *redir, i
     }
     if (!redir->delimiter_quoted)
     {
-        if (expand_and_write_line(shell, line, fd))
+        if (expand_and_write_line(shell, line, fd)) // [x]
         {
             free(line);
             return (1);
@@ -37,14 +37,19 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
     char *tmp_filename;
 
     redir->delimiter_quoted = check_delimiter_quotes(redir); // Adjusted to use redirection
-    tmp_filename = generate_temp_filename();
+    if (redir->delimiter_quoted < 0)
+    {
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+        return (1);
+    }
+    tmp_filename = generate_temp_filename(); // [x] 
     if (!tmp_filename)
         return (1);
-    fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+    fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600); // [x]
     if (fd < 0)
         return (heredoc_open_error(tmp_filename));
-    setup_signal_handlers(1);
     shell->in_heredoc = 1;
+    setup_signal_handlers(1);
     while (1)
     {
         line = readline("> ");
@@ -53,9 +58,8 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
             printf("minishell: warning: here-document delimited by end-of-file (wanted '%s')\n", shell->filename_or_delimiter);
             break;
         }
-        if (!line || handle_heredoc_line(shell, line, redir, fd))
+        if (handle_heredoc_line(shell, line, redir, fd))
         {
-            setup_signal_handlers(1);
             break;
         }
     }

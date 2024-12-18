@@ -10,7 +10,7 @@ int	syntax_error_newline(void)
 
 int	heredoc_open_error(char *tmp_filename)
 {
-	perror("minishell: heredoc");
+	write(STDERR_FILENO, "minishell: failed to open temporary file\n", 41);
 	free(tmp_filename);
 	return (1);
 }

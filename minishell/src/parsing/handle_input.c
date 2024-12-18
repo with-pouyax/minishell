@@ -8,7 +8,7 @@ void handle_ctrl_d(t_shell_data *shell)
 
 int	process_and_execute_commands(t_shell_data *shell)
 {
-    if (preprocess_input(shell) != 0)              // Preprocess input
+    if (preprocess_input(shell) != 0)              //[x] Preprocess input
 	{
 		return 1;
 	}
@@ -169,8 +169,11 @@ int	handle_input(t_shell_data *shell)
 		status = read_input(shell); 							// Read user input from terminal, if successful, status = 0, if user pressed Ctrl-D, status = 1
 		if (status == -1) 										// status == -1 means read error
 			running = handle_read_error();						// handle read error
-		else													// if read is successful
+		else
+		{
 			running = handle_user_input(shell);					// handle user input
+			setup_signal_handlers(0);							// Setup signal handlers
+		}														// if read is successful
 	}
 	rl_clear_history();
 	return (0);

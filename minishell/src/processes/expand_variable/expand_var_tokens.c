@@ -43,6 +43,7 @@ static int	append_str_to_result(char **result, char *str)
 {
 	char	*temp;
 
+	(void)str;
 	temp = ft_strjoin_free_both(*result, str);
 	if (!temp)
 	{
@@ -57,9 +58,13 @@ static int	handle_exit_status(t_shell_data *shell, char **result)
 {
 	char	*exit_str;
 
-	exit_str = ft_itoa(shell->exit_status);
+	(void)shell;
+	exit_str = ft_itoa(shell->exit_status); // [x]
 	if (!exit_str)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (1);
+	}
 	if (append_str_to_result(result, exit_str))
 		return (1);
 	return (0);

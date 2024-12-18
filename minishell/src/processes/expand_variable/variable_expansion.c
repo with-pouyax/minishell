@@ -61,11 +61,14 @@ int	append_literal_char(char *input, int *i, char **result)
 {
 	char	*temp;
 
-	temp = get_literal_char(input, i);
+	temp = get_literal_char(input, i); //[x]
 	if (!temp)
 		return (1);
-	*result = ft_strjoin_free_both(*result, temp);
+	*result = ft_strjoin_free_both(*result, temp); //[x]
 	if (!*result)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (1);
+	}
 	return (0);
 }

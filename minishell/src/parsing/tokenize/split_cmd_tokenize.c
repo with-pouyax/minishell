@@ -38,7 +38,7 @@ int	split_cmd_tokenize(t_shell_data *shell)
 	while (shell->input[i])                                                       //input is a string and i is the index, so here we loop through each character of the input
 	{
 		skip_spaces(shell, &i);													  //first we skip the spaces
-		if (process_input_segment(shell, &i, &cmd_index, &last_cmd) > 0)		  //we create a list of commands separated by pipes and store it in shell->commands
+		if (process_input_segment(shell, &i, &cmd_index, &last_cmd) > 0)		  //[x]we create a list of commands separated by pipes and store it in shell->commands
 			return (1);
 	}
 	if (shell->error_flag)
