@@ -59,12 +59,12 @@ char	*expand_variables_in_heredoc(t_shell_data *shell, char *input)
         }
         else if (input[i] == '$' && !in_single_quote)
         {
-            if (handle_dollar(shell, input, &i, &result))
+            if (handle_dollar(shell, input, &i, &result)) // [x]
                 return (free(result), NULL);
         }
         else
         {
-            if (append_literal_char(input, &i, &result))
+            if (append_literal_char(input, &i, &result)) // [x]
                 return (free(result), NULL);
         }
     }
