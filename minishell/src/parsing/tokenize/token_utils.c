@@ -195,7 +195,6 @@ int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 	return (0);
 }
 
-
 int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir)
 {
     if (input[*i] == '|')
@@ -213,8 +212,13 @@ int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection
         {
             return handle_syntax_error_s(shell, new_redir, "<|");
         }
+        else if (input[*i + 1] == '\0' || input[*i + 1] == ' ' || input[*i + 1] == '\n') // End of input or white space after `|`
+        {
+            return handle_syntax_error_s(shell, new_redir, "|");
+        }
         else
         {
+            // Unexpected character after `|`
             return handle_syntax_error_s(shell, new_redir, "|");
         }
     }
@@ -279,8 +283,6 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
     add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
-
-
 
 //=================================
 
