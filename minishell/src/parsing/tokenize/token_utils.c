@@ -37,7 +37,7 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 	return (0);
 }
 
-int collect_and_expand_redirection_word(t_parse_context *ctx, t_expanded_words *words)
+int collect_and_expand_redirection_word(t_shell_data *shell, t_parse_context *ctx, t_expanded_words *words)
 {
     char *word;
 
@@ -53,10 +53,17 @@ int collect_and_expand_redirection_word(t_parse_context *ctx, t_expanded_words *
     }
     else
     {
-        words->expanded = ft_strdup(word);
-        words->original = ft_strdup(word);
+        words->expanded = ft_strdup(word); //[x]
+        words->original = ft_strdup(word); //[x]
         if (!words->expanded || !words->original)
+        {
+            if (words->expanded)
+                free(words->expanded);
+            if (words->original)
+                free(words->original);
+            shell->error_flag = 4;
             return (free(word),1);
+        }
     }
     return (free(word),0);
 }
@@ -94,7 +101,7 @@ int process_filename_or_delimiter(t_shell_data *shell, char *input,
     ctx.input = input;
     ctx.i = i;
     ctx.redir = redir;
-    if (collect_and_expand_redirection_word(&ctx, &words))
+    if (collect_and_expand_redirection_word(shell, &ctx, &words))
         return (handle_missing_filename_error(shell, redir));
     if (!words.expanded || ft_strlen(words.expanded) == 0)
     {
@@ -126,10 +133,13 @@ int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir,
 
 int	handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir)
 {
-	ft_putstr_fd("syntax error near unexpected token `newline'\n", STDERR_FILENO);
-	free(new_redir);
-	shell->exit_status = 2;
-	return (1);
+    if (shell->error_flag == 4)
+        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+    else
+        ft_putstr_fd("syntax error near unexpected token `newline'\n", STDERR_FILENO);
+    free(new_redir);
+    shell->exit_status = 2;
+    return (1);
 }
 
 void	ft_putstr_fd2(const char *s, int fd)
