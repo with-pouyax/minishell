@@ -2,7 +2,7 @@
 
 int	syntax_error_newline(void)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token "
+	ft_putstr_fd("syntax error near unexpected token "
 		"`newline'\n", STDERR_FILENO);
 	return (1);
 }

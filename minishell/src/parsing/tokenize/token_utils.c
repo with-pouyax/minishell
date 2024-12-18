@@ -126,33 +126,32 @@ int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir,
 
 int	handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir)
 {
-	if (shell->error_flag == 4)
-	{
-		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-		free(new_redir);
-		shell->exit_status = 2;
-		return (1);
-	}
-	ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
+	ft_putstr_fd("syntax error near unexpected token `newline'\n", STDERR_FILENO);
 	free(new_redir);
 	shell->exit_status = 2;
 	return (1);
 }
 
-
-
-
-
-
-int	handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir,
-						char unexpected_char)
+void	ft_putstr_fd2(const char *s, int fd)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
-	ft_putchar_fd(unexpected_char, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-	free(new_redir);
-	shell->exit_status = 2;
-	return (1);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+}
+
+int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, const char *unexpected_token)
+{
+    ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+    ft_putstr_fd2(unexpected_token, STDERR_FILENO);
+    ft_putstr_fd("'\n", STDERR_FILENO);
+    free(new_redir);
+    shell->exit_status = 2;
+    return (1);
 }
 
 
@@ -199,14 +198,57 @@ int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 	return (0);
 }
 
-
-int	check_operator_error(t_shell_data *shell, char unexpected_char, t_redirection *new_redir)
+int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir)
 {
-    if (unexpected_char && is_operator_char(unexpected_char))
-        return (handle_syntax_error_s(shell, new_redir, unexpected_char));
-    return (0);
+    if (input[*i] == '|')
+    {
+        // Check for multi-character operators like <<|, >|, <|, etc.
+        if (input[*i + 1] == '|') // Detects the presence of `|` immediately followed by `|`
+        {
+            return handle_syntax_error_s(shell, new_redir, ">>");
+        }
+        else if (input[*i + 1] == '>')
+        {
+            return handle_syntax_error_s(shell, new_redir, ">|");
+        }
+        else if (input[*i + 1] == '<')
+        {
+            return handle_syntax_error_s(shell, new_redir, "<|");
+        }
+        else if (input[*i + 1] == '\0' || input[*i + 1] == ' ' || input[*i + 1] == '\n') // End of input or white space after `|`
+        {
+            return handle_syntax_error_s(shell, new_redir, "|");
+        }
+        else
+        {
+            // Unexpected character after `|`
+            return handle_syntax_error_s(shell, new_redir, "|");
+        }
+    }
+    else if (input[*i] == '>')
+    {
+        if (input[*i + 1] == '>')
+        {
+            return handle_syntax_error_s(shell, new_redir, ">>");
+        }
+        else
+        {
+            return handle_syntax_error_s(shell, new_redir, ">");
+        }
+    }
+    else if (input[*i] == '<')
+    {
+        if (input[*i + 1] == '<')
+        {
+            return handle_syntax_error_s(shell, new_redir, "<<");
+        }
+        else
+        {
+            return handle_syntax_error_s(shell, new_redir, "<");
+        }
+    }
+    return 0; // No error
 }
-
 
 int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 {
@@ -224,14 +266,19 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 
 int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    t_redirection   *new_redir;
+    t_redirection *new_redir;
 
     shell->filename_or_delimiter = NULL;
     if (prepare_redirection(cmd, &new_redir))  //[x]
         return (1);
+    
     skip_whitespace(input, i);
-    if (check_operator_error(shell, input[*i], new_redir))
+
+    // Check for operator errors (including multi-character operators like '>>' and '<<')
+    if (check_operator_error(shell, input, i, new_redir))
         return (1);
+
+    // Continue with processing if no syntax errors
     if (process_filename_or_delimiter(shell, input, i, new_redir))
         return (1);
     if (finalize_redirection(shell, new_redir))
@@ -239,9 +286,6 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
     add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
-
-
-
 
 //=================================
 

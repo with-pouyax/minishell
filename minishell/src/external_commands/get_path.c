@@ -90,7 +90,26 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 
 char	*get_command_path(t_shell_data *shell, t_token *token)
 {
-	if (token->value[0] == '/' || token->value[0] == '.')
+	// If the token starts with a '.', check if it's a valid path
+	if (token->value[0] == '.')
+	{
+		// Check if it is "." or ".." and return NULL (not a valid command)
+		if ((token->value[1] == '\0') || (token->value[1] == '.' && token->value[2] == '\0'))
+			return (NULL);
+
+		// Check if there is a valid path after the '.' (e.g., "./file")
+		if (token->value[1] == '/')
+			return (ft_strdup(token->value));
+
+		// Any other case (like ".echo.") is invalid
+		return (NULL);
+	}
+
+	// If the token starts with '/', directly strdup
+	if (token->value[0] == '/')
 		return (ft_strdup(token->value));
+
+	// Otherwise, find it in the environment PATH
 	return (find_path_in_env(shell, token->value));
 }
+
