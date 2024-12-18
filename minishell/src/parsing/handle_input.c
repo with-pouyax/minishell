@@ -173,7 +173,7 @@ int	handle_input(t_shell_data *shell)
 		{
 			running = handle_user_input(shell);					// handle user input
 			setup_signal_handlers(0);							// Setup signal handlers
-		}													// if read is successful
+		}														// if read is successful
 	}
 	rl_clear_history();
 	return (0);
