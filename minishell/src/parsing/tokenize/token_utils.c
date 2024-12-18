@@ -198,26 +198,50 @@ int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 
 int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir)
 {
-    if (input[*i] == '>')
+    if (input[*i] == '|')
     {
-        if (input[*i + 1] == '>') // Detect '>>'
+        // Check for multi-character operators like <<|, >|, <|, etc.
+        if (input[*i + 1] == '|') // Detects the presence of `|` immediately followed by `|`
         {
             return handle_syntax_error_s(shell, new_redir, ">>");
         }
-        return handle_syntax_error_s(shell, new_redir, ">");
+        else if (input[*i + 1] == '>')
+        {
+            return handle_syntax_error_s(shell, new_redir, ">|");
+        }
+        else if (input[*i + 1] == '<')
+        {
+            return handle_syntax_error_s(shell, new_redir, "<|");
+        }
+        else
+        {
+            return handle_syntax_error_s(shell, new_redir, "|");
+        }
+    }
+    else if (input[*i] == '>')
+    {
+        if (input[*i + 1] == '>')
+        {
+            return handle_syntax_error_s(shell, new_redir, ">>");
+        }
+        else
+        {
+            return handle_syntax_error_s(shell, new_redir, ">");
+        }
     }
     else if (input[*i] == '<')
     {
-        if (input[*i + 1] == '<') // Detect '<<'
+        if (input[*i + 1] == '<')
         {
             return handle_syntax_error_s(shell, new_redir, "<<");
         }
-        return handle_syntax_error_s(shell, new_redir, "<");
+        else
+        {
+            return handle_syntax_error_s(shell, new_redir, "<");
+        }
     }
     return 0; // No error
 }
-
-
 
 int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 {
@@ -235,14 +259,19 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 
 int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
-    t_redirection   *new_redir;
+    t_redirection *new_redir;
 
     shell->filename_or_delimiter = NULL;
     if (prepare_redirection(cmd, &new_redir))
         return (1);
+    
     skip_whitespace(input, i);
+
+    // Check for operator errors (including multi-character operators like '>>' and '<<')
     if (check_operator_error(shell, input, i, new_redir))
         return (1);
+
+    // Continue with processing if no syntax errors
     if (process_filename_or_delimiter(shell, input, i, new_redir))
         return (1);
     if (finalize_redirection(shell, new_redir))
@@ -250,7 +279,6 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
     add_redirection(&(cmd->redirections), new_redir);
     return (0);
 }
-
 
 
 
