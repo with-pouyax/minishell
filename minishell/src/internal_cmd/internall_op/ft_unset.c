@@ -13,11 +13,11 @@ int ft_unset(t_shell_data *shell, t_command *cmd)
         }
         else
         {
-            ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
-            ft_putstr_fd(token->value, STDERR_FILENO);
-            ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-            shell->exit_status = 0;
-            return (1);
+            // ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
+            // ft_putstr_fd(token->value, STDERR_FILENO);
+            // ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+            // shell->exit_status = 0;
+            return (0);
         }
         token = token->next;
     }
