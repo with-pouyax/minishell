@@ -1,0 +1,2 @@
+/usr/bin/env: ‘./minishell’: No such file or directory
+ls: command not found

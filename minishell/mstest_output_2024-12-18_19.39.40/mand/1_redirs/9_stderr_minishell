@@ -1,0 +1,2 @@
+./test_files/infile_big: No such file or directory
+cat: command not found

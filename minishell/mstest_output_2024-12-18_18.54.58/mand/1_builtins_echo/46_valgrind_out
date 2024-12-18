@@ -1,0 +1,198 @@
+==288052== Memcheck, a memory error detector
+==288052== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==288052== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==288052== Command: /home/mina/Desktop/new/minishell/minishell/minishell
+==288052== Parent PID: 288051
+==288052== 
+==288053== 
+==288053== FILE DESCRIPTORS: 6 open at exit.
+==288053== Open file descriptor 5: /dev/null
+==288053==    at 0x49C4ABB: dup (syscall-template.S:78)
+==288053==    by 0x109A8C: exec_cmd (execute_commands.c:31)
+==288053==    by 0x109B6A: execution (execute_commands.c:57)
+==288053==    by 0x10DA85: process_and_execute_commands (handle_input.c:21)
+==288053==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053==    by 0x1096BD: main (main.c:30)
+==288053== 
+==288053== Open file descriptor 4:
+==288053==    at 0x49C4ABB: dup (syscall-template.S:78)
+==288053==    by 0x109A7F: exec_cmd (execute_commands.c:30)
+==288053==    by 0x109B6A: execution (execute_commands.c:57)
+==288053==    by 0x10DA85: process_and_execute_commands (handle_input.c:21)
+==288053==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053==    by 0x1096BD: main (main.c:30)
+==288053== 
+==288053== Open file descriptor 3: /tmp/tmp.Eouuq3eiRw/tmp_valgrind_out
+==288053==    <inherited from parent>
+==288053== 
+==288053== Open file descriptor 2: /dev/null
+==288053==    <inherited from parent>
+==288053== 
+==288053== Open file descriptor 1: /dev/null
+==288053==    <inherited from parent>
+==288053== 
+==288053== Open file descriptor 0:
+==288053==    <inherited from parent>
+==288053== 
+==288053== 
+==288053== HEAP SUMMARY:
+==288053==     in use at exit: 8,745 bytes in 79 blocks
+==288053==   total heap usage: 113 allocs, 34 frees, 21,127 bytes allocated
+==288053== 
+==288053== 11 bytes in 2 blocks are still reachable in loss record 1 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x10A504: ft_strjoin_safe (helper_1.c:34)
+==288053==    by 0x10A618: ft_strjoin_and_free_both (helper_2.c:13)
+==288053==    by 0x10A687: ft_strjoin_free_both (helper_2.c:27)
+==288053==    by 0x110E68: append_literal_char (variable_expansion.c:67)
+==288053==    by 0x110C2A: expand_variables_in_token (expand_var_tokens.c:137)
+==288053==    by 0x10E8E0: save_and_expand_word (process_word.c:137)
+==288053==    by 0x10EA44: collect_and_expand_word (process_word.c:176)
+==288053==    by 0x10EDB5: process_word (process_word.c:265)
+==288053==    by 0x10F2B6: tokenize_command (tokenize_input.c:20)
+==288053==    by 0x1105B7: process_input_segment (process_input_segment.c:44)
+==288053==    by 0x10EF5D: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==288053== 
+==288053== 13 bytes in 1 blocks are still reachable in loss record 3 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x112304: ft_strdup (in /home/mina/Desktop/new/minishell/minishell/minishell)
+==288053==    by 0x10DC19: handle_allocation (handle_input.c:72)
+==288053==    by 0x10DCB4: allocate_resources (handle_input.c:94)
+==288053==    by 0x10DDC6: handle_user_input (handle_input.c:135)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053==    by 0x1096BD: main (main.c:30)
+==288053== 
+==288053== 13 bytes in 1 blocks are still reachable in loss record 5 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x11240E: ft_substr (in /home/mina/Desktop/new/minishell/minishell/minishell)
+==288053==    by 0x11053B: process_input_segment (process_input_segment.c:36)
+==288053==    by 0x10EF5D: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==288053==    by 0x110643: preprocess_input (preprocess_input.c:6)
+==288053==    by 0x10DA61: process_and_execute_commands (handle_input.c:11)
+==288053==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053==    by 0x1096BD: main (main.c:30)
+==288053== 
+==288053== 13 bytes in 2 blocks are still reachable in loss record 6 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x112304: ft_strdup (in /home/mina/Desktop/new/minishell/minishell/minishell)
+==288053==    by 0x10E8A2: save_and_expand_word (process_word.c:131)
+==288053==    by 0x10EA44: collect_and_expand_word (process_word.c:176)
+==288053==    by 0x10EDB5: process_word (process_word.c:265)
+==288053==    by 0x10F2B6: tokenize_command (tokenize_input.c:20)
+==288053==    by 0x1105B7: process_input_segment (process_input_segment.c:44)
+==288053==    by 0x10EF5D: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==288053==    by 0x110643: preprocess_input (preprocess_input.c:6)
+==288053==    by 0x10DA61: process_and_execute_commands (handle_input.c:11)
+==288053==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053== 
+==288053== 20 bytes in 1 blocks are still reachable in loss record 7 of 14
+==288053==    at 0x483DFAF: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x49C5297: getcwd (getcwd.c:84)
+==288053==    by 0x10E1EE: init_shell (init_shell.c:58)
+==288053==    by 0x1096A4: main (main.c:28)
+==288053== 
+==288053== 56 bytes in 1 blocks are still reachable in loss record 9 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x10F02C: create_command (tokenize_cmd.c:17)
+==288053==    by 0x110599: process_input_segment (process_input_segment.c:43)
+==288053==    by 0x10EF5D: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==288053==    by 0x110643: preprocess_input (preprocess_input.c:6)
+==288053==    by 0x10DA61: process_and_execute_commands (handle_input.c:11)
+==288053==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053==    by 0x1096BD: main (main.c:30)
+==288053== 
+==288053== 120 bytes in 1 blocks are still reachable in loss record 10 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x4939543: getdelim (iogetdelim.c:62)
+==288053==    by 0x484B39E: readline (in /home/mina/42_minishell_tester/utils/libintercept/libintercept.so)
+==288053==    by 0x10DC69: read_input (handle_input.c:83)
+==288053==    by 0x10DE6F: handle_input (handle_input.c:169)
+==288053==    by 0x1096BD: main (main.c:30)
+==288053== 
+==288053== 208 bytes in 2 blocks are still reachable in loss record 11 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x1102BF: add_token (token_utils.c:305)
+==288053==    by 0x10E945: add_token_to_command (process_word.c:149)
+==288053==    by 0x10ED2F: handle_non_expanded (process_word.c:252)
+==288053==    by 0x10EE26: process_word (process_word.c:275)
+==288053==    by 0x10F2B6: tokenize_command (tokenize_input.c:20)
+==288053==    by 0x1105B7: process_input_segment (process_input_segment.c:44)
+==288053==    by 0x10EF5D: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==288053==    by 0x110643: preprocess_input (preprocess_input.c:6)
+==288053==    by 0x10DA61: process_and_execute_commands (handle_input.c:11)
+==288053==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288053==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288053== 
+==288053== 512 bytes in 1 blocks are still reachable in loss record 12 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x10DF69: copy_envp (init_env.c:28)
+==288053==    by 0x10966D: main (main.c:22)
+==288053== 
+==288053== 3,714 bytes in 63 blocks are still reachable in loss record 13 of 14
+==288053==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==288053==    by 0x112304: ft_strdup (in /home/mina/Desktop/new/minishell/minishell/minishell)
+==288053==    by 0x10DFB3: copy_envp (init_env.c:33)
+==288053==    by 0x10966D: main (main.c:22)
+==288053== 
+==288053== LEAK SUMMARY:
+==288053==    definitely lost: 0 bytes in 0 blocks
+==288053==    indirectly lost: 0 bytes in 0 blocks
+==288053==      possibly lost: 0 bytes in 0 blocks
+==288053==    still reachable: 4,680 bytes in 75 blocks
+==288053==         suppressed: 4,065 bytes in 4 blocks
+==288053== 
+==288053== ERROR SUMMARY: 10 errors from 10 contexts (suppressed: 4 from 4)
+--288053-- 
+--288053-- used_suppression:      4 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,065 bytes in 4 blocks
+==288053== 
+==288053== ERROR SUMMARY: 10 errors from 10 contexts (suppressed: 4 from 4)
+==288052== 
+==288052== FILE DESCRIPTORS: 4 open at exit.
+==288052== Open file descriptor 3: /tmp/tmp.Eouuq3eiRw/tmp_valgrind_out
+==288052==    <inherited from parent>
+==288052== 
+==288052== Open file descriptor 2: /dev/null
+==288052==    <inherited from parent>
+==288052== 
+==288052== Open file descriptor 1: /dev/null
+==288052==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==288052==    by 0x109A47: restore_org_in_out (execute_commands.c:11)
+==288052==    by 0x109B17: exec_cmd (execute_commands.c:44)
+==288052==    by 0x109B6A: execution (execute_commands.c:57)
+==288052==    by 0x10DA85: process_and_execute_commands (handle_input.c:21)
+==288052==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288052==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288052==    by 0x1096BD: main (main.c:30)
+==288052== 
+==288052== Open file descriptor 0:
+==288052==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==288052==    by 0x109A38: restore_org_in_out (execute_commands.c:10)
+==288052==    by 0x109B17: exec_cmd (execute_commands.c:44)
+==288052==    by 0x109B6A: execution (execute_commands.c:57)
+==288052==    by 0x10DA85: process_and_execute_commands (handle_input.c:21)
+==288052==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==288052==    by 0x10DE8E: handle_input (handle_input.c:173)
+==288052==    by 0x1096BD: main (main.c:30)
+==288052== 
+==288052== 
+==288052== HEAP SUMMARY:
+==288052==     in use at exit: 4,065 bytes in 4 blocks
+==288052==   total heap usage: 114 allocs, 110 frees, 17,167 bytes allocated
+==288052== 
+==288052== LEAK SUMMARY:
+==288052==    definitely lost: 0 bytes in 0 blocks
+==288052==    indirectly lost: 0 bytes in 0 blocks
+==288052==      possibly lost: 0 bytes in 0 blocks
+==288052==    still reachable: 0 bytes in 0 blocks
+==288052==         suppressed: 4,065 bytes in 4 blocks
+==288052== 
+==288052== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--288052-- 
+--288052-- used_suppression:      4 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,065 bytes in 4 blocks
+==288052== 
+==288052== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

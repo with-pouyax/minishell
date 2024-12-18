@@ -1,0 +1,2 @@
+/bin/cat: 42: No such file or directory
+expr: command not found

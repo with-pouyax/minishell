@@ -1,0 +1,4 @@
+PWD=/tmp/tmp.yrh1hNyhh9
+LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so
+SHLVL=1
+_=/usr/bin/env

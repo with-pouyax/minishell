@@ -1,0 +1,52 @@
+==276138== Memcheck, a memory error detector
+==276138== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==276138== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==276138== Command: /home/mina/Desktop/new/minishell/minishell/minishell
+==276138== Parent PID: 276137
+==276138== 
+==276138== Warning: invalid file descriptor -1 in syscall close()
+==276138== 
+==276138== FILE DESCRIPTORS: 4 open at exit.
+==276138== Open file descriptor 3: /tmp/tmp.Eouuq3eiRw/tmp_valgrind_out
+==276138==    <inherited from parent>
+==276138== 
+==276138== Open file descriptor 2: /dev/null
+==276138==    <inherited from parent>
+==276138== 
+==276138== Open file descriptor 1: /dev/null
+==276138==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==276138==    by 0x109A47: restore_org_in_out (execute_commands.c:11)
+==276138==    by 0x109B17: exec_cmd (execute_commands.c:44)
+==276138==    by 0x109B6A: execution (execute_commands.c:57)
+==276138==    by 0x10DA85: process_and_execute_commands (handle_input.c:21)
+==276138==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==276138==    by 0x10DE8E: handle_input (handle_input.c:173)
+==276138==    by 0x1096BD: main (main.c:30)
+==276138== 
+==276138== Open file descriptor 0:
+==276138==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==276138==    by 0x109A38: restore_org_in_out (execute_commands.c:10)
+==276138==    by 0x109B17: exec_cmd (execute_commands.c:44)
+==276138==    by 0x109B6A: execution (execute_commands.c:57)
+==276138==    by 0x10DA85: process_and_execute_commands (handle_input.c:21)
+==276138==    by 0x10DDF2: handle_user_input (handle_input.c:140)
+==276138==    by 0x10DE8E: handle_input (handle_input.c:173)
+==276138==    by 0x1096BD: main (main.c:30)
+==276138== 
+==276138== 
+==276138== HEAP SUMMARY:
+==276138==     in use at exit: 4,061 bytes in 4 blocks
+==276138==   total heap usage: 89 allocs, 85 frees, 16,919 bytes allocated
+==276138== 
+==276138== LEAK SUMMARY:
+==276138==    definitely lost: 0 bytes in 0 blocks
+==276138==    indirectly lost: 0 bytes in 0 blocks
+==276138==      possibly lost: 0 bytes in 0 blocks
+==276138==    still reachable: 0 bytes in 0 blocks
+==276138==         suppressed: 4,061 bytes in 4 blocks
+==276138== 
+==276138== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--276138-- 
+--276138-- used_suppression:      4 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,061 bytes in 4 blocks
+==276138== 
+==276138== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

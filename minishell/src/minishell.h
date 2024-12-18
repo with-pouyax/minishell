@@ -267,7 +267,7 @@ int 	calc_cmds_nb(t_shell_data *shell);
 int		calc_pipe_nb(t_shell_data *shell);
 int 	**init_pipes(int cmds_nb);
 
-void    execution(t_shell_data *shell);
+int    execution(t_shell_data *shell);
 void 	exec_cmd(t_shell_data *shell ,t_command *cmds, int index);
 void 	set_redirection(t_shell_data *shell, t_redirection *redir);
 void 	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index);

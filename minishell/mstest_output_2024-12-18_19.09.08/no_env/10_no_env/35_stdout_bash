@@ -1,0 +1,6 @@
+/bin/rm -rf out
+/bin/rm -rf out1
+/bin/rm -rf out2
+/bin/rm -rf out3
+cd ..
+pwd

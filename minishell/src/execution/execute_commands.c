@@ -44,7 +44,7 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	restore_org_in_out(saved_stdin, saved_stdout);
 }
 
-void	execution(t_shell_data *shell)
+int	execution(t_shell_data *shell)
 {
 	t_command	*cmd;
 	int			i;
@@ -61,4 +61,8 @@ void	execution(t_shell_data *shell)
 	close_all_pipes(shell->pipes, shell->cmds_nb);
 	execute_parent(shell);
 	free_pipes(shell->pipes, shell->cmds_nb);
+	if (shell->error_flag == 2)
+		return (1);
+	else
+		return (0);
 }

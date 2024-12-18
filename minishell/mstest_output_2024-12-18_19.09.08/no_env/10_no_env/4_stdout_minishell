@@ -1,0 +1,1 @@
+declare -x LD_PRELOAD=/home/mina/42_minishell_tester/utils/libintercept/libintercept.so
