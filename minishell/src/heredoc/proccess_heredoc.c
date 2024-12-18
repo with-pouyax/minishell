@@ -42,7 +42,7 @@ int read_heredoc_content(t_shell_data *shell, t_redirection *redir)
         ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
         return (1);
     }
-    tmp_filename = generate_temp_filename();
+    tmp_filename = generate_temp_filename(); // [x] 
     if (!tmp_filename)
         return (1);
     fd = open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
