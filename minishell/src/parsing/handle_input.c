@@ -73,7 +73,6 @@ int handle_allocation(t_shell_data *shell)
     if (!shell->full_input)
     {
         ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-        free(shell->input);
         return (1);
     }
     return (0);
@@ -94,7 +93,7 @@ int	allocate_resources(t_shell_data *shell)
 {
 	if (handle_allocation(shell))                   // Allocate memory for full_input
 	{
-		cleanup(shell);
+		//cleanup(shell);
 		return (1);
 	}
 	return (0);
@@ -125,7 +124,7 @@ int	is_input_empty(t_shell_data *shell)
 
 
 int handle_user_input(t_shell_data *shell)
-{
+{	
 	if (is_input_empty(shell))                  					// If input is empty, do nothing
 		handle_empty_input(shell);
 	else 									   						// if input is not empty
@@ -133,13 +132,19 @@ int handle_user_input(t_shell_data *shell)
 		g_signal.signal_status = 0; 		   						// Reset signal status
 		if (!validate_input_length(shell))     						//check if input length is less than MAX_INPUT_LENGTH
 		{
-			if (!allocate_resources(shell))    						// Allocate resources for full_input field in shell   
+			if (!allocate_resources(shell))    						// [x]Allocate resources for full_input field in shell 
 			{
 				add_to_history_if_needed(shell);   					// Add input to history if it is not empty
 				if (!check_and_handle_syntax_errors(shell)) 		// Check for syntax errors
 				{
 					if (process_and_execute_commands(shell) != 0)  	// Process and execute commands
-						return (0);
+					{
+						if (shell->error_flag == 2)  
+							return (0);
+						else if (shell->error_flag == 3)
+							return (0);
+						return (1);
+					}	
 				}
 			}
 		}
@@ -161,11 +166,11 @@ int	handle_input(t_shell_data *shell)
 	running = 1;
 	while (running)
 	{
-		status = read_input(shell); 							// Read user input from terminal,
+		status = read_input(shell); 							// Read user input from terminal, if successful, status = 0, if user pressed Ctrl-D, status = 1
 		if (status == -1) 										// status == -1 means read error
-			running = handle_read_error(); 
-		else
-			running = handle_user_input(shell);
+			running = handle_read_error();						// handle read error
+		else													// if read is successful
+			running = handle_user_input(shell);					// handle user input
 	}
 	rl_clear_history();
 	return (0);

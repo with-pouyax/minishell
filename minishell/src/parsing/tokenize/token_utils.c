@@ -42,7 +42,7 @@ int collect_and_expand_redirection_word(t_parse_context *ctx, t_expanded_words *
     char *word;
 
     word = NULL;
-    if (collect_word(ctx->input, ctx->i, &word, ctx->shell))
+    if (collect_word(ctx->input, ctx->i, &word, ctx->shell)) //[x]
         return (1);
     if (!word || ft_strlen(word) == 0)
         return (free(word), 1);
@@ -126,6 +126,13 @@ int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir,
 
 int	handle_missing_filename_error(t_shell_data *shell, t_redirection *new_redir)
 {
+	if (shell->error_flag == 4)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+		free(new_redir);
+		shell->exit_status = 2;
+		return (1);
+	}
 	ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO);
 	free(new_redir);
 	shell->exit_status = 2;
@@ -160,9 +167,12 @@ t_redirection	*create_new_redirection(char *op)
 {
 	t_redirection	*new_redir;
 
-	new_redir = malloc(sizeof(t_redirection));
+	new_redir = malloc(sizeof(t_redirection));  //[x]
 	if (!new_redir)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (NULL);
+	}
 	ft_bzero(new_redir, sizeof(t_redirection));
 	if (!ft_strcmp(op, "<"))
 		new_redir->type = REDIR_INPUT;
@@ -204,7 +214,7 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 
     if (!op)
         return (1);
-    *new_redir = create_new_redirection(op);        // we create a new redirection struct
+    *new_redir = create_new_redirection(op);        // [x]we create a new redirection struct
     free(op);
     cmd->current_op = NULL;						    // Reset current_op 
     return (!(*new_redir));                         // if we successfully created the redirection struct, we return 0, else 1
@@ -217,7 +227,7 @@ int handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd)
     t_redirection   *new_redir;
 
     shell->filename_or_delimiter = NULL;
-    if (prepare_redirection(cmd, &new_redir))
+    if (prepare_redirection(cmd, &new_redir))  //[x]
         return (1);
     skip_whitespace(input, i);
     if (check_operator_error(shell, input[*i], new_redir))
@@ -250,7 +260,10 @@ int	add_token(char *token_value, t_token **token_list,
 
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (1);
+	}
 	initialize_new_token(new_token, token_value, index, is_operator);
 	if (!*token_list)
 		*token_list = new_token;

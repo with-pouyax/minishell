@@ -4,9 +4,12 @@ int initialize_expansion(char **result, int *in_single_quote, int *in_double_quo
 {
     *in_single_quote = 0;
     *in_double_quote = 0;
-    *result = ft_strdup("");
+    *result = ft_strdup("");    // [x]
     if (!*result)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
         return (1);
+	}
     return (0);
 }
 
@@ -42,7 +45,10 @@ static int	append_str_to_result(char **result, char *str)
 
 	temp = ft_strjoin_free_both(*result, str);
 	if (!temp)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (1);
+	}
 	*result = temp;
 	return (0);
 }
@@ -90,11 +96,14 @@ int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result)
 	}
 	else if (ft_isdigit((unsigned char)input[*i]))
 		(*i)++;
-	else
+	else // If the character after the '$' is not a valid character
 	{
 		char *temp = ft_strdup("$");
 		if (!temp)
+		{
+			ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 			return (1);
+		}
 		if (append_str_to_result(result, temp))
 			return (free(temp), 1);
 	}
@@ -108,7 +117,7 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 	int		in_single_quote;
 	int		in_double_quote;
 
-	if (initialize_expansion(&result, &in_single_quote, &in_double_quote))
+	if (initialize_expansion(&result, &in_single_quote, &in_double_quote)) // [x]
 		return (NULL);
 	i = 0;
 	while (input[i])
@@ -120,12 +129,12 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 		{
 			shell->double_quoted = in_double_quote;
 			shell->expanded = 1;
-			if (handle_dollar(shell, input, &i, &result))
+			if (handle_dollar(shell, input, &i, &result)) // [x]
 				return (free(result), NULL);
 		}
 		else
 		{
-			if (append_literal_char(input, &i, &result))
+			if (append_literal_char(input, &i, &result)) // [x]
 				return (free(result), NULL);
 		}
 	}
