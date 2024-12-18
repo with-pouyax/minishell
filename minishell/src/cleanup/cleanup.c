@@ -30,8 +30,10 @@ void	cleanup(t_shell_data *shell)
 	shell->full_input = NULL;
 	free_commands(shell);
 	free_envp(shell);
-	free(shell->prev_dir);
-    shell->prev_dir = NULL;
+	if (shell->prev_dir) {
+        free(shell->prev_dir);
+        shell->prev_dir = NULL;
+    }
 }
 
 int	tokenize_command_error(t_command *cmd)
