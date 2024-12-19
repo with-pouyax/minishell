@@ -1,7 +1,5 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  //new_json
   "version": "0.2.0",
   "configurations": [
       {
@@ -14,8 +12,14 @@
           "cwd": "${workspaceFolder}",
           "externalConsole": false,
           "MIMode": "gdb",
+          
           "setupCommands": [
               {
+              "description": "Set follow-fork-mode to child",
+              "text": "set follow-fork-mode child",
+              "ignoreFailures": true
+                },
+                {
                   "description": "Enable pretty-printing for gdb",
                   "text": "-enable-pretty-printing",
                   "ignoreFailures": true
@@ -44,3 +48,5 @@
       }
   ]
 }
+//gdb command for minishell; set follow-fork-mode child. 
+//or set follow-fork-mode parent (default)
