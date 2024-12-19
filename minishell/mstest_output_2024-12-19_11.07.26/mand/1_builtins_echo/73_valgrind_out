@@ -1,0 +1,98 @@
+==1127524== Memcheck, a memory error detector
+==1127524== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1127524== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1127524== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==1127524== Parent PID: 1127523
+==1127524== 
+==1127525== 
+==1127525== FILE DESCRIPTORS: 11 open (3 std) at exit.
+==1127525== Open file descriptor 5: /dev/null
+==1127525==    at 0x49DEFEB: dup (syscall-template.S:120)
+==1127525==    by 0x10983A: exec_cmd (execute_commands.c:31)
+==1127525==    by 0x109918: execution (execute_commands.c:57)
+==1127525==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1127525==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1127525==    by 0x10DB85: handle_input (handle_input.c:174)
+==1127525==    by 0x10946D: main (main.c:30)
+==1127525== 
+==1127525== Open file descriptor 4:
+==1127525==    at 0x49DEFEB: dup (syscall-template.S:120)
+==1127525==    by 0x10982D: exec_cmd (execute_commands.c:30)
+==1127525==    by 0x109918: execution (execute_commands.c:57)
+==1127525==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1127525==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1127525==    by 0x10DB85: handle_input (handle_input.c:174)
+==1127525==    by 0x10946D: main (main.c:30)
+==1127525== 
+==1127525== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 46: /dev/ptmx
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 44: /dev/ptmx
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 43: /home/pghajard/.config/Code/logs/20241219T105640/ptyhost.log
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open AF_UNIX socket 37: <unknown>
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 3: /tmp/tmp.1H6k8OPmLs/tmp_valgrind_out
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== 
+==1127525== HEAP SUMMARY:
+==1127525==     in use at exit: 4,016 bytes in 1 blocks
+==1127525==   total heap usage: 152 allocs, 151 frees, 22,174 bytes allocated
+==1127525== 
+==1127525== LEAK SUMMARY:
+==1127525==    definitely lost: 0 bytes in 0 blocks
+==1127525==    indirectly lost: 0 bytes in 0 blocks
+==1127525==      possibly lost: 0 bytes in 0 blocks
+==1127525==    still reachable: 0 bytes in 0 blocks
+==1127525==         suppressed: 4,016 bytes in 1 blocks
+==1127525== 
+==1127525== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127525-- 
+--1127525-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127525== 
+==1127525== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127524== 
+==1127524== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1127524== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 46: /dev/ptmx
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 44: /dev/ptmx
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 43: /home/pghajard/.config/Code/logs/20241219T105640/ptyhost.log
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open AF_UNIX socket 37: <unknown>
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 3: /tmp/tmp.1H6k8OPmLs/tmp_valgrind_out
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== 
+==1127524== HEAP SUMMARY:
+==1127524==     in use at exit: 4,077 bytes in 4 blocks
+==1127524==   total heap usage: 153 allocs, 149 frees, 18,214 bytes allocated
+==1127524== 
+==1127524== LEAK SUMMARY:
+==1127524==    definitely lost: 0 bytes in 0 blocks
+==1127524==    indirectly lost: 0 bytes in 0 blocks
+==1127524==      possibly lost: 0 bytes in 0 blocks
+==1127524==    still reachable: 0 bytes in 0 blocks
+==1127524==         suppressed: 4,077 bytes in 4 blocks
+==1127524== 
+==1127524== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--1127524-- 
+--1127524-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,077 bytes in 4 blocks
+==1127524== 
+==1127524== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

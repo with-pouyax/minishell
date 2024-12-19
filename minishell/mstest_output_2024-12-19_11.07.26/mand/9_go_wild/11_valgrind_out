@@ -1,0 +1,189 @@
+==1169679== Memcheck, a memory error detector
+==1169679== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1169679== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1169679== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==1169679== Parent PID: 1169678
+==1169679== 
+==1169680== 
+==1169680== FILE DESCRIPTORS: 13 open (3 std) at exit.
+==1169680== Open file descriptor 7: /dev/null
+==1169680==    at 0x49DEFEB: dup (syscall-template.S:120)
+==1169680==    by 0x10983A: exec_cmd (execute_commands.c:31)
+==1169680==    by 0x109918: execution (execute_commands.c:57)
+==1169680==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169680==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169680==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169680==    by 0x10946D: main (main.c:30)
+==1169680== 
+==1169680== Open file descriptor 6:
+==1169680==    at 0x49DEFEB: dup (syscall-template.S:120)
+==1169680==    by 0x10982D: exec_cmd (execute_commands.c:30)
+==1169680==    by 0x109918: execution (execute_commands.c:57)
+==1169680==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169680==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169680==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169680==    by 0x10946D: main (main.c:30)
+==1169680== 
+==1169680== Open file descriptor 5:
+==1169680==    at 0x49DF07D: pipe (pipe.c:29)
+==1169680==    by 0x109A30: init_pipes (init_pipes.c:19)
+==1169680==    by 0x1098F8: execution (execute_commands.c:54)
+==1169680==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169680==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169680==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169680==    by 0x10946D: main (main.c:30)
+==1169680== 
+==1169680== Open file descriptor 4:
+==1169680==    at 0x49DF07D: pipe (pipe.c:29)
+==1169680==    by 0x109A30: init_pipes (init_pipes.c:19)
+==1169680==    by 0x1098F8: execution (execute_commands.c:54)
+==1169680==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169680==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169680==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169680==    by 0x10946D: main (main.c:30)
+==1169680== 
+==1169680== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1169680==    <inherited from parent>
+==1169680== 
+==1169680== Open file descriptor 46: /dev/ptmx
+==1169680==    <inherited from parent>
+==1169680== 
+==1169680== Open file descriptor 44: /dev/ptmx
+==1169680==    <inherited from parent>
+==1169680== 
+==1169680== Open file descriptor 43: /home/pghajard/.config/Code/logs/20241219T105640/ptyhost.log
+==1169680==    <inherited from parent>
+==1169680== 
+==1169680== Open AF_UNIX socket 37: <unknown>
+==1169680==    <inherited from parent>
+==1169680== 
+==1169680== Open file descriptor 3: /tmp/tmp.1H6k8OPmLs/tmp_valgrind_out
+==1169680==    <inherited from parent>
+==1169680== 
+==1169680== 
+==1169680== HEAP SUMMARY:
+==1169680==     in use at exit: 4,032 bytes in 3 blocks
+==1169680==   total heap usage: 175 allocs, 172 frees, 22,372 bytes allocated
+==1169680== 
+==1169680== 8 bytes in 1 blocks are still reachable in loss record 1 of 3
+==1169680==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1169680==    by 0x1099B0: init_pipes (init_pipes.c:11)
+==1169680==    by 0x1098F8: execution (execute_commands.c:54)
+==1169680==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169680==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169680==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169680==    by 0x10946D: main (main.c:30)
+==1169680== 
+==1169680== 8 bytes in 1 blocks are still reachable in loss record 2 of 3
+==1169680==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1169680==    by 0x1099E8: init_pipes (init_pipes.c:16)
+==1169680==    by 0x1098F8: execution (execute_commands.c:54)
+==1169680==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169680==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169680==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169680==    by 0x10946D: main (main.c:30)
+==1169680== 
+==1169680== LEAK SUMMARY:
+==1169680==    definitely lost: 0 bytes in 0 blocks
+==1169680==    indirectly lost: 0 bytes in 0 blocks
+==1169680==      possibly lost: 0 bytes in 0 blocks
+==1169680==    still reachable: 16 bytes in 2 blocks
+==1169680==         suppressed: 4,016 bytes in 1 blocks
+==1169680== 
+==1169680== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--1169680-- 
+--1169680-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1169680== 
+==1169680== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==1169681== 
+==1169681== FILE DESCRIPTORS: 11 open (3 std) at exit.
+==1169681== Open file descriptor 5: /dev/null
+==1169681==    at 0x49DEFEB: dup (syscall-template.S:120)
+==1169681==    by 0x10983A: exec_cmd (execute_commands.c:31)
+==1169681==    by 0x109918: execution (execute_commands.c:57)
+==1169681==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169681==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169681==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169681==    by 0x10946D: main (main.c:30)
+==1169681== 
+==1169681== Open file descriptor 4:
+==1169681==    at 0x49DEFEB: dup (syscall-template.S:120)
+==1169681==    by 0x10982D: exec_cmd (execute_commands.c:30)
+==1169681==    by 0x109918: execution (execute_commands.c:57)
+==1169681==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1169681==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1169681==    by 0x10DB85: handle_input (handle_input.c:174)
+==1169681==    by 0x10946D: main (main.c:30)
+==1169681== 
+==1169681== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1169681==    <inherited from parent>
+==1169681== 
+==1169681== Open file descriptor 46: /dev/ptmx
+==1169681==    <inherited from parent>
+==1169681== 
+==1169681== Open file descriptor 44: /dev/ptmx
+==1169681==    <inherited from parent>
+==1169681== 
+==1169681== Open file descriptor 43: /home/pghajard/.config/Code/logs/20241219T105640/ptyhost.log
+==1169681==    <inherited from parent>
+==1169681== 
+==1169681== Open AF_UNIX socket 37: <unknown>
+==1169681==    <inherited from parent>
+==1169681== 
+==1169681== Open file descriptor 3: /tmp/tmp.1H6k8OPmLs/tmp_valgrind_out
+==1169681==    <inherited from parent>
+==1169681== 
+==1169681== 
+==1169681== HEAP SUMMARY:
+==1169681==     in use at exit: 4,016 bytes in 1 blocks
+==1169681==   total heap usage: 215 allocs, 214 frees, 22,877 bytes allocated
+==1169681== 
+==1169681== LEAK SUMMARY:
+==1169681==    definitely lost: 0 bytes in 0 blocks
+==1169681==    indirectly lost: 0 bytes in 0 blocks
+==1169681==      possibly lost: 0 bytes in 0 blocks
+==1169681==    still reachable: 0 bytes in 0 blocks
+==1169681==         suppressed: 4,016 bytes in 1 blocks
+==1169681== 
+==1169681== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1169681-- 
+--1169681-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1169681== 
+==1169681== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1169679== 
+==1169679== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1169679== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1169679==    <inherited from parent>
+==1169679== 
+==1169679== Open file descriptor 46: /dev/ptmx
+==1169679==    <inherited from parent>
+==1169679== 
+==1169679== Open file descriptor 44: /dev/ptmx
+==1169679==    <inherited from parent>
+==1169679== 
+==1169679== Open file descriptor 43: /home/pghajard/.config/Code/logs/20241219T105640/ptyhost.log
+==1169679==    <inherited from parent>
+==1169679== 
+==1169679== Open AF_UNIX socket 37: <unknown>
+==1169679==    <inherited from parent>
+==1169679== 
+==1169679== Open file descriptor 3: /tmp/tmp.1H6k8OPmLs/tmp_valgrind_out
+==1169679==    <inherited from parent>
+==1169679== 
+==1169679== 
+==1169679== HEAP SUMMARY:
+==1169679==     in use at exit: 4,138 bytes in 7 blocks
+==1169679==   total heap usage: 216 allocs, 209 frees, 18,917 bytes allocated
+==1169679== 
+==1169679== LEAK SUMMARY:
+==1169679==    definitely lost: 0 bytes in 0 blocks
+==1169679==    indirectly lost: 0 bytes in 0 blocks
+==1169679==      possibly lost: 0 bytes in 0 blocks
+==1169679==    still reachable: 0 bytes in 0 blocks
+==1169679==         suppressed: 4,138 bytes in 7 blocks
+==1169679== 
+==1169679== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--1169679-- 
+--1169679-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,138 bytes in 7 blocks
+==1169679== 
+==1169679== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

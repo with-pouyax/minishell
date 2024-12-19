@@ -1,0 +1,57 @@
+==1161173== Memcheck, a memory error detector
+==1161173== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1161173== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1161173== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==1161173== Parent PID: 1161172
+==1161173== 
+==1161173== 
+==1161173== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1161173== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1161173==    <inherited from parent>
+==1161173== 
+==1161173== Open file descriptor 46: /dev/ptmx
+==1161173==    <inherited from parent>
+==1161173== 
+==1161173== Open file descriptor 44: /dev/ptmx
+==1161173==    <inherited from parent>
+==1161173== 
+==1161173== Open file descriptor 43: /home/pghajard/.config/Code/logs/20241219T105640/ptyhost.log
+==1161173==    <inherited from parent>
+==1161173== 
+==1161173== Open AF_UNIX socket 37: <unknown>
+==1161173==    <inherited from parent>
+==1161173== 
+==1161173== Open file descriptor 3: /tmp/tmp.1H6k8OPmLs/tmp_valgrind_out
+==1161173==    <inherited from parent>
+==1161173== 
+==1161173== 
+==1161173== HEAP SUMMARY:
+==1161173==     in use at exit: 4,127 bytes in 8 blocks
+==1161173==   total heap usage: 151 allocs, 143 frees, 22,471 bytes allocated
+==1161173== 
+==1161173== 20 bytes in 1 blocks are definitely lost in loss record 2 of 5
+==1161173==    at 0x484DCD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1161173==    by 0x49DF7BC: getcwd (getcwd.c:86)
+==1161173==    by 0x10BE3B: ft_cd (ft_cd.c:133)
+==1161173==    by 0x10AFCA: execute_command (internal_commands.c:87)
+==1161173==    by 0x10AEB2: execute_parent_command (internal_commands.c:62)
+==1161173==    by 0x10B181: execute_internal_commands (internal_commands.c:123)
+==1161173==    by 0x10CFDB: forking (external_commands.c:187)
+==1161173==    by 0x1098B6: exec_cmd (execute_commands.c:42)
+==1161173==    by 0x109918: execution (execute_commands.c:57)
+==1161173==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==1161173==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==1161173==    by 0x10DB85: handle_input (handle_input.c:174)
+==1161173== 
+==1161173== LEAK SUMMARY:
+==1161173==    definitely lost: 20 bytes in 1 blocks
+==1161173==    indirectly lost: 0 bytes in 0 blocks
+==1161173==      possibly lost: 0 bytes in 0 blocks
+==1161173==    still reachable: 0 bytes in 0 blocks
+==1161173==         suppressed: 4,107 bytes in 7 blocks
+==1161173== 
+==1161173== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 4 from 4)
+--1161173-- 
+--1161173-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,107 bytes in 7 blocks
+==1161173== 
+==1161173== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 4 from 4)
