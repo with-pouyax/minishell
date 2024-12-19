@@ -1,0 +1,46 @@
+==3408062== Memcheck, a memory error detector
+==3408062== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3408062== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==3408062== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==3408062== Parent PID: 3408061
+==3408062== 
+==3408062== 
+==3408062== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==3408062== Open file descriptor 5: /dev/null
+==3408062==    at 0x49DEFEB: dup (syscall-template.S:120)
+==3408062==    by 0x10983A: exec_cmd (execute_commands.c:31)
+==3408062==    by 0x109918: execution (execute_commands.c:57)
+==3408062==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==3408062==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==3408062==    by 0x10DB85: handle_input (handle_input.c:174)
+==3408062==    by 0x10946D: main (main.c:30)
+==3408062== 
+==3408062== Open file descriptor 4:
+==3408062==    at 0x49DEFEB: dup (syscall-template.S:120)
+==3408062==    by 0x10982D: exec_cmd (execute_commands.c:30)
+==3408062==    by 0x109918: execution (execute_commands.c:57)
+==3408062==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==3408062==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==3408062==    by 0x10DB85: handle_input (handle_input.c:174)
+==3408062==    by 0x10946D: main (main.c:30)
+==3408062== 
+==3408062== Open file descriptor 3: /tmp/tmp.AOytiI3b8a/tmp_valgrind_out
+==3408062==    <inherited from parent>
+==3408062== 
+==3408062== 
+==3408062== HEAP SUMMARY:
+==3408062==     in use at exit: 4,016 bytes in 1 blocks
+==3408062==   total heap usage: 93 allocs, 92 frees, 17,078 bytes allocated
+==3408062== 
+==3408062== LEAK SUMMARY:
+==3408062==    definitely lost: 0 bytes in 0 blocks
+==3408062==    indirectly lost: 0 bytes in 0 blocks
+==3408062==      possibly lost: 0 bytes in 0 blocks
+==3408062==    still reachable: 0 bytes in 0 blocks
+==3408062==         suppressed: 4,016 bytes in 1 blocks
+==3408062== 
+==3408062== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--3408062-- 
+--3408062-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==3408062== 
+==3408062== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)

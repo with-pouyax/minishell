@@ -45,7 +45,7 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
         if (execute_command(shell, cmds, token, 0) == -1)
             exit(127);
         ft_exit_child(shell, cmds);
-        exit(shell->exit_status);
+        //exit(shell->exit_status);
     }
     else
         store_pids(shell, pid);

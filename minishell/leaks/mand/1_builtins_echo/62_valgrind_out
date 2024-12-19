@@ -1,0 +1,68 @@
+==3379827== Memcheck, a memory error detector
+==3379827== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3379827== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==3379827== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==3379827== Parent PID: 3379826
+==3379827== 
+==3379828== 
+==3379828== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==3379828== Open file descriptor 5: /dev/null
+==3379828==    at 0x49DEFEB: dup (syscall-template.S:120)
+==3379828==    by 0x10983A: exec_cmd (execute_commands.c:31)
+==3379828==    by 0x109918: execution (execute_commands.c:57)
+==3379828==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==3379828==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==3379828==    by 0x10DB85: handle_input (handle_input.c:174)
+==3379828==    by 0x10946D: main (main.c:30)
+==3379828== 
+==3379828== Open file descriptor 4:
+==3379828==    at 0x49DEFEB: dup (syscall-template.S:120)
+==3379828==    by 0x10982D: exec_cmd (execute_commands.c:30)
+==3379828==    by 0x109918: execution (execute_commands.c:57)
+==3379828==    by 0x10D77C: process_and_execute_commands (handle_input.c:21)
+==3379828==    by 0x10DAE9: handle_user_input (handle_input.c:140)
+==3379828==    by 0x10DB85: handle_input (handle_input.c:174)
+==3379828==    by 0x10946D: main (main.c:30)
+==3379828== 
+==3379828== Open file descriptor 3: /tmp/tmp.AOytiI3b8a/tmp_valgrind_out
+==3379828==    <inherited from parent>
+==3379828== 
+==3379828== 
+==3379828== HEAP SUMMARY:
+==3379828==     in use at exit: 4,016 bytes in 1 blocks
+==3379828==   total heap usage: 111 allocs, 110 frees, 21,279 bytes allocated
+==3379828== 
+==3379828== LEAK SUMMARY:
+==3379828==    definitely lost: 0 bytes in 0 blocks
+==3379828==    indirectly lost: 0 bytes in 0 blocks
+==3379828==      possibly lost: 0 bytes in 0 blocks
+==3379828==    still reachable: 0 bytes in 0 blocks
+==3379828==         suppressed: 4,016 bytes in 1 blocks
+==3379828== 
+==3379828== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--3379828-- 
+--3379828-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==3379828== 
+==3379828== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==3379827== 
+==3379827== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==3379827== Open file descriptor 3: /tmp/tmp.AOytiI3b8a/tmp_valgrind_out
+==3379827==    <inherited from parent>
+==3379827== 
+==3379827== 
+==3379827== HEAP SUMMARY:
+==3379827==     in use at exit: 4,066 bytes in 4 blocks
+==3379827==   total heap usage: 112 allocs, 108 frees, 17,319 bytes allocated
+==3379827== 
+==3379827== LEAK SUMMARY:
+==3379827==    definitely lost: 0 bytes in 0 blocks
+==3379827==    indirectly lost: 0 bytes in 0 blocks
+==3379827==      possibly lost: 0 bytes in 0 blocks
+==3379827==    still reachable: 0 bytes in 0 blocks
+==3379827==         suppressed: 4,066 bytes in 4 blocks
+==3379827== 
+==3379827== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--3379827-- 
+--3379827-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,066 bytes in 4 blocks
+==3379827== 
+==3379827== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
