@@ -46,7 +46,7 @@ int	open_output_file(t_shell_data *shell, t_redirection *redir, int fd_out_prev)
 
 	if (fd_out_prev != -2)
 		close(fd_out_prev);
-	new_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	new_fd = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (new_fd == -1)
 	{
 		shell->last_error_file = redir->filename;
@@ -73,8 +73,10 @@ int	open_append_file(t_shell_data *shell, t_redirection *redir, int fd_out_prev)
 		shell->last_error_file = redir->filename;
 		shell->exit_status = errno;
 	}
+	else
 	{
-		dup2(new_fd, STDOUT_FILENO);
+		if (dup2(new_fd, STDOUT_FILENO) == -1)
+			perror("Error duplicating file descriptor");
 		close(new_fd);
 	}
 	return (new_fd);

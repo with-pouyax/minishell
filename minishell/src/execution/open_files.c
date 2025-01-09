@@ -14,13 +14,28 @@ int	has_redirs(t_redirection *redir, t_redirection_type type )
 static int	handle_redir(t_shell_data *shell, t_redirection *redir,
 				int *fd_input, int *fd_output)
 {
+	int *fd;
+
+	// Determine which FD to manage
 	if (redir->type == REDIR_INPUT)
-		*fd_input = open_input_file(shell, redir, *fd_input);
+		fd = fd_input;
+	else
+		fd = fd_output;
+
+	// Close the previous FD if it is open
+	if (*fd >= 0)
+		close(*fd);
+
+	// Open the new file
+	if (redir->type == REDIR_INPUT)
+		*fd = open_input_file(shell, redir, *fd_input);
 	else if (redir->type == REDIR_OUTPUT)
-		*fd_output = open_output_file(shell, redir, *fd_output);
+		*fd = open_output_file(shell, redir, *fd_output);
 	else if (redir->type == REDIR_APPEND)
-		*fd_output = open_append_file(shell, redir, *fd_output);
-	if (*fd_input == -1 || *fd_output == -1)
+		*fd = open_append_file(shell, redir, *fd_output);
+
+	// Check for errors
+	if (*fd == -1)
 	{
 		write_error(shell->last_error_file, strerror(shell->exit_status));
 		shell->exit_status = 1;
@@ -28,6 +43,7 @@ static int	handle_redir(t_shell_data *shell, t_redirection *redir,
 	}
 	return (EXIT_SUCCESS);
 }
+
 
 static int	finalize_redir(t_shell_data *shell, int fd_input, int fd_output)
 {

@@ -12,6 +12,7 @@ void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 			shell->exit_status = EXIT_FAILURE;
 			return ;
 		}
+		close(shell->pipes[cmds_index - 1][0]);
 	}
 }
 
@@ -28,6 +29,7 @@ void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 			shell->exit_status = EXIT_FAILURE;
 			return ;
 		}
+		close(shell->pipes[cmds_index][1]);
 	}
 }
 

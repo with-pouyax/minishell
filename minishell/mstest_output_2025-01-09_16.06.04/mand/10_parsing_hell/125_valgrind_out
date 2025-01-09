@@ -1,0 +1,154 @@
+==452938== Memcheck, a memory error detector
+==452938== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==452938== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==452938== Command: /home/mina/Desktop/new/minishell/minishell/minishell
+==452938== Parent PID: 452937
+==452938== 
+==452951== 
+==452951== FILE DESCRIPTORS: 10 open at exit.
+==452951== Open file descriptor 5:
+==452951==    at 0x49C4B4B: pipe (syscall-template.S:78)
+==452951==    by 0x109C96: init_pipes (init_pipes.c:19)
+==452951==    by 0x109B5E: execution (execute_commands.c:56)
+==452951==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452951==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452951==    by 0x10DE40: handle_input (handle_input.c:174)
+==452951==    by 0x1096BD: main (main.c:30)
+==452951== 
+==452951== Open file descriptor 4:
+==452951==    at 0x49C4B4B: pipe (syscall-template.S:78)
+==452951==    by 0x109C96: init_pipes (init_pipes.c:19)
+==452951==    by 0x109B5E: execution (execute_commands.c:56)
+==452951==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452951==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452951==    by 0x10DE40: handle_input (handle_input.c:174)
+==452951==    by 0x1096BD: main (main.c:30)
+==452951== 
+==452951== Open file descriptor 103: /snap/code/176/usr/share/code/v8_context_snapshot.bin
+==452951==    <inherited from parent>
+==452951== 
+==452951== Open file descriptor 44: /dev/ptmx
+==452951==    <inherited from parent>
+==452951== 
+==452951== Open file descriptor 43: /home/mina/.config/Code/logs/20250106T151610/ptyhost.log
+==452951==    <inherited from parent>
+==452951== 
+==452951== Open AF_UNIX socket 29: <unknown>
+==452951==    <inherited from parent>
+==452951== 
+==452951== Open file descriptor 3: /tmp/tmp.g7XI1Q2UaO/tmp_valgrind_out
+==452951==    <inherited from parent>
+==452951== 
+==452951== Open file descriptor 2: /dev/null
+==452951==    <inherited from parent>
+==452951== 
+==452951== Open file descriptor 1:
+==452951==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==452951==    by 0x10A110: check_output (check_redirection.c:25)
+==452951==    by 0x10A1F5: set_pipes (check_redirection.c:87)
+==452951==    by 0x109AF9: exec_cmd (execute_commands.c:42)
+==452951==    by 0x109B7E: execution (execute_commands.c:59)
+==452951==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452951==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452951==    by 0x10DE40: handle_input (handle_input.c:174)
+==452951==    by 0x1096BD: main (main.c:30)
+==452951== 
+==452951== Open file descriptor 0:
+==452951==    <inherited from parent>
+==452951== 
+==452951== 
+==452951== HEAP SUMMARY:
+==452951==     in use at exit: 4,032 bytes in 3 blocks
+==452951==   total heap usage: 157 allocs, 154 frees, 22,892 bytes allocated
+==452951== 
+==452951== 8 bytes in 1 blocks are still reachable in loss record 1 of 3
+==452951==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==452951==    by 0x109C16: init_pipes (init_pipes.c:11)
+==452951==    by 0x109B5E: execution (execute_commands.c:56)
+==452951==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452951==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452951==    by 0x10DE40: handle_input (handle_input.c:174)
+==452951==    by 0x1096BD: main (main.c:30)
+==452951== 
+==452951== 8 bytes in 1 blocks are still reachable in loss record 2 of 3
+==452951==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==452951==    by 0x109C4E: init_pipes (init_pipes.c:16)
+==452951==    by 0x109B5E: execution (execute_commands.c:56)
+==452951==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452951==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452951==    by 0x10DE40: handle_input (handle_input.c:174)
+==452951==    by 0x1096BD: main (main.c:30)
+==452951== 
+==452951== LEAK SUMMARY:
+==452951==    definitely lost: 0 bytes in 0 blocks
+==452951==    indirectly lost: 0 bytes in 0 blocks
+==452951==      possibly lost: 0 bytes in 0 blocks
+==452951==    still reachable: 16 bytes in 2 blocks
+==452951==         suppressed: 4,016 bytes in 1 blocks
+==452951== 
+==452951== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--452951-- 
+--452951-- used_suppression:      1 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==452951== 
+==452951== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==452938== 
+==452938== FILE DESCRIPTORS: 8 open at exit.
+==452938== Open file descriptor 103: /snap/code/176/usr/share/code/v8_context_snapshot.bin
+==452938==    <inherited from parent>
+==452938== 
+==452938== Open file descriptor 44: /dev/ptmx
+==452938==    <inherited from parent>
+==452938== 
+==452938== Open file descriptor 43: /home/mina/.config/Code/logs/20250106T151610/ptyhost.log
+==452938==    <inherited from parent>
+==452938== 
+==452938== Open AF_UNIX socket 29: <unknown>
+==452938==    <inherited from parent>
+==452938== 
+==452938== Open file descriptor 3: /tmp/tmp.g7XI1Q2UaO/tmp_valgrind_out
+==452938==    <inherited from parent>
+==452938== 
+==452938== Open file descriptor 2: /dev/null
+==452938==    <inherited from parent>
+==452938== 
+==452938== Open file descriptor 1:
+==452938==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==452938==    by 0x10A110: check_output (check_redirection.c:25)
+==452938==    by 0x10A1F5: set_pipes (check_redirection.c:87)
+==452938==    by 0x109AF9: exec_cmd (execute_commands.c:42)
+==452938==    by 0x109B7E: execution (execute_commands.c:59)
+==452938==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452938==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452938==    by 0x10DE40: handle_input (handle_input.c:174)
+==452938==    by 0x1096BD: main (main.c:30)
+==452938== 
+==452938== Open file descriptor 0: /tmp/tmp.rDEm5Mlo0B/echo
+==452938==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==452938==    by 0x109EDF: open_input_file (open_redirection_files.c:37)
+==452938==    by 0x10CACB: handle_redir (open_files.c:31)
+==452938==    by 0x10CC34: open_all_files (open_files.c:70)
+==452938==    by 0x10A186: set_redirection (check_redirection.c:75)
+==452938==    by 0x109AD4: exec_cmd (execute_commands.c:39)
+==452938==    by 0x109B7E: execution (execute_commands.c:59)
+==452938==    by 0x10DA37: process_and_execute_commands (handle_input.c:21)
+==452938==    by 0x10DDA4: handle_user_input (handle_input.c:140)
+==452938==    by 0x10DE40: handle_input (handle_input.c:174)
+==452938==    by 0x1096BD: main (main.c:30)
+==452938== 
+==452938== 
+==452938== HEAP SUMMARY:
+==452938==     in use at exit: 4,071 bytes in 4 blocks
+==452938==   total heap usage: 206 allocs, 202 frees, 19,798 bytes allocated
+==452938== 
+==452938== LEAK SUMMARY:
+==452938==    definitely lost: 0 bytes in 0 blocks
+==452938==    indirectly lost: 0 bytes in 0 blocks
+==452938==      possibly lost: 0 bytes in 0 blocks
+==452938==    still reachable: 0 bytes in 0 blocks
+==452938==         suppressed: 4,071 bytes in 4 blocks
+==452938== 
+==452938== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--452938-- 
+--452938-- used_suppression:      4 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,071 bytes in 4 blocks
+==452938== 
+==452938== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

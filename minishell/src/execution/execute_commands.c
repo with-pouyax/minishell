@@ -29,6 +29,8 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
 	if (saved_stdin == -1 || saved_stdout == -1)
 	{
 		perror("dup failed");
