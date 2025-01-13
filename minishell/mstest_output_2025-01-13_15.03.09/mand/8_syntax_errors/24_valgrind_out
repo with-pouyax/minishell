@@ -1,0 +1,62 @@
+==4177291== Memcheck, a memory error detector
+==4177291== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4177291== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==4177291== Command: /home/mhoushma/Desktop/new/minishell/minishell/minishell
+==4177291== Parent PID: 4177290
+==4177291== 
+==4177291== 
+==4177291== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==4177291== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==4177291==    <inherited from parent>
+==4177291== 
+==4177291== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250113T150239/ptyhost.log
+==4177291==    <inherited from parent>
+==4177291== 
+==4177291== Open file descriptor 3: /tmp/tmp.GWicbokJA1/tmp_valgrind_out
+==4177291==    <inherited from parent>
+==4177291== 
+==4177291== 
+==4177291== HEAP SUMMARY:
+==4177291==     in use at exit: 4,069 bytes in 3 blocks
+==4177291==   total heap usage: 107 allocs, 104 frees, 16,176 bytes allocated
+==4177291== 
+==4177291== 5 bytes in 1 blocks are indirectly lost in loss record 1 of 3
+==4177291==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4177291==    by 0x10A2C8: ft_strjoin_safe (helper_1.c:34)
+==4177291==    by 0x10A3DC: ft_strjoin_and_free_both (helper_2.c:13)
+==4177291==    by 0x10A44B: ft_strjoin_free_both (helper_2.c:27)
+==4177291==    by 0x110C3A: append_literal_char (variable_expansion.c:67)
+==4177291==    by 0x110A04: expand_variables_in_token (expand_var_tokens.c:142)
+==4177291==    by 0x10E62C: save_and_expand_word (process_word.c:137)
+==4177291==    by 0x10F642: collect_and_expand_redirection_word (token_utils.c:51)
+==4177291==    by 0x10F837: process_filename_or_delimiter (token_utils.c:104)
+==4177291==    by 0x10FF8E: handle_redirection (token_utils.c:293)
+==4177291==    by 0x10F295: handle_redirection_operator (tokenize_input.c:81)
+==4177291==    by 0x10F3AB: process_operator (tokenize_input.c:116)
+==4177291== 
+==4177291== 53 (48 direct, 5 indirect) bytes in 1 blocks are definitely lost in loss record 2 of 3
+==4177291==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4177291==    by 0x10FB04: create_new_redirection (token_utils.c:180)
+==4177291==    by 0x10FEB7: prepare_redirection (token_utils.c:270)
+==4177291==    by 0x10FF32: handle_redirection (token_utils.c:283)
+==4177291==    by 0x10F295: handle_redirection_operator (tokenize_input.c:81)
+==4177291==    by 0x10F3AB: process_operator (tokenize_input.c:116)
+==4177291==    by 0x10EFD5: tokenize_command (tokenize_input.c:15)
+==4177291==    by 0x110380: process_input_segment (process_input_segment.c:44)
+==4177291==    by 0x10ECA9: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==4177291==    by 0x11040C: preprocess_input (preprocess_input.c:6)
+==4177291==    by 0x10D7A4: process_and_execute_commands (handle_input.c:11)
+==4177291==    by 0x10DB35: handle_user_input (handle_input.c:140)
+==4177291== 
+==4177291== LEAK SUMMARY:
+==4177291==    definitely lost: 48 bytes in 1 blocks
+==4177291==    indirectly lost: 5 bytes in 1 blocks
+==4177291==      possibly lost: 0 bytes in 0 blocks
+==4177291==    still reachable: 0 bytes in 0 blocks
+==4177291==         suppressed: 4,016 bytes in 1 blocks
+==4177291== 
+==4177291== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--4177291-- 
+--4177291-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==4177291== 
+==4177291== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)

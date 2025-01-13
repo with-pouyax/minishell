@@ -96,6 +96,8 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
     }
 	cleanup(shell);
 	rl_clear_history();
+	close(shell->saved_stdin);
+    close(shell->saved_stdout);
 	exit(exit_status);
 }
 

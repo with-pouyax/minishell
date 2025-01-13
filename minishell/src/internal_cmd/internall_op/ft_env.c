@@ -34,11 +34,12 @@ int	ft_env(t_shell_data *shell, t_command *cmd)
 	}
 	if (arg_count > 0)
 	{
-		//ft_putstr_fd("mina: env: too many arguments\n", STDERR_FILENO);
 		shell->exit_status = 1;
 		return (1);
 	}
 	print_env(shell);
 	shell->exit_status = 0;
+	close(shell->saved_stdin);
+    close(shell->saved_stdout);
 	return (0);
 }
