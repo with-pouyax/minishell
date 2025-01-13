@@ -10,14 +10,17 @@ int	**init_pipes(int cmds_nb)
 		return (NULL);
 	pipes = malloc(sizeof(int *) * (cmds_nb - 1));
 	if (!pipes)
-		exit (EXIT_FAILURE);
+		return (NULL);
 	while (i < (cmds_nb - 1))
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
-			exit (EXIT_FAILURE);
+			return (NULL);
 		if (pipe(pipes[i]) == -1)
-			exit (EXIT_FAILURE);
+		{
+			free(pipes[i]);
+			return (NULL);
+		}
 		i++;
 	}
 	return (pipes);

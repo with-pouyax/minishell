@@ -54,6 +54,12 @@ void	execution(t_shell_data *shell)
 	i = 0;
 	cmd = shell->commands;
 	shell->pipes = init_pipes(shell->cmds_nb);
+	if (shell->pipes == NULL)
+	{
+		close_all_pipes(shell->pipes, shell->cmds_nb);
+		free_pipes(shell->pipes, shell->cmds_nb);
+		return ;
+	}
 	while (i < shell->cmds_nb)
 	{
 		exec_cmd(shell, cmd, i);
