@@ -39,7 +39,5 @@ int	ft_env(t_shell_data *shell, t_command *cmd)
 	}
 	print_env(shell);
 	shell->exit_status = 0;
-	close(shell->saved_stdin);
-    close(shell->saved_stdout);
 	return (0);
 }
