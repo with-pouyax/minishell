@@ -36,6 +36,24 @@ int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir,
 	}
 	return (0);
 }
+char *rm_quotes(char *word)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+    while (word[i])
+    {
+        if (word[i] == '\'' || word[i] == '\"')
+            i++;
+        word[j] = word[i];
+        i++;
+        j++;
+    }
+    word[j] = '\0';
+    return (word);
+}
 
 int collect_and_expand_redirection_word(t_shell_data *shell, t_parse_context *ctx, t_expanded_words *words)
 {
@@ -53,6 +71,7 @@ int collect_and_expand_redirection_word(t_shell_data *shell, t_parse_context *ct
     }
     else
     {
+        rm_quotes(word);
         words->expanded = ft_strdup(word); //[x]
         words->original = ft_strdup(word); //[x]
         if (!words->expanded || !words->original)
