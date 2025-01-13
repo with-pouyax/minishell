@@ -122,6 +122,8 @@ typedef struct s_shell_data
 	int						double_quoted;
 	char    				*prev_dir;
 	char                    *original_word;
+	int						saved_stdin;
+	int						saved_stdout;
 }				t_shell_data;
 
 typedef struct s_parse_context

@@ -27,6 +27,8 @@ int	ft_exit_child(t_shell_data *shell, t_command *cmd)
     // }
 	cleanup(shell);
 	rl_clear_history();
+    close(shell->saved_stdin);
+    close(shell->saved_stdout);
 	exit(exit_status);
 }
 
@@ -44,8 +46,10 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
     {
         if (execute_command(shell, cmds, token, 0) == -1)
             exit(127);
+        close(shell->saved_stdin);
+        close(shell->saved_stdout);
         ft_exit_child(shell, cmds);
-        //exit(shell->exit_status);
+        exit(shell->exit_status);
     }
     else
         store_pids(shell, pid);

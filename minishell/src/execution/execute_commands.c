@@ -5,13 +5,13 @@ Restore the original stdin and stdout
 Close the saved file descriptors
 
 */
-void	restore_org_in_out(int saved_stdin, int saved_stdout)
-{
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
-}
+// void	restore_org_in_out(int saved_stdin, int saved_stdout)
+// {
+// 	dup2(saved_stdin, STDIN_FILENO);
+// 	dup2(saved_stdout, STDOUT_FILENO);
+// 	close(saved_stdin);
+// 	close(saved_stdout);
+// }
 
 /*
 set_redir() :
@@ -24,12 +24,9 @@ set_redir() :
 */
 void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 {
-	int	saved_stdin;
-	int	saved_stdout;
-
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
-	if (saved_stdin == -1 || saved_stdout == -1)
+	shell->saved_stdin = dup(STDIN_FILENO);
+	shell->saved_stdout = dup(STDOUT_FILENO);
+	if (shell->saved_stdin == -1 || shell->saved_stdout == -1)
 	{
 		perror("dup failed");
 		return ;
@@ -41,7 +38,12 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		cleanup_heredocs(cmds->redirections);
 		forking(shell, cmds);
 	}
-	restore_org_in_out(saved_stdin, saved_stdout);
+	// restore_org_in_out(shell->saved_stdin, shell->saved_stdout);
+	dup2(shell->saved_stdin, STDIN_FILENO);
+	dup2(shell->saved_stdout, STDOUT_FILENO);
+	close(shell->saved_stdin);
+	close(shell->saved_stdout);
+
 }
 
 void	execution(t_shell_data *shell)
