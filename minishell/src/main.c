@@ -7,6 +7,7 @@ first : Makes sure that the terminal is linked to the STDIN
 
 int	main(int argc, char **argv, char **envp)
 {
+	track_fds("fds in the main");
 	t_shell_data	shell;
 
 	(void)argc;

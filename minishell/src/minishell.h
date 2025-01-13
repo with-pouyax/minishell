@@ -51,6 +51,7 @@ typedef struct s_redirection
     char                  *delimiter;         // Delimiter for heredoc
     char                  *heredoc_file;
 	int                   delimiter_quoted;
+	 int fd;
 	struct s_redirection  *next;              // Pointer to the next redirection (linked list)
 }   t_redirection;
 
@@ -381,4 +382,6 @@ int handle_heredoc_redirection(
 int initialize_expansion(char **result, int *in_single_quote, int *in_double_quote);
 int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
 int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir);
+void track_fds(const char *stage);
+
 #endif

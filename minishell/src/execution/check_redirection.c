@@ -18,14 +18,13 @@ void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 
 void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
-	(void)redir;
 	if (has_redirs(redir, REDIR_OUTPUT) || has_redirs(redir, REDIR_APPEND))
 		return ;
 	if (cmds_index != shell->cmds_nb - 1)
 	{
 		if (dup2(shell->pipes[cmds_index][1], STDOUT_FILENO) == -1)
 		{
-			perror("dup2 failed for input pipe");
+			perror("dup2 failed for output pipe");
 			shell->exit_status = EXIT_FAILURE;
 			return ;
 		}
@@ -87,4 +86,11 @@ void	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	check_input(shell, redir, cmds_index);
 	check_output(shell, redir, cmds_index);
+    // Close the previous pipe's read end in the parent process
+    if (cmds_index != 0)
+        close(shell->pipes[cmds_index - 1][0]);
+
+    // Close the current pipe's write end in the parent process
+    if (cmds_index != shell->cmds_nb - 1)
+        close(shell->pipes[cmds_index][1]);
 }

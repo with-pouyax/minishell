@@ -3,6 +3,8 @@
 void handle_ctrl_d(t_shell_data *shell)
 {
     cleanup(shell); // Free all allocated resources
+	track_fds("after ctrl+d");
+
     exit(shell->exit_status);        // Exit the shell
 }
 

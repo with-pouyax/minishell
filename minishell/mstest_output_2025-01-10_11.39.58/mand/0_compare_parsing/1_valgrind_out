@@ -1,0 +1,58 @@
+==474342== Memcheck, a memory error detector
+==474342== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==474342== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==474342== Command: /home/mina/Desktop/new/minishell/minishell/minishell
+==474342== Parent PID: 474341
+==474342== 
+==474342== 
+==474342== FILE DESCRIPTORS: 7 open at exit.
+==474342== Open file descriptor 103: /snap/code/176/usr/share/code/v8_context_snapshot.bin
+==474342==    <inherited from parent>
+==474342== 
+==474342== Open file descriptor 44: /dev/ptmx
+==474342==    <inherited from parent>
+==474342== 
+==474342== Open file descriptor 43: /home/mina/.config/Code/logs/20250110T112500/ptyhost.log
+==474342==    <inherited from parent>
+==474342== 
+==474342== Open file descriptor 3: /tmp/tmp.3KIxHbAjiy/tmp_valgrind_out
+==474342==    <inherited from parent>
+==474342== 
+==474342== Open file descriptor 2: /dev/null
+==474342==    <inherited from parent>
+==474342== 
+==474342== Open file descriptor 1: /dev/null
+==474342==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==474342==    by 0x109AEF: exec_cmd (execute_commands.c:42)
+==474342==    by 0x109B56: execution (execute_commands.c:57)
+==474342==    by 0x10DAC0: process_and_execute_commands (handle_input.c:21)
+==474342==    by 0x10DE2D: handle_user_input (handle_input.c:140)
+==474342==    by 0x10DEC9: handle_input (handle_input.c:174)
+==474342==    by 0x1096BD: main (main.c:30)
+==474342== 
+==474342== Open file descriptor 0:
+==474342==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==474342==    by 0x109AE0: exec_cmd (execute_commands.c:41)
+==474342==    by 0x109B56: execution (execute_commands.c:57)
+==474342==    by 0x10DAC0: process_and_execute_commands (handle_input.c:21)
+==474342==    by 0x10DE2D: handle_user_input (handle_input.c:140)
+==474342==    by 0x10DEC9: handle_input (handle_input.c:174)
+==474342==    by 0x1096BD: main (main.c:30)
+==474342== 
+==474342== 
+==474342== HEAP SUMMARY:
+==474342==     in use at exit: 4,069 bytes in 4 blocks
+==474342==   total heap usage: 152 allocs, 148 frees, 18,892 bytes allocated
+==474342== 
+==474342== LEAK SUMMARY:
+==474342==    definitely lost: 0 bytes in 0 blocks
+==474342==    indirectly lost: 0 bytes in 0 blocks
+==474342==      possibly lost: 0 bytes in 0 blocks
+==474342==    still reachable: 0 bytes in 0 blocks
+==474342==         suppressed: 4,069 bytes in 4 blocks
+==474342== 
+==474342== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--474342-- 
+--474342-- used_suppression:      4 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,069 bytes in 4 blocks
+==474342== 
+==474342== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
