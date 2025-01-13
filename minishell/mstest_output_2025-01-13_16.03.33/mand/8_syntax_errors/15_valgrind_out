@@ -1,0 +1,62 @@
+==255787== Memcheck, a memory error detector
+==255787== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==255787== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==255787== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==255787== Parent PID: 255786
+==255787== 
+==255787== 
+==255787== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==255787== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==255787==    <inherited from parent>
+==255787== 
+==255787== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250113T104938/ptyhost.log
+==255787==    <inherited from parent>
+==255787== 
+==255787== Open file descriptor 3: /tmp/tmp.2ABQUResm2/tmp_valgrind_out
+==255787==    <inherited from parent>
+==255787== 
+==255787== 
+==255787== HEAP SUMMARY:
+==255787==     in use at exit: 4,073 bytes in 3 blocks
+==255787==   total heap usage: 149 allocs, 146 frees, 18,323 bytes allocated
+==255787== 
+==255787== 9 bytes in 1 blocks are indirectly lost in loss record 1 of 3
+==255787==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==255787==    by 0x10A2C8: ft_strjoin_safe (helper_1.c:34)
+==255787==    by 0x10A3DC: ft_strjoin_and_free_both (helper_2.c:13)
+==255787==    by 0x10A44B: ft_strjoin_free_both (helper_2.c:27)
+==255787==    by 0x110D23: append_literal_char (variable_expansion.c:67)
+==255787==    by 0x110AED: expand_variables_in_token (expand_var_tokens.c:142)
+==255787==    by 0x10E670: save_and_expand_word (process_word.c:137)
+==255787==    by 0x10F71F: collect_and_expand_redirection_word (token_utils.c:69)
+==255787==    by 0x10F920: process_filename_or_delimiter (token_utils.c:123)
+==255787==    by 0x110077: handle_redirection (token_utils.c:312)
+==255787==    by 0x10F2D9: handle_redirection_operator (tokenize_input.c:81)
+==255787==    by 0x10F3EF: process_operator (tokenize_input.c:116)
+==255787== 
+==255787== 57 (48 direct, 9 indirect) bytes in 1 blocks are definitely lost in loss record 2 of 3
+==255787==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==255787==    by 0x10FBED: create_new_redirection (token_utils.c:199)
+==255787==    by 0x10FFA0: prepare_redirection (token_utils.c:289)
+==255787==    by 0x11001B: handle_redirection (token_utils.c:302)
+==255787==    by 0x10F2D9: handle_redirection_operator (tokenize_input.c:81)
+==255787==    by 0x10F3EF: process_operator (tokenize_input.c:116)
+==255787==    by 0x10F019: tokenize_command (tokenize_input.c:15)
+==255787==    by 0x110469: process_input_segment (process_input_segment.c:44)
+==255787==    by 0x10ECED: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==255787==    by 0x1104F5: preprocess_input (preprocess_input.c:6)
+==255787==    by 0x10D7E8: process_and_execute_commands (handle_input.c:11)
+==255787==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==255787== 
+==255787== LEAK SUMMARY:
+==255787==    definitely lost: 48 bytes in 1 blocks
+==255787==    indirectly lost: 9 bytes in 1 blocks
+==255787==      possibly lost: 0 bytes in 0 blocks
+==255787==    still reachable: 0 bytes in 0 blocks
+==255787==         suppressed: 4,016 bytes in 1 blocks
+==255787== 
+==255787== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--255787-- 
+--255787-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==255787== 
+==255787== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)

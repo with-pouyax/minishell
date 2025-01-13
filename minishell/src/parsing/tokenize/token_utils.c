@@ -43,16 +43,17 @@ char *rm_quotes(char *word)
 
     i = 0;
     j = 0;
-    while (word[i])
+    while (word[i] != '\0')
     {
-        if (word[i] == '\'' || word[i] == '\"')
-            i++;
-        word[j] = word[i];
+        if (word[i] != '\'' && word[i] != '\"')
+        {
+            word[j] = word[i];
+            j++;
+        }
         i++;
-        j++;
     }
-    word[j] = '\0';
-    return (word);
+    word[j] = '\0'; // Null-terminate the modified string
+    return word;
 }
 
 int collect_and_expand_redirection_word(t_shell_data *shell, t_parse_context *ctx, t_expanded_words *words)
