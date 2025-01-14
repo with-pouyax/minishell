@@ -85,7 +85,7 @@ typedef struct s_command
 	int                 token_index;
 	int					is_recalled;   //pak shavad
 	t_token				*token_list;
-	t_redirection       *redirections;   // Add this line
+	t_redirection       *redirections;
 	char                *current_op;
 	struct s_command	*next;
 }				t_command;

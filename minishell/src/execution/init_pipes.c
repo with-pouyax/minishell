@@ -15,11 +15,17 @@ int	**init_pipes(int cmds_nb)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
-			return (NULL);
+        {
+            close_all_pipes(pipes, i);  // Close already opened pipes
+            free_pipes(pipes, i);       // Free allocated memory
+            return (NULL);
+        }
 		if (pipe(pipes[i]) == -1)
 		{
-			free(pipes[i]);
-			return (NULL);
+            free(pipes[i]);
+            close_all_pipes(pipes, i);
+            free_pipes(pipes, i);
+            return (NULL);
 		}
 		i++;
 	}
@@ -59,8 +65,6 @@ void	free_pipes(int **pipes, int nb_cmds)
 	i = 0;
 	while (i < nb_cmds - 1)
 	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
 		free(pipes[i]);
 		i++;
 	}

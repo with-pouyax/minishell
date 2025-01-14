@@ -31,6 +31,7 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		perror("dup failed");
 		return ;
 	}
+	// if (shell->commands->redirections)
 	set_redirection(shell, cmds->redirections);
 	if (shell->exit_status == EXIT_SUCCESS)
 	{
@@ -54,12 +55,12 @@ void	execution(t_shell_data *shell)
 	i = 0;
 	cmd = shell->commands;
 	shell->pipes = init_pipes(shell->cmds_nb);
-	if (shell->pipes == NULL)
-	{
-		close_all_pipes(shell->pipes, shell->cmds_nb);
-		free_pipes(shell->pipes, shell->cmds_nb);
-		return ;
-	}
+	// if (shell->pipes == NULL)
+	// {
+	// 	close_all_pipes(shell->pipes, shell->cmds_nb);
+	// 	free_pipes(shell->pipes, shell->cmds_nb);
+	// 	return ;
+	// }
 	while (i < shell->cmds_nb)
 	{
 		exec_cmd(shell, cmd, i);
