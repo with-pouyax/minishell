@@ -1,0 +1,57 @@
+==573177== Memcheck, a memory error detector
+==573177== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==573177== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==573177== Command: /home/pghajard/Desktop/mina/minishell/minishell
+==573177== Parent PID: 573176
+==573177== 
+==573177== 
+==573177== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==573177== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==573177==    <inherited from parent>
+==573177== 
+==573177== Open AF_UNIX socket 46: <unknown>
+==573177==    <inherited from parent>
+==573177== 
+==573177== Open file descriptor 45: /dev/ptmx
+==573177==    <inherited from parent>
+==573177== 
+==573177== Open file descriptor 44: /dev/ptmx
+==573177==    <inherited from parent>
+==573177== 
+==573177== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250114T114818/ptyhost.log
+==573177==    <inherited from parent>
+==573177== 
+==573177== Open file descriptor 3: /tmp/tmp.OYEhtRgzW0/tmp_valgrind_out
+==573177==    <inherited from parent>
+==573177== 
+==573177== 
+==573177== HEAP SUMMARY:
+==573177==     in use at exit: 4,064 bytes in 2 blocks
+==573177==   total heap usage: 102 allocs, 100 frees, 17,728 bytes allocated
+==573177== 
+==573177== 48 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==573177==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==573177==    by 0x10FC09: create_new_redirection (token_utils.c:199)
+==573177==    by 0x10FFBC: prepare_redirection (token_utils.c:289)
+==573177==    by 0x110037: handle_redirection (token_utils.c:302)
+==573177==    by 0x10F2F5: handle_redirection_operator (tokenize_input.c:81)
+==573177==    by 0x10F40B: process_operator (tokenize_input.c:116)
+==573177==    by 0x10F035: tokenize_command (tokenize_input.c:15)
+==573177==    by 0x110485: process_input_segment (process_input_segment.c:44)
+==573177==    by 0x10ED09: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==573177==    by 0x110511: preprocess_input (preprocess_input.c:6)
+==573177==    by 0x10D804: process_and_execute_commands (handle_input.c:11)
+==573177==    by 0x10DB95: handle_user_input (handle_input.c:140)
+==573177== 
+==573177== LEAK SUMMARY:
+==573177==    definitely lost: 48 bytes in 1 blocks
+==573177==    indirectly lost: 0 bytes in 0 blocks
+==573177==      possibly lost: 0 bytes in 0 blocks
+==573177==    still reachable: 0 bytes in 0 blocks
+==573177==         suppressed: 4,016 bytes in 1 blocks
+==573177== 
+==573177== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+--573177-- 
+--573177-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==573177== 
+==573177== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)

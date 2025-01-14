@@ -1,0 +1,99 @@
+==597627== Memcheck, a memory error detector
+==597627== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==597627== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==597627== Command: /home/pghajard/Desktop/mina/minishell/minishell
+==597627== Parent PID: 597626
+==597627== 
+==597627== Invalid read of size 1
+==597627==    at 0x10F661: rm_quotes (token_utils.c:46)
+==597627==    by 0x10F765: collect_and_expand_redirection_word (token_utils.c:74)
+==597627==    by 0x10F93C: process_filename_or_delimiter (token_utils.c:123)
+==597627==    by 0x110093: handle_redirection (token_utils.c:312)
+==597627==    by 0x10F2F5: handle_redirection_operator (tokenize_input.c:81)
+==597627==    by 0x10F40B: process_operator (tokenize_input.c:116)
+==597627==    by 0x10F035: tokenize_command (tokenize_input.c:15)
+==597627==    by 0x110485: process_input_segment (process_input_segment.c:44)
+==597627==    by 0x10ED09: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==597627==    by 0x110511: preprocess_input (preprocess_input.c:6)
+==597627==    by 0x10D804: process_and_execute_commands (handle_input.c:11)
+==597627==    by 0x10DB95: handle_user_input (handle_input.c:140)
+==597627==  Address 0x4b315c6 is 0 bytes after a block of size 6 alloc'd
+==597627==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==597627==    by 0x10A2E4: ft_strjoin_safe (helper_1.c:34)
+==597627==    by 0x111055: add_char_to_token (lexer.c:51)
+==597627==    by 0x10E376: add_current_char (process_word.c:36)
+==597627==    by 0x10E4A7: process_character (process_word.c:76)
+==597627==    by 0x10E55E: collect_word (process_word.c:98)
+==597627==    by 0x10F6CF: collect_and_expand_redirection_word (token_utils.c:63)
+==597627==    by 0x10F93C: process_filename_or_delimiter (token_utils.c:123)
+==597627==    by 0x110093: handle_redirection (token_utils.c:312)
+==597627==    by 0x10F2F5: handle_redirection_operator (tokenize_input.c:81)
+==597627==    by 0x10F40B: process_operator (tokenize_input.c:116)
+==597627==    by 0x10F035: tokenize_command (tokenize_input.c:15)
+==597627== 
+==597627== 
+==597627== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==597627== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==597627==    <inherited from parent>
+==597627== 
+==597627== Open AF_UNIX socket 46: <unknown>
+==597627==    <inherited from parent>
+==597627== 
+==597627== Open file descriptor 45: /dev/ptmx
+==597627==    <inherited from parent>
+==597627== 
+==597627== Open file descriptor 44: /dev/ptmx
+==597627==    <inherited from parent>
+==597627== 
+==597627== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250114T114818/ptyhost.log
+==597627==    <inherited from parent>
+==597627== 
+==597627== Open file descriptor 3: /tmp/tmp.OYEhtRgzW0/tmp_valgrind_out
+==597627==    <inherited from parent>
+==597627== 
+==597627== 
+==597627== HEAP SUMMARY:
+==597627==     in use at exit: 4,134 bytes in 7 blocks
+==597627==   total heap usage: 328 allocs, 321 frees, 21,285 bytes allocated
+==597627== 
+==597627== LEAK SUMMARY:
+==597627==    definitely lost: 0 bytes in 0 blocks
+==597627==    indirectly lost: 0 bytes in 0 blocks
+==597627==      possibly lost: 0 bytes in 0 blocks
+==597627==    still reachable: 0 bytes in 0 blocks
+==597627==         suppressed: 4,134 bytes in 7 blocks
+==597627== 
+==597627== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 4 from 4)
+==597627== 
+==597627== 1 errors in context 1 of 1:
+==597627== Invalid read of size 1
+==597627==    at 0x10F661: rm_quotes (token_utils.c:46)
+==597627==    by 0x10F765: collect_and_expand_redirection_word (token_utils.c:74)
+==597627==    by 0x10F93C: process_filename_or_delimiter (token_utils.c:123)
+==597627==    by 0x110093: handle_redirection (token_utils.c:312)
+==597627==    by 0x10F2F5: handle_redirection_operator (tokenize_input.c:81)
+==597627==    by 0x10F40B: process_operator (tokenize_input.c:116)
+==597627==    by 0x10F035: tokenize_command (tokenize_input.c:15)
+==597627==    by 0x110485: process_input_segment (process_input_segment.c:44)
+==597627==    by 0x10ED09: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==597627==    by 0x110511: preprocess_input (preprocess_input.c:6)
+==597627==    by 0x10D804: process_and_execute_commands (handle_input.c:11)
+==597627==    by 0x10DB95: handle_user_input (handle_input.c:140)
+==597627==  Address 0x4b315c6 is 0 bytes after a block of size 6 alloc'd
+==597627==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==597627==    by 0x10A2E4: ft_strjoin_safe (helper_1.c:34)
+==597627==    by 0x111055: add_char_to_token (lexer.c:51)
+==597627==    by 0x10E376: add_current_char (process_word.c:36)
+==597627==    by 0x10E4A7: process_character (process_word.c:76)
+==597627==    by 0x10E55E: collect_word (process_word.c:98)
+==597627==    by 0x10F6CF: collect_and_expand_redirection_word (token_utils.c:63)
+==597627==    by 0x10F93C: process_filename_or_delimiter (token_utils.c:123)
+==597627==    by 0x110093: handle_redirection (token_utils.c:312)
+==597627==    by 0x10F2F5: handle_redirection_operator (tokenize_input.c:81)
+==597627==    by 0x10F40B: process_operator (tokenize_input.c:116)
+==597627==    by 0x10F035: tokenize_command (tokenize_input.c:15)
+==597627== 
+--597627-- 
+--597627-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,134 bytes in 7 blocks
+==597627== 
+==597627== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 4 from 4)
