@@ -1,0 +1,203 @@
+==462167== Memcheck, a memory error detector
+==462167== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==462167== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==462167== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==462167== Parent PID: 462166
+==462167== 
+==462168== 
+==462168== FILE DESCRIPTORS: 10 open (3 std) at exit.
+==462168== Open file descriptor 5: /dev/null
+==462168==    at 0x49DEFEB: dup (syscall-template.S:120)
+==462168==    by 0x1097FA: exec_cmd (execute_commands.c:28)
+==462168==    by 0x109933: execution (execute_commands.c:59)
+==462168==    by 0x10D80C: process_and_execute_commands (handle_input.c:21)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== Open file descriptor 4:
+==462168==    at 0x49DEFEB: dup (syscall-template.S:120)
+==462168==    by 0x1097E6: exec_cmd (execute_commands.c:27)
+==462168==    by 0x109933: execution (execute_commands.c:59)
+==462168==    by 0x10D80C: process_and_execute_commands (handle_input.c:21)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==462168==    <inherited from parent>
+==462168== 
+==462168== Open file descriptor 44: /dev/ptmx
+==462168==    <inherited from parent>
+==462168== 
+==462168== Open AF_UNIX socket 43: <unknown>
+==462168==    <inherited from parent>
+==462168== 
+==462168== Open file descriptor 42: /home/pghajard/.config/Code/logs/20250114T112248/ptyhost.log
+==462168==    <inherited from parent>
+==462168== 
+==462168== Open file descriptor 3: /tmp/tmp.G7Sifi6nHD/tmp_valgrind_out
+==462168==    <inherited from parent>
+==462168== 
+==462168== 
+==462168== HEAP SUMMARY:
+==462168==     in use at exit: 9,697 bytes in 90 blocks
+==462168==   total heap usage: 132 allocs, 42 frees, 18,078 bytes allocated
+==462168== 
+==462168== 14 bytes in 1 blocks are still reachable in loss record 2 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x112259: ft_strdup (in /home/pghajard/Desktop/minishell/minishell/minishell)
+==462168==    by 0x10D9A0: handle_allocation (handle_input.c:72)
+==462168==    by 0x10DA3B: allocate_resources (handle_input.c:94)
+==462168==    by 0x10DB4D: handle_user_input (handle_input.c:135)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== 14 bytes in 1 blocks are still reachable in loss record 4 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x1123EF: ft_substr (in /home/pghajard/Desktop/minishell/minishell/minishell)
+==462168==    by 0x1103E9: process_input_segment (process_input_segment.c:36)
+==462168==    by 0x10ECED: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==462168==    by 0x1104F1: preprocess_input (preprocess_input.c:6)
+==462168==    by 0x10D7E8: process_and_execute_commands (handle_input.c:11)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== 14 bytes in 2 blocks are still reachable in loss record 5 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x112259: ft_strdup (in /home/pghajard/Desktop/minishell/minishell/minishell)
+==462168==    by 0x10E632: save_and_expand_word (process_word.c:131)
+==462168==    by 0x10E7D4: collect_and_expand_word (process_word.c:176)
+==462168==    by 0x10EB45: process_word (process_word.c:265)
+==462168==    by 0x10F046: tokenize_command (tokenize_input.c:20)
+==462168==    by 0x110465: process_input_segment (process_input_segment.c:44)
+==462168==    by 0x10ECED: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==462168==    by 0x1104F1: preprocess_input (preprocess_input.c:6)
+==462168==    by 0x10D7E8: process_and_execute_commands (handle_input.c:11)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168== 
+==462168== 14 bytes in 2 blocks are still reachable in loss record 6 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x10A2C8: ft_strjoin_safe (helper_1.c:34)
+==462168==    by 0x10A3DC: ft_strjoin_and_free_both (helper_2.c:13)
+==462168==    by 0x10A44B: ft_strjoin_free_both (helper_2.c:27)
+==462168==    by 0x110D1F: append_literal_char (variable_expansion.c:67)
+==462168==    by 0x110AE9: expand_variables_in_token (expand_var_tokens.c:142)
+==462168==    by 0x10E670: save_and_expand_word (process_word.c:137)
+==462168==    by 0x10E7D4: collect_and_expand_word (process_word.c:176)
+==462168==    by 0x10EB45: process_word (process_word.c:265)
+==462168==    by 0x10F046: tokenize_command (tokenize_input.c:20)
+==462168==    by 0x110465: process_input_segment (process_input_segment.c:44)
+==462168==    by 0x10ECED: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==462168== 
+==462168== 14 bytes in 2 blocks are definitely lost in loss record 7 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x112259: ft_strdup (in /home/pghajard/Desktop/minishell/minishell/minishell)
+==462168==    by 0x10CD74: convert_tokens_to_argv (external_commands.c:94)
+==462168==    by 0x10CF1D: execute_external_commands (external_commands.c:146)
+==462168==    by 0x10D080: forking (external_commands.c:191)
+==462168==    by 0x109892: exec_cmd (execute_commands.c:39)
+==462168==    by 0x109933: execution (execute_commands.c:59)
+==462168==    by 0x10D80C: process_and_execute_commands (handle_input.c:21)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== 20 bytes in 1 blocks are still reachable in loss record 8 of 15
+==462168==    at 0x484DCD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x49DF7BC: getcwd (getcwd.c:86)
+==462168==    by 0x10DF7E: init_shell (init_shell.c:58)
+==462168==    by 0x109454: main (main.c:28)
+==462168== 
+==462168== 56 bytes in 1 blocks are still reachable in loss record 10 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x10EDBC: create_command (tokenize_cmd.c:17)
+==462168==    by 0x110447: process_input_segment (process_input_segment.c:43)
+==462168==    by 0x10ECED: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==462168==    by 0x1104F1: preprocess_input (preprocess_input.c:6)
+==462168==    by 0x10D7E8: process_and_execute_commands (handle_input.c:11)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== 120 bytes in 1 blocks are still reachable in loss record 11 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x494A122: getdelim (iogetdelim.c:62)
+==462168==    by 0x485C410: readline (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==462168==    by 0x10D9F0: read_input (handle_input.c:83)
+==462168==    by 0x10DBF6: handle_input (handle_input.c:169)
+==462168==    by 0x10946D: main (main.c:30)
+==462168== 
+==462168== 208 bytes in 2 blocks are still reachable in loss record 12 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x11016D: add_token (token_utils.c:336)
+==462168==    by 0x10E6D5: add_token_to_command (process_word.c:149)
+==462168==    by 0x10EABF: handle_non_expanded (process_word.c:252)
+==462168==    by 0x10EBB6: process_word (process_word.c:275)
+==462168==    by 0x10F046: tokenize_command (tokenize_input.c:20)
+==462168==    by 0x110465: process_input_segment (process_input_segment.c:44)
+==462168==    by 0x10ECED: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==462168==    by 0x1104F1: preprocess_input (preprocess_input.c:6)
+==462168==    by 0x10D7E8: process_and_execute_commands (handle_input.c:11)
+==462168==    by 0x10DB79: handle_user_input (handle_input.c:140)
+==462168==    by 0x10DC15: handle_input (handle_input.c:174)
+==462168== 
+==462168== 584 bytes in 1 blocks are still reachable in loss record 13 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x10DCFA: copy_envp (init_env.c:28)
+==462168==    by 0x10941D: main (main.c:22)
+==462168== 
+==462168== 4,573 bytes in 72 blocks are still reachable in loss record 15 of 15
+==462168==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==462168==    by 0x112259: ft_strdup (in /home/pghajard/Desktop/minishell/minishell/minishell)
+==462168==    by 0x10DD44: copy_envp (init_env.c:33)
+==462168==    by 0x10941D: main (main.c:22)
+==462168== 
+==462168== LEAK SUMMARY:
+==462168==    definitely lost: 14 bytes in 2 blocks
+==462168==    indirectly lost: 0 bytes in 0 blocks
+==462168==      possibly lost: 0 bytes in 0 blocks
+==462168==    still reachable: 5,617 bytes in 84 blocks
+==462168==         suppressed: 4,066 bytes in 4 blocks
+==462168== 
+==462168== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+--462168-- 
+--462168-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,066 bytes in 4 blocks
+==462168== 
+==462168== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+==462167== 
+==462167== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==462167== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==462167==    <inherited from parent>
+==462167== 
+==462167== Open file descriptor 44: /dev/ptmx
+==462167==    <inherited from parent>
+==462167== 
+==462167== Open AF_UNIX socket 43: <unknown>
+==462167==    <inherited from parent>
+==462167== 
+==462167== Open file descriptor 42: /home/pghajard/.config/Code/logs/20250114T112248/ptyhost.log
+==462167==    <inherited from parent>
+==462167== 
+==462167== Open file descriptor 3: /tmp/tmp.G7Sifi6nHD/tmp_valgrind_out
+==462167==    <inherited from parent>
+==462167== 
+==462167== 
+==462167== HEAP SUMMARY:
+==462167==     in use at exit: 4,066 bytes in 4 blocks
+==462167==   total heap usage: 134 allocs, 130 frees, 18,214 bytes allocated
+==462167== 
+==462167== LEAK SUMMARY:
+==462167==    definitely lost: 0 bytes in 0 blocks
+==462167==    indirectly lost: 0 bytes in 0 blocks
+==462167==      possibly lost: 0 bytes in 0 blocks
+==462167==    still reachable: 0 bytes in 0 blocks
+==462167==         suppressed: 4,066 bytes in 4 blocks
+==462167== 
+==462167== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--462167-- 
+--462167-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,066 bytes in 4 blocks
+==462167== 
+==462167== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

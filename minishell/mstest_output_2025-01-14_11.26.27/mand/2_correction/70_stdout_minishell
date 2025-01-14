@@ -1,0 +1,13 @@
+LD_PRELOAD=/home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so
+USER_ZDOTDIR=/home/pghajard
+LOGNAME=pghajard
+XAUTHORITY=/home/pghajard/.Xauthority
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/pghajard
+HOME=/home/pghajard
+ZDOTDIR=/home/pghajard
+USER=pghajard
+XDG_DATA_DIRS=/home/pghajard/my_mime_dir:/usr/share/mime
+PATH=/bin:/usr/bin:/usr/sbin:/home/pghajard/.local/funcheck/host:/home/pghajard/bin:/home/pghajard/.local/funcheck/host:/home/pghajard/bin:/home/pghajard/.local/funcheck/host:/home/pghajard/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/share/rust/cargo/bin:/usr/share/code/bin:/home/pghajard/local_apps/VSCode-linux-x64/:/home/pghajard/local_apps/VSCode-linux-x64/:/usr/share/code/bin:/usr/share/code/bin
+XDG_MIME_MODULES=/home/pghajard/my_mime_dir/mime.cache
+OLDPWD=/home/pghajard/Desktop/minishell/minishell
+_=/home/pghajard/Desktop/minishell/minishell/minishell
