@@ -62,5 +62,4 @@ void	execution(t_shell_data *shell)
 	}
 	close_all_pipes(shell->pipes, shell->cmds_nb);
 	execute_parent(shell);
-	free_pipes(shell->pipes, shell->cmds_nb);
 }

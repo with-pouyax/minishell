@@ -45,21 +45,9 @@ void	close_all_pipes(int **pipes, int nb_cmds)
 	{
 		close(pipes[i][0]);
 		close(pipes[i][1]);
-		i++;
-	}
-}
-
-void	free_pipes(int **pipes, int nb_cmds)
-{
-	int	i;
-
-	i = 0;
-	while (i < nb_cmds - 1)
-	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
 		free(pipes[i]);
 		i++;
 	}
 	free(pipes);
+
 }

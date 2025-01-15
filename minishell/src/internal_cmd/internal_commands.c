@@ -3,28 +3,9 @@
 int	ft_exit_child(t_shell_data *shell, t_command *cmd)
 {
     (void)cmd;
-	//t_token	*token;
 	int		exit_status;
-	// long long num;
 
-	//token = cmd->token_list->next;
 	exit_status = shell->exit_status;
-
-	// if (token)
-	// {
-	// 	if (is_numeric(token->value))
-	// 	{
-	// 		exit_status = ft_atoi(token->value) % 256;
-	// 		token = token->next;
-	// 		if (token)
-	// 		{
-	// 			print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
-	// 			return (1);
-	// 		}
-    //     }
-	// 	else
-    //         print_exit_error2("exit: %s: numeric argument required\n", token->value, &exit_status, 2);
-    // }
 	cleanup(shell);
 	rl_clear_history();
     close(shell->saved_stdin);
@@ -45,11 +26,11 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
     else if (pid == 0)
     {
         if (execute_command(shell, cmds, token, 0) == -1)
-            exit(127);
+            return (-1);
         close(shell->saved_stdin);
         close(shell->saved_stdout);
         ft_exit_child(shell, cmds);
-        exit(shell->exit_status);
+        // exit(shell->exit_status);
     }
     else
         store_pids(shell, pid);

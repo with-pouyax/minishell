@@ -1,0 +1,51 @@
+==412614== Memcheck, a memory error detector
+==412614== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==412614== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==412614== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==412614== Parent PID: 412613
+==412614== 
+==412614== 
+==412614== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==412614== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==412614==    <inherited from parent>
+==412614== 
+==412614== Open file descriptor 44: /dev/ptmx
+==412614==    <inherited from parent>
+==412614== 
+==412614== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T111835/ptyhost.log
+==412614==    <inherited from parent>
+==412614== 
+==412614== Open file descriptor 3: /tmp/tmp.wkgEeDIx3B/tmp_valgrind_out
+==412614==    <inherited from parent>
+==412614== 
+==412614== 
+==412614== HEAP SUMMARY:
+==412614==     in use at exit: 4,064 bytes in 2 blocks
+==412614==   total heap usage: 103 allocs, 101 frees, 16,308 bytes allocated
+==412614== 
+==412614== 48 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==412614==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==412614==    by 0x10FB3D: create_new_redirection (token_utils.c:200)
+==412614==    by 0x10FEF0: prepare_redirection (token_utils.c:290)
+==412614==    by 0x10FF6B: handle_redirection (token_utils.c:303)
+==412614==    by 0x10F22D: handle_redirection_operator (tokenize_input.c:81)
+==412614==    by 0x10F343: process_operator (tokenize_input.c:116)
+==412614==    by 0x10EF6D: tokenize_command (tokenize_input.c:15)
+==412614==    by 0x1103B9: process_input_segment (process_input_segment.c:44)
+==412614==    by 0x10EC41: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==412614==    by 0x110445: preprocess_input (preprocess_input.c:6)
+==412614==    by 0x10D73C: process_and_execute_commands (handle_input.c:11)
+==412614==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==412614== 
+==412614== LEAK SUMMARY:
+==412614==    definitely lost: 48 bytes in 1 blocks
+==412614==    indirectly lost: 0 bytes in 0 blocks
+==412614==      possibly lost: 0 bytes in 0 blocks
+==412614==    still reachable: 0 bytes in 0 blocks
+==412614==         suppressed: 4,016 bytes in 1 blocks
+==412614== 
+==412614== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+--412614-- 
+--412614-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==412614== 
+==412614== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
