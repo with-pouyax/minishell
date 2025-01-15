@@ -127,7 +127,7 @@ int process_filename_or_delimiter(t_shell_data *shell, char *input,
     {
         free(words.expanded);
         free(words.original);
-        return (1);
+        return (handle_missing_filename_error(shell, redir));
     }
     if (validate_expanded_word(shell, words.expanded))
     {
