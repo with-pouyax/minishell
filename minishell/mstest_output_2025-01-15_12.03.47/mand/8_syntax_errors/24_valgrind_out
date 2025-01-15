@@ -1,0 +1,65 @@
+==457683== Memcheck, a memory error detector
+==457683== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==457683== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==457683== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==457683== Parent PID: 457682
+==457683== 
+==457683== 
+==457683== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==457683== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==457683==    <inherited from parent>
+==457683== 
+==457683== Open file descriptor 44: /dev/ptmx
+==457683==    <inherited from parent>
+==457683== 
+==457683== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T111835/ptyhost.log
+==457683==    <inherited from parent>
+==457683== 
+==457683== Open file descriptor 3: /tmp/tmp.wkgEeDIx3B/tmp_valgrind_out
+==457683==    <inherited from parent>
+==457683== 
+==457683== 
+==457683== HEAP SUMMARY:
+==457683==     in use at exit: 4,069 bytes in 3 blocks
+==457683==   total heap usage: 105 allocs, 102 frees, 16,258 bytes allocated
+==457683== 
+==457683== 5 bytes in 1 blocks are indirectly lost in loss record 1 of 3
+==457683==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==457683==    by 0x10A22E: ft_strjoin_safe (helper_1.c:34)
+==457683==    by 0x10A342: ft_strjoin_and_free_both (helper_2.c:13)
+==457683==    by 0x10A3B1: ft_strjoin_free_both (helper_2.c:27)
+==457683==    by 0x110C73: append_literal_char (variable_expansion.c:67)
+==457683==    by 0x110A3D: expand_variables_in_token (expand_var_tokens.c:142)
+==457683==    by 0x10E5C4: save_and_expand_word (process_word.c:137)
+==457683==    by 0x10F66F: collect_and_expand_redirection_word (token_utils.c:70)
+==457683==    by 0x10F870: process_filename_or_delimiter (token_utils.c:124)
+==457683==    by 0x10FFC7: handle_redirection (token_utils.c:313)
+==457683==    by 0x10F22D: handle_redirection_operator (tokenize_input.c:81)
+==457683==    by 0x10F343: process_operator (tokenize_input.c:116)
+==457683== 
+==457683== 53 (48 direct, 5 indirect) bytes in 1 blocks are definitely lost in loss record 2 of 3
+==457683==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==457683==    by 0x10FB3D: create_new_redirection (token_utils.c:200)
+==457683==    by 0x10FEF0: prepare_redirection (token_utils.c:290)
+==457683==    by 0x10FF6B: handle_redirection (token_utils.c:303)
+==457683==    by 0x10F22D: handle_redirection_operator (tokenize_input.c:81)
+==457683==    by 0x10F343: process_operator (tokenize_input.c:116)
+==457683==    by 0x10EF6D: tokenize_command (tokenize_input.c:15)
+==457683==    by 0x1103B9: process_input_segment (process_input_segment.c:44)
+==457683==    by 0x10EC41: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==457683==    by 0x110445: preprocess_input (preprocess_input.c:6)
+==457683==    by 0x10D73C: process_and_execute_commands (handle_input.c:11)
+==457683==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==457683== 
+==457683== LEAK SUMMARY:
+==457683==    definitely lost: 48 bytes in 1 blocks
+==457683==    indirectly lost: 5 bytes in 1 blocks
+==457683==      possibly lost: 0 bytes in 0 blocks
+==457683==    still reachable: 0 bytes in 0 blocks
+==457683==         suppressed: 4,016 bytes in 1 blocks
+==457683== 
+==457683== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--457683-- 
+--457683-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==457683== 
+==457683== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)

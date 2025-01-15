@@ -1,0 +1,103 @@
+==549667== Memcheck, a memory error detector
+==549667== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==549667== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==549667== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==549667== Parent PID: 549666
+==549667== 
+==549668== 
+==549668== Process terminating with default action of signal 13 (SIGPIPE)
+==549668==    at 0x49DE887: write (write.c:26)
+==549668==    by 0x4954EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==549668==    by 0x49569E0: new_do_write (fileops.c:448)
+==549668==    by 0x49569E0: _IO_new_do_write (fileops.c:425)
+==549668==    by 0x49569E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==549668==    by 0x49589C1: _IO_flush_all_lockp (genops.c:706)
+==549668==    by 0x4958B7D: _IO_cleanup (genops.c:866)
+==549668==    by 0x490F541: __run_exit_handlers (exit.c:134)
+==549668==    by 0x490F60F: exit (exit.c:143)
+==549668==    by 0x10AD5B: ft_exit_child (internal_commands.c:13)
+==549668==    by 0x10AE08: fork_and_execute (internal_commands.c:33)
+==549668==    by 0x10B174: execute_internal_commands (internal_commands.c:115)
+==549668==    by 0x10CFD9: forking (external_commands.c:187)
+==549668==    by 0x109892: exec_cmd (execute_commands.c:39)
+==549668== 
+==549668== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==549668== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==549668==    <inherited from parent>
+==549668== 
+==549668== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==549668==    <inherited from parent>
+==549668== 
+==549668== Open file descriptor 3: /tmp/tmp.joRY8l8MVu/tmp_valgrind_out
+==549668==    <inherited from parent>
+==549668== 
+==549668== 
+==549668== HEAP SUMMARY:
+==549668==     in use at exit: 12,208 bytes in 3 blocks
+==549668==   total heap usage: 141 allocs, 138 frees, 20,620 bytes allocated
+==549668== 
+==549668== 4,096 bytes in 1 blocks are still reachable in loss record 2 of 3
+==549668==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549668==    by 0x4948BA3: _IO_file_doallocate (filedoalloc.c:101)
+==549668==    by 0x4957CDF: _IO_doallocbuf (genops.c:347)
+==549668==    by 0x4956CDB: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==549668==    by 0x494A307: getdelim (iogetdelim.c:73)
+==549668==    by 0x485C410: readline (in /home/mhoushma/42_minishell_tester/utils/libintercept/libintercept.so)
+==549668==    by 0x10D95E: read_input (handle_input.c:83)
+==549668==    by 0x10DB64: handle_input (handle_input.c:169)
+==549668==    by 0x10946D: main (main.c:30)
+==549668== 
+==549668== 4,096 bytes in 1 blocks are still reachable in loss record 3 of 3
+==549668==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==549668==    by 0x4948BA3: _IO_file_doallocate (filedoalloc.c:101)
+==549668==    by 0x4957CDF: _IO_doallocbuf (genops.c:347)
+==549668==    by 0x4956F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==549668==    by 0x494C9F6: putchar (putchar.c:28)
+==549668==    by 0x10C0B2: ft_echo (ft_echo.c:61)
+==549668==    by 0x10AF65: execute_command (internal_commands.c:72)
+==549668==    by 0x10ADDD: fork_and_execute (internal_commands.c:29)
+==549668==    by 0x10B174: execute_internal_commands (internal_commands.c:115)
+==549668==    by 0x10CFD9: forking (external_commands.c:187)
+==549668==    by 0x109892: exec_cmd (execute_commands.c:39)
+==549668==    by 0x109933: execution (execute_commands.c:59)
+==549668== 
+==549668== LEAK SUMMARY:
+==549668==    definitely lost: 0 bytes in 0 blocks
+==549668==    indirectly lost: 0 bytes in 0 blocks
+==549668==      possibly lost: 0 bytes in 0 blocks
+==549668==    still reachable: 8,192 bytes in 2 blocks
+==549668==         suppressed: 4,016 bytes in 1 blocks
+==549668== 
+==549668== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--549668-- 
+--549668-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==549668== 
+==549668== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==549667== 
+==549667== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==549667== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==549667==    <inherited from parent>
+==549667== 
+==549667== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==549667==    <inherited from parent>
+==549667== 
+==549667== Open file descriptor 3: /tmp/tmp.joRY8l8MVu/tmp_valgrind_out
+==549667==    <inherited from parent>
+==549667== 
+==549667== 
+==549667== HEAP SUMMARY:
+==549667==     in use at exit: 4,070 bytes in 4 blocks
+==549667==   total heap usage: 196 allocs, 192 frees, 17,704 bytes allocated
+==549667== 
+==549667== LEAK SUMMARY:
+==549667==    definitely lost: 0 bytes in 0 blocks
+==549667==    indirectly lost: 0 bytes in 0 blocks
+==549667==      possibly lost: 0 bytes in 0 blocks
+==549667==    still reachable: 0 bytes in 0 blocks
+==549667==         suppressed: 4,070 bytes in 4 blocks
+==549667== 
+==549667== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--549667-- 
+--549667-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,070 bytes in 4 blocks
+==549667== 
+==549667== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

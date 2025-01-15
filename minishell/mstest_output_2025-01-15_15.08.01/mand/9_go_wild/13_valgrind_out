@@ -1,0 +1,133 @@
+==599009== Memcheck, a memory error detector
+==599009== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==599009== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==599009== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==599009== Parent PID: 599008
+==599009== 
+==599010== 
+==599010== Process terminating with default action of signal 13 (SIGPIPE)
+==599010==    at 0x49DE887: write (write.c:26)
+==599010==    by 0x4954EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==599010==    by 0x49569E0: new_do_write (fileops.c:448)
+==599010==    by 0x49569E0: _IO_new_do_write (fileops.c:425)
+==599010==    by 0x49569E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==599010==    by 0x49589C1: _IO_flush_all_lockp (genops.c:706)
+==599010==    by 0x4958B7D: _IO_cleanup (genops.c:866)
+==599010==    by 0x490F541: __run_exit_handlers (exit.c:134)
+==599010==    by 0x490F60F: exit (exit.c:143)
+==599010==    by 0x10AD5B: ft_exit_child (internal_commands.c:13)
+==599010==    by 0x10AE08: fork_and_execute (internal_commands.c:33)
+==599010==    by 0x10B174: execute_internal_commands (internal_commands.c:115)
+==599010==    by 0x10CFD9: forking (external_commands.c:187)
+==599010==    by 0x109892: exec_cmd (execute_commands.c:39)
+==599010== 
+==599010== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==599010== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==599010==    <inherited from parent>
+==599010== 
+==599010== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==599010==    <inherited from parent>
+==599010== 
+==599010== Open file descriptor 3: /tmp/tmp.joRY8l8MVu/tmp_valgrind_out
+==599010==    <inherited from parent>
+==599010== 
+==599010== 
+==599010== HEAP SUMMARY:
+==599010==     in use at exit: 12,208 bytes in 3 blocks
+==599010==   total heap usage: 268 allocs, 265 frees, 22,330 bytes allocated
+==599010== 
+==599010== 4,096 bytes in 1 blocks are still reachable in loss record 2 of 3
+==599010==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==599010==    by 0x4948BA3: _IO_file_doallocate (filedoalloc.c:101)
+==599010==    by 0x4957CDF: _IO_doallocbuf (genops.c:347)
+==599010==    by 0x4956CDB: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==599010==    by 0x494A307: getdelim (iogetdelim.c:73)
+==599010==    by 0x485C410: readline (in /home/mhoushma/42_minishell_tester/utils/libintercept/libintercept.so)
+==599010==    by 0x10D95E: read_input (handle_input.c:83)
+==599010==    by 0x10DB64: handle_input (handle_input.c:169)
+==599010==    by 0x10946D: main (main.c:30)
+==599010== 
+==599010== 4,096 bytes in 1 blocks are still reachable in loss record 3 of 3
+==599010==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==599010==    by 0x4948BA3: _IO_file_doallocate (filedoalloc.c:101)
+==599010==    by 0x4957CDF: _IO_doallocbuf (genops.c:347)
+==599010==    by 0x4956F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==599010==    by 0x49556D4: _IO_new_file_xsputn (fileops.c:1243)
+==599010==    by 0x49556D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==599010==    by 0x494100B: outstring_func (vfprintf-internal.c:239)
+==599010==    by 0x494100B: __vfprintf_internal (vfprintf-internal.c:1517)
+==599010==    by 0x492A79E: printf (printf.c:33)
+==599010==    by 0x10C078: ft_echo (ft_echo.c:55)
+==599010==    by 0x10AF65: execute_command (internal_commands.c:72)
+==599010==    by 0x10ADDD: fork_and_execute (internal_commands.c:29)
+==599010==    by 0x10B174: execute_internal_commands (internal_commands.c:115)
+==599010==    by 0x10CFD9: forking (external_commands.c:187)
+==599010== 
+==599010== LEAK SUMMARY:
+==599010==    definitely lost: 0 bytes in 0 blocks
+==599010==    indirectly lost: 0 bytes in 0 blocks
+==599010==      possibly lost: 0 bytes in 0 blocks
+==599010==    still reachable: 8,192 bytes in 2 blocks
+==599010==         suppressed: 4,016 bytes in 1 blocks
+==599010== 
+==599010== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--599010-- 
+--599010-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==599010== 
+==599010== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==599012== 
+==599012== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==599012== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==599012==    <inherited from parent>
+==599012== 
+==599012== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==599012==    <inherited from parent>
+==599012== 
+==599012== Open file descriptor 3: /tmp/tmp.joRY8l8MVu/tmp_valgrind_out
+==599012==    <inherited from parent>
+==599012== 
+==599012== 
+==599012== HEAP SUMMARY:
+==599012==     in use at exit: 4,016 bytes in 1 blocks
+==599012==   total heap usage: 308 allocs, 307 frees, 22,950 bytes allocated
+==599012== 
+==599012== LEAK SUMMARY:
+==599012==    definitely lost: 0 bytes in 0 blocks
+==599012==    indirectly lost: 0 bytes in 0 blocks
+==599012==      possibly lost: 0 bytes in 0 blocks
+==599012==    still reachable: 0 bytes in 0 blocks
+==599012==         suppressed: 4,016 bytes in 1 blocks
+==599012== 
+==599012== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--599012-- 
+--599012-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==599012== 
+==599012== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==599009== 
+==599009== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==599009== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==599009==    <inherited from parent>
+==599009== 
+==599009== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==599009==    <inherited from parent>
+==599009== 
+==599009== Open file descriptor 3: /tmp/tmp.joRY8l8MVu/tmp_valgrind_out
+==599009==    <inherited from parent>
+==599009== 
+==599009== 
+==599009== HEAP SUMMARY:
+==599009==     in use at exit: 4,172 bytes in 7 blocks
+==599009==   total heap usage: 309 allocs, 302 frees, 18,990 bytes allocated
+==599009== 
+==599009== LEAK SUMMARY:
+==599009==    definitely lost: 0 bytes in 0 blocks
+==599009==    indirectly lost: 0 bytes in 0 blocks
+==599009==      possibly lost: 0 bytes in 0 blocks
+==599009==    still reachable: 0 bytes in 0 blocks
+==599009==         suppressed: 4,172 bytes in 7 blocks
+==599009== 
+==599009== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--599009-- 
+--599009-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,172 bytes in 7 blocks
+==599009== 
+==599009== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

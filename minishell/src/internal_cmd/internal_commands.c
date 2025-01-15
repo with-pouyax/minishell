@@ -3,34 +3,30 @@
 int	ft_exit_child(t_shell_data *shell, t_command *cmd)
 {
     (void)cmd;
-	//t_token	*token;
 	int		exit_status;
-	// long long num;
 
-	//token = cmd->token_list->next;
 	exit_status = shell->exit_status;
-
-	// if (token)
-	// {
-	// 	if (is_numeric(token->value))
-	// 	{
-	// 		exit_status = ft_atoi(token->value) % 256;
-	// 		token = token->next;
-	// 		if (token)
-	// 		{
-	// 			print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
-	// 			return (1);
-	// 		}
-    //     }
-	// 	else
-    //         print_exit_error2("exit: %s: numeric argument required\n", token->value, &exit_status, 2);
-    // }
 	cleanup(shell);
 	rl_clear_history();
     close(shell->saved_stdin);
     close(shell->saved_stdout);
 	exit(exit_status);
 }
+void free_pid_list(t_shell_data *shell)
+{
+    t_pid_node *current;
+    t_pid_node *next;
+
+    current = shell->pid_list;
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    shell->pid_list = NULL;  // Ensure the list is now empty
+}
+
 
 int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 {
@@ -44,15 +40,19 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
     }
     else if (pid == 0)
     {
+        close_all_pipes(shell->pipes, shell->cmds_nb);
         if (execute_command(shell, cmds, token, 0) == -1)
-            exit(127);
-        close(shell->saved_stdin);
-        close(shell->saved_stdout);
+        {
+            free_pid_list(shell);
+            ft_exit_child(shell, cmds);
+        }
+        free_pid_list(shell);
         ft_exit_child(shell, cmds);
-        exit(shell->exit_status);
     }
     else
+    {
         store_pids(shell, pid);
+    }
     return (0);
 }
 
@@ -63,7 +63,7 @@ int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
         return (-1);
     if(shell->cmds_nb > 1)
         return (1);
-    return execute_command(shell, cmds, token, 0);
+    return (execute_command(shell, cmds, token, 0));
 }
 
 

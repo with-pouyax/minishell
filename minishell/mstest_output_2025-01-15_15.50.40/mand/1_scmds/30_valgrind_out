@@ -1,0 +1,191 @@
+==645959== Memcheck, a memory error detector
+==645959== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==645959== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==645959== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==645959== Parent PID: 645958
+==645959== 
+==645960== 
+==645960== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==645960== Open file descriptor 5: /dev/null
+==645960==    at 0x49DEFEB: dup (syscall-template.S:120)
+==645960==    by 0x1097FA: exec_cmd (execute_commands.c:28)
+==645960==    by 0x109933: execution (execute_commands.c:59)
+==645960==    by 0x10D7E9: process_and_execute_commands (handle_input.c:21)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== Open file descriptor 4:
+==645960==    at 0x49DEFEB: dup (syscall-template.S:120)
+==645960==    by 0x1097E6: exec_cmd (execute_commands.c:27)
+==645960==    by 0x109933: execution (execute_commands.c:59)
+==645960==    by 0x10D7E9: process_and_execute_commands (handle_input.c:21)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==645960==    <inherited from parent>
+==645960== 
+==645960== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==645960==    <inherited from parent>
+==645960== 
+==645960== Open file descriptor 3: /tmp/tmp.ZkheU1OGwp/tmp_valgrind_out
+==645960==    <inherited from parent>
+==645960== 
+==645960== 
+==645960== HEAP SUMMARY:
+==645960==     in use at exit: 7,977 bytes in 89 blocks
+==645960==   total heap usage: 112 allocs, 23 frees, 16,274 bytes allocated
+==645960== 
+==645960== 5 bytes in 1 blocks are still reachable in loss record 1 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x10A245: ft_strjoin_safe (helper_1.c:34)
+==645960==    by 0x10A359: ft_strjoin_and_free_both (helper_2.c:13)
+==645960==    by 0x10A3C8: ft_strjoin_free_both (helper_2.c:27)
+==645960==    by 0x110CFC: append_literal_char (variable_expansion.c:67)
+==645960==    by 0x110AC6: expand_variables_in_token (expand_var_tokens.c:142)
+==645960==    by 0x10E64D: save_and_expand_word (process_word.c:137)
+==645960==    by 0x10E7B1: collect_and_expand_word (process_word.c:176)
+==645960==    by 0x10EB22: process_word (process_word.c:265)
+==645960==    by 0x10F023: tokenize_command (tokenize_input.c:20)
+==645960==    by 0x110442: process_input_segment (process_input_segment.c:44)
+==645960==    by 0x10ECCA: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==645960== 
+==645960== 5 bytes in 1 blocks are definitely lost in loss record 2 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x112239: ft_strdup (in /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell)
+==645960==    by 0x10CD51: convert_tokens_to_argv (external_commands.c:94)
+==645960==    by 0x10CEFA: execute_external_commands (external_commands.c:146)
+==645960==    by 0x10D05D: forking (external_commands.c:191)
+==645960==    by 0x109892: exec_cmd (execute_commands.c:39)
+==645960==    by 0x109933: execution (execute_commands.c:59)
+==645960==    by 0x10D7E9: process_and_execute_commands (handle_input.c:21)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== 11 bytes in 1 blocks are still reachable in loss record 3 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x112239: ft_strdup (in /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell)
+==645960==    by 0x10D97D: handle_allocation (handle_input.c:72)
+==645960==    by 0x10DA18: allocate_resources (handle_input.c:94)
+==645960==    by 0x10DB2A: handle_user_input (handle_input.c:135)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== 11 bytes in 1 blocks are still reachable in loss record 5 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x1123CF: ft_substr (in /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell)
+==645960==    by 0x1103C6: process_input_segment (process_input_segment.c:36)
+==645960==    by 0x10ECCA: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==645960==    by 0x1104CE: preprocess_input (preprocess_input.c:6)
+==645960==    by 0x10D7C5: process_and_execute_commands (handle_input.c:11)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== 11 bytes in 1 blocks are still reachable in loss record 6 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x112239: ft_strdup (in /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell)
+==645960==    by 0x10E60F: save_and_expand_word (process_word.c:131)
+==645960==    by 0x10E7B1: collect_and_expand_word (process_word.c:176)
+==645960==    by 0x10EB22: process_word (process_word.c:265)
+==645960==    by 0x10F023: tokenize_command (tokenize_input.c:20)
+==645960==    by 0x110442: process_input_segment (process_input_segment.c:44)
+==645960==    by 0x10ECCA: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==645960==    by 0x1104CE: preprocess_input (preprocess_input.c:6)
+==645960==    by 0x10D7C5: process_and_execute_commands (handle_input.c:11)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960== 
+==645960== 20 bytes in 1 blocks are still reachable in loss record 8 of 15
+==645960==    at 0x484DCD3: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x49DF7BC: getcwd (getcwd.c:86)
+==645960==    by 0x10DF5B: init_shell (init_shell.c:58)
+==645960==    by 0x109454: main (main.c:28)
+==645960== 
+==645960== 56 bytes in 1 blocks are still reachable in loss record 10 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x10ED99: create_command (tokenize_cmd.c:17)
+==645960==    by 0x110424: process_input_segment (process_input_segment.c:43)
+==645960==    by 0x10ECCA: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==645960==    by 0x1104CE: preprocess_input (preprocess_input.c:6)
+==645960==    by 0x10D7C5: process_and_execute_commands (handle_input.c:11)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== 104 bytes in 1 blocks are still reachable in loss record 11 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x11014A: add_token (token_utils.c:336)
+==645960==    by 0x10E6B2: add_token_to_command (process_word.c:149)
+==645960==    by 0x10EA9C: handle_non_expanded (process_word.c:252)
+==645960==    by 0x10EB93: process_word (process_word.c:275)
+==645960==    by 0x10F023: tokenize_command (tokenize_input.c:20)
+==645960==    by 0x110442: process_input_segment (process_input_segment.c:44)
+==645960==    by 0x10ECCA: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==645960==    by 0x1104CE: preprocess_input (preprocess_input.c:6)
+==645960==    by 0x10D7C5: process_and_execute_commands (handle_input.c:11)
+==645960==    by 0x10DB56: handle_user_input (handle_input.c:140)
+==645960==    by 0x10DBF2: handle_input (handle_input.c:174)
+==645960== 
+==645960== 120 bytes in 1 blocks are still reachable in loss record 12 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x494A122: getdelim (iogetdelim.c:62)
+==645960==    by 0x485C410: readline (in /home/mhoushma/42_minishell_tester/utils/libintercept/libintercept.so)
+==645960==    by 0x10D9CD: read_input (handle_input.c:83)
+==645960==    by 0x10DBD3: handle_input (handle_input.c:169)
+==645960==    by 0x10946D: main (main.c:30)
+==645960== 
+==645960== 608 bytes in 1 blocks are still reachable in loss record 13 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x10DCD7: copy_envp (init_env.c:28)
+==645960==    by 0x10941D: main (main.c:22)
+==645960== 
+==645960== 2,963 bytes in 75 blocks are still reachable in loss record 14 of 15
+==645960==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==645960==    by 0x112239: ft_strdup (in /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell)
+==645960==    by 0x10DD21: copy_envp (init_env.c:33)
+==645960==    by 0x10941D: main (main.c:22)
+==645960== 
+==645960== LEAK SUMMARY:
+==645960==    definitely lost: 5 bytes in 1 blocks
+==645960==    indirectly lost: 0 bytes in 0 blocks
+==645960==      possibly lost: 0 bytes in 0 blocks
+==645960==    still reachable: 3,909 bytes in 84 blocks
+==645960==         suppressed: 4,063 bytes in 4 blocks
+==645960== 
+==645960== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+--645960-- 
+--645960-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,063 bytes in 4 blocks
+==645960== 
+==645960== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+==645959== 
+==645959== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==645959== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==645959==    <inherited from parent>
+==645959== 
+==645959== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T150529/ptyhost.log
+==645959==    <inherited from parent>
+==645959== 
+==645959== Open file descriptor 3: /tmp/tmp.ZkheU1OGwp/tmp_valgrind_out
+==645959==    <inherited from parent>
+==645959== 
+==645959== 
+==645959== HEAP SUMMARY:
+==645959==     in use at exit: 4,063 bytes in 4 blocks
+==645959==   total heap usage: 114 allocs, 110 frees, 16,410 bytes allocated
+==645959== 
+==645959== LEAK SUMMARY:
+==645959==    definitely lost: 0 bytes in 0 blocks
+==645959==    indirectly lost: 0 bytes in 0 blocks
+==645959==      possibly lost: 0 bytes in 0 blocks
+==645959==    still reachable: 0 bytes in 0 blocks
+==645959==         suppressed: 4,063 bytes in 4 blocks
+==645959== 
+==645959== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--645959-- 
+--645959-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,063 bytes in 4 blocks
+==645959== 
+==645959== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

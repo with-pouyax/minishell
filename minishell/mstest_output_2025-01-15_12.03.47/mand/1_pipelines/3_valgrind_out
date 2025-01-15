@@ -1,0 +1,140 @@
+==434264== Memcheck, a memory error detector
+==434264== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==434264== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==434264== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==434264== Parent PID: 434263
+==434264== 
+==434265== 
+==434265== FILE DESCRIPTORS: 13 open (3 std) at exit.
+==434265== Open file descriptor 9:
+==434265==    at 0x49DF07D: pipe (pipe.c:29)
+==434265==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== Open file descriptor 8:
+==434265==    at 0x49DF07D: pipe (pipe.c:29)
+==434265==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== Open file descriptor 7:
+==434265==    at 0x49DF07D: pipe (pipe.c:29)
+==434265==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== Open file descriptor 6:
+==434265==    at 0x49DF07D: pipe (pipe.c:29)
+==434265==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== Open file descriptor 5:
+==434265==    at 0x49DF07D: pipe (pipe.c:29)
+==434265==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== Open file descriptor 4:
+==434265==    at 0x49DF07D: pipe (pipe.c:29)
+==434265==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==434265==    <inherited from parent>
+==434265== 
+==434265== Open file descriptor 44: /dev/ptmx
+==434265==    <inherited from parent>
+==434265== 
+==434265== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T111835/ptyhost.log
+==434265==    <inherited from parent>
+==434265== 
+==434265== Open file descriptor 3: /tmp/tmp.wkgEeDIx3B/tmp_valgrind_out
+==434265==    <inherited from parent>
+==434265== 
+==434265== 
+==434265== HEAP SUMMARY:
+==434265==     in use at exit: 4,064 bytes in 5 blocks
+==434265==   total heap usage: 208 allocs, 203 frees, 17,544 bytes allocated
+==434265== 
+==434265== 24 bytes in 1 blocks are still reachable in loss record 1 of 3
+==434265==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==434265==    by 0x1099B2: init_pipes (init_pipes.c:11)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== 24 bytes in 3 blocks are still reachable in loss record 2 of 3
+==434265==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==434265==    by 0x1099E6: init_pipes (init_pipes.c:16)
+==434265==    by 0x109913: execution (execute_commands.c:56)
+==434265==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==434265==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==434265==    by 0x10DB69: handle_input (handle_input.c:174)
+==434265==    by 0x10946D: main (main.c:30)
+==434265== 
+==434265== LEAK SUMMARY:
+==434265==    definitely lost: 0 bytes in 0 blocks
+==434265==    indirectly lost: 0 bytes in 0 blocks
+==434265==      possibly lost: 0 bytes in 0 blocks
+==434265==    still reachable: 48 bytes in 4 blocks
+==434265==         suppressed: 4,016 bytes in 1 blocks
+==434265== 
+==434265== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--434265-- 
+--434265-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==434265== 
+==434265== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==434264== 
+==434264== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==434264== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==434264==    <inherited from parent>
+==434264== 
+==434264== Open file descriptor 44: /dev/ptmx
+==434264==    <inherited from parent>
+==434264== 
+==434264== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T111835/ptyhost.log
+==434264==    <inherited from parent>
+==434264== 
+==434264== Open file descriptor 3: /tmp/tmp.wkgEeDIx3B/tmp_valgrind_out
+==434264==    <inherited from parent>
+==434264== 
+==434264== 
+==434264== HEAP SUMMARY:
+==434264==     in use at exit: 4,092 bytes in 4 blocks
+==434264==   total heap usage: 292 allocs, 288 frees, 19,338 bytes allocated
+==434264== 
+==434264== LEAK SUMMARY:
+==434264==    definitely lost: 0 bytes in 0 blocks
+==434264==    indirectly lost: 0 bytes in 0 blocks
+==434264==      possibly lost: 0 bytes in 0 blocks
+==434264==    still reachable: 0 bytes in 0 blocks
+==434264==         suppressed: 4,092 bytes in 4 blocks
+==434264== 
+==434264== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--434264-- 
+--434264-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,092 bytes in 4 blocks
+==434264== 
+==434264== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

@@ -1,0 +1,446 @@
+==435818== Memcheck, a memory error detector
+==435818== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==435818== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==435818== Command: /home/mhoushma/Desktop/new/mini/minishell/minishell/minishell
+==435818== Parent PID: 435817
+==435818== 
+==435819== 
+==435819== FILE DESCRIPTORS: 47 open (3 std) at exit.
+==435819== Open file descriptor 45:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 42:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 41:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 40:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 39:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 38:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 37:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 36:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 35:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 34:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 33:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 32:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 31:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 30:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 29:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 28:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 27:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 26:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 25:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 24:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 23:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 22:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 21:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 20:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 19:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 18:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 17:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 16:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 15:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 14:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 13:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 12:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 11:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 10:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 9:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 8:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 7:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 6:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 5:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 4:
+==435819==    at 0x49DF07D: pipe (pipe.c:29)
+==435819==    by 0x109A2B: init_pipes (init_pipes.c:19)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==435819==    <inherited from parent>
+==435819== 
+==435819== Open file descriptor 44: /dev/ptmx
+==435819==    <inherited from parent>
+==435819== 
+==435819== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T111835/ptyhost.log
+==435819==    <inherited from parent>
+==435819== 
+==435819== Open file descriptor 3: /tmp/tmp.wkgEeDIx3B/tmp_valgrind_out
+==435819==    <inherited from parent>
+==435819== 
+==435819== 
+==435819== HEAP SUMMARY:
+==435819==     in use at exit: 4,336 bytes in 22 blocks
+==435819==   total heap usage: 660 allocs, 638 frees, 27,933 bytes allocated
+==435819== 
+==435819== 160 bytes in 1 blocks are still reachable in loss record 1 of 3
+==435819==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==435819==    by 0x1099B2: init_pipes (init_pipes.c:11)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== 160 bytes in 20 blocks are still reachable in loss record 2 of 3
+==435819==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==435819==    by 0x1099E6: init_pipes (init_pipes.c:16)
+==435819==    by 0x109913: execution (execute_commands.c:56)
+==435819==    by 0x10D760: process_and_execute_commands (handle_input.c:21)
+==435819==    by 0x10DACD: handle_user_input (handle_input.c:140)
+==435819==    by 0x10DB69: handle_input (handle_input.c:174)
+==435819==    by 0x10946D: main (main.c:30)
+==435819== 
+==435819== LEAK SUMMARY:
+==435819==    definitely lost: 0 bytes in 0 blocks
+==435819==    indirectly lost: 0 bytes in 0 blocks
+==435819==      possibly lost: 0 bytes in 0 blocks
+==435819==    still reachable: 320 bytes in 21 blocks
+==435819==         suppressed: 4,016 bytes in 1 blocks
+==435819== 
+==435819== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--435819-- 
+--435819-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==435819== 
+==435819== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==435818== 
+==435818== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==435818== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==435818==    <inherited from parent>
+==435818== 
+==435818== Open file descriptor 44: /dev/ptmx
+==435818==    <inherited from parent>
+==435818== 
+==435818== Open file descriptor 43: /home/mhoushma/.config/Code/logs/20250115T111835/ptyhost.log
+==435818==    <inherited from parent>
+==435818== 
+==435818== Open file descriptor 3: /tmp/tmp.wkgEeDIx3B/tmp_valgrind_out
+==435818==    <inherited from parent>
+==435818== 
+==435818== 
+==435818== HEAP SUMMARY:
+==435818==     in use at exit: 4,242 bytes in 4 blocks
+==435818==   total heap usage: 1,201 allocs, 1,197 frees, 34,873 bytes allocated
+==435818== 
+==435818== LEAK SUMMARY:
+==435818==    definitely lost: 0 bytes in 0 blocks
+==435818==    indirectly lost: 0 bytes in 0 blocks
+==435818==      possibly lost: 0 bytes in 0 blocks
+==435818==    still reachable: 0 bytes in 0 blocks
+==435818==         suppressed: 4,242 bytes in 4 blocks
+==435818== 
+==435818== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--435818-- 
+--435818-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,242 bytes in 4 blocks
+==435818== 
+==435818== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
