@@ -1,0 +1,6 @@
+[0;32mminishell> [0mexport PATH=
+[0;32mminishell> [0mecho $PATH
+
+[0;32mminishell> [0mecho 1
+1
+[0;32mminishell> [0m

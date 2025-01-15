@@ -36,9 +36,30 @@ void	cleanup(t_shell_data *shell)
     }
 }
 
-int	tokenize_command_error(t_command *cmd)
+int tokenize_command_error(t_command *cmd)
 {
-	free_tokens(cmd->token_list);
-	cmd->token_list = NULL;
-	return (1);
+    // Free tokens
+    if (cmd->token_list)
+    {
+        free_tokens(cmd->token_list);
+        cmd->token_list = NULL;
+    }
+
+    // Free redirections
+    if (cmd->redirections)
+    {
+        free_redirections(cmd->redirections);
+        cmd->redirections = NULL;
+    }
+
+    // Free current_op if it exists
+    if (cmd->current_op)
+    {
+        free(cmd->current_op);
+        cmd->current_op = NULL;
+    }
+
+    // Add any additional cleanup for other fields in t_command here
+
+    return (1); // Indicate an error occurred
 }
