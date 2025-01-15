@@ -17,8 +17,10 @@ int	**init_pipes(int cmds_nb)
 		if (!pipes[i])
 			return (NULL);
 		if (pipe(pipes[i]) == -1)
-			return (NULL);
-		i++;
+		{
+			perror("pipe error");
+			exit(EXIT_FAILURE);
+		}		i++;
 	}
 	return (pipes);
 }

@@ -25,15 +25,17 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
     }
     else if (pid == 0)
     {
+        close_all_pipes(shell->pipes, shell->cmds_nb);
         if (execute_command(shell, cmds, token, 0) == -1)
-            return (-1);
-        close(shell->saved_stdin);
-        close(shell->saved_stdout);
+        {
+            ft_exit_child(shell, cmds);
+        }
         ft_exit_child(shell, cmds);
-        // exit(shell->exit_status);
     }
     else
+    {
         store_pids(shell, pid);
+    }
     return (0);
 }
 
@@ -44,7 +46,7 @@ int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
         return (-1);
     if(shell->cmds_nb > 1)
         return (1);
-    return execute_command(shell, cmds, token, 0);
+    return (execute_command(shell, cmds, token, 0));
 }
 
 
