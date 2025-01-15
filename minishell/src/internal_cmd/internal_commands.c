@@ -12,6 +12,21 @@ int	ft_exit_child(t_shell_data *shell, t_command *cmd)
     close(shell->saved_stdout);
 	exit(exit_status);
 }
+void free_pid_list(t_shell_data *shell)
+{
+    t_pid_node *current;
+    t_pid_node *next;
+
+    current = shell->pid_list;
+    while (current != NULL)
+    {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    shell->pid_list = NULL;  // Ensure the list is now empty
+}
+
 
 int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 {
@@ -28,8 +43,10 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
         close_all_pipes(shell->pipes, shell->cmds_nb);
         if (execute_command(shell, cmds, token, 0) == -1)
         {
+            free_pid_list(shell);
             ft_exit_child(shell, cmds);
         }
+        free_pid_list(shell);
         ft_exit_child(shell, cmds);
     }
     else
