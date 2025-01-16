@@ -32,6 +32,7 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 {
     pid_t pid;
 
+    signal(SIGPIPE, SIG_IGN);
     pid = fork();
     if (pid < 0)
     {
