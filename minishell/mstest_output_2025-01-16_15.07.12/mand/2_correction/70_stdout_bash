@@ -1,0 +1,10 @@
+LOGNAME=pouyax
+VSCODE_GIT_ASKPASS_NODE=/home/pouyax/.vscode-server/cli/servers/Stable-fabdb6a30b49f79a7aba0f2ad9df9b399473380f/server/node
+LD_PRELOAD=/home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so
+HOME=/home/pouyax
+GIT_ASKPASS=/home/pouyax/.vscode-server/cli/servers/Stable-fabdb6a30b49f79a7aba0f2ad9df9b399473380f/server/extensions/git/dist/askpass.sh
+USER=pouyax
+VSCODE_GIT_ASKPASS_MAIN=/home/pouyax/.vscode-server/cli/servers/Stable-fabdb6a30b49f79a7aba0f2ad9df9b399473380f/server/extensions/git/dist/askpass-main.js
+BROWSER=/home/pouyax/.vscode-server/cli/servers/Stable-fabdb6a30b49f79a7aba0f2ad9df9b399473380f/server/bin/helpers/browser.sh
+PATH=/bin:/usr/bin:/usr/sbin:/home/pouyax/.vscode-server/cli/servers/Stable-fabdb6a30b49f79a7aba0f2ad9df9b399473380f/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+OLDPWD=/home/pouyax/Desktop/minishell/minishell

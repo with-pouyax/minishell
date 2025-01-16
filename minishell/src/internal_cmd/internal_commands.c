@@ -24,7 +24,7 @@ void free_pid_list(t_shell_data *shell)
         free(current);
         current = next;
     }
-    shell->pid_list = NULL;  // Ensure the list is now empty
+    shell->pid_list = NULL;
 }
 
 
@@ -50,14 +50,13 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
         ft_exit_child(shell, cmds);
     }
     else
-    {
         store_pids(shell, pid);
-    }
     return (0);
 }
 
 
-int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
+int execute_parent_command(t_shell_data *shell, t_command *cmds, \
+t_token *token)
 {
     if (!shell || !cmds || !token)
         return (-1);
@@ -65,7 +64,6 @@ int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token)
         return (1);
     return (execute_command(shell, cmds, token, 0));
 }
-
 
 int is_parent_command(const char *cmd)
 {
