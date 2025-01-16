@@ -1,0 +1,120 @@
+==991910== Memcheck, a memory error detector
+==991910== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==991910== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==991910== Command: /home/pouyax/Desktop/minishell/minishell/minishell
+==991910== Parent PID: 991909
+==991910== 
+==991911== 
+==991911== Process terminating with default action of signal 13 (SIGPIPE)
+==991911==    at 0x49DE574: write (write.c:26)
+==991911==    by 0x4955964: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1181)
+==991911==    by 0x4954560: new_do_write (fileops.c:449)
+==991911==    by 0x4954560: _IO_do_write@@GLIBC_2.2.5 (fileops.c:426)
+==991911==    by 0x49581D5: _IO_flush_all (genops.c:705)
+==991911==    by 0x49587FC: _IO_cleanup (genops.c:843)
+==991911==    by 0x4909B63: __run_exit_handlers (exit.c:129)
+==991911==    by 0x4909BAD: exit (exit.c:138)
+==991911==    by 0x10B1DE: ft_exit_child (internal_commands.c:13)
+==991911==    by 0x10B2FD: fork_and_execute (internal_commands.c:50)
+==991911==    by 0x10B68D: execute_internal_commands (internal_commands.c:132)
+==991911==    by 0x10DAB9: forking (external_commands.c:187)
+==991911==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==991911== 
+==991911== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==991911== Open file descriptor 23: /dev/ptmx
+==991911==    <inherited from parent>
+==991911== 
+==991911== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T104941/remoteagent.log
+==991911==    <inherited from parent>
+==991911== 
+==991911== Open file descriptor 21: /dev/ptmx
+==991911==    <inherited from parent>
+==991911== 
+==991911== Open file descriptor 20: /dev/ptmx
+==991911==    <inherited from parent>
+==991911== 
+==991911== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T104941/ptyhost.log
+==991911==    <inherited from parent>
+==991911== 
+==991911== Open file descriptor 3: /tmp/tmp.4poJg0MC1q/tmp_valgrind_out
+==991911==    <inherited from parent>
+==991911== 
+==991911== 
+==991911== HEAP SUMMARY:
+==991911==     in use at exit: 12,208 bytes in 3 blocks
+==991911==   total heap usage: 105 allocs, 102 frees, 21,151 bytes allocated
+==991911== 
+==991911== 4,096 bytes in 1 blocks are still reachable in loss record 2 of 3
+==991911==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==991911==    by 0x49471A4: _IO_file_doallocate (filedoalloc.c:101)
+==991911==    by 0x4957513: _IO_doallocbuf (genops.c:347)
+==991911==    by 0x4954873: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:486)
+==991911==    by 0x4948DFF: getdelim (iogetdelim.c:77)
+==991911==    by 0x485B50E: readline (in /home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so)
+==991911==    by 0x10E45F: read_input (handle_input.c:83)
+==991911==    by 0x10E668: handle_input (handle_input.c:169)
+==991911==    by 0x1096C3: main (main.c:30)
+==991911== 
+==991911== 4,096 bytes in 1 blocks are still reachable in loss record 3 of 3
+==991911==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==991911==    by 0x49471A4: _IO_file_doallocate (filedoalloc.c:101)
+==991911==    by 0x4957513: _IO_doallocbuf (genops.c:347)
+==991911==    by 0x4954F7F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+==991911==    by 0x494BDBF: putchar (putchar.c:28)
+==991911==    by 0x10CA13: ft_echo (ft_echo.c:61)
+==991911==    by 0x10B469: execute_command (internal_commands.c:89)
+==991911==    by 0x10B2BA: fork_and_execute (internal_commands.c:44)
+==991911==    by 0x10B68D: execute_internal_commands (internal_commands.c:132)
+==991911==    by 0x10DAB9: forking (external_commands.c:187)
+==991911==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==991911==    by 0x109BED: execution (execute_commands.c:59)
+==991911== 
+==991911== LEAK SUMMARY:
+==991911==    definitely lost: 0 bytes in 0 blocks
+==991911==    indirectly lost: 0 bytes in 0 blocks
+==991911==      possibly lost: 0 bytes in 0 blocks
+==991911==    still reachable: 8,192 bytes in 2 blocks
+==991911==         suppressed: 4,016 bytes in 1 blocks
+==991911== 
+==991911== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--991911-- 
+--991911-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==991911== 
+==991911== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==991910== 
+==991910== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==991910== Open file descriptor 23: /dev/ptmx
+==991910==    <inherited from parent>
+==991910== 
+==991910== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T104941/remoteagent.log
+==991910==    <inherited from parent>
+==991910== 
+==991910== Open file descriptor 21: /dev/ptmx
+==991910==    <inherited from parent>
+==991910== 
+==991910== Open file descriptor 20: /dev/ptmx
+==991910==    <inherited from parent>
+==991910== 
+==991910== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T104941/ptyhost.log
+==991910==    <inherited from parent>
+==991910== 
+==991910== Open file descriptor 3: /tmp/tmp.4poJg0MC1q/tmp_valgrind_out
+==991910==    <inherited from parent>
+==991910== 
+==991910== 
+==991910== HEAP SUMMARY:
+==991910==     in use at exit: 4,070 bytes in 4 blocks
+==991910==   total heap usage: 148 allocs, 144 frees, 18,101 bytes allocated
+==991910== 
+==991910== LEAK SUMMARY:
+==991910==    definitely lost: 0 bytes in 0 blocks
+==991910==    indirectly lost: 0 bytes in 0 blocks
+==991910==      possibly lost: 0 bytes in 0 blocks
+==991910==    still reachable: 0 bytes in 0 blocks
+==991910==         suppressed: 4,070 bytes in 4 blocks
+==991910== 
+==991910== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--991910-- 
+--991910-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,070 bytes in 4 blocks
+==991910== 
+==991910== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
