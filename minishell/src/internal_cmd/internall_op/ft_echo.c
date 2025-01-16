@@ -57,7 +57,7 @@ int	ft_echo(t_shell_data *shell, t_command *cmd)
 			printf(" ");
 		token = token->next;
 	}
-    if (newline )
+    if (newline)
 		printf("\n");
 	if (shell->interactive_mode)
 		printf("\n");

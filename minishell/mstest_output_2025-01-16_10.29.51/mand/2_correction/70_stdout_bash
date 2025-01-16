@@ -1,0 +1,12 @@
+USER_ZDOTDIR=/home/mhoushma
+LOGNAME=mhoushma
+XAUTHORITY=/home/mhoushma/.Xauthority
+XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mhoushma
+LD_PRELOAD=/home/mhoushma/42_minishell_tester/utils/libintercept/libintercept.so
+HOME=/home/mhoushma
+SGOINFRE=/sgoinfre/goinfre/Perso/mhoushma
+ZDOTDIR=/home/mhoushma
+USER=mhoushma
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/home/mhoushma/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+PATH=/bin:/usr/bin:/usr/sbin:/home/mhoushma/.local/funcheck/host:/home/mhoushma/bin:/home/mhoushma/.local/funcheck/host:/home/mhoushma/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/share/rust/cargo/bin
+OLDPWD=/home/mhoushma/Desktop/new/minishell/minishell
