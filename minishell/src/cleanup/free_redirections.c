@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-// In cleanup functions (e.g., free_redirections)
 void	free_redirections(t_redirection *redirs)
 {
 	t_redirection	*current;
