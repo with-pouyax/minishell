@@ -12,7 +12,7 @@ size_t ft_strspn(const char *str1, const char *str2)
             if (*str1 == *p)
                 break;
         }
-        if (!*p) // If no match found
+        if (!*p)
             break;
         ++str1;
         ++count;

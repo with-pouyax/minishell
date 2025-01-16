@@ -13,46 +13,32 @@ int	is_allowed_char(char c)
 		|| c == ':');
 }
 
-/* Validate identifier for export and unset */
 int is_valid_identifier(const char *str, int allow_equals) {
     int i = 0;
 
-    // Check if the first character is valid (a-z, A-Z, or _)
     if (!str || (!ft_isalpha(str[i]) && str[i] != '_'))
         return 0;
-
-    // Validate the rest of the string
     while (str[i]) {
-        if (!ft_isalnum(str[i]) && str[i] != '_') {
-            // Allow '=' only if `allow_equals` is set
+        if (!ft_isalnum(str[i]) && str[i] != '_') 
+		{
             if (allow_equals && str[i] == '=')
-                return 1; // It's valid up to '=' for export
-            return 0; // Invalid for unset or other cases
+                return 1;
+            return 0;
         }
         i++;
     }
-
-    // If '=' is not allowed, reject strings that contain it
     if (!allow_equals && ft_strchr(str, '='))
         return 0;
-
     return 1;
 }
 
-/*
-- Extract key from `str` up to the '=' character
-- Check if the key already exists in the environment variables
-- Add new variable if it doesn't exist
-- Resize envp to hold the new variable
-
-*/
 void	add_to_env(t_shell_data *shell, const char *str)
 {
     int     i;
     char    *key;
     char    *new_var;
     int     len;
-	int j;
+	int		j;
 
     len = 0;
 	j = 0;
@@ -68,13 +54,15 @@ void	add_to_env(t_shell_data *shell, const char *str)
     i = 0;
     while (shell->envp[i])
     {
-        if (ft_strncmp(shell->envp[i], key, len) == 0 && shell->envp[i][len] == '=')
+        if (ft_strncmp(shell->envp[i], key, len) == 0 && \
+		shell->envp[i][len] == '=')
         {
             free(shell->envp[i]);
             shell->envp[i] = ft_strdup(str);
             if (!shell->envp[i])
             {
-                ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+                ft_putstr_fd("minishell: export: allocation error\n", \
+				STDERR_FILENO);
                 shell->exit_status = 1;
             }
             free(key);
@@ -86,20 +74,20 @@ void	add_to_env(t_shell_data *shell, const char *str)
     new_var = ft_strdup(str);
     if (!new_var)
     {
-        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+        ft_putstr_fd("minishell: export: allocation error\n", \
+		STDERR_FILENO);
         shell->exit_status = 1;
         return ;
     }
-    char **new_envp = malloc(sizeof(char *) * (i + 2)); // +1 for new var, +1 for NULL
+    char **new_envp = malloc(sizeof(char *) * (i + 2));
     if (!new_envp)
     {
-        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+        ft_putstr_fd("minishell: export: allocation error\n", \
+		STDERR_FILENO);
         free(new_var);
         shell->exit_status = 1;
         return ;
     }
-
-    // Copy over existing variables
     while (j < i)
     {
 		new_envp[j] = shell->envp[j];
@@ -107,16 +95,11 @@ void	add_to_env(t_shell_data *shell, const char *str)
 	}
     new_envp[i] = new_var;
     new_envp[i + 1] = NULL;
-
-    // Free the old envp array but not the strings (they are now in new_envp)
     free(shell->envp);
     shell->envp = new_envp;
     shell->exit_status = 0;
 }
 
-
-
-/* Remove environment variable */
 void	remove_from_env(t_shell_data *shell,const char *name)
 {
 	int	i;
