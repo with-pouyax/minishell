@@ -33,17 +33,17 @@ int	split_cmd_tokenize(t_shell_data *shell)
 	cmd_index = 0;
 	last_cmd = NULL;
 	shell->error_flag = 0;
-	if (!shell->input) 														      //if there is no input means the user pressed ctrl+d
+	if (!shell->input)
 		return (1);
-	while (shell->input[i])                                                       //input is a string and i is the index, so here we loop through each character of the input
+	while (shell->input[i])
 	{
-		skip_spaces(shell, &i);													  //first we skip the spaces
-		if (process_input_segment(shell, &i, &cmd_index, &last_cmd) > 0)		  //[x]we create a list of commands separated by pipes and store it in shell->commands
+		skip_spaces(shell, &i);
+		if (process_input_segment(shell, &i, &cmd_index, &last_cmd) > 0)
 			return (1);
 	}
 	if (shell->error_flag)
 		handle_tokenization_failure(shell);
-	else																		 //if there are no errors in creating the list of commands
+	else
 		count_commands_and_pipes(shell);
 	return (0);
 }
