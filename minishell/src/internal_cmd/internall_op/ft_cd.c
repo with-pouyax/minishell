@@ -95,7 +95,7 @@ static int validate_path(const char *path)
 {
     if (strstr(path, "..$"))
     {
-        ft_putstr_fd((char *)path, STDERR_FILENO);  // Cast to char * to avoid const qualifier issues
+        ft_putstr_fd((char *)path, STDERR_FILENO);
         ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
         return (1);
     }
@@ -118,25 +118,24 @@ int ft_cd(t_shell_data *shell, t_command *cmd)
     char *path;
     char *current_dir;
 
-    token = cmd->token_list->next;                          // Skip the command token (cd)
-    if (!token)                                            // if no argument is provided
-        return change_to_home(shell);                       // Change to home directory
-    if (token->next != NULL)                              // if more than one argument is provided
+    token = cmd->token_list->next;
+    if (!token)
+        return change_to_home(shell);
+    if (token->next != NULL)
         return (ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO), shell->exit_status = 1, 1);
-    path = token->value;                                 // save the argument provided to path
-    if (validate_path(path))                            // Check if the path is valid
+    path = token->value;
+    if (validate_path(path))
         return (shell->exit_status = 1);
-    if (strcmp(path, "-") == 0)                        // Check if the path is "-"
+    if (strcmp(path, "-") == 0)
         return handle_cd_minus(shell);
-    if (path[0] == '~')                                 // Check if the path starts with "~"
+    if (path[0] == '~')
         return handle_tilde_path(shell, path);
-    current_dir = getcwd(NULL, 0);                   // Get the current working directory path and save it to current_dir
-    if (chdir(path) != 0)                           // Change the current working directory to the path provided
+    current_dir = getcwd(NULL, 0);
+    if (chdir(path) != 0)
     {
         ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
         perror(path);
-        free(current_dir);
-        return (shell->exit_status = 1);
+        return (free(current_dir), shell->exit_status = 1);
     }
     return update_prev_dir(shell, current_dir);
 }

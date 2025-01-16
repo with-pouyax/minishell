@@ -13,192 +13,331 @@ int	is_allowed_char(char c)
 		|| c == ':');
 }
 
-/* Validate identifier for export and unset */
 int is_valid_identifier(const char *str, int allow_equals) {
     int i = 0;
 
-    // Check if the first character is valid (a-z, A-Z, or _)
     if (!str || (!ft_isalpha(str[i]) && str[i] != '_'))
         return 0;
-
-    // Validate the rest of the string
     while (str[i]) {
-        if (!ft_isalnum(str[i]) && str[i] != '_') {
-            // Allow '=' only if `allow_equals` is set
+        if (!ft_isalnum(str[i]) && str[i] != '_') 
+		{
             if (allow_equals && str[i] == '=')
-                return 1; // It's valid up to '=' for export
-            return 0; // Invalid for unset or other cases
+                return 1;
+            return 0;
         }
         i++;
     }
-
-    // If '=' is not allowed, reject strings that contain it
     if (!allow_equals && ft_strchr(str, '='))
         return 0;
-
     return 1;
 }
 
-/*
-- Extract key from `str` up to the '=' character
-- Check if the key already exists in the environment variables
-- Add new variable if it doesn't exist
-- Resize envp to hold the new variable
-
-*/
-void	add_to_env(t_shell_data *shell, const char *str)
+char	*parse_key(const char *str)
 {
-    int     i;
-    char    *key;
-    char    *new_var;
-    int     len;
-	int j;
+	int	len;
 
-    len = 0;
-	j = 0;
-    while (str[len] && str[len] != '=')
-        len++;
-    key = ft_substr(str, 0, len);
-    if (!key)
-    {
-        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-        shell->exit_status = 1;
-        return ;
-    }
-    i = 0;
-    while (shell->envp[i])
-    {
-        if (ft_strncmp(shell->envp[i], key, len) == 0 && shell->envp[i][len] == '=')
-        {
-            free(shell->envp[i]);
-            shell->envp[i] = ft_strdup(str);
-            if (!shell->envp[i])
-            {
-                ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-                shell->exit_status = 1;
-            }
-            free(key);
-            return ;
-        }
-        i++;
-    }
-    free(key);
-    new_var = ft_strdup(str);
-    if (!new_var)
-    {
-        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-        shell->exit_status = 1;
-        return ;
-    }
-    char **new_envp = malloc(sizeof(char *) * (i + 2)); // +1 for new var, +1 for NULL
-    if (!new_envp)
-    {
-        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-        free(new_var);
-        shell->exit_status = 1;
-        return ;
-    }
+	len = 0;
+	while (str[len] && str[len] != '=')
+		len++;
+	return (ft_substr(str, 0, len));
+}
 
-    // Copy over existing variables
-    while (j < i)
-    {
-		new_envp[j] = shell->envp[j];
-		j++;
+int	find_env_index(char **envp, const char *key, int key_len)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], key, key_len) == 0 && envp[i][key_len] == '=')
+			return (i);
+		i++;
 	}
-    new_envp[i] = new_var;
-    new_envp[i + 1] = NULL;
+	return (-1);
+}
 
-    // Free the old envp array but not the strings (they are now in new_envp)
-    free(shell->envp);
-    shell->envp = new_envp;
-    shell->exit_status = 0;
+void	replace_env_var(t_shell_data *shell, int index, const char *str)
+{
+	free(shell->envp[index]);
+	shell->envp[index] = ft_strdup(str);
+	if (!shell->envp[index])
+	{
+		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+		shell->exit_status = 1;
+	}
+}
+
+char	*duplicate_new_var(const char *str, t_shell_data *shell)
+{
+	char	*new_var;
+
+	new_var = ft_strdup(str);
+	if (!new_var)
+	{
+		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+		shell->exit_status = 1;
+	}
+	return (new_var);
+}
+
+char	**allocate_new_envp(int current_size, t_shell_data *shell)
+{
+	char	**new_envp;
+
+	new_envp = malloc(sizeof(char *) * (current_size + 2));
+	if (!new_envp)
+	{
+		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+		shell->exit_status = 1;
+	}
+	return (new_envp);
+}
+
+void	copy_existing_envp(char **new_envp, char **envp, int current_size)
+{
+	int	i;
+
+	i = 0;
+	while (i < current_size)
+	{
+		new_envp[i] = envp[i];
+		i++;
+	}
 }
 
 
-
-/* Remove environment variable */
-void	remove_from_env(t_shell_data *shell,const char *name)
+void	finalize_new_envp(char **new_envp, char *new_var, int current_size)
 {
-	int	i;
-	int	j;
-	int	len;
-	char	**new_envp;
+	new_envp[current_size] = new_var;
+	new_envp[current_size + 1] = NULL;
+}
 
-	len = ft_strlen(name);
-	i = 0;
-	while (shell->envp[i])
-		i++;
-	new_envp = malloc(sizeof(char *) * (i + 1));
-	if (!new_envp)
-	{
-		ft_putstr_fd("minishell: unset: allocation error\n", STDERR_FILENO);
-		shell->exit_status = 1;
-		return;
-	}
-	i = 0;
-	j = 0;
-	while (shell->envp[i])
-	{
-		if (!(ft_strncmp(shell->envp[i], name, len) == 0 &&
-			  (shell->envp[i][len] == '=' || shell->envp[i][len] == '\0')))
-			new_envp[j++] = shell->envp[i];
-		else
-			free(shell->envp[i]);
-		i++;
-	}
-	new_envp[j] = NULL;
+void	replace_envp(t_shell_data *shell, char **new_envp)
+{
 	free(shell->envp);
 	shell->envp = new_envp;
 }
 
-/* Print sorted environment variables */
-void	print_sorted_env(t_shell_data *shell)
+static void	handle_new_env_var(t_shell_data *shell, const char *str, \
+int current_size, char *new_var)
 {
-	int		i, j;
-	int		env_size;
+	char	**new_envp;
+
+	(void) str;
+	new_envp = allocate_new_envp(current_size, shell);
+	if (!new_envp)
+	{
+		free(new_var);
+		return ;
+	}
+	copy_existing_envp(new_envp, shell->envp, current_size);
+	finalize_new_envp(new_envp, new_var, current_size);
+	replace_envp(shell, new_envp);
+	shell->exit_status = 0;
+}
+
+void	add_new_env_var(t_shell_data *shell, const char *str, int current_size)
+{
+	char	*new_var;
+
+	new_var = duplicate_new_var(str, shell);
+	if (!new_var)
+		return ;
+	handle_new_env_var(shell, str, current_size, new_var);
+}
+
+
+void	add_to_env(t_shell_data *shell, const char *str)
+{
+	char	*key;
+	int		key_len;
+	int		index;
+
+	key = parse_key(str);
+	if (!key)
+	{
+		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+		shell->exit_status = 1;
+		return ;
+	}
+	key_len = ft_strlen(key);
+	index = find_env_index(shell->envp, key, key_len);
+	if (index != -1)
+	{
+		replace_env_var(shell, index, str);
+	}
+	else
+	{
+		int	size = 0;
+		while (shell->envp[size])
+			size++;
+		add_new_env_var(shell, str, size);
+	}
+	free(key);
+}
+
+
+int	get_name_length(const char *name)
+{
+	return (ft_strlen(name));
+}
+
+int	count_env_vars(char **envp)
+{
+	int	count;
+
+	count = 0;
+	while (envp[count])
+		count++;
+	return (count);
+}
+
+
+
+int	is_matching_var(const char *env_var, const char *name, int name_len)
+{
+	return (ft_strncmp(env_var, name, name_len) == 0 &&
+		   (env_var[name_len] == '=' || env_var[name_len] == '\0'));
+}
+
+int	copy_env_vars(char **new_envp, char **envp, const char *name, int name_len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (envp[i])
+	{
+		if (!is_matching_var(envp[i], name, name_len))
+		{
+			new_envp[j++] = envp[i];
+		}
+		else
+		{
+			free(envp[i]);
+		}
+		i++;
+	}
+	new_envp[j] = NULL;
+	return (j);
+}
+
+void	handle_remove_env(t_shell_data *shell, const char *name)
+{
+	int		name_len;
+	int		current_size;
+	char	**new_envp;
+
+	name_len = get_name_length(name);
+	current_size = count_env_vars(shell->envp);
+	new_envp = allocate_new_envp(current_size, shell);
+	if (!new_envp)
+		return ;
+	copy_env_vars(new_envp, shell->envp, name, name_len);
+	free(shell->envp);
+	shell->envp = new_envp;
+	shell->exit_status = 0;
+}
+
+void	remove_from_env(t_shell_data *shell, const char *name)
+{
+	if (!name)
+	{
+		shell->exit_status = 0;
+		return ;
+	}
+	handle_remove_env(shell, name);
+}
+
+
+static int	get_env_size(char **envp)
+{
+	int	size;
+
+	size = 0;
+	while (envp[size])
+		size++;
+	return (size);
+}
+
+static char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
+{
 	char	**sorted_envp;
-	char	*temp;
+	int		i;
 
-	// Count environment variables
-	env_size = 0;
-	while (shell->envp[env_size])
-		env_size++;
-
-	// Duplicate envp
 	sorted_envp = malloc(sizeof(char *) * (env_size + 1));
 	if (!sorted_envp)
 	{
 		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-		shell->exit_status = 1;
-		return;
+		return (shell->exit_status = 1, NULL);
 	}
 	i = 0;
-	while(i < env_size)
+	while (i < env_size)
 	{
-		sorted_envp[i] = ft_strdup(shell->envp[i]);
+		sorted_envp[i] = ft_strdup(envp[i]);
+		if (!sorted_envp[i])
+		{
+			ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+			while (--i >= 0)
+				free(sorted_envp[i]);
+			free(sorted_envp);
+			return (shell->exit_status = 1, NULL);
+		}
 		i++;
 	}
 	sorted_envp[env_size] = NULL;
+	return (sorted_envp);
+}
 
-	// Simple bubble sort
-	for (i = 0; i < env_size - 1; i++)
+static void	sort_envp(char **envp, int env_size)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	while (i < env_size - 1)
 	{
-		for (j = i + 1; j < env_size; j++)
+		j = i + 1;
+		while (j < env_size)
 		{
-			if (ft_strcmp(sorted_envp[i], sorted_envp[j]) > 0)
+			if (ft_strcmp(envp[i], envp[j]) > 0)
 			{
-				temp = sorted_envp[i];
-				sorted_envp[i] = sorted_envp[j];
-				sorted_envp[j] = temp;
+				temp = envp[i];
+				envp[i] = envp[j];
+				envp[j] = temp;
 			}
+			j++;
 		}
+		i++;
 	}
+}
 
-	// Print sorted envp
-	for (i = 0; sorted_envp[i]; i++)
+static void	print_and_free_envp(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
 	{
-		printf("declare -x %s\n", sorted_envp[i]);
-		free(sorted_envp[i]);
+		printf("declare -x %s\n", envp[i]);
+		free(envp[i]);
+		i++;
 	}
-	free(sorted_envp);
+	free(envp);
+}
+
+void	print_sorted_env(t_shell_data *shell)
+{
+	char	**sorted_envp;
+	int		env_size;
+
+	env_size = get_env_size(shell->envp);
+	sorted_envp = duplicate_envp(shell->envp, env_size, shell);
+	if (!sorted_envp)
+		return ;
+	sort_envp(sorted_envp, env_size);
+	print_and_free_envp(sorted_envp);
+	shell->exit_status = 0;
 }

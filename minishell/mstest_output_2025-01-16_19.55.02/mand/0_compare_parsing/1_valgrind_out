@@ -1,0 +1,49 @@
+==6674== Memcheck, a memory error detector
+==6674== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6674== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==6674== Command: /home/mina/Desktop/new/minishell/minishell/minishell
+==6674== Parent PID: 6673
+==6674== 
+==6674== 
+==6674== FILE DESCRIPTORS: 4 open at exit.
+==6674== Open file descriptor 3: /tmp/tmp.Jlx2Xi9jge/tmp_valgrind_out
+==6674==    <inherited from parent>
+==6674== 
+==6674== Open file descriptor 2: /dev/null
+==6674==    <inherited from parent>
+==6674== 
+==6674== Open file descriptor 1: /dev/null
+==6674==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==6674==    by 0x109B6F: exec_cmd (execute_commands.c:43)
+==6674==    by 0x109BE4: execution (execute_commands.c:59)
+==6674==    by 0x10DAC3: process_and_execute_commands (handle_input.c:21)
+==6674==    by 0x10DE30: handle_user_input (handle_input.c:140)
+==6674==    by 0x10DECC: handle_input (handle_input.c:174)
+==6674==    by 0x1096BD: main (main.c:30)
+==6674== 
+==6674== Open file descriptor 0:
+==6674==    at 0x49C4AEB: dup2 (syscall-template.S:78)
+==6674==    by 0x109B59: exec_cmd (execute_commands.c:42)
+==6674==    by 0x109BE4: execution (execute_commands.c:59)
+==6674==    by 0x10DAC3: process_and_execute_commands (handle_input.c:21)
+==6674==    by 0x10DE30: handle_user_input (handle_input.c:140)
+==6674==    by 0x10DECC: handle_input (handle_input.c:174)
+==6674==    by 0x1096BD: main (main.c:30)
+==6674== 
+==6674== 
+==6674== HEAP SUMMARY:
+==6674==     in use at exit: 4,069 bytes in 4 blocks
+==6674==   total heap usage: 126 allocs, 122 frees, 17,303 bytes allocated
+==6674== 
+==6674== LEAK SUMMARY:
+==6674==    definitely lost: 0 bytes in 0 blocks
+==6674==    indirectly lost: 0 bytes in 0 blocks
+==6674==      possibly lost: 0 bytes in 0 blocks
+==6674==    still reachable: 0 bytes in 0 blocks
+==6674==         suppressed: 4,069 bytes in 4 blocks
+==6674== 
+==6674== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--6674-- 
+--6674-- used_suppression:      4 libreadline /home/mina/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,069 bytes in 4 blocks
+==6674== 
+==6674== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
