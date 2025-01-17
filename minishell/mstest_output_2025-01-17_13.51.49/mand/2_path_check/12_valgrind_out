@@ -1,0 +1,981 @@
+==1929091== Memcheck, a memory error detector
+==1929091== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==1929091== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==1929091== Command: /home/pouyax/Desktop/minishell/minishell/minishell
+==1929091== Parent PID: 1929090
+==1929091== 
+==1929102== 
+==1929102== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929102== Open file descriptor 24: /dev/ptmx
+==1929102==    <inherited from parent>
+==1929102== 
+==1929102== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929102==    <inherited from parent>
+==1929102== 
+==1929102== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929102==    <inherited from parent>
+==1929102== 
+==1929102== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929102==    <inherited from parent>
+==1929102== 
+==1929102== 
+==1929102== HEAP SUMMARY:
+==1929102==     in use at exit: 4,016 bytes in 1 blocks
+==1929102==   total heap usage: 252 allocs, 251 frees, 24,109 bytes allocated
+==1929102== 
+==1929102== LEAK SUMMARY:
+==1929102==    definitely lost: 0 bytes in 0 blocks
+==1929102==    indirectly lost: 0 bytes in 0 blocks
+==1929102==      possibly lost: 0 bytes in 0 blocks
+==1929102==    still reachable: 0 bytes in 0 blocks
+==1929102==         suppressed: 4,016 bytes in 1 blocks
+==1929102== 
+==1929102== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929102-- 
+--1929102-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929102== 
+==1929102== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929103== 
+==1929103== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1929103== Open file descriptor 5: /dev/null
+==1929103==    at 0x49D893B: dup (syscall-template.S:120)
+==1929103==    by 0x109AB1: exec_cmd (execute_commands.c:28)
+==1929103==    by 0x109BED: execution (execute_commands.c:59)
+==1929103==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== Open file descriptor 4:
+==1929103==    at 0x49D893B: dup (syscall-template.S:120)
+==1929103==    by 0x109A9D: exec_cmd (execute_commands.c:27)
+==1929103==    by 0x109BED: execution (execute_commands.c:59)
+==1929103==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== Open file descriptor 24: /dev/ptmx
+==1929103==    <inherited from parent>
+==1929103== 
+==1929103== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929103==    <inherited from parent>
+==1929103== 
+==1929103== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929103==    <inherited from parent>
+==1929103== 
+==1929103== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929103==    <inherited from parent>
+==1929103== 
+==1929103== 
+==1929103== HEAP SUMMARY:
+==1929103==     in use at exit: 8,770 bytes in 62 blocks
+==1929103==   total heap usage: 305 allocs, 243 frees, 20,681 bytes allocated
+==1929103== 
+==1929103== 14 bytes in 1 blocks are still reachable in loss record 1 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929103==    by 0x10E418: handle_allocation (handle_input.c:72)
+==1929103==    by 0x10E4B9: allocate_resources (handle_input.c:94)
+==1929103==    by 0x10E5B1: handle_execution_flow (handle_input.c:130)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== 14 bytes in 1 blocks are still reachable in loss record 2 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x113197: ft_substr (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929103==    by 0x111068: process_input_segment (process_input_segment.c:35)
+==1929103==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929103==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929103==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== 14 bytes in 1 blocks are still reachable in loss record 3 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929103==    by 0x10F0F1: save_and_expand_word (process_word.c:123)
+==1929103==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929103==    by 0x10F610: process_word (process_word.c:265)
+==1929103==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929103==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929103==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929103==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929103==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103== 
+==1929103== 14 bytes in 1 blocks are still reachable in loss record 4 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x10A515: ft_strjoin_safe (helper_1.c:34)
+==1929103==    by 0x10A62C: ft_strjoin_and_free_both (helper_2.c:13)
+==1929103==    by 0x10A69B: ft_strjoin_free_both (helper_2.c:27)
+==1929103==    by 0x111BDC: append_literal_char (variable_expansion.c:67)
+==1929103==    by 0x1117FD: handle_literal_character (expand_var_tokens.c:167)
+==1929103==    by 0x1118E4: process_char (expand_var_tokens.c:194)
+==1929103==    by 0x1119AB: expand_variables_in_token (expand_var_tokens.c:220)
+==1929103==    by 0x10F132: save_and_expand_word (process_word.c:129)
+==1929103==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929103==    by 0x10F610: process_word (process_word.c:265)
+==1929103==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929103== 
+==1929103== 14 bytes in 1 blocks are definitely lost in loss record 5 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929103==    by 0x10D7CB: convert_tokens_to_argv (external_commands.c:94)
+==1929103==    by 0x10D977: execute_external_commands (external_commands.c:146)
+==1929103==    by 0x10DADD: forking (external_commands.c:191)
+==1929103==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929103==    by 0x109BED: execution (execute_commands.c:59)
+==1929103==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== 20 bytes in 1 blocks are still reachable in loss record 6 of 15
+==1929103==    at 0x484DB80: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x49DCA97: getcwd (getcwd.c:86)
+==1929103==    by 0x10EA2D: init_shell (init_shell.c:58)
+==1929103==    by 0x1096AA: main (main.c:52)
+==1929103== 
+==1929103== 56 bytes in 1 blocks are still reachable in loss record 9 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x10F887: create_command (tokenize_cmd.c:18)
+==1929103==    by 0x1110C9: process_input_segment (process_input_segment.c:42)
+==1929103==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929103==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929103==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== 104 bytes in 1 blocks are still reachable in loss record 11 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x110DE9: add_token (token_utils.c:362)
+==1929103==    by 0x10F197: add_token_to_command (process_word.c:141)
+==1929103==    by 0x10F58A: handle_non_expanded (process_word.c:251)
+==1929103==    by 0x10F681: process_word (process_word.c:275)
+==1929103==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929103==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929103==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929103==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929103==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929103==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929103==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929103== 
+==1929103== 120 bytes in 1 blocks are still reachable in loss record 12 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x4948D74: getdelim (iogetdelim.c:65)
+==1929103==    by 0x485B50E: readline (in /home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so)
+==1929103==    by 0x10E46E: read_input (handle_input.c:83)
+==1929103==    by 0x10E6A5: handle_input (handle_input.c:171)
+==1929103==    by 0x1096C3: main (main.c:54)
+==1929103== 
+==1929103== 320 bytes in 1 blocks are still reachable in loss record 13 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x10E7A9: copy_envp (init_env.c:58)
+==1929103==    by 0x109670: main (main.c:46)
+==1929103== 
+==1929103== 3,868 bytes in 39 blocks are still reachable in loss record 14 of 15
+==1929103==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929103==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929103==    by 0x10E7F3: copy_envp (init_env.c:63)
+==1929103==    by 0x109670: main (main.c:46)
+==1929103== 
+==1929103== LEAK SUMMARY:
+==1929103==    definitely lost: 14 bytes in 1 blocks
+==1929103==    indirectly lost: 0 bytes in 0 blocks
+==1929103==      possibly lost: 0 bytes in 0 blocks
+==1929103==    still reachable: 4,544 bytes in 48 blocks
+==1929103==         suppressed: 4,212 bytes in 13 blocks
+==1929103== 
+==1929103== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+--1929103-- 
+--1929103-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,212 bytes in 13 blocks
+==1929103== 
+==1929103== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+==1929104== 
+==1929104== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929104== Open file descriptor 24: /dev/ptmx
+==1929104==    <inherited from parent>
+==1929104== 
+==1929104== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929104==    <inherited from parent>
+==1929104== 
+==1929104== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929104==    <inherited from parent>
+==1929104== 
+==1929104== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929104==    <inherited from parent>
+==1929104== 
+==1929104== 
+==1929104== HEAP SUMMARY:
+==1929104==     in use at exit: 4,016 bytes in 1 blocks
+==1929104==   total heap usage: 340 allocs, 339 frees, 25,318 bytes allocated
+==1929104== 
+==1929104== LEAK SUMMARY:
+==1929104==    definitely lost: 0 bytes in 0 blocks
+==1929104==    indirectly lost: 0 bytes in 0 blocks
+==1929104==      possibly lost: 0 bytes in 0 blocks
+==1929104==    still reachable: 0 bytes in 0 blocks
+==1929104==         suppressed: 4,016 bytes in 1 blocks
+==1929104== 
+==1929104== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929104-- 
+--1929104-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929104== 
+==1929104== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929105== 
+==1929105== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929105== Open file descriptor 24: /dev/ptmx
+==1929105==    <inherited from parent>
+==1929105== 
+==1929105== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929105==    <inherited from parent>
+==1929105== 
+==1929105== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929105==    <inherited from parent>
+==1929105== 
+==1929105== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929105==    <inherited from parent>
+==1929105== 
+==1929105== 
+==1929105== HEAP SUMMARY:
+==1929105==     in use at exit: 4,016 bytes in 1 blocks
+==1929105==   total heap usage: 438 allocs, 437 frees, 26,668 bytes allocated
+==1929105== 
+==1929105== LEAK SUMMARY:
+==1929105==    definitely lost: 0 bytes in 0 blocks
+==1929105==    indirectly lost: 0 bytes in 0 blocks
+==1929105==      possibly lost: 0 bytes in 0 blocks
+==1929105==    still reachable: 0 bytes in 0 blocks
+==1929105==         suppressed: 4,016 bytes in 1 blocks
+==1929105== 
+==1929105== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929105-- 
+--1929105-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929105== 
+==1929105== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929106== 
+==1929106== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929106== Open file descriptor 24: /dev/ptmx
+==1929106==    <inherited from parent>
+==1929106== 
+==1929106== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929106==    <inherited from parent>
+==1929106== 
+==1929106== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929106==    <inherited from parent>
+==1929106== 
+==1929106== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929106==    <inherited from parent>
+==1929106== 
+==1929106== 
+==1929106== HEAP SUMMARY:
+==1929106==     in use at exit: 4,016 bytes in 1 blocks
+==1929106==   total heap usage: 522 allocs, 521 frees, 27,847 bytes allocated
+==1929106== 
+==1929106== LEAK SUMMARY:
+==1929106==    definitely lost: 0 bytes in 0 blocks
+==1929106==    indirectly lost: 0 bytes in 0 blocks
+==1929106==      possibly lost: 0 bytes in 0 blocks
+==1929106==    still reachable: 0 bytes in 0 blocks
+==1929106==         suppressed: 4,016 bytes in 1 blocks
+==1929106== 
+==1929106== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929106-- 
+--1929106-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929106== 
+==1929106== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929107== 
+==1929107== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1929107== Open file descriptor 5: /dev/null
+==1929107==    at 0x49D893B: dup (syscall-template.S:120)
+==1929107==    by 0x109AB1: exec_cmd (execute_commands.c:28)
+==1929107==    by 0x109BED: execution (execute_commands.c:59)
+==1929107==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== Open file descriptor 4:
+==1929107==    at 0x49D893B: dup (syscall-template.S:120)
+==1929107==    by 0x109A9D: exec_cmd (execute_commands.c:27)
+==1929107==    by 0x109BED: execution (execute_commands.c:59)
+==1929107==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== Open file descriptor 24: /dev/ptmx
+==1929107==    <inherited from parent>
+==1929107== 
+==1929107== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929107==    <inherited from parent>
+==1929107== 
+==1929107== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929107==    <inherited from parent>
+==1929107== 
+==1929107== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929107==    <inherited from parent>
+==1929107== 
+==1929107== 
+==1929107== HEAP SUMMARY:
+==1929107==     in use at exit: 8,752 bytes in 80 blocks
+==1929107==   total heap usage: 575 allocs, 495 frees, 24,419 bytes allocated
+==1929107== 
+==1929107== 14 bytes in 1 blocks are still reachable in loss record 1 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929107==    by 0x10E418: handle_allocation (handle_input.c:72)
+==1929107==    by 0x10E4B9: allocate_resources (handle_input.c:94)
+==1929107==    by 0x10E5B1: handle_execution_flow (handle_input.c:130)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== 14 bytes in 1 blocks are still reachable in loss record 2 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x113197: ft_substr (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929107==    by 0x111068: process_input_segment (process_input_segment.c:35)
+==1929107==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929107==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929107==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== 14 bytes in 1 blocks are still reachable in loss record 3 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929107==    by 0x10F0F1: save_and_expand_word (process_word.c:123)
+==1929107==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929107==    by 0x10F610: process_word (process_word.c:265)
+==1929107==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929107==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929107==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929107==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929107==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107== 
+==1929107== 14 bytes in 1 blocks are still reachable in loss record 4 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x10A515: ft_strjoin_safe (helper_1.c:34)
+==1929107==    by 0x10A62C: ft_strjoin_and_free_both (helper_2.c:13)
+==1929107==    by 0x10A69B: ft_strjoin_free_both (helper_2.c:27)
+==1929107==    by 0x111BDC: append_literal_char (variable_expansion.c:67)
+==1929107==    by 0x1117FD: handle_literal_character (expand_var_tokens.c:167)
+==1929107==    by 0x1118E4: process_char (expand_var_tokens.c:194)
+==1929107==    by 0x1119AB: expand_variables_in_token (expand_var_tokens.c:220)
+==1929107==    by 0x10F132: save_and_expand_word (process_word.c:129)
+==1929107==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929107==    by 0x10F610: process_word (process_word.c:265)
+==1929107==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929107== 
+==1929107== 14 bytes in 1 blocks are definitely lost in loss record 5 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929107==    by 0x10D7CB: convert_tokens_to_argv (external_commands.c:94)
+==1929107==    by 0x10D977: execute_external_commands (external_commands.c:146)
+==1929107==    by 0x10DADD: forking (external_commands.c:191)
+==1929107==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929107==    by 0x109BED: execution (execute_commands.c:59)
+==1929107==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== 18 bytes in 1 blocks are still reachable in loss record 6 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929107==    by 0x10B973: replace_env_var (internal_commands_utils.c:62)
+==1929107==    by 0x10BCBA: add_to_env (internal_commands_utils.c:167)
+==1929107==    by 0x10D0DE: ft_export (ft_export.c:17)
+==1929107==    by 0x10B520: execute_command (internal_commands.c:94)
+==1929107==    by 0x10B386: execute_parent_command (internal_commands.c:66)
+==1929107==    by 0x10B679: execute_internal_commands (internal_commands.c:126)
+==1929107==    by 0x10DAC8: forking (external_commands.c:187)
+==1929107==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929107==    by 0x109BED: execution (execute_commands.c:59)
+==1929107==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929107== 
+==1929107== 20 bytes in 1 blocks are still reachable in loss record 7 of 16
+==1929107==    at 0x484DB80: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x49DCA97: getcwd (getcwd.c:86)
+==1929107==    by 0x10EA2D: init_shell (init_shell.c:58)
+==1929107==    by 0x1096AA: main (main.c:52)
+==1929107== 
+==1929107== 56 bytes in 1 blocks are still reachable in loss record 8 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x10F887: create_command (tokenize_cmd.c:18)
+==1929107==    by 0x1110C9: process_input_segment (process_input_segment.c:42)
+==1929107==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929107==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929107==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== 104 bytes in 1 blocks are still reachable in loss record 9 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x110DE9: add_token (token_utils.c:362)
+==1929107==    by 0x10F197: add_token_to_command (process_word.c:141)
+==1929107==    by 0x10F58A: handle_non_expanded (process_word.c:251)
+==1929107==    by 0x10F681: process_word (process_word.c:275)
+==1929107==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929107==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929107==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929107==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929107==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929107==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929107==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929107== 
+==1929107== 120 bytes in 1 blocks are still reachable in loss record 10 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x4948D74: getdelim (iogetdelim.c:65)
+==1929107==    by 0x485B50E: readline (in /home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so)
+==1929107==    by 0x10E46E: read_input (handle_input.c:83)
+==1929107==    by 0x10E6A5: handle_input (handle_input.c:171)
+==1929107==    by 0x1096C3: main (main.c:54)
+==1929107== 
+==1929107== 320 bytes in 1 blocks are still reachable in loss record 14 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x10E7A9: copy_envp (init_env.c:58)
+==1929107==    by 0x109670: main (main.c:46)
+==1929107== 
+==1929107== 3,545 bytes in 38 blocks are still reachable in loss record 15 of 16
+==1929107==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929107==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929107==    by 0x10E7F3: copy_envp (init_env.c:63)
+==1929107==    by 0x109670: main (main.c:46)
+==1929107== 
+==1929107== LEAK SUMMARY:
+==1929107==    definitely lost: 14 bytes in 1 blocks
+==1929107==    indirectly lost: 0 bytes in 0 blocks
+==1929107==      possibly lost: 0 bytes in 0 blocks
+==1929107==    still reachable: 4,239 bytes in 48 blocks
+==1929107==         suppressed: 4,499 bytes in 31 blocks
+==1929107== 
+==1929107== ERROR SUMMARY: 12 errors from 12 contexts (suppressed: 4 from 4)
+--1929107-- 
+--1929107-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,499 bytes in 31 blocks
+==1929107== 
+==1929107== ERROR SUMMARY: 12 errors from 12 contexts (suppressed: 4 from 4)
+==1929108== 
+==1929108== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929108== Open file descriptor 24: /dev/ptmx
+==1929108==    <inherited from parent>
+==1929108== 
+==1929108== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929108==    <inherited from parent>
+==1929108== 
+==1929108== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929108==    <inherited from parent>
+==1929108== 
+==1929108== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929108==    <inherited from parent>
+==1929108== 
+==1929108== 
+==1929108== HEAP SUMMARY:
+==1929108==     in use at exit: 4,016 bytes in 1 blocks
+==1929108==   total heap usage: 610 allocs, 609 frees, 29,056 bytes allocated
+==1929108== 
+==1929108== LEAK SUMMARY:
+==1929108==    definitely lost: 0 bytes in 0 blocks
+==1929108==    indirectly lost: 0 bytes in 0 blocks
+==1929108==      possibly lost: 0 bytes in 0 blocks
+==1929108==    still reachable: 0 bytes in 0 blocks
+==1929108==         suppressed: 4,016 bytes in 1 blocks
+==1929108== 
+==1929108== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929108-- 
+--1929108-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929108== 
+==1929108== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929109== 
+==1929109== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1929109== Open file descriptor 5: /dev/null
+==1929109==    at 0x49D893B: dup (syscall-template.S:120)
+==1929109==    by 0x109AB1: exec_cmd (execute_commands.c:28)
+==1929109==    by 0x109BED: execution (execute_commands.c:59)
+==1929109==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== Open file descriptor 4:
+==1929109==    at 0x49D893B: dup (syscall-template.S:120)
+==1929109==    by 0x109A9D: exec_cmd (execute_commands.c:27)
+==1929109==    by 0x109BED: execution (execute_commands.c:59)
+==1929109==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== Open file descriptor 24: /dev/ptmx
+==1929109==    <inherited from parent>
+==1929109== 
+==1929109== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929109==    <inherited from parent>
+==1929109== 
+==1929109== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929109==    <inherited from parent>
+==1929109== 
+==1929109== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929109==    <inherited from parent>
+==1929109== 
+==1929109== 
+==1929109== HEAP SUMMARY:
+==1929109==     in use at exit: 8,871 bytes in 88 blocks
+==1929109==   total heap usage: 704 allocs, 616 frees, 26,549 bytes allocated
+==1929109== 
+==1929109== 12 bytes in 1 blocks are still reachable in loss record 1 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929109==    by 0x10E418: handle_allocation (handle_input.c:72)
+==1929109==    by 0x10E4B9: allocate_resources (handle_input.c:94)
+==1929109==    by 0x10E5B1: handle_execution_flow (handle_input.c:130)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== 12 bytes in 1 blocks are still reachable in loss record 2 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x113197: ft_substr (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929109==    by 0x111068: process_input_segment (process_input_segment.c:35)
+==1929109==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929109==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929109==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== 12 bytes in 1 blocks are still reachable in loss record 3 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929109==    by 0x10F0F1: save_and_expand_word (process_word.c:123)
+==1929109==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929109==    by 0x10F610: process_word (process_word.c:265)
+==1929109==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929109==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929109==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929109==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929109==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109== 
+==1929109== 12 bytes in 1 blocks are still reachable in loss record 4 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x10A515: ft_strjoin_safe (helper_1.c:34)
+==1929109==    by 0x10A62C: ft_strjoin_and_free_both (helper_2.c:13)
+==1929109==    by 0x10A69B: ft_strjoin_free_both (helper_2.c:27)
+==1929109==    by 0x111BDC: append_literal_char (variable_expansion.c:67)
+==1929109==    by 0x1117FD: handle_literal_character (expand_var_tokens.c:167)
+==1929109==    by 0x1118E4: process_char (expand_var_tokens.c:194)
+==1929109==    by 0x1119AB: expand_variables_in_token (expand_var_tokens.c:220)
+==1929109==    by 0x10F132: save_and_expand_word (process_word.c:129)
+==1929109==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929109==    by 0x10F610: process_word (process_word.c:265)
+==1929109==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929109== 
+==1929109== 12 bytes in 1 blocks are definitely lost in loss record 5 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929109==    by 0x10D7CB: convert_tokens_to_argv (external_commands.c:94)
+==1929109==    by 0x10D977: execute_external_commands (external_commands.c:146)
+==1929109==    by 0x10DADD: forking (external_commands.c:191)
+==1929109==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929109==    by 0x109BED: execution (execute_commands.c:59)
+==1929109==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== 20 bytes in 1 blocks are still reachable in loss record 6 of 15
+==1929109==    at 0x484DB80: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x49DCA97: getcwd (getcwd.c:86)
+==1929109==    by 0x10EA2D: init_shell (init_shell.c:58)
+==1929109==    by 0x1096AA: main (main.c:52)
+==1929109== 
+==1929109== 56 bytes in 1 blocks are still reachable in loss record 7 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x10F887: create_command (tokenize_cmd.c:18)
+==1929109==    by 0x1110C9: process_input_segment (process_input_segment.c:42)
+==1929109==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929109==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929109==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== 104 bytes in 1 blocks are still reachable in loss record 8 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x110DE9: add_token (token_utils.c:362)
+==1929109==    by 0x10F197: add_token_to_command (process_word.c:141)
+==1929109==    by 0x10F58A: handle_non_expanded (process_word.c:251)
+==1929109==    by 0x10F681: process_word (process_word.c:275)
+==1929109==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929109==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929109==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929109==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929109==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929109==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929109==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929109== 
+==1929109== 120 bytes in 1 blocks are still reachable in loss record 9 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x4948D74: getdelim (iogetdelim.c:65)
+==1929109==    by 0x485B50E: readline (in /home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so)
+==1929109==    by 0x10E46E: read_input (handle_input.c:83)
+==1929109==    by 0x10E6A5: handle_input (handle_input.c:171)
+==1929109==    by 0x1096C3: main (main.c:54)
+==1929109== 
+==1929109== 328 bytes in 1 blocks are still reachable in loss record 13 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x10BA30: allocate_new_envp (internal_commands_utils.c:87)
+==1929109==    by 0x10BF08: handle_remove_env (internal_commands_utils.c:234)
+==1929109==    by 0x10BF95: remove_from_env (internal_commands_utils.c:250)
+==1929109==    by 0x10D245: ft_unset (ft_unset.c:11)
+==1929109==    by 0x10B558: execute_command (internal_commands.c:96)
+==1929109==    by 0x10B386: execute_parent_command (internal_commands.c:66)
+==1929109==    by 0x10B679: execute_internal_commands (internal_commands.c:126)
+==1929109==    by 0x10DAC8: forking (external_commands.c:187)
+==1929109==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929109==    by 0x109BED: execution (execute_commands.c:59)
+==1929109==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929109== 
+==1929109== 3,545 bytes in 38 blocks are still reachable in loss record 14 of 15
+==1929109==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929109==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929109==    by 0x10E7F3: copy_envp (init_env.c:63)
+==1929109==    by 0x109670: main (main.c:46)
+==1929109== 
+==1929109== LEAK SUMMARY:
+==1929109==    definitely lost: 12 bytes in 1 blocks
+==1929109==    indirectly lost: 0 bytes in 0 blocks
+==1929109==      possibly lost: 0 bytes in 0 blocks
+==1929109==    still reachable: 4,221 bytes in 47 blocks
+==1929109==         suppressed: 4,638 bytes in 40 blocks
+==1929109== 
+==1929109== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+--1929109-- 
+--1929109-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,638 bytes in 40 blocks
+==1929109== 
+==1929109== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+==1929110== 
+==1929110== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929110== Open file descriptor 24: /dev/ptmx
+==1929110==    <inherited from parent>
+==1929110== 
+==1929110== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929110==    <inherited from parent>
+==1929110== 
+==1929110== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929110==    <inherited from parent>
+==1929110== 
+==1929110== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929110==    <inherited from parent>
+==1929110== 
+==1929110== 
+==1929110== HEAP SUMMARY:
+==1929110==     in use at exit: 4,016 bytes in 1 blocks
+==1929110==   total heap usage: 739 allocs, 738 frees, 31,186 bytes allocated
+==1929110== 
+==1929110== LEAK SUMMARY:
+==1929110==    definitely lost: 0 bytes in 0 blocks
+==1929110==    indirectly lost: 0 bytes in 0 blocks
+==1929110==      possibly lost: 0 bytes in 0 blocks
+==1929110==    still reachable: 0 bytes in 0 blocks
+==1929110==         suppressed: 4,016 bytes in 1 blocks
+==1929110== 
+==1929110== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929110-- 
+--1929110-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929110== 
+==1929110== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929111== 
+==1929111== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==1929111== Open file descriptor 5: /dev/null
+==1929111==    at 0x49D893B: dup (syscall-template.S:120)
+==1929111==    by 0x109AB1: exec_cmd (execute_commands.c:28)
+==1929111==    by 0x109BED: execution (execute_commands.c:59)
+==1929111==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== Open file descriptor 4:
+==1929111==    at 0x49D893B: dup (syscall-template.S:120)
+==1929111==    by 0x109A9D: exec_cmd (execute_commands.c:27)
+==1929111==    by 0x109BED: execution (execute_commands.c:59)
+==1929111==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== Open file descriptor 24: /dev/ptmx
+==1929111==    <inherited from parent>
+==1929111== 
+==1929111== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929111==    <inherited from parent>
+==1929111== 
+==1929111== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929111==    <inherited from parent>
+==1929111== 
+==1929111== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929111==    <inherited from parent>
+==1929111== 
+==1929111== 
+==1929111== HEAP SUMMARY:
+==1929111==     in use at exit: 8,975 bytes in 94 blocks
+==1929111==   total heap usage: 792 allocs, 698 frees, 27,758 bytes allocated
+==1929111== 
+==1929111== 14 bytes in 1 blocks are still reachable in loss record 1 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929111==    by 0x10E418: handle_allocation (handle_input.c:72)
+==1929111==    by 0x10E4B9: allocate_resources (handle_input.c:94)
+==1929111==    by 0x10E5B1: handle_execution_flow (handle_input.c:130)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== 14 bytes in 1 blocks are still reachable in loss record 2 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x113197: ft_substr (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929111==    by 0x111068: process_input_segment (process_input_segment.c:35)
+==1929111==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929111==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929111==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== 14 bytes in 1 blocks are still reachable in loss record 3 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929111==    by 0x10F0F1: save_and_expand_word (process_word.c:123)
+==1929111==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929111==    by 0x10F610: process_word (process_word.c:265)
+==1929111==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929111==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929111==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929111==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929111==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111== 
+==1929111== 14 bytes in 1 blocks are still reachable in loss record 4 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x10A515: ft_strjoin_safe (helper_1.c:34)
+==1929111==    by 0x10A62C: ft_strjoin_and_free_both (helper_2.c:13)
+==1929111==    by 0x10A69B: ft_strjoin_free_both (helper_2.c:27)
+==1929111==    by 0x111BDC: append_literal_char (variable_expansion.c:67)
+==1929111==    by 0x1117FD: handle_literal_character (expand_var_tokens.c:167)
+==1929111==    by 0x1118E4: process_char (expand_var_tokens.c:194)
+==1929111==    by 0x1119AB: expand_variables_in_token (expand_var_tokens.c:220)
+==1929111==    by 0x10F132: save_and_expand_word (process_word.c:129)
+==1929111==    by 0x10F29C: collect_and_expand_word (process_word.c:169)
+==1929111==    by 0x10F610: process_word (process_word.c:265)
+==1929111==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929111== 
+==1929111== 14 bytes in 1 blocks are definitely lost in loss record 5 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929111==    by 0x10D7CB: convert_tokens_to_argv (external_commands.c:94)
+==1929111==    by 0x10D977: execute_external_commands (external_commands.c:146)
+==1929111==    by 0x10DADD: forking (external_commands.c:191)
+==1929111==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929111==    by 0x109BED: execution (execute_commands.c:59)
+==1929111==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== 20 bytes in 1 blocks are still reachable in loss record 6 of 15
+==1929111==    at 0x484DB80: realloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x49DCA97: getcwd (getcwd.c:86)
+==1929111==    by 0x10EA2D: init_shell (init_shell.c:58)
+==1929111==    by 0x1096AA: main (main.c:52)
+==1929111== 
+==1929111== 56 bytes in 1 blocks are still reachable in loss record 7 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x10F887: create_command (tokenize_cmd.c:18)
+==1929111==    by 0x1110C9: process_input_segment (process_input_segment.c:42)
+==1929111==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929111==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929111==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111==    by 0x10E6C4: handle_input (handle_input.c:176)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== 104 bytes in 1 blocks are still reachable in loss record 8 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x110DE9: add_token (token_utils.c:362)
+==1929111==    by 0x10F197: add_token_to_command (process_word.c:141)
+==1929111==    by 0x10F58A: handle_non_expanded (process_word.c:251)
+==1929111==    by 0x10F681: process_word (process_word.c:275)
+==1929111==    by 0x10FB1A: tokenize_command (tokenize_input.c:20)
+==1929111==    by 0x1110E7: process_input_segment (process_input_segment.c:43)
+==1929111==    by 0x10F7B8: split_cmd_tokenize (split_cmd_tokenize.c:41)
+==1929111==    by 0x111173: preprocess_input (preprocess_input.c:6)
+==1929111==    by 0x10E254: process_and_execute_commands (handle_input.c:11)
+==1929111==    by 0x10E5EB: handle_execution_flow (handle_input.c:135)
+==1929111==    by 0x10E65B: handle_user_input (handle_input.c:152)
+==1929111== 
+==1929111== 120 bytes in 1 blocks are still reachable in loss record 9 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x4948D74: getdelim (iogetdelim.c:65)
+==1929111==    by 0x485B50E: readline (in /home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so)
+==1929111==    by 0x10E46E: read_input (handle_input.c:83)
+==1929111==    by 0x10E6A5: handle_input (handle_input.c:171)
+==1929111==    by 0x1096C3: main (main.c:54)
+==1929111== 
+==1929111== 328 bytes in 1 blocks are still reachable in loss record 12 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x10BA30: allocate_new_envp (internal_commands_utils.c:87)
+==1929111==    by 0x10BF08: handle_remove_env (internal_commands_utils.c:234)
+==1929111==    by 0x10BF95: remove_from_env (internal_commands_utils.c:250)
+==1929111==    by 0x10D245: ft_unset (ft_unset.c:11)
+==1929111==    by 0x10B558: execute_command (internal_commands.c:96)
+==1929111==    by 0x10B386: execute_parent_command (internal_commands.c:66)
+==1929111==    by 0x10B679: execute_internal_commands (internal_commands.c:126)
+==1929111==    by 0x10DAC8: forking (external_commands.c:187)
+==1929111==    by 0x109B4C: exec_cmd (execute_commands.c:39)
+==1929111==    by 0x109BED: execution (execute_commands.c:59)
+==1929111==    by 0x10E278: process_and_execute_commands (handle_input.c:21)
+==1929111== 
+==1929111== 3,545 bytes in 38 blocks are still reachable in loss record 14 of 15
+==1929111==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1929111==    by 0x113087: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==1929111==    by 0x10E7F3: copy_envp (init_env.c:63)
+==1929111==    by 0x109670: main (main.c:46)
+==1929111== 
+==1929111== LEAK SUMMARY:
+==1929111==    definitely lost: 14 bytes in 1 blocks
+==1929111==    indirectly lost: 0 bytes in 0 blocks
+==1929111==      possibly lost: 0 bytes in 0 blocks
+==1929111==    still reachable: 4,229 bytes in 47 blocks
+==1929111==         suppressed: 4,732 bytes in 46 blocks
+==1929111== 
+==1929111== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+--1929111-- 
+--1929111-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,732 bytes in 46 blocks
+==1929111== 
+==1929111== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 4 from 4)
+==1929112== 
+==1929112== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929112== Open file descriptor 24: /dev/ptmx
+==1929112==    <inherited from parent>
+==1929112== 
+==1929112== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929112==    <inherited from parent>
+==1929112== 
+==1929112== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929112==    <inherited from parent>
+==1929112== 
+==1929112== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929112==    <inherited from parent>
+==1929112== 
+==1929112== 
+==1929112== HEAP SUMMARY:
+==1929112==     in use at exit: 4,016 bytes in 1 blocks
+==1929112==   total heap usage: 827 allocs, 826 frees, 32,395 bytes allocated
+==1929112== 
+==1929112== LEAK SUMMARY:
+==1929112==    definitely lost: 0 bytes in 0 blocks
+==1929112==    indirectly lost: 0 bytes in 0 blocks
+==1929112==      possibly lost: 0 bytes in 0 blocks
+==1929112==    still reachable: 0 bytes in 0 blocks
+==1929112==         suppressed: 4,016 bytes in 1 blocks
+==1929112== 
+==1929112== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929112-- 
+--1929112-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929112== 
+==1929112== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929113== 
+==1929113== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929113== Open file descriptor 24: /dev/ptmx
+==1929113==    <inherited from parent>
+==1929113== 
+==1929113== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929113==    <inherited from parent>
+==1929113== 
+==1929113== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929113==    <inherited from parent>
+==1929113== 
+==1929113== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929113==    <inherited from parent>
+==1929113== 
+==1929113== 
+==1929113== HEAP SUMMARY:
+==1929113==     in use at exit: 4,016 bytes in 1 blocks
+==1929113==   total heap usage: 861 allocs, 860 frees, 32,917 bytes allocated
+==1929113== 
+==1929113== LEAK SUMMARY:
+==1929113==    definitely lost: 0 bytes in 0 blocks
+==1929113==    indirectly lost: 0 bytes in 0 blocks
+==1929113==      possibly lost: 0 bytes in 0 blocks
+==1929113==    still reachable: 0 bytes in 0 blocks
+==1929113==         suppressed: 4,016 bytes in 1 blocks
+==1929113== 
+==1929113== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1929113-- 
+--1929113-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1929113== 
+==1929113== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1929091== 
+==1929091== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==1929091== Open file descriptor 24: /dev/ptmx
+==1929091==    <inherited from parent>
+==1929091== 
+==1929091== Open file descriptor 22: /home/pouyax/.vscode-server/data/logs/20250116T200634/remoteagent.log
+==1929091==    <inherited from parent>
+==1929091== 
+==1929091== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250116T200634/ptyhost.log
+==1929091==    <inherited from parent>
+==1929091== 
+==1929091== Open file descriptor 3: /tmp/tmp.nFe43GWmvK/tmp_valgrind_out
+==1929091==    <inherited from parent>
+==1929091== 
+==1929091== 
+==1929091== HEAP SUMMARY:
+==1929091==     in use at exit: 4,879 bytes in 55 blocks
+==1929091==   total heap usage: 947 allocs, 892 frees, 29,932 bytes allocated
+==1929091== 
+==1929091== LEAK SUMMARY:
+==1929091==    definitely lost: 0 bytes in 0 blocks
+==1929091==    indirectly lost: 0 bytes in 0 blocks
+==1929091==      possibly lost: 0 bytes in 0 blocks
+==1929091==    still reachable: 0 bytes in 0 blocks
+==1929091==         suppressed: 4,879 bytes in 55 blocks
+==1929091== 
+==1929091== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--1929091-- 
+--1929091-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,879 bytes in 55 blocks
+==1929091== 
+==1929091== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
