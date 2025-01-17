@@ -1,9 +1,26 @@
 #include "minishell.h"
 
-/*
-The isatty function is used to check if a file descriptor refers to a terminal.
-first : Makes sure that the terminal is linked to the STDIN
-*/
+/******************************************************************************/  
+/*                              🚀 main 🚀                                         
+/******************************************************************************/
+/* 🎯 Purpose  : 
+/******************************************************************************/
+
+/* 🔹 Parameters:                                                             
+/*     🏷  int a  ➝  First integer                                           
+/*     🏷  int b  ➝  Second integer                                          
+
+/* 🔄 Returns   :  exit code.
+
+/******************************************************************************/
+
+/* 💡 Notes:                                                                  
+/*     1- we make sure we have only one argument.                             
+/*     - 
+
+/******************************************************************************/
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -14,21 +31,21 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (ft_putstr_fd("no arguments are allowed\n", \
 		STDERR_FILENO), EXIT_FAILURE);
-	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO)) 						//isatty() function is used to check if a file descriptor refers to a terminal.  
+	if (!isatty(STDIN_FILENO) && !isatty(STDOUT_FILENO)) 
 		shell.interactive_mode = 0;
 	else
 		shell.interactive_mode = 1;
-	ft_bzero(&shell, sizeof(t_shell_data));										//here with ft_bzero we are initializing the shell structure to 0 
-	shell.envp = copy_envp(envp);												//copying the envp to the shell.envp
+	ft_bzero(&shell, sizeof(t_shell_data));
+	shell.envp = copy_envp(envp);
 	if (!shell.envp)
 	{
 		ft_putstr_fd("malloc failed\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	init_shell(&shell);  														//initialize the shell
-	setup_signal_handlers(0);													//setup the signal handlers
-	handle_input(&shell);													    //handle the input
-	cleanup(&shell);														    //clean up the shell
+	init_shell(&shell);
+	setup_signal_handlers(0);
+	handle_input(&shell);
+	cleanup(&shell);
 	return (shell.exit_status);
 }
 
