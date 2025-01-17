@@ -5,6 +5,25 @@ int	free_and_return(char *str)
 	free(str);
 	return (1);
 }
+/*****************************************************************************/
+//                            🚀 free_envp 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    read input from the user
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                  
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if there is no envp we return immediately.
+//     2- using a while loop we are looping through our envp array and free
+//        each element.
+//     3- after we free all the elements we free the envp array and set it to
+//        NULL.
+/******************************************************************************/
 
 void	free_envp(t_shell_data *shell)
 {
@@ -21,7 +40,27 @@ void	free_envp(t_shell_data *shell)
 	free(shell->envp);
 	shell->envp = NULL;
 }
-
+/*****************************************************************************/
+//                            🚀 cleanup 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    cleaning up all resources
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                  
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we free the input and set it to NULL.
+//     2- we free the full_input and set it to NULL.
+//     3- we call free_commands() to free all the commands.
+//     4- we call free_envp() to free envp array.
+//     5- if there is a prev_dir we free it and set it to NULL.
+//	   	  in prev_dir we store the previous directory, we used it in cd command
+//        to go back to the previous directory.
+/******************************************************************************/
 void	cleanup(t_shell_data *shell)
 {
 	free(shell->input); 

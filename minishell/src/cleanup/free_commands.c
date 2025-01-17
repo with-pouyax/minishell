@@ -1,5 +1,26 @@
 #include "../minishell.h"
-
+/*****************************************************************************/
+//                            🚀 free_tokens 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    free all the tokens
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  token_list -> linked list of tokens                                  
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we loop through the linked list of tokens.
+//        a- we put the next token in next_token so we can free the current
+//           token and don't lose the access to the next token.
+//        b- we free the value of the token.
+//        c- if the token has an original_value we free it.
+//        d- if the token is a heredoc token using free_heredoc_token() we free
+//           the heredoc token.
+//        e- we free the token.
+/******************************************************************************/
 void	free_tokens(t_token *token_list)
 {
 	t_token	*token;
@@ -18,7 +39,26 @@ void	free_tokens(t_token *token_list)
 		token = next_token;
 	}
 }
-
+/*****************************************************************************/
+//                            🚀 free_heredoc_token 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    free here document token
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  token -> here document token                            
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if the token contains a heredoc file we unlink it and free it using
+//        unlink(). unlink() deletes a name from the filesystem and if that
+//        name was the last link to a file and no processes have the file open
+//        the file is deleted and the space it was using is made available for
+//        reuse.
+//     2- if the token has a heredoc_delimiter we free it.
+/******************************************************************************/
 void	free_heredoc_token(t_token *token)
 {
 	if (token->heredoc_file)
@@ -38,7 +78,28 @@ void	free_shell_resources(t_shell_data *shell)
 	shell->input = NULL;
 	shell->full_input = NULL;
 }
-
+/*****************************************************************************/
+//                            🚀 free_commands 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    free all the commands
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                  
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using a while loop we are looping through our commands linked list
+//        nodes one by one.
+//        a- using free_tokens() we free the token_list.
+//        b- using free_redirections() we free the redirections.
+//        c- we free the command_string.
+//        d- we free the command node.
+//     2- now that we have freed all the commands nodes we set the
+//        shell->commands to NULL.
+/******************************************************************************/
 void	free_commands(t_shell_data *shell)
 {
 	t_command	*cmd;

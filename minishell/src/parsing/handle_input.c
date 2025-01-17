@@ -1,5 +1,22 @@
 #include "../minishell.h"
 
+/*****************************************************************************/
+//                            🚀 handle_ctrl_d 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    handle control + d
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                  
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we call cleanup() to free all the resources and exit with the proper
+//        exit status.
+/******************************************************************************/
+
 void handle_ctrl_d(t_shell_data *shell)
 {
     cleanup(shell);
@@ -77,7 +94,25 @@ int handle_allocation(t_shell_data *shell)
     }
     return (0);
 }
-
+/*****************************************************************************/
+//                            🚀 read_input 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    read input from the user
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                  
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we read the input using readline() and store the return value in
+//        shell->input, we are prompted with PROMPT.
+//     2- if shell->input is NULL (means user pressed ctrl+d) we call
+//        handle_ctrl_d()  to handle the ctrl+d signal and return 1.
+//     3- if everything is fine we return 0.
+/******************************************************************************/
 int read_input(t_shell_data *shell)
 {
     shell->input = readline(PROMPT);
@@ -153,13 +188,53 @@ int	handle_user_input(t_shell_data *shell)
 	}
 	return (1);
 }
-
+/*****************************************************************************/
+//                            🚀 handle_read_error 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    print error
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  void                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we print the error message using ft_putstr_fd() to STDERR_FILENO,
+//        which is standard error.
+/******************************************************************************/
 int	handle_read_error(void)
 {
 	ft_putstr_fd("Error: Failed to read input\n", STDERR_FILENO);
 	return (0); 
 }
-
+/*****************************************************************************/
+//                            🚀 handle_input 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :    handle the input from the user
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                  
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we set the running flag to 1.
+//     2- we start a while loop that runs until user presses ctrl+d.
+//        a- we read the input using read_input() and store the return value
+//           of it in status.
+//        b- if status is -1 means we have an error in reading the input or
+//           user pressed ctrl+d so we call handle_read_error() and set running
+//           to 0 to exit the loop.
+//        c- if status is not -1 we call handle_user_input() to handle the user
+//           input and store the return value in running.
+//        d- we setup the signal handlers with 0 (means we are in the main
+//           process).
+//     3- now that we are out of the loop we clear the history and return 0.
+/******************************************************************************/
 int	handle_input(t_shell_data *shell)
 {
 	int	running;
