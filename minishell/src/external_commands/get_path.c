@@ -101,7 +101,10 @@ char	*get_command_path(t_shell_data *shell, t_token *token)
 
 		// Check if there is a valid path after the '.' (e.g., "./file")
 		if (token->value[1] == '/')
-			return (ft_strdup(token->value));
+        {
+            if (stat(token->value, &path_stat) == 0 && access(token->value, X_OK) == 0 && !S_ISDIR(path_stat.st_mode))
+                return (ft_strdup(token->value));
+        }
 
 		// Any other case (like ".echo.") is invalid
 		return (NULL);
