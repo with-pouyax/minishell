@@ -34,4 +34,6 @@ int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
 int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token);
 int is_parent_command(const char *cmd);
 int	execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret);
+int	ft_exit_child(t_shell_data *shell, t_command *cmd);
+
 #endif

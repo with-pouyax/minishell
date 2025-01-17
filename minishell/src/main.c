@@ -5,15 +5,11 @@
 /******************************************************************************/
 // 🎯 Purpose  : we start the programm here
 /******************************************************************************/
-
 // 🔹 Parameters:                                                             
 //     🏷  argv  -> array of strings that represent the command line arguments                                           
 //     🏷  envp  -> array of strings that  
 
 // 🔄 Returns   :  exit code.
-
-/******************************************************************************/
-
 // 💡 Notes:                                                                  
 //     1- we make sure we have only one argument.                             
 //     2- we check if the input is interactive or not using isatty() function.

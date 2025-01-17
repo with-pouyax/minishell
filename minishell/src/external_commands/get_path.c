@@ -90,6 +90,8 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 
 char	*get_command_path(t_shell_data *shell, t_token *token)
 {
+    struct stat path_stat;
+
 	// If the token starts with a '.', check if it's a valid path
 	if (token->value[0] == '.')
 	{
@@ -104,12 +106,12 @@ char	*get_command_path(t_shell_data *shell, t_token *token)
 		// Any other case (like ".echo.") is invalid
 		return (NULL);
 	}
-
-	// If the token starts with '/', directly strdup
-	if (token->value[0] == '/')
-		return (ft_strdup(token->value));
-
-	// Otherwise, find it in the environment PATH
+    if (token->value[0] == '/')
+    {
+        if (stat(token->value, &path_stat) == 0 && access(token->value, X_OK) == 0 && !S_ISDIR(path_stat.st_mode))
+            return (ft_strdup(token->value));
+        return (NULL);
+    }
 	return (find_path_in_env(shell, token->value));
 }
 
