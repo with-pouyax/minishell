@@ -1,30 +1,30 @@
 #include "minishell.h"
 
 /******************************************************************************/  
-/*                              🚀 main 🚀                                         
+//                              🚀 main 🚀                                         
 /******************************************************************************/
-/* 🎯 Purpose  : we start the programm here
-/******************************************************************************/
-
-/* 🔹 Parameters:                                                             
-/*     🏷  argv  -> array of strings that represent the command line arguments                                           
-/*     🏷  envp  -> array of strings that  
-
-/* 🔄 Returns   :  exit code.
-
+// 🎯 Purpose  : we start the programm here
 /******************************************************************************/
 
-/* 💡 Notes:                                                                  
-/*     1- we make sure we have only one argument.                             
-/*     2- we check if the input is interactive or not using isatty() function.
-/*     3- we zero out the shell struct.
-/*     4- we copy the envp to the envp in the shell struct.
-/*     5- we initialize the shell struct.
-/*     6- we setup the signal handlers with 0 (means we are in the main 
-/*        process). 
-/*	   7- we handle the input.
-/*     8- we clean up the shell struct.
-/*     9- we return the exit status from the shell struct. 
+// 🔹 Parameters:                                                             
+//     🏷  argv  -> array of strings that represent the command line arguments                                           
+//     🏷  envp  -> array of strings that  
+
+// 🔄 Returns   :  exit code.
+
+/******************************************************************************/
+
+// 💡 Notes:                                                                  
+//     1- we make sure we have only one argument.                             
+//     2- we check if the input is interactive or not using isatty() function.
+//     3- we zero out the shell struct.
+//     4- we copy the envp to the envp in the shell struct.
+//     5- we initialize the shell struct.
+//     6- we setup the signal handlers with 0 (means we are in the main 
+//        process). 
+//	   7- we handle the input.
+//     8- we clean up the shell struct.
+//     9- we return the exit status from the shell struct. 
 /******************************************************************************/
 
 
