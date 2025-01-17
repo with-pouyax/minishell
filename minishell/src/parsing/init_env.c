@@ -13,7 +13,37 @@ static void	free_envp_copy(char **new_envp, int i)
 	free(new_envp);
 }
 
-char	**copy_envp(char **envp)
+/******************************************************************************/  
+//                              🚀 copy_envp 🚀                                         
+/******************************************************************************/
+// 🎯 Purpose  :   copy envp
+/******************************************************************************/
+
+// 🔹 Parameters:                                                             
+//     🏷  envp  ->  envp is an array of strings that represent the 
+//		   environment variables in the form of "key=value"                                          
+
+
+// 🔄 Returns   :  new_envp
+
+/******************************************************************************/
+
+// 💡 Notes:                                                                  
+//     1- if envp is NULL (no environment variables) or envp[0] is NULL (no 
+//	   environment variables) we exit with failure.
+//	   2- we count the number of environment variables.
+//	   3- we allocate memory for the new_envp array with the size of the
+//	   number of environment variables + 1. +1 for the NULL terminator.
+//	   4- we copy the environment variables to the new_envp array using a
+//	   while loop.
+//	   5- if the copy fails we free the memory allocated for the new_envp array
+//	   using the free_envp_copy function and return NULL.
+//	   6- we NULL terminate the new_envp array.
+//	   7- we return the new_envp array.                
+//     
+/******************************************************************************/
+
+char	**copy_envp(char **envp) 
 {
 	int	i;
 	int	count;
