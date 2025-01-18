@@ -59,7 +59,26 @@ int	add_char_to_token(char **token, char c)
 	*token = new_token;
 	return (0);
 }
-
+/*****************************************************************************/
+// 🎯 Purpose  :  to skip the quoted word
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  input -> user input
+//     🏷  i -> the index of the first non-space character in the input                              
+//
+// 🔄 Returns   :  index
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we store the current character in the quote variable and increment
+//        the index.
+//     2- using a while loop we iterate over the input characters as long as
+//        the current character is not the same as the quote we already stored
+//        in the quote variable.
+//     3- if the first character after the loop stop is the same as the quote
+//        we increment the index and return the index.
+/******************************************************************************/
 int	skip_quotes(char *input, int i)
 {
 	char	quote;
