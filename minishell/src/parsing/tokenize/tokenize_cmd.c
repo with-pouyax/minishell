@@ -9,6 +9,32 @@ t_command *cmd)
 		(*last_cmd)->next = cmd;
 	*last_cmd = cmd;
 }
+/*****************************************************************************/
+// 🎯 Purpose  : turn command we found into a node and setup its flags
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell   ->  our structure
+//     🏷  cmd_str -> is the command we found in the input string separated by pipes
+//     🏷  index   -> is the index of the first non-space character in the input                          
+//
+// 🔄 Returns   :  cmd linked list
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we allocate memory for the cmd node.
+//        a- if there is an error we print an error message and return NULL.
+//     2- we put the cmd_str we made into the cmd->command_string field.
+//     3- we put the index into the cmd->index field.
+//     4- we set the cmd->is_recalled to 0.
+//     5- we set the is_recalled to 0.
+//     6- we set the cmd->token_list to NULL.
+//     7- we set the cmd->redirections to NULL.
+//     8- we set the cmd->token_index to 0.
+//     9- we set the cmd->next to NULL because it is the last node in the 
+//        linked list.
+//     10- we return the cmd.
+/******************************************************************************/
 
 t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 {
@@ -30,6 +56,7 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
     cmd->next = NULL;
     return (cmd);
 }
+
 /*****************************************************************************/
 // 🎯 Purpose  :  turn input into commands
 /*****************************************************************************/
@@ -56,6 +83,7 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 //     4- if the 1st character after the loop stop is a pipe, we print an error
 //        message and return -1.
 /******************************************************************************/
+
 int extract_command_string(char *input, int i)
 {
     while (input[i] && input[i] != '|')

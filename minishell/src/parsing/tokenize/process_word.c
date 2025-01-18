@@ -74,6 +74,37 @@ int	process_character(t_shell_data *shell, char c, char **word)
     return (0);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :  collec and expand redirection word
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                            
+//     🏷   input -> user input
+//     🏷   i -> index of the current character in the input
+//     🏷   word -> a pointer to a string that we store the word in
+//     🏷   shell -> our structure
+// 
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if the word is not initialized
+//        a- we initialize it using initialize_word()
+//           I- if there is an error we set the error flag to 4 and return 1.
+//     2- using a while loop we iterate over the input characters
+//        a- we check if we should break using should_break(), we should break
+//           if the current character is a space or an operator character.
+//           I- if we should break we break the loop.
+//        b- using process_character() we process the current character and
+//           store the return value in ret.
+//           I- if there is an error we return 1.
+//     3- now that we are out of the loop we check if there are unclosed quotes
+//        using handle_unclosed_quotes().
+//        a- if there are unclosed quotes we return 1.
+//     4- using finalize_word() we finalize the word, by finalizing I mean we
+//        check if the word is empty and free it if it is.
+/******************************************************************************/
+
 int	collect_word(char *input, int *i, char **word, \
 t_shell_data *shell)
 {

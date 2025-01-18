@@ -1,5 +1,23 @@
 #include "../../minishell.h"
 
+/*****************************************************************************/
+// 🎯 Purpose  :  remove the spaces at the end of the cmd_str
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  cmd_str -> cmd_str is the command string that we 
+//         have split from the whole input string                               
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if there is no cmd_str we return immediately.
+//     2- we find the length of the cmd_str.
+//     3- using a while loop we loop backwards over the cmd_str and  change
+//        each space character to '\0'.
+/******************************************************************************/
+
 void	trim_trailing_spaces(char *cmd_str)
 {
 	int	len;
@@ -43,8 +61,8 @@ int	handle_command_creation_error(t_shell_data *shell,
 //           flag to 2 and return 1.
 //     3- using trim_trailing_spaces() we remove the spaces at the end of the
 //        comd_str.
-//     4- using create_command() we create a new command node and store it in
-//        cmd.
+//     4- using create_command() we create a new command node and setup its
+//        flags and return it.
 //     5- using tokenize_command() we tokenize the cmd_str and store the tokens
 //        in cmd token_list.
 //        a- if there is no cmd or there is an error in the tokenize_command()

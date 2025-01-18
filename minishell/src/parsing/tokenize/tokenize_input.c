@@ -1,6 +1,34 @@
 #include "../../minishell.h"
 
-int tokenize_command(t_shell_data *shell, t_command *cmd)
+/*****************************************************************************/
+// 🎯 Purpose  :  tokenize the command
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure
+//     🏷  cmd   -> our command linked list                         
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1-  we iterate over the command string using a while loop.
+//         a- using skip_cmd_spaces() we skip the whitespaces at the beginning
+//            of the command string.
+//         b- if there is a character in the command string
+//            I- using is_operator_char() we check if the current character is
+//               an operator character.
+//               - if it is not an operator character we call the 
+//                 tokenize_command_error() and return its return value, which
+//                 is 1.
+//         c- if the current character is not an operator character
+//            I- using process_word() we process the word and tokenize it.
+//               - if there is an error we call tokenize_command_error() and
+//                 return its return value, which is 1.
+//   2- we will be out of the loop if everything is fine and we return 0.
+/******************************************************************************/
+
+int tokenize_command(t_shell_data *shell, t_command *cmd) // tokenize the command
 {
     int i;
 
@@ -25,6 +53,22 @@ int tokenize_command(t_shell_data *shell, t_command *cmd)
     return (0);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :  skip spaces
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  str -> string we want to skip spaces in.
+//     🏷  i   -> index of the current character in the string.                         
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using a while loop we iterate over the string characters.
+//       
+/******************************************************************************/
+
 void	skip_cmd_spaces(char *str, int *i)
 {
 	while (str[*i] && ft_isspace(str[*i]))
@@ -40,6 +84,30 @@ int	handle_initial_pipe(char *input, int *i)
 	}
 	return (0);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :  collect the operator from the command string and store 
+//                it in op
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  cmd   -> our command linked list        
+//     🏷  i     -> index of the current character in the command string
+//
+// 🔄 Returns   :  op
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we call is_operator_char() to check if the current character is an
+//        operator character or not.
+//        a- if it is an operator character we increment the index.
+//        b- if the previous character is < or > and the current character is
+//           the same as the previous character we increment the index.
+//     2- using ft_substr() we extract the operator from the command string and
+//        store it in op.
+//        a- if there is an error creating the substring we print an error
+//     3- at the end we return op.
+//       
+/******************************************************************************/
 
 char *collect_operator(t_command *cmd, int *i)
 {
@@ -61,6 +129,23 @@ char *collect_operator(t_command *cmd, int *i)
 	return op;
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :  handle redirection operator
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//	   🏷  shell -> our structure
+//     🏷  op -> the character we recieved as operator.
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we store the current operator in cmd->current_op.
+//     2- using handle_redirection() we handle the redirection.
+//        a- if there is an error we return 1.
+//     3- if everything is fine we return 0.
+//     
+/******************************************************************************/
 
 int	handle_redirection_operator(t_shell_data *shell, char *op, \
 t_command *cmd, int *i)
@@ -90,7 +175,37 @@ int	handle_invalid_operator(t_shell_data *shell, char *op)
 	return (1);
 }
 
-int	process_operator(t_shell_data *shell, int *i, t_command *cmd)
+/*****************************************************************************/
+// 🎯 Purpose  :  process the operator
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure
+//     🏷  i     -> index of the current character in the command string
+//     🏷  cmd   -> our command linked list        
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using collect_operator() we collect the operator from the command
+//        string and store it in op variable.
+//        a- if there is no operator we return 1.
+//     3- using is_valid_operator() we check if the operator is valid.
+//        a- using is_redirection_operator() we check if the operator is a
+//           redirection operator.
+//           I- if it is a redirection operator we call handle_redirection_operator()
+//              and we store the return value of it in ret.
+//        b- if it is not a redirection operator we call handle_pipe_operator()
+//           and store the return value of it in ret.
+//        c- if ret is 1 it means there is an error and we return 1.
+//     4- if the operator is not valid we call handle_invalid_operator() and
+//        store the return value of it in ret which is 1.
+//     5- if everything is fine we return 0.
+//       
+/******************************************************************************/
+
+int	process_operator(t_shell_data *shell, int *i, t_command *cmd) 
 {
 	char	*op;
 	int		ret;
