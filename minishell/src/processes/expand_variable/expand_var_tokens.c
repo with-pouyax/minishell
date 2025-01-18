@@ -1,5 +1,28 @@
 #include "../../minishell.h"
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  result ->  result is a pointer to a string that we store
+//         the result in it
+//     🏷  in_single_quote -> a pointer to an integer that we store the
+//         single quote flag in it
+//     🏷  in_double_quote -> a pointer to an integer that we store the
+//         double quote flag in it
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we allocate memory for the result and set it to an empty string.
+//     2- if there is an error we print an error message and return 1.
+//     3- we set the quote flags to 0.
+//     4- we return 0.
+//
+/******************************************************************************/
+
 int initialize_expansion(char **result, int *in_single_quote, \
 int *in_double_quote)
 {
@@ -197,6 +220,10 @@ int *i, char **result, int *in_single_quote, int *in_double_quote)
 	return (0);
 }
 
+/*****************************************************************************/
+//         No explanation needed for this function
+/*****************************************************************************/
+
 static int	initialize_and_check(char **result, int *in_single_quote, \
 									int *in_double_quote)
 {
@@ -204,6 +231,26 @@ static int	initialize_and_check(char **result, int *in_single_quote, \
 		return (1);
 	return (0);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  input -> user input
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using initialize_and_check() we allocate memory for the result and
+//        set the quote flags to 0.
+//        a- if there is an error we return NULL.
+//     2- using a while loop we iterate over the input characters
+//        a- using process_char() we process the current character.
+//
+/******************************************************************************/
 
 char	*expand_variables_in_token(t_shell_data *shell, char *input)
 {

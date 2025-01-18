@@ -12,7 +12,7 @@ void add_redirection(t_redirection **redirections, t_redirection *new_redir)
         while (current->next)
             current = current->next;
         current->next = new_redir;
-        new_redir->redir_number = current->redir_number + 1; 
+        new_redir->redir_number = current->redir_number + 1;
 	}
 }
 
@@ -59,19 +59,19 @@ char *rm_quotes(char *word)
 //                input and store it in word.
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //	   🏷  ctx -> our parse context (shell, input, i, redirection linked list)
 //     🏷  word -> the word we collected and expanded
-// 
+//
 // 🔄 Returns   :  success status
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- we set the word to NULL to avoid any garbage value.
 //     2- using collect_word() we collect the word from the input and store it
 //        in word.
 //        a- if there is an error we return 1.
-//     3- if there is no word or the word is empty we free the word 
+//     3- if there is no word or the word is empty we free the word
 //        and return 1
 //     4- if everything is fine we return 0.
 /******************************************************************************/
@@ -88,10 +88,30 @@ int	init_and_collect_word(t_parse_context *ctx, char **word)
 	}
 	return (0);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :  collec and expand redirection word
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  words -> our expanded words structure
+//     🏷  word  -> word is the filename or delimiter
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using save_and_expand_word() we save and expand the word and store it
+//        in words.expanded and words.original.
+//        a- if there is an error we free the word and return 1.
+//     2- at the end we return 0.
+//
+/******************************************************************************/
 
 int	handle_non_heredoc(t_shell_data *shell, char *word, t_expanded_words *words)
 {
-	if (save_and_expand_word(shell, word, &(words->expanded), &(words->original)))
+	if (save_and_expand_word(shell, word, &(words->expanded), \
+&(words->original)))
 	{
 		free(word);
 		return (1);
@@ -122,15 +142,15 @@ t_expanded_words *words)
 // 🎯 Purpose  :  collec and expand redirection word
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //	   🏷  shell -> our structure
 //     🏷  ctx -> our parse context (shell, input, i, redirection linked list)
 //     🏷  words -> our expanded words structure
-// 
+//
 // 🔄 Returns   :  success status
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using init_and_collect_word() we collect and expand the redirection
 //        word and store it in word.
 //        a- if there is an error we return 1.
@@ -142,7 +162,7 @@ t_expanded_words *words)
 //        and store the return value of it in error.
 //        a- if there is an error we return 1.
 //     4- at the end we free the word and return 0.
-//     
+//
 /******************************************************************************/
 
 int	collect_and_expand_redirection_word(t_shell_data *shell, \
@@ -198,7 +218,7 @@ int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
 // 🎯 Purpose  :  process the filename or delimiter in the redirection
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //	   🏷  shell -> our structure
 //     🏷  input -> user input
 //     🏷  i -> index of the current character in the input
@@ -210,7 +230,7 @@ int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
 //     - ctx stands for context and it is a structure that holds the shell
 //	   structure, the input, the index of the current character in the input
 //	   and the redirection linked list. we use it to pass less parameters to
-//	   the functions.                                                                  
+//	   the functions.
 //     1- using collect_and_expand_redirection_word() we collect and expand the
 //        redirection word, redirection word is the filename or the delimiter.
 //        a- if there is no redirection word or the redirection word is empty
@@ -222,7 +242,7 @@ int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
 //     3- using assign_redirection() we assign the redirection word to the
 //        redirection linked list.
 //     4- now that everything is fine we return 0.
-//     
+//
 /******************************************************************************/
 
 int process_filename_or_delimiter(t_shell_data *shell, char *input,
@@ -278,9 +298,9 @@ t_redirection *new_redir)
     return (1);
 }
 /*****************************************************************************/
-// 💡 Notes:                                                                  
-//     1- no explanation needed. 
-//     
+// 💡 Notes:
+//     1- no explanation needed.
+//
 /******************************************************************************/
 void	ft_putstr_fd2(const char *s, int fd)
 {
@@ -295,9 +315,9 @@ void	ft_putstr_fd2(const char *s, int fd)
 }
 
 /*****************************************************************************/
-// 💡 Notes:                                                                  
-//     1- no explanation needed. 
-//     
+// 💡 Notes:
+//     1- no explanation needed.
+//
 /******************************************************************************/
 
 int handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, \
@@ -315,16 +335,16 @@ const char *unexpected_token)
 // 🎯 Purpose  :  skip_white spaces
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  input
 //     🏷  i
 // 🔄 Returns   :  void
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using a while loop we iterate over the input characters as long as
 //        the current character is a white space we increment the index.
-//     
+//
 /******************************************************************************/
 
 void	skip_whitespace(char *input, int *i)
@@ -337,19 +357,19 @@ void	skip_whitespace(char *input, int *i)
 // 🎯 Purpose  :  create a new redirection and store it in new_redir linked list
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  op -> our operation
 // 🔄 Returns   :  our new redirection
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- we allocate memory for our new redirection.
 //        a- if there is an error we print an error message and return NULL.
 //     2- using ft_bzero() we set the new redirection elements to 0.
 //     3- using ft_strcmp() we check the operation and set the type of the
 //        propper redirection.
 //     4- we return the new redirection.
-//     
+//
 /******************************************************************************/
 
 t_redirection	*create_new_redirection(char *op)
@@ -371,7 +391,7 @@ t_redirection	*create_new_redirection(char *op)
 		new_redir->type = REDIR_APPEND;
 	else if (!ft_strcmp(op, "<<"))
 		new_redir->type = REDIR_HEREDOC;
-	
+
 	return (new_redir);
 }
 
@@ -392,7 +412,7 @@ int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 // 🎯 Purpose  :  handle pipe errors
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //	   🏷  shell -> our structure
 //     🏷  input -> user input
 //     🏷  i -> index of the current character in the input
@@ -400,12 +420,12 @@ int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 // 🔄 Returns   :  success status
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- if the next character in the input is |, >, <, we call
 //        handle_syntax_error_s() to handle the error.
 //     2- if none of the above,  still there is an error and we call
-//        handle_syntax_error_s() to handle the error. 
-//     
+//        handle_syntax_error_s() to handle the error.
+//
 /******************************************************************************/
 
 int	handle_pipe_op(t_shell_data *shell, char *input, int *i, \
@@ -425,9 +445,9 @@ t_redirection *new_redir)
 }
 
 /*****************************************************************************/
-// 💡 Notes:                                                                  
-//     1- no explanation needed. 
-//     
+// 💡 Notes:
+//     1- no explanation needed.
+//
 /******************************************************************************/
 
 int	handle_greater_operator(t_shell_data *shell, char *input, int *i, \
@@ -439,9 +459,9 @@ t_redirection *new_redir)
 		return (handle_syntax_error_s(shell, new_redir, ">"));
 }
 /*****************************************************************************/
-// 💡 Notes:                                                                  
-//     1- no explanation needed. 
-//     
+// 💡 Notes:
+//     1- no explanation needed.
+//
 /******************************************************************************/
 
 int	handle_less_operator(t_shell_data *shell, char *input, int *i, \
@@ -457,7 +477,7 @@ t_redirection *new_redir)
 // 🎯 Purpose  :  check operators errors
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //	   🏷  shell -> our structure
 //     🏷  input -> user input
 //     🏷  i -> index of the current character in the input
@@ -465,16 +485,16 @@ t_redirection *new_redir)
 // 🔄 Returns   :  success status
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- if the current character in the input is | we call handle_pipe_op()
 //        to handle the pipe operator error.
-//     2- if the current character in the input is > we call 
+//     2- if the current character in the input is > we call
 //     handle_greater_operator() to handle the greater operator error.
 //     3- if the current character in the input is < we call
 //     handle_less_operator() to handle the less operator error.
-//     4- if none of the above,  means there is no operator error and we 
+//     4- if none of the above,  means there is no operator error and we
 //     return 0.
-//     
+//
 /******************************************************************************/
 
 int	check_operator_error(t_shell_data *shell, char *input, int *i, \
@@ -493,20 +513,20 @@ t_redirection *new_redir)
 // 🎯 Purpose  :  prepare the redirection and store it in new_redir linked list
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  cmd -> our command linked list
 //     🏷  new_redir -> the redirection we want to prepare
 // 🔄 Returns   :  success status
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using create_new_redirection() we create a new redirection and store
 //        it in new_redir linked list.
 //     2- we free op because we have already stored it in new_redir.
 //     3- we set the current operator to NULL because we have already stored it
 //        in new_redir.
 //     4- if we successfully created the new redirection we return 0, else 1.
-//     
+//
 /******************************************************************************/
 
 int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
@@ -525,7 +545,7 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 // 🎯 Purpose  :  handle redirection
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //	   🏷  shell -> our structure
 //     🏷  input -> user input
 //     🏷  i -> index of the current character in the input
@@ -533,7 +553,7 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 // 🔄 Returns   :  success status
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- we set the filename_or_delimiter to NULL.
 //     2- using prepare_redirection() we prepare the redirection.
 //        a- if there is an error we return 1.
@@ -547,7 +567,7 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 //     7- using add_redirection() we add this new_redir to the redirections
 //        linked list.
 //     8- if everything is fine we return 0.
-//     
+//
 /******************************************************************************/
 
 int handle_redirection(t_shell_data *shell, char *input, int *i, \
@@ -558,7 +578,7 @@ t_command *cmd)
     shell->filename_or_delimiter = NULL;
     if (prepare_redirection(cmd, &new_redir))
         return (1);
-    
+
     skip_whitespace(input, i);
     if (check_operator_error(shell, input, i, new_redir))
         return (1);
@@ -573,15 +593,15 @@ t_command *cmd)
 // 🎯 Purpose  :  check if op is a redirection
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  op -> the character we recieved as operator.
 //
 // 🔄 Returns   :  1 if op is redirection, else 0
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- if the op is <, >, >>, or << we return 1 else 0.
-//       
+//
 /******************************************************************************/
 int is_redirection_operator(char *op)
 {

@@ -19,6 +19,10 @@ char	*ft_strdup_free(char *s1)
 	return (dup);
 }
 
+/*****************************************************************************/
+//              No explanation needed for this function
+/*****************************************************************************/
+
 char	*ft_strjoin_safe(const char *s1, const char *s2)
 {
 	char	*res;

@@ -40,6 +40,30 @@ int	validate_operators(t_shell_data *shell)
 	return (error_found);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :  token is a pointer to a string that we store the word in
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷   token ->
+//     🏷   c -> the current character
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- first we make a temporary string with size 2 and store the current
+//        character and the null terminator in it as a string.
+//     2- then we initialize a new_token to hold the new token value.
+//     3- using ft_strjoin_safe() we join the token and the tmp string and
+//        store the result in new_token.
+//        a- if there is an error we free the token and set it to NULL and
+//           return 1.
+//     4- now that we have saved everything in the new_token we free the old
+//        token and set it to the new_token.
+//     5- we return 0 to indicate success.
+/******************************************************************************/
+
 int	add_char_to_token(char **token, char c)
 {
 	char	tmp[2];
@@ -59,18 +83,19 @@ int	add_char_to_token(char **token, char c)
 	*token = new_token;
 	return (0);
 }
+
 /*****************************************************************************/
 // 🎯 Purpose  :  to skip the quoted word
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  input -> user input
-//     🏷  i -> the index of the first non-space character in the input                              
+//     🏷  i -> the index of the first non-space character in the input
 //
 // 🔄 Returns   :  index
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- we store the current character in the quote variable and increment
 //        the index.
 //     2- using a while loop we iterate over the input characters as long as

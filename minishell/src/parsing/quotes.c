@@ -21,7 +21,7 @@
 //     4- if in_single_quote or in_double_quote is true we return 1.
 /******************************************************************************/
 
-int	check_unclosed_quotes(char *input) 
+int check_unclosed_quotes(char *input)
 {
 	int	in_single_quote;
 	int	in_double_quote;
