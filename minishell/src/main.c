@@ -23,8 +23,6 @@
 //     9- we return the exit status from the shell struct. 
 /*****************************************************************************/
 
-
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell_data	shell;

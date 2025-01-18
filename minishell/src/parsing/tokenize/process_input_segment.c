@@ -20,6 +20,44 @@ int	handle_command_creation_error(t_shell_data *shell,
 	return (1);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :  turn input into commands
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure
+//     🏷  i -> the index of the first non-space character in the input
+//     🏷  cmd_index -> the index of the current command
+//     🏷  last_cmd -> the last command in the linked list                               
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using extract_command_string() we extract the command string from the
+//        input separated by pipes.
+//        a- if there is an error we set the error flag to 1 and return 1.
+//     2- using ft_substr() we extract the command we have found and store it
+//        in cmd_str.
+//        a- if there is an error we print an error message and set the error
+//           flag to 2 and return 1.
+//     3- using trim_trailing_spaces() we remove the spaces at the end of the
+//        comd_str.
+//     4- using create_command() we create a new command node and store it in
+//        cmd.
+//     5- using tokenize_command() we tokenize the cmd_str and store the tokens
+//        in cmd token_list.
+//        a- if there is no cmd or there is an error in the tokenize_command()
+//           we call handle_command_creation_error() to handle the error and
+//           return the return value of it which is 1.
+//     6- using add_command_to_list() we add the cmd to the linked list of
+//        commands and update the last_cmd.
+//     7- if the current character is a pipe we increment the index because we
+//        have already processed the pipe character in the
+//        extract_command_string() and we don't want to process it again.
+//     8- if everything is fine we return 0.
+/******************************************************************************/
+
 int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
                           t_command **last_cmd)
 {

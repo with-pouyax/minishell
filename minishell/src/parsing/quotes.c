@@ -1,14 +1,27 @@
 #include "../minishell.h"
 
-/*
-if (input[i] == '\'' && !in_double_quote)-> if single q and not in double q
-in_single_quote = !in_single_quote; -> reverse the value of in_single_q
-else if (input[i] == '\"' && !in_single_quote)-> if double q and not in single q
-in_double_quote = !in_double_quote;-> reverse the value of in_double_q
-return (in_single_quote || in_double_quote);-> Return 1 if any of the q 
-						are 1, 0 otherwise.
-*/
-int	check_unclosed_quotes(char *input)
+/*****************************************************************************/
+//                        🚀 check_unclosed_quotes 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  check if there is unclosed quotes
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  input -> user input                         
+//
+// 🔄 Returns   :  1 if we have unclosed quotes 0
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using a while loop we iterate over each character in the input.
+//     2- if we find a single quote and we are not in a double quote we toggle
+//        meaning we change the value of in_single_quote to the opposite value.
+//     3- if we find a double quote and we are not in a single quote we toggle
+//        meaning we change the value of in_double_quote to the opposite value.
+//     4- if in_single_quote or in_double_quote is true we return 1.
+/******************************************************************************/
+
+int	check_unclosed_quotes(char *input) 
 {
 	int	in_single_quote;
 	int	in_double_quote;

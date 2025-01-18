@@ -1,5 +1,30 @@
 #include "../minishell.h"
 
+/*****************************************************************************/
+// 🎯 Purpose  :  parse and tokenize the input
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we call split_cmd_tokenize() to split the input into commands
+//        and tokenize them.
+//        a- if there is an error we return 1.
+//     2- if there are no commands we return 1.
+//     3- if there are error flags we free the commands and NULL them and
+//        return 1.
+//     4- we call parse_tokens() to parse the tokens.
+//     5- what is the difference between split_cmd_tokenize() and parse_tokens()?
+//        [?????????????????????]
+//     6- using validate_operators() we validate the operators in the commands
+//        a- if there is an error we return 1.
+//     7- if everything is fine we return 0.
+/******************************************************************************/
+
 int	preprocess_input(t_shell_data *shell)
 {
 	shell->commands = NULL;

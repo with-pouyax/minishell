@@ -22,8 +22,28 @@ void handle_ctrl_d(t_shell_data *shell)
     cleanup(shell);
     exit(shell->exit_status);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :  purpose: process and execute the commands
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we preprocess (meaning we tokenize and parse) the input using
+//        preprocess_input().
+//        a- if there is an error in the preprocess_input() we return 1.
+//     2- if there are commands in the shell we execute them using execution().
+//     3- if there are no commands (usually because of syntax errors or empty
+//        input) we set the exit status to 2.
+//     4- after we are passing and executing the commands we free the shell
+//        resources using free_shell_resources().
+/******************************************************************************/
 
-int	process_and_execute_commands(t_shell_data *shell)
+int	process_and_execute_commands(t_shell_data *shell) // purpose: process and execute the commands
 {
     if (preprocess_input(shell) != 0)
 	{
@@ -43,8 +63,35 @@ int	process_and_execute_commands(t_shell_data *shell)
 	free_shell_resources(shell);
 	return (0);
 }
+/*****************************************************************************/
+//                      🚀 check_and_handle_syntax_errors 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  Check for some syntax errors
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using check_unclosed_quotes() we check if there are any unclosed
+//        quotes.
+//        a- if there are unclosed quotes we print an error message and 
+//           cleanup the shell and return 1.
+//     2- using check_leading_pipe() we check if there is pipe at the beginning
+//        of the input.
+//        a- if there is a pipe at the beginning we print an error message and
+//           cleanup the shell and return 1.
+//     3- using check_trailing_pipe() we check if there is a pipe at the end of
+//        the input.
+//        a- if there is a pipe at the end we print an error message and 
+//           cleanup the shell and return 1.
+//     4- if everything is fine we return 0.
+/******************************************************************************/
 
-int	check_and_handle_syntax_errors(t_shell_data *shell)
+int	check_and_handle_syntax_errors(t_shell_data *shell) 
 {
 	if (check_unclosed_quotes(shell->input))
 	{
@@ -66,6 +113,23 @@ int	check_and_handle_syntax_errors(t_shell_data *shell)
 	}
 	return (0);
 }
+/*****************************************************************************/
+//                        🚀 check_input_length 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  check if the input is not too long 
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if the input is longer than MAX_INPUT_LENGTH we print an error
+//		message and free the input and return 1.
+//     2- if everything is fine we return 0.
+/******************************************************************************/
 
 int check_input_length(t_shell_data *shell)
 {
@@ -77,12 +141,45 @@ int check_input_length(t_shell_data *shell)
     }
     return (0);
 }
+/*****************************************************************************/
+//                        🚀 add_to_history_if_needed 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  add to history if input is not empty
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if the input is not empty we add it to the history.
+/******************************************************************************/
 
 void	add_to_history_if_needed(t_shell_data *shell)
 {
 	if (ft_strlen(shell->full_input) > 0)
 		add_history(shell->full_input);
 }
+/*****************************************************************************/
+//                        🚀 handle_allocation 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  allocate resources needed for the shell
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we allocate memory dynamically in heap for shell->full_input.
+//     2- if there is an error allocating the resources we print an error
+//        message and return 1.
+//     3- if everything is fine we return 0.
+/******************************************************************************/
 
 int handle_allocation(t_shell_data *shell)
 {
@@ -123,6 +220,22 @@ int read_input(t_shell_data *shell)
     }
     return (0);
 }
+/*****************************************************************************/
+//                        🚀 validate_input_length 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  allocate resources needed for the shell
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- if there is an error allocating the resources we return 1.
+//     2- if everything is fine we return 0.
+/******************************************************************************/
 
 int	allocate_resources(t_shell_data *shell)
 {
@@ -133,16 +246,50 @@ int	allocate_resources(t_shell_data *shell)
 	return (0);
 }
 
+/*****************************************************************************/
+//                        🚀 validate_input_length 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  check if the input is not too long 
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using check_input_length() we check if the input is not too long.
+//        a- if it is too long we call cleanup() and cleanup the all the
+//           resources and return 1.
+//	 2- if everything is fine we return 0.
+/******************************************************************************/
+
 int	validate_input_length(t_shell_data *shell)
 {
-	if (check_input_length(shell)) 
+	if (check_input_length(shell))
 	{
 		cleanup(shell);
 		return (1);
 	}
 	return (0);
 }
-
+/*****************************************************************************/
+//                        🚀 handle_empty_input 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  check if the function is empty 
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we free the shell->input and set it to NULL.
+//     2- we set the signal status to 0 because we go back to the main process.
+/******************************************************************************/
 
 void	handle_empty_input(t_shell_data *shell)
 {
@@ -150,12 +297,60 @@ void	handle_empty_input(t_shell_data *shell)
 	shell->input = NULL;
 	g_signal.signal_status = 0;
 }
+/*****************************************************************************/
+//                        🚀 is_input_empty 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  check if the function is empty 
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  1 if it is empty.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we check if the input is NULL or the first character is '\0'.
+/******************************************************************************/
 
 int	is_input_empty(t_shell_data *shell)
 {
 	return (shell->input == NULL || shell->input[0] == '\0'); 
 }
 
+/*****************************************************************************/
+//                        🚀 handle_execution_flow 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  main function to handle user input  
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we set the signal status to 0.
+//     2- using validate_input_length() we check if the input is not too long.
+//        a- if it is too long we return 1.
+//     3- using allocate_resources() we allocate the resources needed for the
+//        shell.
+//        a- if there is an error allocating the resources we return 1.
+//     4- using add_to_history_if_needed() we add the input to the history if
+//        it is not empty and we have no errors.
+//     5- using check_and_handle_syntax_errors() we check if there are any
+//        syntax errors in the input.
+//        a- if there are syntax errors we return 1.
+//     6- using process_and_execute_commands() we process and execute the
+//        commands.
+//        a- if there is an error in the process and execute commands
+//           I- if the error flag is 2 or 3 we return 0.
+//           II- if the error flag is not 2 or 3 we return 1.
+//	 7- if everything is fine we return 1 because as you remember in
+//        handle_input() we store the return value inside running, and it keeps
+//        prompting the user as long as running is 1.
+/******************************************************************************/
 
 int	handle_execution_flow(t_shell_data *shell)
 {
@@ -175,7 +370,24 @@ int	handle_execution_flow(t_shell_data *shell)
 	}
 	return (1);
 }
-
+/*****************************************************************************/
+//                        🚀 handle_user_input 🚀                     
+/*****************************************************************************/
+// 🎯 Purpose  :  main function to handle user input  
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure                                 
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- we check if the input is empty using is_input_empty()
+//        a- if it is empty we call handle_empty_input() and return 1.
+//     2- if it is not empty we call handle_execution_flow() to handle the
+//        user input and return the return value of it.
+/******************************************************************************/
 int	handle_user_input(t_shell_data *shell)
 {	
 	if (is_input_empty(shell))

@@ -69,6 +69,21 @@ void	free_heredoc_token(t_token *token)
 	if (token->heredoc_delimiter)
 		free(token->heredoc_delimiter);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :    free all resources
+/*****************************************************************************/
+//
+// 🔹 Parameters:                                                             
+//     🏷  shell -> our structure
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:                                                                  
+//     1- using free_commands() we free all the commands.
+//     2- we free the input and full_input.
+//     3- we set the input and full_input to NULL.
+/******************************************************************************/
 
 void	free_shell_resources(t_shell_data *shell)
 {
