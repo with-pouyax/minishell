@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:55:00 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 00:57:19 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/19 21:27:32 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,34 @@ char	*get_line_from_input(char *input, int *index)
 		(*index)++;
 	return (line);
 }
-/*
-expand_and_write_line
-- Expands variables (e.g., $VAR) in a line of heredoc input.
-- Write
-*/
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structurer
+//     🏷  current_char ->
+//     🏷  i ->
+//     🏷  result ->
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- if the current character is a single quote and we are not in a
+//        double quote
+//        a- we toggle the single quote flag.
+//     2- else if the current character is a double quote and we are not in a
+//        single quote
+//        a- we toggle the double quote flag.
+//     3- using add_char_to_token() we append the current character to the
+//        result.
+//        a- if there is an error we return 1.
+//     4- we increment the index.
+//     5- we return 0.
+//
+/******************************************************************************/
 
 int	toggle_quotes_and_append(t_shell_data *shell, char current_char, \
 int *i, char **result)
@@ -50,6 +73,37 @@ int *i, char **result)
 	return (0);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  input -> user input
+//     🏷  i -> current index
+//     🏷  result -> we store the result here
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- if the current character is a single quote and we are not in a
+//        double quote or the current character is a double quote and we are
+//        not in a single quote.
+//        a- using toggle_quotes_and_append() we toggle the quotes and append
+//           the current character to the result.
+//           I- if there is an error we return -1.
+//     2- else if the current character is a dollar sign and we are not in a
+//        single quote.
+//        a- using handle_dollar() we handle the dollar sign.
+//           I- if there is an error we return -1.
+//     3- if the current character is a literal character (not a quote or a
+//        dollar sign) we append the literal character to the result using
+//        append_literal_char().
+//           I- if there is an error we return -1.
+//     4- we return 0.
+//
+/******************************************************************************/
 
 int	process_heredoc_expansion(t_shell_data *shell, char *input, \
 int *i, char **result)
@@ -76,6 +130,22 @@ int *i, char **result)
 	return (0);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  line -> the line we want to handle
+//     🏷  fd -> the file descriptor
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-
+//
+/******************************************************************************/
 
 char	*expand_variables_in_heredoc(t_shell_data *shell, char *input)
 {
@@ -92,7 +162,27 @@ char	*expand_variables_in_heredoc(t_shell_data *shell, char *input)
 	}
 	return (result);
 }
-
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  line -> the line we want to handle
+//     🏷  fd -> the file descriptor
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using expand_and_write_line() we expand and write the line and store
+//        the expanded line in temp.
+//        a- if there is an error we return 1.
+//     2- we write the temp to the file descriptor.
+//     3- we write a newline character to the file descriptor.
+//     4- we free the temp and return 0.
+//
+/******************************************************************************/
 
 int	expand_and_write_line(t_shell_data *shell ,char *line, int fd)
 {

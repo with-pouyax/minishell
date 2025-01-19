@@ -1,0 +1,2 @@
+cat: Makefile: No such file or directory
+ls: write error: Broken pipe

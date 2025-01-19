@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:31:39 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:34:22 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/19 20:45:16 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,9 @@ t_command *cmd, int *i)
 		return (1);
 	return (0);
 }
+/*****************************************************************************/
+//    here we just free the operator and return 0
+/*****************************************************************************/
 
 int	handle_pipe_operator(char *op, t_command *cmd)
 {
@@ -175,6 +178,9 @@ int	handle_pipe_operator(char *op, t_command *cmd)
 	return (0);
 }
 
+/*****************************************************************************/
+//          No explanation needed.
+/*****************************************************************************/
 
 int	handle_invalid_operator(t_shell_data *shell, char *op)
 {
@@ -210,7 +216,8 @@ int	handle_invalid_operator(t_shell_data *shell, char *op)
 //              handle_redirection_operator() and we store the return value
 //              of it in ret.
 //        b- if it is not a redirection operator we call handle_pipe_operator()
-//           and store the return value of it in ret.
+//           and just free the operator and store the return value of it in ret
+//
 //        c- if ret is 1 it means there is an error and we return 1.
 //     4- if the operator is not valid we call handle_invalid_operator() and
 //        store the return value of it in ret which is 1.

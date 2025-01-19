@@ -6,11 +6,30 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:05:39 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:29:25 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/19 21:53:36 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  redirections ->
+//     🏷  new_redir ->
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- if there is no redirection we put the new redirection into the
+//        redirections.
+//     2- if there is a redirection we loop over the redirections and put the
+//        new redirection at the end.
+//     3- we set the redirection number to the current redirection number + 1.
+//
+/******************************************************************************/
 
 void	add_redirection(t_redirection **redirections, t_redirection *new_redir)
 {
@@ -27,12 +46,34 @@ void	add_redirection(t_redirection **redirections, t_redirection *new_redir)
 		new_redir->redir_number = current->redir_number + 1;
 	}
 }
+/*****************************************************************************/
+//                  No explanation needed for this function
+/*****************************************************************************/
 
 int	starts_with_operator_char(char c)
 {
 	return (c == '<' || c == '>' || c == '|');
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  new_redir -> the redirection we want to prepare
+//     🏷  filename_or_delimiter
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we put the delimiter into the redirection structure.
+//     2-  we call read_heredoc_content() to read the heredoc content.
+//         a- if there is an error we free the delimiter and the redirection
+//            structure and return 1.
+//     3- at the end we return 0.
+//
+/******************************************************************************/
 
 int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir, \
 char *filename_or_delimiter)
@@ -46,6 +87,23 @@ char *filename_or_delimiter)
 	}
 	return (0);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  word ->
+//
+// 🔄 Returns   : word
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we loop over the word and whenever we find a quote we remove it by
+//        shifting the characters to the left.
+//     2- at the end we return the word.
+//
+/******************************************************************************/
 
 char	*rm_quotes(char *word)
 {
@@ -133,6 +191,31 @@ int	handle_non_heredoc(t_shell_data *shell, char *word, t_expanded_words *words)
 	return (0);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  word  -> word is the filename or delimiter
+//     🏷  words -> our expanded words structure
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using rm_quotes() we remove the quotes from the word.
+//     2- we store the word in words.expanded and words.original.
+//     3- if there is an error duplicating the word in words.expanded or
+//        words.original we free the word
+//        a- if there is a word in words.expanded we free it.
+//        b- if there is a word in words.original we free it.
+//        c- we set the error flag to 4.
+//        d- we free the word and return 1.
+//     4- at the end we return 0.
+//
+/******************************************************************************/
+
 int	process_heredoc_word(t_shell_data *shell, char *word, \
 t_expanded_words *words)
 {
@@ -204,7 +287,9 @@ int	collect_and_expand_redirection_word(t_shell_data *shell, \
 	return (0);
 }
 
-
+/*****************************************************************************/
+//      here we assign the redirection word to the redirection linked list
+/*****************************************************************************/
 
 void	assign_redirection(t_shell_data *shell, char *expanded_word, \
 char *original_word)
@@ -213,10 +298,34 @@ char *original_word)
 	free(original_word);
 }
 
-int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
+/*****************************************************************************/
+// 🎯 Purpose  :  process the filename or delimiter in the redirection
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  expanded_word
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using is_valid_operator() we check if the expanded word is a valid
+//        operator.
+//        a- if it is return 1 it means it is an invalid operator, so if it is
+//           an invalid operator or starts with an operator.
+//           I- we print an error message.
+//           II- we set the exit status to 2.
+//           III- we return 1.
+//     2- if it is a valid operator and does not start with an operator we
+//        return 0.
+//
+//
+/******************************************************************************/
+
+int validate_expanded_word(t_shell_data *shell, char *expanded_word)
 {
-	if (is_valid_operator(expanded_word) ||
-		starts_with_operator_char(expanded_word[0]))
+	if (is_valid_operator(expanded_word) || \
+	starts_with_operator_char(expanded_word[0]))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `", \
 		STDERR_FILENO);
@@ -299,6 +408,26 @@ char *token)
 	shell->exit_status = 2;
 	return (1);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :  process the filename or delimiter in the redirection
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  new_redir  ->
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//
+//     1- if the shell error flag is 4 we print an Error
+//     2- if the shell error flag is not 4 we print a syntax error
+//     3- we free the new redirection
+//     4- we set the exit status to 2
+//     5- we return 1
+//
+/******************************************************************************/
 
 int	handle_missing_filename_error(t_shell_data *shell, \
 t_redirection *new_redir)
@@ -409,6 +538,25 @@ t_redirection	*create_new_redirection(char *op)
 
 	return (new_redir);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :  handle pipe errors
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  shell -> our structure
+//     🏷  new_redir -> the redirection we want to prepare
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- if type of new_redir is REDIR_HEREDOC we call
+//     handle_heredoc_redirection()
+//        a- if there is an error we return 1.
+//     2- if the type of new_redir is not REDIR_HEREDOC we set the filename
+//        to the shell filename_or_delimiter.
+//
+/******************************************************************************/
 
 int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir)
 {
@@ -626,6 +774,30 @@ int	is_redirection_operator(char *op)
 	return (!ft_strcmp(op, "<") || !ft_strcmp(op, ">") || \
 	!ft_strcmp(op, ">>") || !ft_strcmp(op, "<<"));
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  token_value ->
+//     🏷  token_list ->
+//     🏷  index ->
+//     🏷  is_operator ->
+//
+// 🔄 Returns   :  1 if op is redirection, else 0
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we allocate memory for a new token.
+//        a- if there is an error we print an error message and return 1.
+//     2- using initialize_new_token() we initialize the new token.
+//     3- if there is no token_list we put the new token in the token_list.
+//     4- if there is a token_list we loop over the token_list and put the new
+//        token at the end.
+//     5- at the end we return 0.
+//
+/******************************************************************************/
 
 int	add_token(char *token_value, t_token **token_list,
 		int *index, int is_operator)

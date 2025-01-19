@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:34:46 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 00:40:33 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/19 20:48:21 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,23 @@ void	cleanup(t_shell_data *shell)
 		shell->prev_dir = NULL;
 	}
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  cmd   -> our command linked list
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-  if the command has a token list we free and set it to NULL.
+//     2-  if the command has redirections we free and set it to NULL.
+//     3-  if the command has a current operator we free and set it to NULL.
+//     4-  we return 1.
+/******************************************************************************/
 
 int	tokenize_command_error(t_command *cmd)
 {

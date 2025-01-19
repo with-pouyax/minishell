@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:02:05 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:03:42 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/19 21:56:59 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,9 @@ t_shell_data *shell)
 		return (1);
 	return (finalize_word(word));
 }
+/*****************************************************************************/
+//           No explanation needed for this function
+/*****************************************************************************/
 
 int	free_word_and_return(char *word, int ret)
 {
@@ -283,6 +286,9 @@ char **expanded_word, char **original_word)
 	return (0);
 }
 
+/*****************************************************************************/
+//              No explanation needed for this function
+/*****************************************************************************/
 
 int	add_token_to_command(t_command *cmd, char *word)
 {
@@ -301,6 +307,30 @@ int	set_original_value(t_command *cmd, char *original_word)
 	last_token->original_value = original_word;
 	return (0);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//     🏷  i     -> index of the current character in the command string
+//     🏷  cmd   -> our command linked list
+//     🏷  expanded_word ->
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- first allocate memory for the word and if failed we print an error
+//        message and return 1.
+//     2- using save_and_expand_word() we save and expand the word.
+//        a- if there is an error we call free_word_and_return() and return
+//           its return value.
+//     3- we free the word.
+//     4- we return 0.
+//
+/******************************************************************************/
 
 int	collect_and_expand_word(t_shell_data *shell, char *input, \
 int *i, char **expanded_word)
@@ -338,6 +368,27 @@ char *expanded_word, char *original_word)
 	return (1);
 }
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  cmd   -> our command linked list
+//     🏷  expanded_word_arr -> the expanded word array
+//
+// 🔄 Returns   :  expanded word array
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using a while loop we iterate over the expanded word array.
+//        a- using add_token_to_command() we add the token to the command.
+//           I- if there is an error we call handle_token_addition_failure()
+//              and return its return value.
+//     2- at the end we return 0.
+//
+//
+/******************************************************************************/
+
 int	add_tokens_to_command(t_command *cmd, char **expanded_word_arr)
 {
 	int	j;
@@ -352,11 +403,30 @@ int	add_tokens_to_command(t_command *cmd, char **expanded_word_arr)
 	}
 	return (0);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  expanded_word -> the expanded word
+//
+// 🔄 Returns   :  expanded word array
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using ft_split() we split the expanded word and store it in
+//        expanded_word_arr.
+//     2- if there is an error we print an error message.
+//     3- we return expanded_word_arr.
+//
+//
+/******************************************************************************/
 
 char	**split_expanded_word(char *expanded_word)
 {
 	char	**expanded_word_arr;
 
+    (void)expanded_word;
 	expanded_word_arr = ft_split(expanded_word, ' ');
 	if (!expanded_word_arr)
 	{
@@ -364,6 +434,10 @@ char	**split_expanded_word(char *expanded_word)
 	}
 	return (expanded_word_arr);
 }
+/*****************************************************************************/
+//               No explanation needed for this function
+/******************************************************************************/
+
 void	free_all_resources(char **expanded_word_arr, char *expanded_word, \
 char *original_word)
 {
@@ -371,6 +445,34 @@ char *original_word)
 	free(expanded_word);
 	free(original_word);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//     🏷  cmd   -> our command linked list
+//     🏷  expanded_word -> the expanded word
+//     🏷  original_word -> the original word
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using split_expanded_word() we split the expanded word and store it
+//        in expanded_word_arr, we need to split the expanded word because we
+//        need to tokenize each word separately.
+//     2- if there is an error we free the expanded word and original word and
+//        return 1.
+//     3- using add_tokens_to_command() we tokenize each word and add it to the
+//        command linked list.
+//        a- if there is an error it will return 1 and exit the function.
+//        b- if there is no error we free all the resources of command and
+//           return 0.
+//
+//
+/******************************************************************************/
 
 int	handle_expanded(t_shell_data *shell, t_command *cmd, \
 char *expanded_word, char *original_word)
@@ -403,6 +505,35 @@ char *expanded_word, char *original_word)
 		return (1);
 	return (0);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//     🏷  cmd   -> our command linked list
+//     🏷  input -> user input
+//     🏷  i     -> index of the current character in the command string
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using collect_and_expand_word() we collect and expand the word.
+//        a- if there is an error we return 1.
+//     2- we set the original word to the shell structure.
+//     3- if the shell->expanded exists and we are not in a double quote
+//        a- using handle_expanded() we handle the expanded word, meaning we
+//           split the expanded word and add the tokens to the command.
+//           I- if there is an error we return 1.
+//     4- if the shell->expanded does not exist or we are in a double quote
+//        a- using handle_non_expanded() we handle the non expanded word, meaning
+//           we add the word to the command.
+//           I- if there is an error we return 1.
+//     5- at the end we return 0.
+//
+/******************************************************************************/
 
 int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
