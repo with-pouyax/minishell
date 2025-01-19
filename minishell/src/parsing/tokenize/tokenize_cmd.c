@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:30:47 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:31:19 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/19 22:20:15 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_command	*create_command(t_shell_data *shell, char *cmd_str, int index)
 		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
 		return (NULL);
 	}
+    ft_bzero(cmd, sizeof(t_command));
 	cmd->command_string = cmd_str;
 	cmd->index = index;
 	cmd->is_recalled = 0;
