@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   variable_expansion.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 11:04:09 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 11:05:23 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 /*
@@ -41,6 +53,7 @@ return (str); // Return the character
 char	*get_literal_char(char *input, int *i)
 {
 	char	*str;
+
 	(void)input;
 	str = ft_substr(input, *i, 1);
 	if (!str)
@@ -51,8 +64,6 @@ char	*get_literal_char(char *input, int *i)
 	return (str);
 }
 
-
-
 /*
  (literal characters are characters that are not $ characters and are not part
  of a variable)
@@ -61,10 +72,10 @@ int	append_literal_char(char *input, int *i, char **result)
 {
 	char	*temp;
 
-	temp = get_literal_char(input, i); //[x]
+	temp = get_literal_char(input, i);
 	if (!temp)
 		return (1);
-	*result = ft_strjoin_free_both(*result, temp); //[x]
+	*result = ft_strjoin_free_both(*result, temp);
 	if (!*result)
 	{
 		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);

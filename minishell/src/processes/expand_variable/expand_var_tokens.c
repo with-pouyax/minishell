@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_var_tokens.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:59:12 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 11:03:50 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 /*****************************************************************************/
@@ -23,37 +35,37 @@
 //
 /******************************************************************************/
 
-int initialize_expansion(t_shell_data *shell, char **result)
+int	initialize_expansion(t_shell_data *shell, char **result)
 {
-    shell->in_single_quote = 0;
-    shell->in_double_quote = 0;
-    *result = ft_strdup("");
-    if (!*result)
+	shell->in_single_quote = 0;
+	shell->in_double_quote = 0;
+	*result = ft_strdup("");
+	if (!*result)
 	{
 		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-        return (1);
+		return (1);
 	}
-    return (0);
+	return (0);
 }
 
-void toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i)
+void	toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i)
 {
-    if (current_char == '\'' && !shell->in_double_quote)
-        shell->in_single_quote = !shell->in_single_quote;
-    else if (current_char == '\"' && !shell->in_single_quote)
-        shell->in_double_quote = !shell->in_double_quote;
-    (*i)++;
+	if (current_char == '\'' && !shell->in_double_quote)
+		shell->in_single_quote = !shell->in_single_quote;
+	else if (current_char == '\"' && !shell->in_single_quote)
+		shell->in_double_quote = !shell->in_double_quote;
+	(*i)++;
 }
 
 
 
-int cleanup_and_return_null(char *result)
+int	cleanup_and_return_null(char *result)
 {
-    free(result);
-    return (1);
+	free(result);
+	return (1);
 }
 
-static int	append_str_to_result(char **result, char *str)
+int	append_str_to_result(char **result, char *str)
 {
 	char	*temp;
 
@@ -68,7 +80,7 @@ static int	append_str_to_result(char **result, char *str)
 	return (0);
 }
 
-static int	handle_exit_status(t_shell_data *shell, char **result)
+int	handle_exit_status(t_shell_data *shell, char **result)
 {
 	char	*exit_str;
 
@@ -84,7 +96,8 @@ static int	handle_exit_status(t_shell_data *shell, char **result)
 	return (0);
 }
 
-static int	handle_variable_expansion(t_shell_data *shell, char *input, int *i, char **result)
+int	handle_variable_expansion(t_shell_data *shell, char *input, \
+int *i, char **result)
 {
 	char	*var_value;
 	int		var_not_found_flag;
@@ -107,7 +120,8 @@ int	handle_question_mark(t_shell_data *shell, char **result, int *i)
 	return (0);
 }
 
-int	handle_alpha_or_underscore(t_shell_data *shell, char *input, int *i, char **result)
+int	handle_alpha_or_underscore(t_shell_data *shell, char *input, int *i, \
+char **result)
 {
 	if (handle_variable_expansion(shell, input, i, result))
 		return (1);
@@ -224,7 +238,7 @@ int	process_char(t_shell_data *shell, char *input, int *i, char **result)
 //         No explanation needed for this function
 /*****************************************************************************/
 
-static int	initialize_and_check(t_shell_data *shell, char **result)
+int	initialize_and_check(t_shell_data *shell, char **result)
 {
 	if (initialize_expansion(shell, result))
 		return (1);
@@ -266,4 +280,3 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 	}
 	return (result);
 }
-

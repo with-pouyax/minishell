@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:52:04 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 10:57:54 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*****************************************************************************/
-//                        🚀 check_unclosed_quotes 🚀                     
+//                        🚀 check_unclosed_quotes 🚀
 /*****************************************************************************/
 // 🎯 Purpose  :  check if there is unclosed quotes
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
-//     🏷  input -> user input                         
+// 🔹 Parameters:
+//     🏷  input -> user input
 //
 // 🔄 Returns   :  1 if we have unclosed quotes 0
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using a while loop we iterate over each character in the input.
 //     2- if we find a single quote and we are not in a double quote we toggle
 //        meaning we change the value of in_single_quote to the opposite value.
@@ -21,7 +33,7 @@
 //     4- if in_single_quote or in_double_quote is true we return 1.
 /******************************************************************************/
 
-int check_unclosed_quotes(char *input)
+int	check_unclosed_quotes(char *input)
 {
 	int	in_single_quote;
 	int	in_double_quote;

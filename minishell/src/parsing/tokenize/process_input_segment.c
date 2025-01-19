@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_input_segment.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 09:57:38 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 10:01:48 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :  remove the spaces at the end of the cmd_str
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
-//     🏷  cmd_str -> cmd_str is the command string that we 
-//         have split from the whole input string                               
+// 🔹 Parameters:
+//     🏷  cmd_str -> cmd_str is the command string that we
+//         have split from the whole input string
 //
 // 🔄 Returns   :  void
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- if there is no cmd_str we return immediately.
 //     2- we find the length of the cmd_str.
 //     3- using a while loop we loop backwards over the cmd_str and  change
@@ -42,16 +54,16 @@ int	handle_command_creation_error(t_shell_data *shell,
 // 🎯 Purpose  :  turn input into commands
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  shell -> our structure
 //     🏷  i -> the index of the first non-space character in the input
 //     🏷  cmd_index -> the index of the current command
-//     🏷  last_cmd -> the last command in the linked list                               
+//     🏷  last_cmd -> the last command in the linked list
 //
 // 🔄 Returns   :  success status.
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using extract_command_string() we extract the command string from the
 //        input separated by pipes.
 //        a- if there is an error we set the error flag to 1 and return 1.
@@ -76,30 +88,30 @@ int	handle_command_creation_error(t_shell_data *shell,
 //     8- if everything is fine we return 0.
 /******************************************************************************/
 
-int process_input_segment(t_shell_data *shell, int *i, int *cmd_index,
-                          t_command **last_cmd)
+int	process_input_segment(t_shell_data *shell, int *i, int *cmd_index, \
+t_command **last_cmd)
 {
-    int start;
-    char *cmd_str;
-    t_command *cmd;
+	int					start;
+	char				*cmd_str;
+	t_command			*cmd;
 
-    start = *i;
-    (void)start;
-    *i = extract_command_string(shell->input, *i);
-    if (*i == -1)                                                
-        return (shell->error_flag = 1, 1);
-    cmd_str = ft_substr(shell->input, start, *i - start);
-    if (!cmd_str)
-    {
-        ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
-        return (shell->error_flag = 2, 1);
-    }
-    trim_trailing_spaces(cmd_str);
-    cmd = create_command(shell, cmd_str, (*cmd_index)++);        
-    if (!cmd || tokenize_command(shell, cmd))
-        return (handle_command_creation_error(shell, cmd_str, cmd));
-    add_command_to_list(shell, last_cmd, cmd);
-    if (shell->input[*i] == '|')
-        (*i)++;
-    return (0);
+	start = *i;
+	(void)start;
+	*i = extract_command_string(shell->input, *i);
+	if (*i == -1)
+		return (shell->error_flag = 1, 1);
+	cmd_str = ft_substr(shell->input, start, *i - start);
+	if (!cmd_str)
+	{
+		ft_putstr_fd("minishell: memory allocation error\n", STDERR_FILENO);
+		return (shell->error_flag = 2, 1);
+	}
+	trim_trailing_spaces(cmd_str);
+	cmd = create_command(shell, cmd_str, (*cmd_index)++);
+	if (!cmd || tokenize_command(shell, cmd))
+		return (handle_command_creation_error(shell, cmd_str, cmd));
+	add_command_to_list(shell, last_cmd, cmd);
+	if (shell->input[*i] == '|')
+		(*i)++;
+	return (0);
 }

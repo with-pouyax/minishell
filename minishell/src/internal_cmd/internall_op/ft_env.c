@@ -1,4 +1,16 @@
-// src/ft_env.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 09:39:49 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 09:40:24 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../internal_commands.h"
 
 /*
@@ -22,7 +34,7 @@ void	print_env(t_shell_data *shell)
 
 int	ft_env(t_shell_data *shell, t_command *cmd)
 {
-	int	arg_count;
+	int		arg_count;
 	t_token	*token;
 
 	token = cmd->token_list->next;

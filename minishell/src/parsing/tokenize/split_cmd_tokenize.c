@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_cmd_tokenize.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:04:15 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 10:05:22 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	count_commands_and_pipes(t_shell_data *shell)
@@ -26,13 +38,13 @@ void	handle_tokenization_failure(t_shell_data *shell)
 // 🎯 Purpose  :  turn input into commands
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
-//     🏷  shell -> our structure                                 
+// 🔹 Parameters:
+//     🏷  shell -> our structure
 //
 // 🔄 Returns   :  success status.
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- if there is no input we return 1.
 //     2- shell->input[i] is the current character in the input.
 //     3- using a while loop we iterate over the input characters.
@@ -50,9 +62,9 @@ void	handle_tokenization_failure(t_shell_data *shell)
 
 int	split_cmd_tokenize(t_shell_data *shell)
 {
-	int		i;
-	int		cmd_index;
-	t_command	*last_cmd;
+	int				i;
+	int				cmd_index;
+	t_command		*last_cmd;
 
 	i = 0;
 	cmd_index = 0;

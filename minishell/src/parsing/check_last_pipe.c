@@ -1,23 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_last_pipe.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:36:07 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 10:36:32 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
+
 /*****************************************************************************/
-//                        🚀 check_leading_pipe 🚀                     
+//                        🚀 check_leading_pipe 🚀
 /*****************************************************************************/
 // 🎯 Purpose  :  check if the input start with pipe
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
-//     🏷  input -> user input                                 
+// 🔹 Parameters:
+//     🏷  input -> user input
 //
 // 🔄 Returns   :  success status.
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- we check if the input is NULL, that means the input is empty.
 //        a- if the input is empty we return 0.
 //     2- we iterate over the input and skip the whitespaces.
 //     3- if we find a pipe at the beginning we return 1.
 //     4- if we don't find a pipe at the beginning we return 0.
 /******************************************************************************/
+
 int	check_leading_pipe(char *input)
 {
 	int	i;
@@ -31,19 +45,20 @@ int	check_leading_pipe(char *input)
 		return (1);
 	return (0);
 }
+
 /*****************************************************************************/
-//                        🚀 check_leading_pipe 🚀                     
+//                        🚀 check_leading_pipe 🚀
 /*****************************************************************************/
 // 🎯 Purpose  :  check if the input end with pipe
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
-//     🏷  input -> user input                                 
+// 🔹 Parameters:
+//     🏷  input -> user input
 //
 // 🔄 Returns   :  success status.
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- we check if the input is NULL, that means the input is empty.
 //        a- if the input is empty we return 0.
 //     2- we find the length of the input - 1.

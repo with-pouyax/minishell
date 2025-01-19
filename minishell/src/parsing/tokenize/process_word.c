@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_word.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:02:05 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 10:03:42 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 /*****************************************************************************/
@@ -281,7 +293,7 @@ int	add_token_to_command(t_command *cmd, char *word)
 
 int	set_original_value(t_command *cmd, char *original_word)
 {
-	t_token *last_token;
+	t_token	*last_token;
 
 	last_token = cmd->token_list;
 	while (last_token->next)
