@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_redirections.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:42:22 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:42:25 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*****************************************************************************/
-//                            🚀 free_redirections 🚀                     
+//                            🚀 free_redirections 🚀
 /*****************************************************************************/
 // 🎯 Purpose  :    free redirections linked list
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  redirs -> linked list of redirections
 //
 // 🔄 Returns   :  void
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using a while loop we are looping through our redirections linked
 //        list nodes one by one.
 //        a- we store the next node in next so we can free the current node

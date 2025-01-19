@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_heredoc.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:52:45 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:54:25 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*extract_var_name(char *input, int *i)
@@ -15,7 +27,9 @@ char	*extract_var_name(char *input, int *i)
 	*i += var_len;
 	return (var_name);
 }
-char	*retrieve_var_value(t_shell_data *shell, char *var_name, int *var_not_found_flag)
+
+char	*retrieve_var_value(t_shell_data *shell, char *var_name, \
+int *var_not_found_flag)
 {
 	char	*var_value;
 
@@ -35,7 +49,9 @@ char	*retrieve_var_value(t_shell_data *shell, char *var_name, int *var_not_found
 	}
 	return (var_value);
 }
-char	*get_variable_value(t_shell_data *shell, char *input, int *i, int *var_not_found_flag)
+
+char	*get_variable_value(t_shell_data *shell, char *input, int *i, \
+int *var_not_found_flag)
 {
 	char	*var_name;
 	char	*var_value;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_commands.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:45:05 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:45:36 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*
@@ -15,8 +27,8 @@ Close the saved file descriptors
 
 /*
 set_redir() :
-    handle the redirection operators in a program. 
-    Redirections determine how input and output are handled for 
+    handle the redirection operators in a program.
+    Redirections determine how input and output are handled for
     commands, such as reading from a file or writing to a file.
     -- fd_i and fd_o :
     represent the file descriptors for input (<) and output (> or >>) files.
@@ -38,7 +50,6 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 		cleanup_heredocs(cmds->redirections);
 		forking(shell, cmds);
 	}
-	// restore_org_in_out(shell->saved_stdin, shell->saved_stdout);
 	dup2(shell->saved_stdin, STDIN_FILENO);
 	dup2(shell->saved_stdout, STDOUT_FILENO);
 	close(shell->saved_stdin);

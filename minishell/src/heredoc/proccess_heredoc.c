@@ -1,29 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   proccess_heredoc.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:57:36 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:58:26 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int handle_heredoc_line(t_shell_data *shell, char *line, \
+int	handle_heredoc_line(t_shell_data *shell, char *line, \
 t_redirection *redir, int fd)
 {
-    if (g_signal.signal_status) 
-        return (free(line), 1);
-    if (ft_strcmp(line, redir->delimiter) == 0)
-        return (free(line), 1);
-    if (!redir->delimiter_quoted)
-    {
-        if (expand_and_write_line(shell, line, fd))
-            return (free(line), 1);
-    }
-    else
-    {
-        write(fd, line, ft_strlen(line));
-        write(fd, "\n", 1);
-    }
-    free(line);
-    return (0);
+	if (g_signal.signal_status)
+		return (free(line), 1);
+	if (ft_strcmp(line, redir->delimiter) == 0)
+		return (free(line), 1);
+	if (!redir->delimiter_quoted)
+	{
+		if (expand_and_write_line(shell, line, fd))
+			return (free(line), 1);
+	}
+	else
+	{
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+	}
+	free(line);
+	return (0);
 }
-
-
-
-
 
 int	initialize_heredoc(t_redirection *redir, char **tmp_filename, int *fd)
 {
@@ -42,7 +50,6 @@ int	initialize_heredoc(t_redirection *redir, char **tmp_filename, int *fd)
 	return (0);
 }
 
-
 static void	process_heredoc_lines(t_shell_data *shell, \
 t_redirection *redir, int fd)
 {
@@ -56,12 +63,12 @@ t_redirection *redir, int fd)
 		if (!line)
 		{
 			printf("minishell: warning: here-document delimited by end-of-file\
-             (wanted '%s')\n", shell->filename_or_delimiter);
-			break;
+			 (wanted '%s')\n", shell->filename_or_delimiter);
+			break ;
 		}
 		if (handle_heredoc_line(shell, line, redir, fd))
 		{
-			break;
+			break ;
 		}
 	}
 	close(fd);

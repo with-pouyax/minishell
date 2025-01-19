@@ -23,11 +23,10 @@
 //
 /******************************************************************************/
 
-int initialize_expansion(char **result, int *in_single_quote, \
-int *in_double_quote)
+int initialize_expansion(t_shell_data *shell, char **result)
 {
-    *in_single_quote = 0;
-    *in_double_quote = 0;
+    shell->in_single_quote = 0;
+    shell->in_double_quote = 0;
     *result = ft_strdup("");
     if (!*result)
 	{
@@ -37,15 +36,15 @@ int *in_double_quote)
     return (0);
 }
 
-void toggle_quotes_and_skip(char current_char, int *in_single_quote, \
-int *in_double_quote, int *i)
+void toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i)
 {
-    if (current_char == '\'' && !(*in_double_quote))
-        *in_single_quote = !(*in_single_quote);
-    else if (current_char == '\"' && !(*in_single_quote))
-        *in_double_quote = !(*in_double_quote);
+    if (current_char == '\'' && !shell->in_double_quote)
+        shell->in_single_quote = !shell->in_single_quote;
+    else if (current_char == '\"' && !shell->in_single_quote)
+        shell->in_double_quote = !shell->in_double_quote;
     (*i)++;
 }
+
 
 
 int cleanup_and_return_null(char *result)
@@ -166,16 +165,17 @@ int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result)
 
 
 
-void	handle_quote(char current_char, int *in_single_quote, \
-							int *in_double_quote, int *i)
+void	handle_quote(t_shell_data *shell, char current_char, int *i)
 {
-	toggle_quotes_and_skip(current_char, in_single_quote, in_double_quote, i);
+	toggle_quotes_and_skip(shell, current_char, i);
 }
 
+
+
 int	handle_dollar_expansion(t_shell_data *shell, char *input, \
-									int *i, char **result, int in_double_quote)
+									int *i, char **result)
 {
-	shell->double_quoted = in_double_quote;
+	shell->double_quoted = shell->in_double_quote;
 	shell->expanded = 1;
 	if (handle_dollar(shell, input, i, result))
 	{
@@ -184,6 +184,7 @@ int	handle_dollar_expansion(t_shell_data *shell, char *input, \
 	}
 	return (0);
 }
+
 
 int	handle_literal_character(char *input, int *i, char **result)
 {
@@ -195,21 +196,19 @@ int	handle_literal_character(char *input, int *i, char **result)
 	return (0);
 }
 
-int	process_char(t_shell_data *shell, char *input, \
-int *i, char **result, int *in_single_quote, int *in_double_quote)
+int	process_char(t_shell_data *shell, char *input, int *i, char **result)
 {
 	char	current_char;
 
 	current_char = input[*i];
-	if ((current_char == '\'' && !(*in_double_quote)) || \
-		(current_char == '\"' && !(*in_single_quote)))
+	if ((current_char == '\'' && !shell->in_double_quote) || \
+		(current_char == '\"' && !shell->in_single_quote))
 	{
-		handle_quote(current_char, in_single_quote, in_double_quote, i);
+		handle_quote(shell, current_char, i);
 	}
-	else if (current_char == '$' && !(*in_single_quote))
+	else if (current_char == '$' && !shell->in_single_quote)
 	{
-		if (handle_dollar_expansion(shell, input, i, result, \
-									*in_double_quote))
+		if (handle_dollar_expansion(shell, input, i, result))
 			return (1);
 	}
 	else
@@ -220,14 +219,14 @@ int *i, char **result, int *in_single_quote, int *in_double_quote)
 	return (0);
 }
 
+
 /*****************************************************************************/
 //         No explanation needed for this function
 /*****************************************************************************/
 
-static int	initialize_and_check(char **result, int *in_single_quote, \
-									int *in_double_quote)
+static int	initialize_and_check(t_shell_data *shell, char **result)
 {
-	if (initialize_expansion(result, in_single_quote, in_double_quote))
+	if (initialize_expansion(shell, result))
 		return (1);
 	return (0);
 }
@@ -256,16 +255,13 @@ char	*expand_variables_in_token(t_shell_data *shell, char *input)
 {
 	char	*result;
 	int		i;
-	int		in_single_quote;
-	int		in_double_quote;
 
-	if (initialize_and_check(&result, &in_single_quote, &in_double_quote))
+	if (initialize_and_check(shell, &result))
 		return (NULL);
 	i = 0;
 	while (input[i])
 	{
-		if (process_char(shell, input, &i, &result, \
-								&in_single_quote, &in_double_quote))
+		if (process_char(shell, input, &i, &result))
 			return (NULL);
 	}
 	return (result);

@@ -1,20 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helper_2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:51:47 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:51:54 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
+
 /*****************************************************************************/
 // 🎯 Purpose  :  skip spaces at beginning of the input
 /*****************************************************************************/
 //
-// 🔹 Parameters:                                                             
+// 🔹 Parameters:
 //     🏷  shell -> our structure
 //     🏷  i -> index of the current character in the input
 //
 // 🔄 Returns   :  void
 //
 /*****************************************************************************/
-// 💡 Notes:                                                                  
+// 💡 Notes:
 //     1- using a while loop we iterate over the input characters.
 //     2- if the current character is a whitespace we increment the index.
 //     3- if the current character is not a whitespace we stop the loop.
 /******************************************************************************/
+
 void	skip_spaces(t_shell_data *shell, int *i)
 {
 	while (shell->input[*i] && ft_isspace(shell->input[*i]))

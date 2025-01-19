@@ -1,31 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:58:47 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 01:01:24 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../internal_commands.h"
 
-int handle_cd_minus(t_shell_data *shell)
+int	handle_cd_minus(t_shell_data *shell)
 {
-    char *current_dir;
+	char	*current_dir;
 
-    if (shell->prev_dir == NULL)
-    {
-        ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
-        shell->exit_status = 1;
-        return (1);
-    }
-    current_dir = getcwd(NULL, 0);
-    if (chdir(shell->prev_dir) != 0)
-    {
-        ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-        perror(shell->prev_dir);
-        shell->exit_status = 1;
-        return (1);
-    }
-    printf("%s\n", shell->prev_dir);
-    if (current_dir)
-    {
-        free(shell->prev_dir);
-        shell->prev_dir = current_dir;
-    }
-    shell->exit_status = 0;
-    return (0);
+	if (shell->prev_dir == NULL)
+	{
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
+		shell->exit_status = 1;
+		return (1);
+	}
+	current_dir = getcwd(NULL, 0);
+	if (chdir(shell->prev_dir) != 0)
+	{
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		perror(shell->prev_dir);
+		shell->exit_status = 1;
+		return (1);
+	}
+	printf("%s\n", shell->prev_dir);
+	if (current_dir)
+	{
+		free(shell->prev_dir);
+		shell->prev_dir = current_dir;
+	}
+	shell->exit_status = 0;
+	return (0);
 }
 
 /*
@@ -91,51 +103,52 @@ int	change_to_home(t_shell_data *shell)
 */
 
 
-static int validate_path(const char *path)
+static int	validate_path(const char *path)
 {
-    if (strstr(path, "..$"))
-    {
-        ft_putstr_fd((char *)path, STDERR_FILENO);
-        ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-        return (1);
-    }
-    return (0);
+	if (strstr(path, "..$"))
+	{
+		ft_putstr_fd((char *)path, STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		return (1);
+	}
+	return (0);
 }
 
-static int update_prev_dir(t_shell_data *shell, char *current_dir)
+static int	update_prev_dir(t_shell_data *shell, char *current_dir)
 {
-    if (current_dir)
-    {
-        free(shell->prev_dir);
-        shell->prev_dir = current_dir;
-    }
-    return (0);
+	if (current_dir)
+	{
+		free(shell->prev_dir);
+		shell->prev_dir = current_dir;
+	}
+	return (0);
 }
 
-int ft_cd(t_shell_data *shell, t_command *cmd)
+int	ft_cd(t_shell_data *shell, t_command *cmd)
 {
-    t_token *token;
-    char *path;
-    char *current_dir;
+	t_token	*token;
+	char	*path;
+	char	*current_dir;
 
-    token = cmd->token_list->next;
-    if (!token)
-        return change_to_home(shell);
-    if (token->next != NULL)
-        return (ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO), shell->exit_status = 1, 1);
-    path = token->value;
-    if (validate_path(path))
-        return (shell->exit_status = 1);
-    if (strcmp(path, "-") == 0)
-        return handle_cd_minus(shell);
-    if (path[0] == '~')
-        return handle_tilde_path(shell, path);
-    current_dir = getcwd(NULL, 0);
-    if (chdir(path) != 0)
-    {
-        ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-        perror(path);
-        return (free(current_dir), shell->exit_status = 1);
-    }
-    return update_prev_dir(shell, current_dir);
+	token = cmd->token_list->next;
+	if (!token)
+		return (change_to_home(shell));
+	if (token->next != NULL)
+		return (ft_putstr_fd("minishell: cd: too many arguments\n", \
+		STDERR_FILENO), shell->exit_status = 1, 1);
+	path = token->value;
+	if (validate_path(path))
+		return (shell->exit_status = 1);
+	if (strcmp(path, "-") == 0)
+		return (handle_cd_minus(shell));
+	if (path[0] == '~')
+		return (handle_tilde_path(shell, path));
+	current_dir = getcwd(NULL, 0);
+	if (chdir(path) != 0)
+	{
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		perror(path);
+		return (free(current_dir), shell->exit_status = 1);
+	}
+	return (update_prev_dir(shell, current_dir));
 }
