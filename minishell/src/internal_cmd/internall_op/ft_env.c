@@ -10,14 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../internal_commands.h"
 
-/*
-1. Skip the command token
-2. while (token) :  Count the number of arguments provided to env
-3. while (shell->envp[i]) : No arguments provided; print all env_ variables
-*/
+/*****************************************************************************/
+// 🎯 Purpose  :  
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷   shell -> our structor
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we iterate over the envp array and print each element
+//     2- we print a newline character after each element
+/******************************************************************************/
 
 void	print_env(t_shell_data *shell)
 {
@@ -31,7 +39,29 @@ void	print_env(t_shell_data *shell)
 		i++;
 	}
 }
-
+/*****************************************************************************/
+// 🎯 Purpose  :  
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷   shell -> our structor
+//     🏷   cmd -> our command
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we store the next token in the token list in the token variable
+//        because the first token is the env command itself
+//     2- we set arg_count to 0 to count the number of arguments provided
+//     3- using a while loop, we iterate over the tokens and count the number
+//        of arguments
+//     4- if the number of arguments is greater than 0, it means we received
+//        more than one argument, so we print an error message and return 1
+//     5- if the number of arguments us 0
+//        we call the print_env function to print all the environment variables
+//	 6- we set the exit status to 0 and return 0
+/******************************************************************************/
 int	ft_env(t_shell_data *shell, t_command *cmd)
 {
 	int		arg_count;
