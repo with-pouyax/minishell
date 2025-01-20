@@ -1,0 +1,115 @@
+==1396016== Memcheck, a memory error detector
+==1396016== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1396016== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1396016== Command: /home/pghajard/Desktop/minishell/minishell/minishell
+==1396016== Parent PID: 1396015
+==1396016== 
+==1396017== 
+==1396017== Process terminating with default action of signal 13 (SIGPIPE)
+==1396017==    at 0x49DE887: write (write.c:26)
+==1396017==    by 0x4954EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==1396017==    by 0x49569E0: new_do_write (fileops.c:448)
+==1396017==    by 0x49569E0: _IO_new_do_write (fileops.c:425)
+==1396017==    by 0x49569E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==1396017==    by 0x49589C1: _IO_flush_all_lockp (genops.c:706)
+==1396017==    by 0x4958B7D: _IO_cleanup (genops.c:866)
+==1396017==    by 0x490F541: __run_exit_handlers (exit.c:134)
+==1396017==    by 0x490F60F: exit (exit.c:143)
+==1396017==    by 0x10ADBA: ft_exit_child (internal_commands.c:13)
+==1396017==    by 0x10AED6: fork_and_execute (internal_commands.c:50)
+==1396017==    by 0x10B242: execute_internal_commands (internal_commands.c:132)
+==1396017==    by 0x10D0A7: forking (external_commands.c:187)
+==1396017==    by 0x1098F1: exec_cmd (execute_commands.c:39)
+==1396017== 
+==1396017== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1396017== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1396017==    <inherited from parent>
+==1396017== 
+==1396017== Open file descriptor 44: /dev/ptmx
+==1396017==    <inherited from parent>
+==1396017== 
+==1396017== Open AF_UNIX socket 43: <unknown>
+==1396017==    <inherited from parent>
+==1396017== 
+==1396017== Open file descriptor 42: /home/pghajard/.config/Code/logs/20250115T095533/ptyhost.log
+==1396017==    <inherited from parent>
+==1396017== 
+==1396017== Open file descriptor 3: /tmp/tmp.p2x6Fw61fX/tmp_valgrind_out
+==1396017==    <inherited from parent>
+==1396017== 
+==1396017== 
+==1396017== HEAP SUMMARY:
+==1396017==     in use at exit: 12,208 bytes in 3 blocks
+==1396017==   total heap usage: 116 allocs, 113 frees, 22,000 bytes allocated
+==1396017== 
+==1396017== 4,096 bytes in 1 blocks are still reachable in loss record 2 of 3
+==1396017==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1396017==    by 0x4948BA3: _IO_file_doallocate (filedoalloc.c:101)
+==1396017==    by 0x4957CDF: _IO_doallocbuf (genops.c:347)
+==1396017==    by 0x4956CDB: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==1396017==    by 0x494A307: getdelim (iogetdelim.c:73)
+==1396017==    by 0x485C410: readline (in /home/pghajard/42_minishell_tester/utils/libintercept/libintercept.so)
+==1396017==    by 0x10DA2C: read_input (handle_input.c:83)
+==1396017==    by 0x10DC32: handle_input (handle_input.c:169)
+==1396017==    by 0x10946D: main (main.c:30)
+==1396017== 
+==1396017== 4,096 bytes in 1 blocks are still reachable in loss record 3 of 3
+==1396017==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1396017==    by 0x4948BA3: _IO_file_doallocate (filedoalloc.c:101)
+==1396017==    by 0x4957CDF: _IO_doallocbuf (genops.c:347)
+==1396017==    by 0x4956F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==1396017==    by 0x494C9F6: putchar (putchar.c:28)
+==1396017==    by 0x10C180: ft_echo (ft_echo.c:61)
+==1396017==    by 0x10B033: execute_command (internal_commands.c:89)
+==1396017==    by 0x10AE93: fork_and_execute (internal_commands.c:44)
+==1396017==    by 0x10B242: execute_internal_commands (internal_commands.c:132)
+==1396017==    by 0x10D0A7: forking (external_commands.c:187)
+==1396017==    by 0x1098F1: exec_cmd (execute_commands.c:39)
+==1396017==    by 0x109992: execution (execute_commands.c:59)
+==1396017== 
+==1396017== LEAK SUMMARY:
+==1396017==    definitely lost: 0 bytes in 0 blocks
+==1396017==    indirectly lost: 0 bytes in 0 blocks
+==1396017==      possibly lost: 0 bytes in 0 blocks
+==1396017==    still reachable: 8,192 bytes in 2 blocks
+==1396017==         suppressed: 4,016 bytes in 1 blocks
+==1396017== 
+==1396017== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+--1396017-- 
+--1396017-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1396017== 
+==1396017== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 1 from 1)
+==1396016== 
+==1396016== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1396016== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1396016==    <inherited from parent>
+==1396016== 
+==1396016== Open file descriptor 44: /dev/ptmx
+==1396016==    <inherited from parent>
+==1396016== 
+==1396016== Open AF_UNIX socket 43: <unknown>
+==1396016==    <inherited from parent>
+==1396016== 
+==1396016== Open file descriptor 42: /home/pghajard/.config/Code/logs/20250115T095533/ptyhost.log
+==1396016==    <inherited from parent>
+==1396016== 
+==1396016== Open file descriptor 3: /tmp/tmp.p2x6Fw61fX/tmp_valgrind_out
+==1396016==    <inherited from parent>
+==1396016== 
+==1396016== 
+==1396016== HEAP SUMMARY:
+==1396016==     in use at exit: 4,152 bytes in 10 blocks
+==1396016==   total heap usage: 242 allocs, 232 frees, 20,390 bytes allocated
+==1396016== 
+==1396016== LEAK SUMMARY:
+==1396016==    definitely lost: 0 bytes in 0 blocks
+==1396016==    indirectly lost: 0 bytes in 0 blocks
+==1396016==      possibly lost: 0 bytes in 0 blocks
+==1396016==    still reachable: 0 bytes in 0 blocks
+==1396016==         suppressed: 4,152 bytes in 10 blocks
+==1396016== 
+==1396016== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--1396016-- 
+--1396016-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,152 bytes in 10 blocks
+==1396016== 
+==1396016== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

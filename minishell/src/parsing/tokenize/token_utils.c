@@ -824,6 +824,10 @@ int	add_token(char *token_value, t_token **token_list,
 	return (0);
 }
 
+/*****************************************************************************/
+//                No explanation needed for this function
+/******************************************************************************/
+
 void	initialize_new_token(t_token *new_token, char *token_value, \
 int *index, int is_operator)
 {

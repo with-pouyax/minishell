@@ -12,6 +12,16 @@
 
 # include "../../minishell.h"
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+// 💡 Notes:
+//     1- if there is no commands in the shell we put the command in the
+//        commands field of the shell.
+//     2- if there is a command in the shell we put the command in the next
+//        field of the last command.
+//
+/******************************************************************************/
 void	add_command_to_list(t_shell_data *shell, t_command **last_cmd, \
 t_command *cmd)
 {

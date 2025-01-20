@@ -12,6 +12,10 @@
 
 #include "../../minishell.h"
 
+/*****************************************************************************/
+//    free all resources and exit with exit status
+/*****************************************************************************/
+
 void	handle_tokenization_error(t_shell_data *shell, int error_flag)
 {
 	if (error_flag == 1)

@@ -12,6 +12,10 @@
 
 #include "../minishell.h"
 
+/*****************************************************************************/
+//   using ft_strcmp() we compare the token with the internal commands
+/******************************************************************************/
+
 int	is_internal_command(char *token)
 {
 	if (!ft_strcmp(token, "echo") || !ft_strcmp(token, "cd")

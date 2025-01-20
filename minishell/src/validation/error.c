@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*****************************************************************************/
+//           No explanation needed for this function
+/*****************************************************************************/
 void	handle_syntax_error(t_shell_data *shell, t_token *token)
 {
 	ft_putstr_fd("minishell: syntax error unexpected token", STDERR_FILENO);
