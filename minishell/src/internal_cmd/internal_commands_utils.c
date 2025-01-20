@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   internal_commands_utils.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 09:45:32 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 09:51:04 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "internal_commands.h"
 
 int	is_allowed_char(char c)
@@ -13,23 +25,26 @@ int	is_allowed_char(char c)
 		|| c == ':');
 }
 
-int is_valid_identifier(const char *str, int allow_equals) {
-    int i = 0;
+int	is_valid_identifier(const char *str, int allow_equals)
+{
+	int	i;
 
-    if (!str || (!ft_isalpha(str[i]) && str[i] != '_'))
-        return 0;
-    while (str[i]) {
-        if (!ft_isalnum(str[i]) && str[i] != '_') 
+	i = 0;
+	if (!str || (!ft_isalpha(str[i]) && str[i] != '_'))
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-            if (allow_equals && str[i] == '=')
-                return 1;
-            return 0;
-        }
-        i++;
-    }
-    if (!allow_equals && ft_strchr(str, '='))
-        return 0;
-    return 1;
+			if (allow_equals && str[i] == '=')
+				return (1);
+			return (0);
+		}
+		i++;
+	}
+	if (!allow_equals && ft_strchr(str, '='))
+		return (0);
+	return (1);
 }
 
 char	*parse_key(const char *str)
@@ -152,6 +167,7 @@ void	add_to_env(t_shell_data *shell, const char *str)
 	char	*key;
 	int		key_len;
 	int		index;
+	int		size;
 
 	key = parse_key(str);
 	if (!key)
@@ -163,12 +179,10 @@ void	add_to_env(t_shell_data *shell, const char *str)
 	key_len = ft_strlen(key);
 	index = find_env_index(shell->envp, key, key_len);
 	if (index != -1)
-	{
 		replace_env_var(shell, index, str);
-	}
 	else
 	{
-		int	size = 0;
+		size = 0;
 		while (shell->envp[size])
 			size++;
 		add_new_env_var(shell, str, size);
@@ -196,8 +210,8 @@ int	count_env_vars(char **envp)
 
 int	is_matching_var(const char *env_var, const char *name, int name_len)
 {
-	return (ft_strncmp(env_var, name, name_len) == 0 &&
-		   (env_var[name_len] == '=' || env_var[name_len] == '\0'));
+	return (ft_strncmp(env_var, name, name_len) == 0 && \
+	(env_var[name_len] == '=' || env_var[name_len] == '\0'));
 }
 
 int	copy_env_vars(char **new_envp, char **envp, const char *name, int name_len)
@@ -278,7 +292,7 @@ static char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
 		sorted_envp[i] = ft_strdup(envp[i]);
 		if (!sorted_envp[i])
 		{
-			ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+			ft_putstr_fd("minishell: malloc failed\n", STDERR_FILENO);
 			while (--i >= 0)
 				free(sorted_envp[i]);
 			free(sorted_envp);

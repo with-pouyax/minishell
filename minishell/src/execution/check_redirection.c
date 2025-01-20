@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_redirection.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:43:38 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:44:08 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
@@ -58,6 +70,7 @@ Process C:
     Writes output normally (STDOUT).
     (when it is last cmd so not gonna do anything in check_output_redir();)
 */
+
 void	set_redirection(t_shell_data *shell, t_redirection *redir)
 {
 	int	exit_code;

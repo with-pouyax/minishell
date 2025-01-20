@@ -1,4 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tmp_file.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:58:33 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 19:58:29 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
+
+/*****************************************************************************/
+// 🎯 Purpose  :  making a file name
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//	   🏷  void
+// 🔄 Returns   :  file_name
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using ft_itoa() we convert the counter to a string and store it in
+//        counter_str.
+//        a- if there is an error we print an error message and return NULL.
+//     2- using ft_strjoin() we join the counter_str with the file name and
+//        store it in filename.
+//        a- if there is an error we print an error message
+//     3- we free the counter_str.
+//     4- we return the filename.
+//
+/******************************************************************************/
 
 char	*generate_temp_filename(void)
 {

@@ -16,6 +16,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <libgen.h>
+#include <sys/ioctl.h>
 
 
 
@@ -380,7 +381,7 @@ int handle_heredoc_redirection(
 // int	create_directory_path(const char *dir_path);
 
 
-int initialize_expansion(char **result, int *in_single_quote, int *in_double_quote);
+int initialize_expansion(t_shell_data *shell, char **result);
 int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
 int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir);
 #endif

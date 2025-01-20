@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_parent.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:44:33 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:44:41 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*
@@ -6,6 +18,7 @@
 (WIFSIGNALED(status))  ---> Terminated by a signal
 shell->exit_status = 1 ---> Fallback for unexpected cases
 */
+
 void	execute_parent(t_shell_data *shell)
 {
 	t_pid_node	*current;

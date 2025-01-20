@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   external_commands.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:46:18 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 00:46:51 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void free_argv(char **argv, int count)
+void	free_argv(char **argv, int count)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!argv)
-        return ;
-    while (i < count)
-    {
+		return ;
+	while (i < count)
+	{
 		if (argv[i])
-        {
+		{
 			free(argv[i]);
 			argv[i] = NULL;
 		}
 		i++;
 	}
-    free(argv);
+	free(argv);
 }
 
 /*
@@ -35,6 +47,7 @@ Post-Execution:
 After all commands in a pipeline are forked, the parent waits
 for all child processes using waitpid().
 */
+
 int	token_list_length(t_token *token)
 {
 	int	count;
@@ -63,49 +76,49 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 		return (NULL);
 	}
 	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
-    {
-        write_error(cmd_path, "command not found");
-        shell->exit_status = 127;
-        free(cmd_path);
-        free_argv(arr_token, token_list_length(cmds->token_list));
-        return (NULL);
-    }
+	{
+		write_error(cmd_path, "command not found");
+		shell->exit_status = 127;
+		free(cmd_path);
+		free_argv(arr_token, token_list_length(cmds->token_list));
+		return (NULL);
+	}
 	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
-    {
-        write_error(cmd_path, "Is a directory");
-        shell->exit_status = 126;
-        free(cmd_path);
-        free_argv(arr_token, token_list_length(cmds->token_list));
-        return (NULL);
-    }
+	{
+		write_error(cmd_path, "Is a directory");
+		shell->exit_status = 126;
+		free(cmd_path);
+		free_argv(arr_token, token_list_length(cmds->token_list));
+		return (NULL);
+	}
 	return (cmd_path);
 }
 
 
 int	convert_tokens_to_argv(t_token *token_list, char **argv)
 {
-    int		i;
-    t_token	*temp;
+	int		i;
+	t_token	*temp;
 
-    i = 0;
-    temp = token_list;
-    while (temp)
-    {
-        argv[i] = ft_strdup(temp->value);
-        if (!argv[i])
-        {
-            free_argv(argv, i);
-            return (-1);
-        }
-        temp = temp->next;
-        i++;
-    }
-    argv[i] = NULL;
-    return (0);
+	i = 0;
+	temp = token_list;
+	while (temp)
+	{
+		argv[i] = ft_strdup(temp->value);
+		if (!argv[i])
+		{
+			free_argv(argv, i);
+			return (-1);
+		}
+		temp = temp->next;
+		i++;
+	}
+	argv[i] = NULL;
+	return (0);
 }
 
 /*
-We need to close all the pipes in the child process because: we already 
+We need to close all the pipes in the child process because: we already
 changed the stdout and stdin inside set_redirs and set_pipes()
 
  If execve call is successful, the following lines are never executed
@@ -137,29 +150,29 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	int token_count;
 
 	token_count = token_list_length(cmds->token_list);
-    arr_token = malloc(sizeof(char *) * (token_count + 1));
-    if (!arr_token)
-    {
-        write_error("Memory allocation failed", strerror(errno));
-        return;
-    }
-    if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
-    {
-        free(arr_token);
-        return ;
-    }
-    if (!arr_token[0])
-    {
-        free(arr_token);
-        return ;
-    }
+	arr_token = malloc(sizeof(char *) * (token_count + 1));
+	if (!arr_token)
+	{
+		write_error("Memory allocation failed", strerror(errno));
+		return;
+	}
+	if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
+	{
+		free(arr_token);
+		return ;
+	}
+	if (!arr_token[0])
+	{
+		free(arr_token);
+		return ;
+	}
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
-    {
+	{
 		//free(cmd_path);
-        // free(arr_token);
-        return;
-    }
+		// free(arr_token);
+		return;
+	}
 	pid = fork();
 	if (pid < 0)
 	{

@@ -1,6 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_env.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:43:29 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 10:44:26 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-static void	free_envp_copy(char **new_envp, int i)
+/*****************************************************************************/
+//                              🚀 free_envp_copy 🚀
+/*****************************************************************************/
+// 🎯 Purpose  :   to free the memory allocated for the new_envp array in
+//				   case of failure.
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  envp  ->  envp is an array of strings that represent the
+//		   environment variables in the form of "key=value"
+//	   🏷  i     ->  i is the index of the new_envp array that we want to free.
+//
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+//
+// 💡 Notes:
+//     1- we loop through the new_envp array and free the memory allocated for
+//	   each string.
+/******************************************************************************/
+
+void	free_envp_copy(char **new_envp, int i)
 {
 	int	j;
 
@@ -13,23 +47,22 @@ static void	free_envp_copy(char **new_envp, int i)
 	free(new_envp);
 }
 
-/******************************************************************************/  
-//                              🚀 copy_envp 🚀                                         
-/******************************************************************************/
+/*****************************************************************************/
+//                              🚀 copy_envp 🚀
+/*****************************************************************************/
 // 🎯 Purpose  :   copy envp
-/******************************************************************************/
-
-// 🔹 Parameters:                                                             
-//     🏷  envp  ->  envp is an array of strings that represent the 
-//		   environment variables in the form of "key=value"                                          
-
-
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  envp  ->  envp is an array of strings that represent the
+//		   environment variables in the form of "key=value"
+//
+//
 // 🔄 Returns   :  new_envp
-
-/******************************************************************************/
-
-// 💡 Notes:                                                                  
-//     1- if envp is NULL (no environment variables) or envp[0] is NULL (no 
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- if envp is NULL (no environment variables) or envp[0] is NULL (no
 //	   environment variables) we exit with failure.
 //	   2- we count the number of environment variables.
 //	   3- we allocate memory for the new_envp array with the size of the
@@ -39,14 +72,13 @@ static void	free_envp_copy(char **new_envp, int i)
 //	   5- if the copy fails we free the memory allocated for the new_envp array
 //	   using the free_envp_copy function and return NULL.
 //	   6- we NULL terminate the new_envp array.
-//	   7- we return the new_envp array.                
-//     
+//	   7- we return the new_envp array.
 /******************************************************************************/
 
-char	**copy_envp(char **envp) 
+char	**copy_envp(char **envp)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
 	char	**new_envp;
 
 	count = 0;

@@ -1,77 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   internal_commands.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 09:51:57 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/19 09:56:50 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "internal_commands.h"
 
 int	ft_exit_child(t_shell_data *shell, t_command *cmd)
 {
-    (void)cmd;
-	int		exit_status;
+	int	exit_status;
 
+	(void)cmd;
 	exit_status = shell->exit_status;
 	cleanup(shell);
 	rl_clear_history();
-    close(shell->saved_stdin);
-    close(shell->saved_stdout);
+	close(shell->saved_stdin);
+	close(shell->saved_stdout);
 	exit(exit_status);
 }
-void free_pid_list(t_shell_data *shell)
+void	free_pid_list(t_shell_data *shell)
 {
-    t_pid_node *current;
-    t_pid_node *next;
+	t_pid_node	*current;
+	t_pid_node	*next;
 
-    current = shell->pid_list;
-    while (current != NULL)
-    {
-        next = current->next;
-        free(current);
-        current = next;
-    }
-    shell->pid_list = NULL;
+	current = shell->pid_list;
+	while (current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	shell->pid_list = NULL;
 }
 
 
-int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
+int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 {
-    pid_t pid;
+	pid_t	pid;
 
-    signal(SIGPIPE, SIG_IGN);
-    pid = fork();
-    if (pid < 0)
-    {
-        write_error("Fork failed", strerror(errno));
-        return (-1);
-    }
-    else if (pid == 0)
-    {
-        close_all_pipes(shell->pipes, shell->cmds_nb);
-        if (execute_command(shell, cmds, token, 0) == -1)
-        {
-            free_pid_list(shell);
-            ft_exit_child(shell, cmds);
-        }
-        free_pid_list(shell);
-        ft_exit_child(shell, cmds);
-    }
-    else
-        store_pids(shell, pid);
-    return (0);
+	signal(SIGPIPE, SIG_IGN);
+	pid = fork();
+	if (pid < 0)
+	{
+		write_error("Fork failed", strerror(errno));
+		return (-1);
+	}
+	else if (pid == 0)
+	{
+		close_all_pipes(shell->pipes, shell->cmds_nb);
+		if (execute_command(shell, cmds, token, 0) == -1)
+		{
+			free_pid_list(shell);
+			ft_exit_child(shell, cmds);
+		}
+		free_pid_list(shell);
+		ft_exit_child(shell, cmds);
+	}
+	else
+		store_pids(shell, pid);
+	return (0);
 }
 
 
-int execute_parent_command(t_shell_data *shell, t_command *cmds, \
+int	execute_parent_command(t_shell_data *shell, t_command *cmds, \
 t_token *token)
 {
-    if (!shell || !cmds || !token)
-        return (-1);
-    if(shell->cmds_nb > 1)
-        return (1);
-    return (execute_command(shell, cmds, token, 0));
+	if (!shell || !cmds || !token)
+		return (-1);
+	if (shell->cmds_nb > 1)
+		return (1);
+	return (execute_command(shell, cmds, token, 0));
 }
 
-int is_parent_command(const char *cmd)
+int	is_parent_command(const char *cmd)
 {
-    return (ft_strcmp(cmd, "cd") == 0 ||
-            ft_strcmp(cmd, "exit") == 0 ||
-            ft_strcmp(cmd, "export") == 0 ||
-            ft_strcmp(cmd, "unset") == 0);
+	return (ft_strcmp(cmd, "cd") == 0 || \
+	ft_strcmp(cmd, "exit") == 0 || \
+	ft_strcmp(cmd, "export") == 0 || \
+	ft_strcmp(cmd, "unset") == 0);
 }
 
 
@@ -79,11 +91,11 @@ int is_parent_command(const char *cmd)
 shell->exit_status = ret
 ----> Set global exit status based on command return value
 */
-int	execute_command(t_shell_data *shell, t_command *cmd,
-				t_token *token, int ret)
+int	execute_command(t_shell_data *shell, t_command *cmd, \
+t_token *token, int ret)
 {
 	if (!shell || !cmd || !token)
-        return (-1);
+		return (-1);
 	if (ft_strcmp(token->value, "echo") == 0)
 		ret = ft_echo(shell, cmd);
 	else if (ft_strcmp(token->value, "cd") == 0)
@@ -108,31 +120,31 @@ int	execute_command(t_shell_data *shell, t_command *cmd,
 	return (ret);
 }
 
-int execute_internal_commands(t_shell_data *shell, t_command *cmds)
+int	execute_internal_commands(t_shell_data *shell, t_command *cmds)
 {
-    t_token *token;
+	t_token	*token;
 
-    if (!cmds || !cmds->token_list)
-    {
+	if (!cmds || !cmds->token_list)
+	{
 		return (0);
 	}
-    token = cmds->token_list;
-    while (token)
-    {
-        if (token->is_command)
-        {
+	token = cmds->token_list;
+	while (token)
+	{
+		if (token->is_command)
+		{
 			if (is_parent_command(token->value))
-            {
-                if (execute_parent_command(shell, cmds, token) == -1)
-                    return (-1);
-            }
+			{
+				if (execute_parent_command(shell, cmds, token) == -1)
+					return (-1);
+			}
 			else
-            {
+			{
 				if (fork_and_execute(shell, cmds, token) == -1)
-                    return (-1);
-            }
-        }
-        token = token->next;
-    }
-    return 0;
+					return (-1);
+			}
+		}
+		token = token->next;
+	}
+	return (0);
 }
