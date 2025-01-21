@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 01:02:00 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 12:52:55 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 16:46:15 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "../../../includes/builtins.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :
@@ -76,6 +76,7 @@ size_t	ft_strspn(const char *str1, const char *str2)
 //        equal to the number of n characters, it means the value is not a valid
 //        n flag, so we return 0
 /******************************************************************************/
+
 int	is_valid_n_flag(const char *value)
 {
 	if (value[0] != '-')
