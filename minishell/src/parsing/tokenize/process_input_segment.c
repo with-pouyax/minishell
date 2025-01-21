@@ -41,6 +41,10 @@ void	trim_trailing_spaces(char *cmd_str)
 		cmd_str[--len] = '\0';
 }
 
+/*****************************************************************************/
+//          No explanation needed for this function
+/******************************************************************************/
+
 int	handle_command_creation_error(t_shell_data *shell,
 				char *cmd_str, t_command *cmd)
 {

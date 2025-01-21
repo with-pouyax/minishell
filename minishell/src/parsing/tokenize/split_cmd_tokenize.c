@@ -12,6 +12,10 @@
 
 #include "../../minishell.h"
 
+/*****************************************************************************/
+//    count the number of commands and pipes
+/*****************************************************************************/
+
 void	count_commands_and_pipes(t_shell_data *shell)
 {
 	int			cmd_count;
@@ -27,6 +31,10 @@ void	count_commands_and_pipes(t_shell_data *shell)
 	shell->cmds_nb = cmd_count;
 	shell->pipe_nb = cmd_count - 1;
 }
+
+/*****************************************************************************/
+//    free all resources and return 1
+/*****************************************************************************/
 
 void	handle_tokenization_failure(t_shell_data *shell)
 {

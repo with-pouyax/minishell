@@ -12,6 +12,24 @@
 
 #include "../minishell.h"
 
+/*****************************************************************************/
+// 🎯 Purpose  :  
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷   shell ->
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using a while loop we iterate over the commands.
+//        a- the token is operator we check if it is a valid operator.
+//           I- if it is not a valid operator we call handle_syntax_error() and
+// 			return 1.
+//     2- if there is no error we return 0.
+/******************************************************************************/
+
 int	validate_tokens_in_command(t_shell_data *shell, t_command *cmd)
 {
 	t_token		*token;
@@ -31,6 +49,26 @@ int	validate_tokens_in_command(t_shell_data *shell, t_command *cmd)
 	}
 	return (0);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :  
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷   shell ->
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we iterate over the commands using a while loop.
+//        a- using validate_tokens_in_command() we validate the tokens in the
+//           command.
+//      2- if there is an error
+//        a- we free the commands.
+//        b- we set the commands to NULL.
+//        c- we return success status.
+/******************************************************************************/
 
 int	validate_operators(t_shell_data *shell)
 {

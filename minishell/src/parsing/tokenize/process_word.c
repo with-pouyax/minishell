@@ -236,6 +236,11 @@ int	free_word_and_return(char *word, int ret)
 	return (ret);
 }
 
+/*****************************************************************************/
+//          No explanation needed for this function
+/*****************************************************************************/
+
+
 int	free_original_and_expanded_and_return(char *original_word, \
 char *expanded_word, int ret)
 {
@@ -296,7 +301,24 @@ int	add_token_to_command(t_command *cmd, char *word)
 		return (1);
 	return (0);
 }
-
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  cmd   -> our command linked list
+//     🏷  original_word -> the original word
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using a while loop we iterate backwards over the command and free
+//        each token.
+//     2- we free the original word.
+//     3- we return 0.
+//
+/******************************************************************************/
 int	set_original_value(t_command *cmd, char *original_word)
 {
 	t_token	*last_token;
@@ -350,13 +372,20 @@ int *i, char **expanded_word)
 	free(word);
 	return (0);
 }
-
+/*****************************************************************************/
+//       using a while loop we iterate backwards over the command and free
+//       each token.
+/*****************************************************************************/
 void	free_expanded_word_arr(char **expanded_word_arr, int j)
 {
 	while (j > 0)
 		free(expanded_word_arr[--j]);
 	free(expanded_word_arr);
 }
+
+/*****************************************************************************/
+//             free all resources and return 1
+/*****************************************************************************/
 
 int	handle_token_addition_failure(char **expanded_word_arr, int j, \
 char *expanded_word, char *original_word)
@@ -493,6 +522,29 @@ char *expanded_word, char *original_word)
 	shell->double_quoted = 0;
 	return (0);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//     🏷  cmd   -> our command linked list
+//     🏷  expanded_word -> the expanded word
+//     🏷  original_word -> the original word
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using add_token_to_command() we add the expanded word to the command.
+//        a- if there is we return free_original_and_expanded_and_return() and
+//           return its return value.
+//     2- using set_original_value() we set the original value of the command.
+//        a- if there is an error we return 1.
+//     3- at the end we return 0.
+//
+/******************************************************************************/
 
 int	handle_non_expanded(t_shell_data *shell, t_command *cmd, \
 char *expanded_word, char *original_word)

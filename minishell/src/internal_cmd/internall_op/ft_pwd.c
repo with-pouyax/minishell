@@ -13,6 +13,26 @@
 
 #include "../internal_commands.h"
 
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//     🏷  cmd -> our command structure
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using getcwd() we get the current working directory.
+//     2- if there it was successful we print the current working directory
+//        and set the exit status to 0.
+//     3- if there was an error we print an error message and set the exit
+//        status to 1.
+//
+//
+/******************************************************************************/
 
 int	ft_pwd(t_shell_data *shell, t_command *cmd)
 {
