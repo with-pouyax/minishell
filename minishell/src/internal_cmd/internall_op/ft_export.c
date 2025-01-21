@@ -6,12 +6,37 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:42:44 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 09:42:45 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 00:04:12 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../internal_commands.h"
+
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we go to the next token in the command because the first token is
+//        the command itself.
+//        a- if there is no token we print the sorted environment and return 0.
+//     2- we loop through the tokens using a while loop.
+//        a- using is_valid_identifier() we check if the token is a valid
+//           identifier.(meaning it does not contain any special characters)
+//           i- if it is a valid identifier we add it to the environment using
+//              add_to_env().
+//        b- if is not a valid identifier we print an error message and 
+//        return 1.
+//     3- we return 0.
+/******************************************************************************/
 
 int	ft_export(t_shell_data *shell, t_command *cmd)
 {

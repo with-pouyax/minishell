@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:45:32 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 09:51:04 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 01:23:51 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,32 @@ int	is_allowed_char(char c)
 		|| c == '='
 		|| c == ':');
 }
-
+/*****************************************************************************/
+// 🎯 Purpose  :  we use this function to check if the string is a valid 
+//                identifier, meaning it does not contain any special 
+//                characters except for the underscore and the equals sign.
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  str
+//     🏷  allow_equals
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-  if the string in not exist or first character is not a letter or
+//         underscore we return 0.
+//     2-  we loop through the string using a while loop.
+//         a-  if the character is not a letter, digit or underscore
+//             I- if allow_equals is true and the character is '=' we return 1.
+//             II- if allow_equals is false we return 0.
+//     3-  now that we are done with the loop if allow_equals is false and
+//         the string contains '=' we return 0.
+//     4-  we return 1.
+//
+//   
+/******************************************************************************/
 int	is_valid_identifier(const char *str, int allow_equals)
 {
 	int	i;
@@ -46,6 +71,21 @@ int	is_valid_identifier(const char *str, int allow_equals)
 		return (0);
 	return (1);
 }
+
+/*****************************************************************************/
+// 🎯 Purpose  :  
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  str
+//     🏷  shell
+//
+// 🔄 Returns   :  
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-
+/******************************************************************************/
 
 char	*parse_key(const char *str)
 {
@@ -160,7 +200,32 @@ void	add_new_env_var(t_shell_data *shell, const char *str, int current_size)
 		return ;
 	handle_new_env_var(shell, str, current_size, new_var);
 }
-
+/*****************************************************************************/
+// 🎯 Purpose  :  
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  str
+//     🏷  shell
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-  we parse the key from the string using parse_key().
+//     2-  if there is an error parsing the key we print an error message
+//         and return.
+//     3-  we get the length of the key using ft_strlen() and store it in
+//         key_len.
+//     4-  we find the index of the environment variable using find_env_index()
+//         a-  if the index is not -1 means the environment variable exists
+//             I-  we replace the environment variable using replace_env_var().
+//         b-  if the index is -1 means the environment variable does not exist
+//			    I-  we add the new environment variable using add_new_env_var()
+//	   5-  we free the key.
+//
+//   
+/******************************************************************************/
 
 void	add_to_env(t_shell_data *shell, const char *str)
 {
@@ -264,6 +329,10 @@ void	remove_from_env(t_shell_data *shell, const char *name)
 	handle_remove_env(shell, name);
 }
 
+/*****************************************************************************/
+//             using a while loop iterate through the environment
+//             variables and count the number of variables.
+/*****************************************************************************/
 
 static int	get_env_size(char **envp)
 {
@@ -274,6 +343,39 @@ static int	get_env_size(char **envp)
 		size++;
 	return (size);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell ->
+//     🏷  env_size ->
+//     🏷  envp ->
+//
+// 🔄 Returns   :  sorted envp
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- we allocate memory for the sorted environment variables.
+//     2- if there is an error allocating memory we print an error message
+//        and return NULL.
+//     3- we loop through the environment variables using a while loop.
+//        a- we duplicate the environment variable from the original 
+//        environment variables to the sorted environment variables.
+//        b- if there is an error duplicating the environment variable we
+//           print an error message and using a while loop we free the
+//           environment variables array backwards and return NULL.
+//        c- we free the sorted_envp array and return NULL.
+//     4- now that the loop is done and we have duplicated all the environment
+//        variables we set the last element of the sorted environment variables
+//        to NULL.
+//     5- we return the sorted environment variables.
+// 
+//     we need to duplicate the environment variables because we need to sort
+//     them and we don't want to modify the original environment variables.
+//     we need to sort the environment variables because we need to print them
+//     in a sorted order.
+/******************************************************************************/
 
 static char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
 {
@@ -303,6 +405,29 @@ static char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
 	sorted_envp[env_size] = NULL;
 	return (sorted_envp);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  envp ->
+//     🏷  env_size ->
+//
+//
+// 🔄 Returns   :  success status.
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-  using a while loop we iterate through the environment variables.
+//         a-  using a nested while loop we iterate through the environment
+//             variables starting second element.
+//         b- using ft_strcmp() we compare the two environment variables, if
+//            they ft_strcmp() returns a positive number means the two strings
+//            are not in the correct order because the first string is greater
+//            than the second string so we swap the two strings.
+//            - here i am actually sorting the environment variables in
+//              sorting algorithm called bubble sort.
+/******************************************************************************/
 
 static void	sort_envp(char **envp, int env_size)
 {
@@ -328,6 +453,13 @@ static void	sort_envp(char **envp, int env_size)
 	}
 }
 
+/*****************************************************************************/
+//  using a while loop we iterate through the environment variables and print
+//  them using printf() with the format "declare -x %s\n".
+//  we used declare -x to print the environment variables in the format that
+//  bash uses.
+/******************************************************************************/
+
 static void	print_and_free_envp(char **envp)
 {
 	int	i;
@@ -341,6 +473,24 @@ static void	print_and_free_envp(char **envp)
 	}
 	free(envp);
 }
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷  shell -> our structure
+//
+// 🔄 Returns   :  void
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1-  we get the size of the environment using get_env_size().
+//     2-  we duplicate the environment using duplicate_envp().
+//        a- if there is an error making the duplicate we return.
+//     3-  we sort the environment using sort_envp().
+//     4-  we print the environment using print_and_free_envp().
+//     5-  we set the exit status to 0.
+/******************************************************************************/
 
 void	print_sorted_env(t_shell_data *shell)
 {
