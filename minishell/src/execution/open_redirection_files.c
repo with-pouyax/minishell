@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 // Function to create directories in the path if they don't exist
 #include <sys/stat.h>
@@ -10,7 +10,7 @@
 
 
 /*
- If -2 then no file has been opened otherwise it means, another file is about 
+ If -2 then no file has been opened otherwise it means, another file is about
  to be opened and we need to close the previous one
  example: command < file1 < file2 > file3 > file4
    The last input redirection (< file2) will be the one that is actually used.

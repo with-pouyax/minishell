@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 int	**init_pipes(int cmds_nb)
 {

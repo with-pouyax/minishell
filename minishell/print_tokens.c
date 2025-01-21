@@ -1,4 +1,4 @@
-#include "src/minishell.h"
+#include "includes/minishell.h"
 
 void print_horizontal_line(int length) {
     for (int i = 0; i < length; i++)
@@ -83,7 +83,7 @@ void	print_token_details(t_token *token)
 		print_command_token(token);
 	if (token->is_flag)
 		printf(" - This is a flag.\n");
-    
+
     if (token->original_value)
         printf("    - Original Value: '%s'\n", token->original_value);
 }
@@ -245,7 +245,7 @@ void print_commands(t_shell_data *shell)
 //         {
 //             printf("execute_commands: Function called.\n");
 //             printf("  Token #%d: '%s'\n", token->index, token->value);
-            
+
 //             // Detailed Token Properties
 //             if (token->is_command)
 //                 printf("    - Type: Command\n");

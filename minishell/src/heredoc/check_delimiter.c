@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:52:06 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 19:37:20 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 15:35:33 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :   here we check if the delimiter is quoted or not.

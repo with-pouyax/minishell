@@ -3,11 +3,12 @@
 
 // For PATH_MAX
 # include <limits.h>
-# include "../src/minishell.h"
+# include "minishell.h"
 
 /* Internal Command Functions */
 int	ft_echo(t_shell_data *shell, t_command *cmd);
 int	ft_cd(t_shell_data *shell, t_command *cmd);
+int	validate_path(const char *path);
 int	ft_pwd(t_shell_data *shell, t_command *cmd);
 int	ft_export(t_shell_data *shell, t_command *cmd);
 int	ft_unset(t_shell_data *shell, t_command *cmd);
@@ -30,8 +31,8 @@ void	print_and_free_env(char **sorted_envp);
 void	add_to_env(t_shell_data *shell, const char *str);
 void	remove_from_env(t_shell_data *shell, const char *name);
 void	print_sorted_env(t_shell_data *shell);
-int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
-int execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token);
+int     fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
+int     execute_parent_command(t_shell_data *shell, t_command *cmds, t_token *token);
 int is_parent_command(const char *cmd);
 int	execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret);
 int	ft_exit_child(t_shell_data *shell, t_command *cmd);

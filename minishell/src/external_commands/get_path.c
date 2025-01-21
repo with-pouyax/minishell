@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 // Join two strings and free the first one after joining
 char	*join_path(const char *prefix, const char *suffix)

@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:55:00 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 21:27:32 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 15:35:53 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	skip_until_operator_or_space(char *input, int *i)
 {

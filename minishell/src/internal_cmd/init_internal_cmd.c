@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:45:02 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 09:45:14 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 15:36:54 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 /*****************************************************************************/
 //   using ft_strcmp() we compare the token with the internal commands

@@ -45,6 +45,7 @@ SRCS            = src/main.c\
                   src/internal_cmd/internal_commands.c\
                   src/internal_cmd/internal_commands_utils.c\
                   src/builtins/ft_cd.c\
+				  src/builtins/ft_cd_utils.c\
                   src/builtins/handle_cd_errors.c \
                   src/builtins/ft_echo.c\
                   src/builtins/ft_env.c\

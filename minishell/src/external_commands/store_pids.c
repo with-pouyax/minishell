@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 void	store_pids(t_shell_data *shell, pid_t pid)
 {

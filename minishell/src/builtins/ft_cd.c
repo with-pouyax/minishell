@@ -6,11 +6,90 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:58:47 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 12:52:38 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 16:01:20 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
+
+/*****************************************************************************/
+//              No explanation needed
+/******************************************************************************/
+
+static int	update_prev_dir(t_shell_data *shell, char *current_dir)
+{
+	if (current_dir)
+	{
+		free(shell->prev_dir);
+		shell->prev_dir = current_dir;
+	}
+	return (0);
+}
+
+/*****************************************************************************/
+// 🎯 Purpose  :
+/*****************************************************************************/
+//
+// 🔹 Parameters:
+//     🏷   shell -> our structor
+//    🏷   path -> our path
+//
+// 🔄 Returns   :  success status
+//
+/*****************************************************************************/
+// 💡 Notes:
+//     1- using getenv_from_envp function we get the value of the HOME
+//        environment variable and store it in the home variable
+//     2- if the home variable is NULL, it means the HOME environment
+//        variable is not set, so we call handle_no_home function
+//        and return the value of the function
+//     3- if the path is second character is \0, it means the path is "~"
+//        so using ft_strdup(home) we duplicate the home variable and
+//        store it in the expanded_path variable
+//     4- if the path is second character is "/", it means the path is "~/"
+//        which means the home directory, so using ft_strjoin(home, &path[1])
+//        we join the ~ and / and store it in the expanded_path variable so
+//        basically we store ~/ in the expanded_path variable
+//     5- if the path is none of the above, it means the path is invalid
+//        so we print an error message and return 1
+//     6- if there is no expanded_path, it means there is a memory error
+//        so we call handle_memory_error function and return the value of
+//        the function
+//     7- using chdir(expanded_path) we change the directory to the
+//        expanded_path and if the chdir function returns an error, we
+//        call handle_chdir_error function and return the value of the function
+//     8- if the chdir function is successful, we free the expanded_path
+//        and set the exit status to 0 and return 0
+
+/******************************************************************************/
+
+int	handle_tilde_path(t_shell_data *shell, char *path)
+{
+	char	*home;
+	char	*expanded_path;
+
+	home = getenv_from_envp(shell, "HOME");
+	if (!home)
+		return (handle_no_home(shell));
+	if (path[1] == '\0')
+		expanded_path = ft_strdup(home);
+	else if (path[1] == '/')
+		expanded_path = ft_strjoin(home, &path[1]);
+	else
+	{
+		write_error(path, "\n");
+		shell->exit_status = 1;
+		return (1);
+	}
+	if (!expanded_path)
+		return (handle_memory_error(shell));
+	if (chdir(expanded_path) != 0)
+		return (handle_chdir_error(shell, expanded_path));
+	free(expanded_path);
+	shell->exit_status = 0;
+	return (0);
+}
+
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -71,68 +150,6 @@ int	handle_cd_minus(t_shell_data *shell)
 //
 // 🔹 Parameters:
 //     🏷   shell -> our structor
-//    🏷   path -> our path
-//
-// 🔄 Returns   :  success status
-//
-/*****************************************************************************/
-// 💡 Notes:
-//     1- using getenv_from_envp function we get the value of the HOME
-//        environment variable and store it in the home variable
-//     2- if the home variable is NULL, it means the HOME environment
-//        variable is not set, so we call handle_no_home function
-//        and return the value of the function
-//     3- if the path is second character is \0, it means the path is "~"
-//        so using ft_strdup(home) we duplicate the home variable and
-//        store it in the expanded_path variable
-//     4- if the path is second character is "/", it means the path is "~/"
-//        which means the home directory, so using ft_strjoin(home, &path[1])
-//        we join the ~ and / and store it in the expanded_path variable so
-//        basically we store ~/ in the expanded_path variable
-//     5- if the path is none of the above, it means the path is invalid
-//        so we print an error message and return 1
-//     6- if there is no expanded_path, it means there is a memory error
-//        so we call handle_memory_error function and return the value of
-//        the function
-//     7- using chdir(expanded_path) we change the directory to the
-//        expanded_path and if the chdir function returns an error, we
-//        call handle_chdir_error function and return the value of the function
-//     8- if the chdir function is successful, we free the expanded_path
-//        and set the exit status to 0 and return 0
-
-/******************************************************************************/
-int	handle_tilde_path(t_shell_data *shell, char *path)
-{
-	char	*home;
-	char	*expanded_path;
-
-	home = getenv_from_envp(shell, "HOME");
-	if (!home)
-		return (handle_no_home(shell));
-	if (path[1] == '\0')
-		expanded_path = ft_strdup(home);
-	else if (path[1] == '/')
-		expanded_path = ft_strjoin(home, &path[1]);
-	else
-	{
-		write_error(path, "\n");
-		shell->exit_status = 1;
-		return (1);
-	}
-	if (!expanded_path)
-		return (handle_memory_error(shell));
-	if (chdir(expanded_path) != 0)
-		return (handle_chdir_error(shell, expanded_path));
-	free(expanded_path);
-	shell->exit_status = 0;
-	return (0);
-}
-/*****************************************************************************/
-// 🎯 Purpose  :
-/*****************************************************************************/
-//
-// 🔹 Parameters:
-//     🏷   shell -> our structor
 //
 // 🔄 Returns   :  success status
 //
@@ -148,6 +165,7 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 //     4- if the chdir function is successful, we set the exit status to 0
 //        and return 0
 /******************************************************************************/
+
 int	change_to_home(t_shell_data *shell)
 {
 	char	*home;
@@ -166,47 +184,6 @@ int	change_to_home(t_shell_data *shell)
 		return (1);
 	}
 	shell->exit_status = 0;
-	return (0);
-}
-
-
-/*****************************************************************************/
-// 🎯 Purpose  :
-/*****************************************************************************/
-//
-// 🔹 Parameters:
-//     🏷   path ->
-//
-// 🔄 Returns   :  success status
-//
-/*****************************************************************************/
-// 💡 Notes:
-//     1- if the path contains "..$", it means the path is invalid
-//        and we print an error message and return 1
-//     2- if the path is valid, we return 0
-/******************************************************************************/
-static int	validate_path(const char *path)
-{
-	if (strstr(path, "..$"))
-	{
-		ft_putstr_fd((char *)path, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		return (1);
-	}
-	return (0);
-}
-
-/*****************************************************************************/
-//              No explanation needed
-/******************************************************************************/
-
-static int	update_prev_dir(t_shell_data *shell, char *current_dir)
-{
-	if (current_dir)
-	{
-		free(shell->prev_dir);
-		shell->prev_dir = current_dir;
-	}
 	return (0);
 }
 

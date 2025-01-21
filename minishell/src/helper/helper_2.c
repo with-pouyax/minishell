@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:51:47 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 12:02:56 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 15:35:24 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :  skip spaces at beginning of the input
