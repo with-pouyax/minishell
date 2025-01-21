@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:45:32 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 09:45:01 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/21 12:55:47 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal_commands.h"
+#include "../../includes/builtins.h"
 
 int	is_allowed_char(char c)
 {

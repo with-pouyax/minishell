@@ -44,14 +44,14 @@ SRCS            = src/main.c\
                   src/internal_cmd/init_internal_cmd.c\
                   src/internal_cmd/internal_commands.c\
                   src/internal_cmd/internal_commands_utils.c\
-                  src/internal_cmd/internall_op/ft_cd.c\
-                  src/internal_cmd/internall_op/handle_cd_errors.c \
-                  src/internal_cmd/internall_op/ft_echo.c\
-                  src/internal_cmd/internall_op/ft_env.c\
-                  src/internal_cmd/internall_op/ft_exit.c\
-                  src/internal_cmd/internall_op/ft_export.c\
-                  src/internal_cmd/internall_op/ft_pwd.c\
-                  src/internal_cmd/internall_op/ft_unset.c\
+                  src/builtins/ft_cd.c\
+                  src/builtins/handle_cd_errors.c \
+                  src/builtins/ft_echo.c\
+                  src/builtins/ft_env.c\
+                  src/builtins/ft_exit.c\
+                  src/builtins/ft_export.c\
+                  src/builtins/ft_pwd.c\
+                  src/builtins/ft_unset.c\
                   src/execution/open_files.c\
                   src/external_commands/external_commands.c\
                   src/external_commands/get_path.c\

@@ -63,6 +63,7 @@
     "readline.h": "c",
     "stdio.h": "c",
     "stdlib.h": "c",
-    "cstdlib": "c"
+    "cstdlib": "c",
+    "builtins.h": "c"
 }
 }
