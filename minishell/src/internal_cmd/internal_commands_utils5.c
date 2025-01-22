@@ -6,11 +6,11 @@
 /*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:56:39 by pghajard          #+#    #+#             */
-/*   Updated: 2025/01/22 12:56:58 by pghajard         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:12:11 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "../../includes/minishell.h"
 
 /*****************************************************************************/
 //      No explanation needed for this function

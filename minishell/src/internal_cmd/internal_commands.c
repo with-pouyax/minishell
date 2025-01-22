@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   internal_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:51:57 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 12:55:24 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/22 18:10:16 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "../../includes/minishell.h"
 
 int	ft_exit_child(t_shell_data *shell, t_command *cmd)
 {

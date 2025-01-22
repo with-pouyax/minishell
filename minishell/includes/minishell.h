@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -134,7 +135,6 @@ typedef struct s_parse_context
 	t_redirection	*redir;
 }					t_parse_context;
 
-#include"../includes/builtins.h"
 
 /* ************************************************************************* */
 /*                                   cleanup                                 */
@@ -799,5 +799,45 @@ void print_commands(t_shell_data *shell);
 /* ************************************************************************* */
 /*                                  THE END                                  */
 /* ************************************************************************* */
+
+
+
+
+
+
+
+/* ************************************************************************* */
+/*                                  builtins                                  */
+/* ************************************************************************* */
+
+int	ft_echo(t_shell_data *shell, t_command *cmd);
+int	ft_cd(t_shell_data *shell, t_command *cmd);
+int	validate_path(const char *path);
+int	ft_pwd(t_shell_data *shell, t_command *cmd);
+int	ft_export(t_shell_data *shell, t_command *cmd);
+int	ft_unset(t_shell_data *shell, t_command *cmd);
+int	ft_env(t_shell_data *shell, t_command *cmd);
+int	ft_exit_shell(t_shell_data *shell, t_command *cmd);
+int	str_to_long_long(const char *str, long long *result);
+int	initialize_conversion(const char **str, int *sign);
+int	parse_number(const char *str, long long *num, int sign);
+void	print_exit_error2(char *format, char *arg, int *exit_status, int code);
+int	is_numeric(const char *str);
+int	handle_chdir_error(t_shell_data *shell, char *expanded_path);
+int	handle_memory_error(t_shell_data *shell);
+int	handle_no_home(t_shell_data *shell);
+int	handle_tilde_path(t_shell_data *shell, char *path);
+int	change_to_home(t_shell_data *shell);
+void	print_env(t_shell_data *shell);
+void	print_exit_error(char *message, int *exit_status, int code);
+
+
+
+
+
+
+
+
+
 
 #endif

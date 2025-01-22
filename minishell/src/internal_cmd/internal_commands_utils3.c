@@ -6,11 +6,11 @@
 /*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:53:48 by pghajard          #+#    #+#             */
-/*   Updated: 2025/01/22 12:54:15 by pghajard         ###   ########.fr       */
+/*   Updated: 2025/01/22 18:11:43 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#include "../../includes/minishell.h"
 
 /*****************************************************************************/
 //  free the old environment variables
