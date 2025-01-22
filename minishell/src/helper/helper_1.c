@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   helper_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:51:23 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 15:35:18 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/22 12:39:51 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*****************************************************************************/
+//              No explanation needed for this function
+/*****************************************************************************/
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -21,6 +25,10 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
+/*****************************************************************************/
+//              No explanation needed for this function
+/*****************************************************************************/
 
 char	*ft_strdup_free(char *s1)
 {

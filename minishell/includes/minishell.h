@@ -384,4 +384,177 @@ int handle_heredoc_redirection(
 int initialize_expansion(t_shell_data *shell, char **result);
 int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
 int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir);
+
+
+char	*expand_variables_in_heredoc(t_shell_data *shell, char *input);
+//================================================
+
+// internal_commands_utils.c
+int	get_env_size(char **envp);
+char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell);
+void	sort_envp(char **envp, int env_size);
+void	print_and_free_envp(char **envp);
+void	print_sorted_env(t_shell_data *shell);
+
+//internal_commands_utils2.c
+int	count_env_vars(char **envp);
+int	is_matching_var(const char *env_var, const char *name, int name_len);
+int	copy_env_vars(char **new_envp, char **envp, const char *name, int name_len);
+void	handle_remove_env(t_shell_data *shell, const char *name);
+void	remove_from_env(t_shell_data *shell, const char *name);
+
+//internal_commands_utils3.c
+void	replace_envp(t_shell_data *shell, char **new_envp);
+void	handle_new_env_var(t_shell_data *shell, const char *str, \
+int current_size, char *new_var);
+void	add_new_env_var(t_shell_data *shell, const char *str, int current_size);
+void	add_to_env(t_shell_data *shell, const char *str);
+int	get_name_length(const char *name);
+
+//internal_commands_utils4.c
+void	replace_env_var(t_shell_data *shell, int index, const char *str);
+char	*duplicate_new_var(const char *str, t_shell_data *shell);
+char	**allocate_new_envp(int current_size, t_shell_data *shell);
+void	copy_existing_envp(char **new_envp, char **envp, int current_size);
+void	finalize_new_envp(char **new_envp, char *new_var, int current_size);
+
+//internal_commands_utils5.c
+int	is_allowed_char(char c);
+int	is_valid_identifier(const char *str, int allow_equals);
+char	*parse_key(const char *str);
+int	find_env_index(char **envp, const char *key, int key_len);
+
+
+//parser.c
+void	parse_tokens(t_shell_data *shell);
+
+//parser2.c
+int	set_original_value(t_command *cmd, char *original_word);
+int	collect_and_expand_word(t_shell_data *shell, char *input, \
+int *i, char **expanded_word);
+void	free_expanded_word_arr(char **expanded_word_arr, int j);
+int	handle_token_addition_failure(char **expanded_word_arr, int j, \
+char *expanded_word, char *original_word);
+int	add_tokens_to_command(t_command *cmd, char **expanded_word_arr);
+
+//parser3.c
+int	collect_word(char *input, int *i, char **word, \
+t_shell_data *shell);
+int	free_word_and_return(char *word, int ret);
+int	free_original_and_expanded_and_return(char *original_word, \
+char *expanded_word, int ret);
+int	save_and_expand_word(t_shell_data *shell, char *word, \
+char **expanded_word, char **original_word);
+int	add_token_to_command(t_command *cmd, char *word);
+
+//parser4.c
+void	toggle_quotes(t_shell_data *shell, char c);
+int	add_current_char(t_shell_data *shell, char c, char **word);
+int	handle_unclosed_quotes(t_shell_data *shell, char **word);
+int	finalize_word(char **word);
+int	process_character(t_shell_data *shell, char c, char **word);
+
+//parser5.c
+int	initialize_word(char **word);
+int	should_break(const t_shell_data *shell, char c);
+
+//token_utils.c
+int	prepare_redirection(t_command *cmd, t_redirection **new_redir);
+int handle_redirection(t_shell_data *shell, char *input, int *i, \
+t_command *cmd);
+int	is_redirection_operator(char *op);
+int	add_token(char *token_value, t_token **token_list,
+		int *index, int is_operator);
+void	initialize_new_token(t_token *new_token, char *token_value, \
+int *index, int is_operator);
+
+//token_utils2.c
+int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir);
+int	handle_pipe_op(t_shell_data *shell, char *input, int *i, \
+t_redirection *new_redir);
+int	handle_greater_operator(t_shell_data *shell, char *input, int *i, \
+t_redirection *new_redir);
+int	handle_less_operator(t_shell_data *shell, char *input, int *i, \
+t_redirection *new_redir);
+int	check_operator_error(t_shell_data *shell, char *input, int *i, \
+t_redirection *new_redir);
+
+//token_utils3.c
+int	handle_missing_filename_error(t_shell_data *shell, \
+t_redirection *new_redir);
+void	ft_putstr_fd2(const char *s, int fd);
+int	handle_syntax_error_s(t_shell_data *shell, t_redirection *new_redir, \
+const char *unexpected_token);
+void	skip_whitespace(char *input, int *i);
+t_redirection	*create_new_redirection(char *op);
+
+
+//token_utils4.c
+int	collect_and_expand_redirection_word(t_shell_data *shell, \
+		t_parse_context *ctx, t_expanded_words *words);
+void	assign_redirection(t_shell_data *shell, char *expanded_word, \
+char *original_word);
+int validate_expanded_word(t_shell_data *shell, char *expanded_word);
+int	process_filename_or_delimiter(t_shell_data *shell, char *input, \
+int *i, t_redirection *redir);
+int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir, \
+char *token);
+
+//token_utils5.c
+int	handle_heredoc_redirection(t_shell_data *shell, t_redirection *new_redir, \
+char *filename_or_delimiter);
+char	*rm_quotes(char *word);
+int	init_and_collect_word(t_parse_context *ctx, char **word);
+int	handle_non_heredoc(t_shell_data *shell, char *word, t_expanded_words *words);
+int	process_heredoc_word(t_shell_data *shell, char *word, \
+t_expanded_words *words);
+
+
+//token_utils6.c
+void	add_redirection(t_redirection **redirections, t_redirection *new_redir);
+int	starts_with_operator_char(char c);
+
+//tokenize_input.c
+int	handle_invalid_operator(t_shell_data *shell, char *op);
+int	process_operator(t_shell_data *shell, int *i, t_command *cmd);
+
+
+//tokenize_input2.c
+char	*collect_operator(t_command *cmd, int *i);
+int	handle_redirection_operator(t_shell_data *shell, char *op, \
+t_command *cmd, int *i);
+int	handle_pipe_operator(char *op, t_command *cmd);
+
+
+//expand_var_tokens.c
+int	handle_dollar_expansion(t_shell_data *shell, char *input, \
+									int *i, char **result);
+int	handle_literal_character(char *input, int *i, char **result);
+int	process_char(t_shell_data *shell, char *input, int *i, char **result);
+int	initialize_and_check(t_shell_data *shell, char **result);
+char	*expand_variables_in_token(t_shell_data *shell, char *input);
+
+
+//expand_var_tokens2.c
+int	handle_alpha_or_underscore(t_shell_data *shell, char *input, int *i, \
+char **result);
+void	handle_digit(char *input, int *i);
+int	handle_default_case(char **result);
+int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
+void	handle_quote(t_shell_data *shell, char current_char, int *i);
+
+//expand_var_tokens3.c
+int	cleanup_and_return_null(char *result);
+int	append_str_to_result(char **result, char *str);
+int	handle_exit_status(t_shell_data *shell, char **result);
+int	handle_variable_expansion(t_shell_data *shell, char *input, \
+int *i, char **result);
+int	handle_question_mark(t_shell_data *shell, char **result, int *i);
+
+
+//expand_var_tokens4.c
+int	initialize_expansion(t_shell_data *shell, char **result);
+void	toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i);
+
+
 #endif

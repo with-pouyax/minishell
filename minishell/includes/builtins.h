@@ -13,7 +13,13 @@ int	ft_pwd(t_shell_data *shell, t_command *cmd);
 int	ft_export(t_shell_data *shell, t_command *cmd);
 int	ft_unset(t_shell_data *shell, t_command *cmd);
 int	ft_env(t_shell_data *shell, t_command *cmd);
+
+//exit
 int	ft_exit_shell(t_shell_data *shell, t_command *cmd);
+int	str_to_long_long(const char *str, long long *result);
+int	initialize_conversion(const char **str, int *sign);
+int	parse_number(const char *str, long long *num, int sign);
+void	print_exit_error2(char *format, char *arg, int *exit_status, int code);
 
 /* Helper Functions */
 int	is_numeric(const char *str);

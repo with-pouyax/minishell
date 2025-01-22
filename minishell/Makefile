@@ -38,21 +38,27 @@ SRCS            = src/main.c\
                   src/heredoc/check_delimiter.c\
                   src/heredoc/expand_heredoc.c\
                   src/heredoc/heredoc.c\
+                  src/heredoc/heredoc2.c\
                   src/heredoc/heredoc_error.c\
                   src/heredoc/proccess_heredoc.c\
                   src/heredoc/tmp_file.c\
                   src/internal_cmd/init_internal_cmd.c\
                   src/internal_cmd/internal_commands.c\
                   src/internal_cmd/internal_commands_utils.c\
+                  src/internal_cmd/internal_commands_utils2.c\
+                    src/internal_cmd/internal_commands_utils3.c\
+                    src/internal_cmd/internal_commands_utils4.c\
+                    src/internal_cmd/internal_commands_utils5.c\
                   src/builtins/cd/ft_cd.c\
 				  src/builtins/cd/ft_cd_utils.c\
                   src/builtins/cd/handle_cd_errors.c \
                   src/builtins/echo/ft_echo.c\
-                  src/builtins/ft_env.c\
-                  src/builtins/ft_exit.c\
-                  src/builtins/ft_export.c\
-                  src/builtins/ft_pwd.c\
-                  src/builtins/ft_unset.c\
+                  src/builtins/env/ft_env.c\
+                  src/builtins/exit/ft_exit.c\
+                  src/builtins/exit/ft_exit2.c\
+                  src/builtins/export/ft_export.c\
+                  src/builtins/pwd/ft_pwd.c\
+                  src/builtins/unset/ft_unset.c\
                   src/execution/open_files.c\
                   src/external_commands/external_commands.c\
                   src/external_commands/get_path.c\
@@ -60,22 +66,36 @@ SRCS            = src/main.c\
                   src/external_commands/store_pids.c\
                   src/parsing/check_last_pipe.c\
                   src/parsing/handle_input.c\
+                  src/parsing/handle_input2.c\
+                  src/parsing/handle_input3.c\
                   src/parsing/init_env.c\
                   src/parsing/init_shell.c\
                   src/parsing/quotes.c\
                   src/parsing/check_syntax_error.c\
-                  src/parsing/tokenize/append_and_token.c\
                   src/parsing/tokenize/parser.c\
+                  src/parsing/tokenize/parser2.c\
+                  src/parsing/tokenize/parser3.c\
+                  src/parsing/tokenize/parser4.c\
+                  src/parsing/tokenize/parser5.c\
                   src/parsing/tokenize/process_word.c\
                   src/parsing/tokenize/split_cmd_tokenize.c\
                   src/parsing/tokenize/tokenize_cmd.c\
                   src/parsing/tokenize/tokenize_input.c\
+                  src/parsing/tokenize/tokenize_input2.c\
                   src/parsing/tokenize/tokenizer_error.c\
                   src/parsing/tokenize/token_utils.c\
+                  src/parsing/tokenize/token_utils2.c\
+                  src/parsing/tokenize/token_utils3.c\
+                  src/parsing/tokenize/token_utils4.c\
+                  src/parsing/tokenize/token_utils5.c\
+                  src/parsing/tokenize/token_utils6.c\
                   src/parsing/tokenize/process_input_segment.c\
                   src/processes/preprocess_input.c\
                   src/processes/expand_variable/expand_var_input.c\
                   src/processes/expand_variable/expand_var_tokens.c\
+                  src/processes/expand_variable/expand_var_tokens2.c\
+                  src/processes/expand_variable/expand_var_tokens3.c\
+                  src/processes/expand_variable/expand_var_tokens4.c\
                   src/processes/expand_variable/variable_expansion.c\
                   src/signal_handling/signal_handling.c\
                   src/validation/lexer.c \

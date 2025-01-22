@@ -65,6 +65,7 @@
     "stdlib.h": "c",
     "cstdlib": "c",
     "builtins.h": "c",
-    "unistd.h": "c"
-}
+    "unistd.h": "c",
+    "functional": "c"
+  }
 }

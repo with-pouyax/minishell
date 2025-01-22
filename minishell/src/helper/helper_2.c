@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:51:47 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 15:35:24 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/22 12:40:22 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	skip_spaces(t_shell_data *shell, int *i)
 //        neither s1 nor s2.
 //
 /******************************************************************************/
+
 char	*ft_strjoin_and_free_both(char *s1, char *s2)
 {
 	char	*joined;
@@ -65,9 +66,11 @@ char	*ft_strjoin_and_free_both(char *s1, char *s2)
 	free(s2);
 	return (joined);
 }
+
 /*****************************************************************************/
 //          No explanation needed for this function
 /*****************************************************************************/
+
 char	*ft_strjoin_free_both(char *s1, char *s2)
 {
 	return (ft_strjoin_and_free_both(s1, s2));
