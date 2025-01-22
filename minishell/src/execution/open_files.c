@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   open_files.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/22 16:16:22 by pghajard          #+#    #+#             */
+/*   Updated: 2025/01/22 17:30:19 by pghajard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	has_redirs(t_redirection *redir, t_redirection_type type )
@@ -11,7 +23,7 @@ int	has_redirs(t_redirection *redir, t_redirection_type type )
 	return (0);
 }
 
-static int	handle_redir(t_shell_data *shell, t_redirection *redir,
+int	handle_redir(t_shell_data *shell, t_redirection *redir,
 				int *fd_input, int *fd_output)
 {
 	if (redir->type == REDIR_INPUT)
@@ -29,7 +41,7 @@ static int	handle_redir(t_shell_data *shell, t_redirection *redir,
 	return (EXIT_SUCCESS);
 }
 
-static int	finalize_redir(t_shell_data *shell, int fd_input, int fd_output)
+int	finalize_redir(t_shell_data *shell, int fd_input, int fd_output)
 {
 	if (shell->exit_status != 0 && shell->last_error_file)
 		write_error(shell->last_error_file, strerror(shell->exit_status));

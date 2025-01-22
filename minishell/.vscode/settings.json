@@ -66,6 +66,14 @@
     "cstdlib": "c",
     "builtins.h": "c",
     "unistd.h": "c",
-    "functional": "c"
+    "functional": "c",
+    "array": "c",
+    "compare": "c",
+    "ostream": "c",
+    "ranges": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c",
+    "limits.h": "c"
   }
 }
