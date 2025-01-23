@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:34:46 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 20:48:21 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:19:50 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	free_and_return(char *str)
 {

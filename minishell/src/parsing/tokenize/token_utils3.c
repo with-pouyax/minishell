@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:42:19 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/22 22:42:29 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:27:09 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../include/minishell.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :  collec and expand redirection word

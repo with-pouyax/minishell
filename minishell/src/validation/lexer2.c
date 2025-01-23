@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 11:10:41 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 11:10:48 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:33:10 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :  check if the charachter is an operator

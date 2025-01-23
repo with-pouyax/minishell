@@ -6,13 +6,13 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:59:01 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:59:02 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:31:14 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include "../../minishell.h"
+#include "../../../include/minishell.h"
 
 void	expand_variables_in_input(t_shell_data *shell)
 {

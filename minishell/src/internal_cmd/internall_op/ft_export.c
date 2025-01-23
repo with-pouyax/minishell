@@ -6,12 +6,12 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:42:44 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/21 00:04:12 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:24:09 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../internal_commands.h"
+#include "../../../include/minishell.h"
 
 
 /*****************************************************************************/
@@ -33,7 +33,7 @@
 //           identifier.(meaning it does not contain any special characters)
 //           i- if it is a valid identifier we add it to the environment using
 //              add_to_env().
-//        b- if is not a valid identifier we print an error message and 
+//        b- if is not a valid identifier we print an error message and
 //        return 1.
 //     3- we return 0.
 /******************************************************************************/

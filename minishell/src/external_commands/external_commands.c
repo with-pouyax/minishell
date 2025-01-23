@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:46:18 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 00:46:51 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:21:34 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void	free_argv(char **argv, int count)
 {

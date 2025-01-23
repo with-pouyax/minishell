@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:49:49 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:51:08 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:30:51 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	calc_pipe_nb(t_shell_data *shell)
 {

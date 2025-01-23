@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 22:06:23 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/22 22:06:30 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:25:52 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal_commands.h"
+#include "../../include/minishell.h"
 
 int	ft_exit_child(t_shell_data *shell, t_command *cmd)
 {

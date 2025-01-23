@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:51:57 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/22 22:05:57 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:25:48 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal_commands.h"
+#include "../../include/minishell.h"
 
 int	execute_parent_command(t_shell_data *shell, t_command *cmds, \
 t_token *token)

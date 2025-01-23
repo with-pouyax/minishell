@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:59:12 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/22 23:07:12 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:31:23 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../include/minishell.h"
 
 
 
