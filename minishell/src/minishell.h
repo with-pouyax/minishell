@@ -384,4 +384,42 @@ int handle_heredoc_redirection(
 int initialize_expansion(t_shell_data *shell, char **result);
 int	handle_dollar(t_shell_data *shell, char *input, int *i, char **result);
 int check_operator_error(t_shell_data *shell, char *input, int *i, t_redirection *new_redir);
+
+int	toggle_quotes_and_append(t_shell_data *shell, char current_char, \
+int *i, char **result);
+int	handle_cd_minus(t_shell_data *shell);
+int	initialize_conversion(const char **str, int *sign);
+void	print_exit_error2(char *format, char *arg, int *exit_status, int code);
+int	parse_number(const char *str, long long *num, int sign);
+char	**allocate_new_envp(int current_size, t_shell_data *shell);
+int	get_name_length(const char *name);
+void	replace_env_var(t_shell_data *shell, int index, const char *str);
+int	find_env_index(char **envp, const char *key, int key_len);
+char	*parse_key(const char *str);
+char	*duplicate_new_var(const char *str, t_shell_data *shell);
+void	copy_existing_envp(char **new_envp, char **envp, int current_size);
+int	collect_and_expand_word(t_shell_data *shell, char *input, \
+int *i, char **expanded_word);
+int	add_tokens_to_command(t_command *cmd, char **expanded_word_arr);
+char	*rm_quotes(char *word);
+int	init_and_collect_word(t_parse_context *ctx, char **word);
+void	assign_redirection(t_shell_data *shell, char *expanded_word, \
+char *original_word);
+int validate_expanded_word(t_shell_data *shell, char *expanded_word);
+int	collect_and_expand_redirection_word(t_shell_data *shell, \
+		t_parse_context *ctx, t_expanded_words *words);
+int	handle_pipe_operator(char *op, t_command *cmd);
+int	finalize_redirection(t_shell_data *shell, t_redirection *new_redir);
+int	handle_greater_operator(t_shell_data *shell, char *input, int *i, \
+t_redirection *new_redir);
+int	handle_pipe_op(t_shell_data *shell, char *input, int *i, \
+t_redirection *new_redir);
+char	*collect_operator(t_command *cmd, int *i);
+void	handle_quote(t_shell_data *shell, char current_char, int *i);
+int	append_str_to_result(char **result, char *str);
+void	toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i);
+int	handle_alpha_or_underscore(t_shell_data *shell, char *input, int *i, \
+char **result);
+int	handle_question_mark(t_shell_data *shell, char **result, int *i);
+
 #endif

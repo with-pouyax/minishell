@@ -6,14 +6,14 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 01:02:00 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 01:06:29 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/22 21:47:32 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../internal_commands.h"
 
 /*****************************************************************************/
-// 🎯 Purpose  :  
+// 🎯 Purpose  :
 /*****************************************************************************/
 //
 // 🔹 Parameters:
@@ -29,7 +29,7 @@
 //     so if str1 is "hello" and str2 is "helo", the function will return 4
 //     because the initial segment of str1 that consists only of characters
 //     from str2 is "hell"
-//     
+//
 /******************************************************************************/
 size_t	ft_strspn(const char *str1, const char *str2)
 {
@@ -54,7 +54,7 @@ size_t	ft_strspn(const char *str1, const char *str2)
 	return (count);
 }
 /*****************************************************************************/
-// 🎯 Purpose  :  
+// 🎯 Purpose  :
 /*****************************************************************************/
 //
 // 🔹 Parameters:
@@ -76,6 +76,7 @@ size_t	ft_strspn(const char *str1, const char *str2)
 //        equal to the number of n characters, it means the value is not a valid
 //        n flag, so we return 0
 /******************************************************************************/
+
 int	is_valid_n_flag(const char *value)
 {
 	if (value[0] != '-')
@@ -88,7 +89,7 @@ int	is_valid_n_flag(const char *value)
 }
 
 /*****************************************************************************/
-// 🎯 Purpose  :  
+// 🎯 Purpose  :
 /*****************************************************************************/
 //
 // 🔹 Parameters:

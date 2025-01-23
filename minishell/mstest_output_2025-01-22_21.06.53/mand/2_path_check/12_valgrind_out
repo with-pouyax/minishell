@@ -1,0 +1,390 @@
+==305537== Memcheck, a memory error detector
+==305537== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==305537== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==305537== Command: /home/pouyax/Desktop/minishell/minishell/minishell
+==305537== Parent PID: 305536
+==305537== 
+==305545== 
+==305545== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305545== Open file descriptor 23: /dev/ptmx
+==305545==    <inherited from parent>
+==305545== 
+==305545== Open file descriptor 22: /dev/ptmx
+==305545==    <inherited from parent>
+==305545== 
+==305545== Open file descriptor 21: /dev/ptmx
+==305545==    <inherited from parent>
+==305545== 
+==305545== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305545==    <inherited from parent>
+==305545== 
+==305545== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305545==    <inherited from parent>
+==305545== 
+==305545== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305545==    <inherited from parent>
+==305545== 
+==305545== 
+==305545== HEAP SUMMARY:
+==305545==     in use at exit: 4,016 bytes in 1 blocks
+==305545==   total heap usage: 268 allocs, 267 frees, 24,704 bytes allocated
+==305545== 
+==305545== LEAK SUMMARY:
+==305545==    definitely lost: 0 bytes in 0 blocks
+==305545==    indirectly lost: 0 bytes in 0 blocks
+==305545==      possibly lost: 0 bytes in 0 blocks
+==305545==    still reachable: 0 bytes in 0 blocks
+==305545==         suppressed: 4,016 bytes in 1 blocks
+==305545== 
+==305545== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305545-- 
+--305545-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305545== 
+==305545== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305546== 
+==305546== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305546== Open file descriptor 23: /dev/ptmx
+==305546==    <inherited from parent>
+==305546== 
+==305546== Open file descriptor 22: /dev/ptmx
+==305546==    <inherited from parent>
+==305546== 
+==305546== Open file descriptor 21: /dev/ptmx
+==305546==    <inherited from parent>
+==305546== 
+==305546== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305546==    <inherited from parent>
+==305546== 
+==305546== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305546==    <inherited from parent>
+==305546== 
+==305546== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305546==    <inherited from parent>
+==305546== 
+==305546== 
+==305546== HEAP SUMMARY:
+==305546==     in use at exit: 4,016 bytes in 1 blocks
+==305546==   total heap usage: 354 allocs, 353 frees, 25,883 bytes allocated
+==305546== 
+==305546== LEAK SUMMARY:
+==305546==    definitely lost: 0 bytes in 0 blocks
+==305546==    indirectly lost: 0 bytes in 0 blocks
+==305546==      possibly lost: 0 bytes in 0 blocks
+==305546==    still reachable: 0 bytes in 0 blocks
+==305546==         suppressed: 4,016 bytes in 1 blocks
+==305546== 
+==305546== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305546-- 
+--305546-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305546== 
+==305546== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305547== 
+==305547== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305547== Open file descriptor 23: /dev/ptmx
+==305547==    <inherited from parent>
+==305547== 
+==305547== Open file descriptor 22: /dev/ptmx
+==305547==    <inherited from parent>
+==305547== 
+==305547== Open file descriptor 21: /dev/ptmx
+==305547==    <inherited from parent>
+==305547== 
+==305547== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305547==    <inherited from parent>
+==305547== 
+==305547== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305547==    <inherited from parent>
+==305547== 
+==305547== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305547==    <inherited from parent>
+==305547== 
+==305547== 
+==305547== HEAP SUMMARY:
+==305547==     in use at exit: 4,016 bytes in 1 blocks
+==305547==   total heap usage: 452 allocs, 451 frees, 27,233 bytes allocated
+==305547== 
+==305547== LEAK SUMMARY:
+==305547==    definitely lost: 0 bytes in 0 blocks
+==305547==    indirectly lost: 0 bytes in 0 blocks
+==305547==      possibly lost: 0 bytes in 0 blocks
+==305547==    still reachable: 0 bytes in 0 blocks
+==305547==         suppressed: 4,016 bytes in 1 blocks
+==305547== 
+==305547== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305547-- 
+--305547-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305547== 
+==305547== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305548== 
+==305548== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305548== Open file descriptor 23: /dev/ptmx
+==305548==    <inherited from parent>
+==305548== 
+==305548== Open file descriptor 22: /dev/ptmx
+==305548==    <inherited from parent>
+==305548== 
+==305548== Open file descriptor 21: /dev/ptmx
+==305548==    <inherited from parent>
+==305548== 
+==305548== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305548==    <inherited from parent>
+==305548== 
+==305548== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305548==    <inherited from parent>
+==305548== 
+==305548== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305548==    <inherited from parent>
+==305548== 
+==305548== 
+==305548== HEAP SUMMARY:
+==305548==     in use at exit: 4,016 bytes in 1 blocks
+==305548==   total heap usage: 536 allocs, 535 frees, 28,412 bytes allocated
+==305548== 
+==305548== LEAK SUMMARY:
+==305548==    definitely lost: 0 bytes in 0 blocks
+==305548==    indirectly lost: 0 bytes in 0 blocks
+==305548==      possibly lost: 0 bytes in 0 blocks
+==305548==    still reachable: 0 bytes in 0 blocks
+==305548==         suppressed: 4,016 bytes in 1 blocks
+==305548== 
+==305548== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305548-- 
+--305548-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305548== 
+==305548== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305549== 
+==305549== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305549== Open file descriptor 23: /dev/ptmx
+==305549==    <inherited from parent>
+==305549== 
+==305549== Open file descriptor 22: /dev/ptmx
+==305549==    <inherited from parent>
+==305549== 
+==305549== Open file descriptor 21: /dev/ptmx
+==305549==    <inherited from parent>
+==305549== 
+==305549== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305549==    <inherited from parent>
+==305549== 
+==305549== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305549==    <inherited from parent>
+==305549== 
+==305549== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305549==    <inherited from parent>
+==305549== 
+==305549== 
+==305549== HEAP SUMMARY:
+==305549==     in use at exit: 4,016 bytes in 1 blocks
+==305549==   total heap usage: 622 allocs, 621 frees, 29,591 bytes allocated
+==305549== 
+==305549== LEAK SUMMARY:
+==305549==    definitely lost: 0 bytes in 0 blocks
+==305549==    indirectly lost: 0 bytes in 0 blocks
+==305549==      possibly lost: 0 bytes in 0 blocks
+==305549==    still reachable: 0 bytes in 0 blocks
+==305549==         suppressed: 4,016 bytes in 1 blocks
+==305549== 
+==305549== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305549-- 
+--305549-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305549== 
+==305549== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305550== 
+==305550== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305550== Open file descriptor 23: /dev/ptmx
+==305550==    <inherited from parent>
+==305550== 
+==305550== Open file descriptor 22: /dev/ptmx
+==305550==    <inherited from parent>
+==305550== 
+==305550== Open file descriptor 21: /dev/ptmx
+==305550==    <inherited from parent>
+==305550== 
+==305550== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305550==    <inherited from parent>
+==305550== 
+==305550== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305550==    <inherited from parent>
+==305550== 
+==305550== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305550==    <inherited from parent>
+==305550== 
+==305550== 
+==305550== HEAP SUMMARY:
+==305550==     in use at exit: 4,028 bytes in 2 blocks
+==305550==   total heap usage: 716 allocs, 714 frees, 27,084 bytes allocated
+==305550== 
+==305550== 12 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==305550==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==305550==    by 0x113140: ft_strdup (in /home/pouyax/Desktop/minishell/minishell/minishell)
+==305550==    by 0x10D7B0: convert_tokens_to_argv (external_commands.c:107)
+==305550==    by 0x10D95C: execute_external_commands (external_commands.c:159)
+==305550==    by 0x10DAC9: forking (external_commands.c:204)
+==305550==    by 0x109B4C: exec_cmd (execute_commands.c:51)
+==305550==    by 0x109BED: execution (execute_commands.c:70)
+==305550==    by 0x10E35C: process_and_execute_commands (handle_input.c:68)
+==305550==    by 0x10E6CF: handle_execution_flow (handle_input.c:380)
+==305550==    by 0x10E73F: handle_user_input (handle_input.c:414)
+==305550==    by 0x10E7A8: handle_input (handle_input.c:478)
+==305550==    by 0x1096C3: main (main.c:60)
+==305550== 
+==305550== LEAK SUMMARY:
+==305550==    definitely lost: 12 bytes in 1 blocks
+==305550==    indirectly lost: 0 bytes in 0 blocks
+==305550==      possibly lost: 0 bytes in 0 blocks
+==305550==    still reachable: 0 bytes in 0 blocks
+==305550==         suppressed: 4,016 bytes in 1 blocks
+==305550== 
+==305550== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+--305550-- 
+--305550-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305550== 
+==305550== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+==305551== 
+==305551== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305551== Open file descriptor 23: /dev/ptmx
+==305551==    <inherited from parent>
+==305551== 
+==305551== Open file descriptor 22: /dev/ptmx
+==305551==    <inherited from parent>
+==305551== 
+==305551== Open file descriptor 21: /dev/ptmx
+==305551==    <inherited from parent>
+==305551== 
+==305551== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305551==    <inherited from parent>
+==305551== 
+==305551== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305551==    <inherited from parent>
+==305551== 
+==305551== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305551==    <inherited from parent>
+==305551== 
+==305551== 
+==305551== HEAP SUMMARY:
+==305551==     in use at exit: 4,016 bytes in 1 blocks
+==305551==   total heap usage: 751 allocs, 750 frees, 31,721 bytes allocated
+==305551== 
+==305551== LEAK SUMMARY:
+==305551==    definitely lost: 0 bytes in 0 blocks
+==305551==    indirectly lost: 0 bytes in 0 blocks
+==305551==      possibly lost: 0 bytes in 0 blocks
+==305551==    still reachable: 0 bytes in 0 blocks
+==305551==         suppressed: 4,016 bytes in 1 blocks
+==305551== 
+==305551== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305551-- 
+--305551-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305551== 
+==305551== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305552== 
+==305552== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305552== Open file descriptor 23: /dev/ptmx
+==305552==    <inherited from parent>
+==305552== 
+==305552== Open file descriptor 22: /dev/ptmx
+==305552==    <inherited from parent>
+==305552== 
+==305552== Open file descriptor 21: /dev/ptmx
+==305552==    <inherited from parent>
+==305552== 
+==305552== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305552==    <inherited from parent>
+==305552== 
+==305552== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305552==    <inherited from parent>
+==305552== 
+==305552== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305552==    <inherited from parent>
+==305552== 
+==305552== 
+==305552== HEAP SUMMARY:
+==305552==     in use at exit: 4,016 bytes in 1 blocks
+==305552==   total heap usage: 837 allocs, 836 frees, 32,900 bytes allocated
+==305552== 
+==305552== LEAK SUMMARY:
+==305552==    definitely lost: 0 bytes in 0 blocks
+==305552==    indirectly lost: 0 bytes in 0 blocks
+==305552==      possibly lost: 0 bytes in 0 blocks
+==305552==    still reachable: 0 bytes in 0 blocks
+==305552==         suppressed: 4,016 bytes in 1 blocks
+==305552== 
+==305552== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305552-- 
+--305552-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305552== 
+==305552== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305553== 
+==305553== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305553== Open file descriptor 23: /dev/ptmx
+==305553==    <inherited from parent>
+==305553== 
+==305553== Open file descriptor 22: /dev/ptmx
+==305553==    <inherited from parent>
+==305553== 
+==305553== Open file descriptor 21: /dev/ptmx
+==305553==    <inherited from parent>
+==305553== 
+==305553== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305553==    <inherited from parent>
+==305553== 
+==305553== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305553==    <inherited from parent>
+==305553== 
+==305553== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305553==    <inherited from parent>
+==305553== 
+==305553== 
+==305553== HEAP SUMMARY:
+==305553==     in use at exit: 4,016 bytes in 1 blocks
+==305553==   total heap usage: 871 allocs, 870 frees, 33,422 bytes allocated
+==305553== 
+==305553== LEAK SUMMARY:
+==305553==    definitely lost: 0 bytes in 0 blocks
+==305553==    indirectly lost: 0 bytes in 0 blocks
+==305553==      possibly lost: 0 bytes in 0 blocks
+==305553==    still reachable: 0 bytes in 0 blocks
+==305553==         suppressed: 4,016 bytes in 1 blocks
+==305553== 
+==305553== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--305553-- 
+--305553-- used_suppression:      1 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==305553== 
+==305553== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==305537== 
+==305537== FILE DESCRIPTORS: 9 open (3 std) at exit.
+==305537== Open file descriptor 23: /dev/ptmx
+==305537==    <inherited from parent>
+==305537== 
+==305537== Open file descriptor 22: /dev/ptmx
+==305537==    <inherited from parent>
+==305537== 
+==305537== Open file descriptor 21: /dev/ptmx
+==305537==    <inherited from parent>
+==305537== 
+==305537== Open file descriptor 20: /home/pouyax/.vscode-server/data/logs/20250121T090552/ptyhost.log
+==305537==    <inherited from parent>
+==305537== 
+==305537== Open file descriptor 19: /home/pouyax/.vscode-server/data/logs/20250121T090552/remoteagent.log
+==305537==    <inherited from parent>
+==305537== 
+==305537== Open file descriptor 3: /tmp/tmp.24Gnr4XPO6/tmp_valgrind_out
+==305537==    <inherited from parent>
+==305537== 
+==305537== 
+==305537== HEAP SUMMARY:
+==305537==     in use at exit: 4,879 bytes in 55 blocks
+==305537==   total heap usage: 957 allocs, 902 frees, 30,437 bytes allocated
+==305537== 
+==305537== LEAK SUMMARY:
+==305537==    definitely lost: 0 bytes in 0 blocks
+==305537==    indirectly lost: 0 bytes in 0 blocks
+==305537==      possibly lost: 0 bytes in 0 blocks
+==305537==    still reachable: 0 bytes in 0 blocks
+==305537==         suppressed: 4,879 bytes in 55 blocks
+==305537== 
+==305537== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--305537-- 
+--305537-- used_suppression:      4 libreadline /home/pouyax/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,879 bytes in 55 blocks
+==305537== 
+==305537== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
