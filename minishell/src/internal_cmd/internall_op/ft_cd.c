@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:58:47 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:23:28 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 18:51:37 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,22 @@ int	change_to_home(t_shell_data *shell)
 /******************************************************************************/
 static int	validate_path(const char *path)
 {
-	if (strstr(path, "..$"))
+	int i;
+
+	i = 0;
+	while (path[i])
 	{
-		ft_putstr_fd((char *)path, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		return (1);
+		if (path[i] == '.' && path[i + 1] == '.' && path[i + 2] == '$')
+		{
+			ft_putstr_fd((char *)path, STDERR_FILENO);
+			ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+			return (1);
+		}
+		i++;
 	}
 	return (0);
 }
+
 
 /*****************************************************************************/
 //              No explanation needed

@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:40:42 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:23:59 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 18:53:09 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ void	cleanup_and_exit(t_shell_data *shell, int exit_status)
 //     3- we return 0
 /******************************************************************************/
 
-int	process_exit_arguments(t_shell_data *shell, t_command *cmd, \
-int *exit_status)
+int	process_exit_arguments(t_shell_data *shell, t_command *cmd, int *exit_status)
 {
 	t_token	*token;
 
@@ -107,8 +106,7 @@ int *exit_status)
 			token = token->next;
 			if (token)
 			{
-				print_exit_error("exit: too many arguments\n",
-					&shell->exit_status, 1);
+				print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
 				return (1);
 			}
 		}

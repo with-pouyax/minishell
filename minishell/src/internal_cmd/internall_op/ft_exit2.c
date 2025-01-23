@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 21:49:21 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:24:04 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 21:11:01 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ void	print_exit_error(char *message, int *exit_status, int code)
 //               No explanation needed
 /*****************************************************************************/
 
+
 void	print_exit_error2(char *format, char *arg, int *exit_status, int code)
 {
-	fprintf(stderr, format, arg);
+	(void)format; // Since we're not using the format string, we can safely ignore it
+	ft_putstr_fd("exit: ", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 	*exit_status = code;
 }
+
 
 /*****************************************************************************/
 // 🎯 Purpose  :
