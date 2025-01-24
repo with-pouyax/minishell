@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 21:44:44 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:23:39 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/24 10:31:42 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 		expanded_path = ft_strdup(home);
 	else if (path[1] == '/')
 		expanded_path = ft_strjoin(home, &path[1]);
+    if (!expanded_path)
+        ft_putstr_fd("cd: unable to change the directory\n", STDERR_FILENO);
 	else
 	{
 		write_error(path, "\n");
