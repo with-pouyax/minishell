@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:59:12 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:31:33 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/24 14:11:00 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int *i, char **result)
 	if (!var_value)
 		return (1);
 	if (append_str_to_result(result, var_value))
+    {
+        free(var_value);
 		return (1);
+    }
 	return (0);
 }
 

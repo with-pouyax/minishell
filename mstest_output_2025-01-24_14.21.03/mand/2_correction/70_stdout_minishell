@@ -1,0 +1,11 @@
+LD_PRELOAD=/home/pouyax/42_minishell_tester/utils/libintercept/libintercept.so
+LOGNAME=pouyax
+VSCODE_GIT_ASKPASS_NODE=/home/pouyax/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/node
+HOME=/home/pouyax
+GIT_ASKPASS=/home/pouyax/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass.sh
+USER=pouyax
+VSCODE_GIT_ASKPASS_MAIN=/home/pouyax/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass-main.js
+BROWSER=/home/pouyax/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/helpers/browser.sh
+PATH=/bin:/usr/bin:/usr/sbin:/home/pouyax/.local/bin:/home/pouyax/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/remote-cli:/home/pouyax/.local/bin:/home/pouyax/.local/bin:/home/pouyax/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pouyax/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand
+OLDPWD=/home/pouyax/Desktop/minishell
+_=/home/pouyax/Desktop/minishell/minishell
