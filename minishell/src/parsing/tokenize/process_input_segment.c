@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:57:38 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:01:48 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:26:21 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../include/minishell.h"
 
 /*****************************************************************************/
 // 🎯 Purpose  :  remove the spaces at the end of the cmd_str

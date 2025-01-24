@@ -6,112 +6,16 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 09:40:42 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 09:42:28 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 18:53:09 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../internal_commands.h"
+#include "../../../include/minishell.h"
+
+
 
 /*****************************************************************************/
-//               No explanation needed
-/*****************************************************************************/
-
-void	print_exit_error(char *message, int *exit_status, int code)
-{
-	ft_putstr_fd(message, STDERR_FILENO);
-	*exit_status = code;
-}
-/*****************************************************************************/
-//               No explanation needed
-/*****************************************************************************/
-
-void	print_exit_error2(char *format, char *arg, int *exit_status, int code)
-{
-	fprintf(stderr, format, arg);
-	*exit_status = code;
-}
-
-/*****************************************************************************/
-// 🎯 Purpose  :  
-/*****************************************************************************/
-//
-// 🔹 Parameters:
-//     🏷 str
-//
-// 🔄 Returns   : success status
-//
-/*****************************************************************************/
-// 💡 Notes:
-//     1- here we convert the string to a long long number and store it in the
-//        result. we do it because the exit status should be an integer.
-//     
-/******************************************************************************/
-
-int	initialize_conversion(const char **str, int *sign)
-{
-	while (**str == ' ' || **str == '\t' || **str == '\n')
-		(*str)++;
-	*sign = 1;
-	if (**str == '-')
-	{
-		*sign = -1;
-		(*str)++;
-	}
-	else if (**str == '+')
-	{
-		*sign = 1;
-		(*str)++;
-	}
-	if (!ft_isdigit(**str))
-		return (0);
-	return (1);
-}
-
-/*****************************************************************************/
-// 🎯 Purpose  :  
-/*****************************************************************************/
-//
-// 🔹 Parameters:
-//     🏷 
-//
-// 🔄 Returns   : success status
-//
-/*****************************************************************************/
-// 💡 Notes:
-//     1- in this function, we convert the string to a long long number and
-//        check for overflows and invalid input and store the result in num
-//    2- if the number is greater than LLONG_MAX - digit / 10, we return 0
-//    3- if the number is less than LLONG_MIN + digit / 10, we return 0
-//    4- we multiply the number by 10 and add the digit to it
-//    5- we skip the spaces and tabs
-//    6- if the string is not empty, we return 0
-//    7- we return 1
-//     
-/******************************************************************************/
-
-int	parse_number(const char *str, long long *num, int sign)
-{
-	long long	digit;
-
-	while (ft_isdigit(*str))
-	{
-		digit = *str - '0';
-		if (sign == 1 && (*num > (LLONG_MAX - digit) / 10))
-			return (0);
-		if (sign == -1 && (-*num < (LLONG_MIN + digit) / 10))
-			return (0);
-		*num = (*num * 10) + digit;
-		str++;
-	}
-	while (*str == ' ' || *str == '\t' || *str == '\n')
-		str++;
-	if (*str != '\0')
-		return (0);
-	return (1);
-}
-
-/*****************************************************************************/
-// 🎯 Purpose  :  
+// 🎯 Purpose  :
 /*****************************************************************************/
 //
 // 🔹 Parameters:
@@ -123,7 +27,7 @@ int	parse_number(const char *str, long long *num, int sign)
 // 💡 Notes:
 //     1- using the initialize_conversion function, we check if the string is
 //        empty or contains only spaces and tabs and set the sign accordingly
-//        a- if the string is empty or contains only spaces and tabs, we 
+//        a- if the string is empty or contains only spaces and tabs, we
 //        return 0
 //     2- using the parse_number function, we convert the string to a long long
 //        number and check for overflows and invalid input
@@ -131,7 +35,7 @@ int	parse_number(const char *str, long long *num, int sign)
 //     3- now that we have the number, we multiply it by the sign and store it
 //        in the result
 //     4- we return 1
-//     
+//
 /******************************************************************************/
 
 int	str_to_long_long(const char *str, long long *result)
@@ -159,7 +63,7 @@ void	cleanup_and_exit(t_shell_data *shell, int exit_status)
 }
 
 /*****************************************************************************/
-// 🎯 Purpose  :  
+// 🎯 Purpose  :
 /*****************************************************************************/
 //
 // 🔹 Parameters:
@@ -188,8 +92,7 @@ void	cleanup_and_exit(t_shell_data *shell, int exit_status)
 //     3- we return 0
 /******************************************************************************/
 
-int	process_exit_arguments(t_shell_data *shell, t_command *cmd, \
-int *exit_status)
+int	process_exit_arguments(t_shell_data *shell, t_command *cmd, int *exit_status)
 {
 	t_token	*token;
 
@@ -203,8 +106,7 @@ int *exit_status)
 			token = token->next;
 			if (token)
 			{
-				print_exit_error("exit: too many arguments\n",
-					&shell->exit_status, 1);
+				print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
 				return (1);
 			}
 		}
@@ -218,7 +120,7 @@ int *exit_status)
 }
 
 /*****************************************************************************/
-// 🎯 Purpose  :  
+// 🎯 Purpose  :
 /*****************************************************************************/
 //
 // 🔹 Parameters:

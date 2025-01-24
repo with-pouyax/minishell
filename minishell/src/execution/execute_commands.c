@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:45:05 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 00:45:36 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:20:57 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 /*
 Restore the original stdin and stdout

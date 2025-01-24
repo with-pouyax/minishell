@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:43:38 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 00:44:08 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:20:47 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {

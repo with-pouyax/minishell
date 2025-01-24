@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	has_redirs(t_redirection *redir, t_redirection_type type )
 {

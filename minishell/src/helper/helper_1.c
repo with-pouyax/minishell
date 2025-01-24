@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:51:23 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 00:51:27 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:22:04 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../include/minishell.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

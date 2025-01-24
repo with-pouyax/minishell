@@ -6,11 +6,11 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:34:45 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/19 10:35:19 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:27:46 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../include/minishell.h"
 
 /*****************************************************************************/
 //    free all resources and exit with exit status
