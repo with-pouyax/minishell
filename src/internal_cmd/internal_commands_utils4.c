@@ -6,7 +6,7 @@
 /*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 21:55:01 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:25:39 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/24 12:27:47 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,21 @@ int	find_env_index(char **envp, const char *key, int key_len)
 //        an error message and set the exit status to 1.
 //
 /******************************************************************************/
-void	replace_env_var(t_shell_data *shell, int index, const char *str)
+void replace_env_var(t_shell_data *shell, int index, const char *str)
 {
-	free(shell->envp[index]);
-	shell->envp[index] = ft_strdup(str);
-	if (!shell->envp[index])
-	{
-		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-		shell->exit_status = 1;
-	}
+    char *new_str;
+
+    new_str = ft_strdup(str);
+    if (!new_str)
+    {
+        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+        shell->exit_status = 1;
+        return;
+    }
+    free(shell->envp[index]);
+    shell->envp[index] = new_str;
 }
+
 /*****************************************************************************/
 //   duplicate the new environment variable and store it in new_var.
 /*****************************************************************************/
