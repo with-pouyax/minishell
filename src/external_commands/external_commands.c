@@ -150,7 +150,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	int token_count;
 
 	token_count = token_list_length(cmds->token_list);
-	arr_token = NULL; // malloc(sizeof(char *) * (token_count + 1));
+	arr_token = malloc(sizeof(char *) * (token_count + 1));
 	if (!arr_token)
 	{
 		write_error("Memory allocation", "failed");

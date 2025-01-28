@@ -84,6 +84,8 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 	if (!path)
 	{
 		free_paths(all_paths);
+		close(shell->saved_stdin);
+		close(shell->saved_stdout);
 		return (NULL);
 	}
 	free_paths(all_paths);
