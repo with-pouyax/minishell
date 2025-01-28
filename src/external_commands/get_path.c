@@ -6,6 +6,7 @@ char	*join_path(const char *prefix, const char *suffix)
 	char	*result;
 	char	*temp;
 
+	(void)prefix;
 	temp = ft_strjoin(prefix, "/");
 	if (!temp)
 		return (NULL);

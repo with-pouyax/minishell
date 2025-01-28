@@ -150,10 +150,12 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	int token_count;
 
 	token_count = token_list_length(cmds->token_list);
-	arr_token = malloc(sizeof(char *) * (token_count + 1));
+	arr_token = NULL; // malloc(sizeof(char *) * (token_count + 1));
 	if (!arr_token)
 	{
-		write_error("Memory allocation failed", strerror(errno));
+		write_error("Memory allocation", "failed");
+		close(shell->saved_stdin);
+		close(shell->saved_stdout);
 		return;
 	}
 	if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
@@ -169,8 +171,6 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
 	{
-		//free(cmd_path);
-		// free(arr_token);
 		return;
 	}
 	pid = fork();
