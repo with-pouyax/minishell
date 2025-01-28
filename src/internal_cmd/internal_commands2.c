@@ -12,11 +12,10 @@
 
 #include "../../include/minishell.h"
 
-int	ft_exit_child(t_shell_data *shell, t_command *cmd)
+int	ft_exit_child(t_shell_data *shell)
 {
 	int	exit_status;
 
-	(void)cmd;
 	exit_status = shell->exit_status;
 	cleanup(shell);
 	rl_clear_history();
@@ -58,10 +57,10 @@ int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 		if (execute_command(shell, cmds, token, 0) == -1)
 		{
 			free_pid_list(shell);
-			ft_exit_child(shell, cmds);
+			ft_exit_child(shell);
 		}
 		free_pid_list(shell);
-		ft_exit_child(shell, cmds);
+		ft_exit_child(shell);
 	}
 	else
 		store_pids(shell, pid);

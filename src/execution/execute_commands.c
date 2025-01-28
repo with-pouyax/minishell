@@ -27,12 +27,12 @@ Close the saved file descriptors
 
 /*
 set_redir() :
-    handle the redirection operators in a program.
-    Redirections determine how input and output are handled for
-    commands, such as reading from a file or writing to a file.
-    -- fd_i and fd_o :
-    represent the file descriptors for input (<) and output (> or >>) files.
-    They are initialized to -2, a special value indicating no file is open yet.
+	handle the redirection operators in a program.
+	Redirections determine how input and output are handled for
+	commands, such as reading from a file or writing to a file.
+	-- fd_i and fd_o :
+	represent the file descriptors for input (<) and output (> or >>) files.
+	They are initialized to -2, a special value indicating no file is open yet.
 */
 void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 {
@@ -64,7 +64,7 @@ void	execution(t_shell_data *shell)
 
 	i = 0;
 	cmd = shell->commands;
-	shell->pipes = init_pipes(shell->cmds_nb);
+	shell->pipes = init_pipes(shell, shell->cmds_nb);
 	while (i < shell->cmds_nb)
 	{
 		exec_cmd(shell, cmd, i);

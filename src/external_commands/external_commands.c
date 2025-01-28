@@ -184,7 +184,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	else if (pid == 0)
 	{
 		exec_external_child(shell, cmd_path, arr_token);
-		ft_exit_child(shell, cmds);
+		ft_exit_child(shell);
 	}
 	else
 		store_pids(shell, pid);

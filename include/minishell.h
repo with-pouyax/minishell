@@ -151,7 +151,6 @@ typedef struct s_parse_context
 
 
 
-void	init_shell(t_shell_data *shell);
 int	handle_input(t_shell_data *shell);
 int 	check_input_length(t_shell_data *shell);
 int 	check_syntax_error(t_shell_data *shell, char *error_message);
@@ -223,7 +222,8 @@ int 	check_leading_pipe(char *input);
 void	setup_signal_handlers(int type);
 
 
-int 	**init_pipes(int cmds_nb);
+int	**init_pipes(t_shell_data *shell, int cmds_nb);
+void	init_shell(t_shell_data *shell);
 
 void    execution(t_shell_data *shell);
 void 	set_redirection(t_shell_data *shell, t_redirection *redir);
@@ -365,6 +365,6 @@ void	remove_from_env(t_shell_data *shell, const char *name);
 void	print_sorted_env(t_shell_data *shell);
 int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
 int	execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret);
-int	ft_exit_child(t_shell_data *shell, t_command *cmd);
+int	ft_exit_child(t_shell_data *shell);
 
 #endif
