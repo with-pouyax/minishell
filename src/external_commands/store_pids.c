@@ -9,7 +9,7 @@ void	store_pids(t_shell_data *shell, pid_t pid)
 	if (!new_node)
 	{
 		perror("Failed to allocate memory for PID node");
-		return ;
+		ft_exit_child(shell);
 	}
 	new_node->pid = pid;
 	new_node->next = NULL;
