@@ -89,6 +89,7 @@ void	init_shell(t_shell_data *shell)
 	shell->expanded = 0;
 	shell->double_quoted = 0;
 	shell->original_word = NULL;
+	shell->last_error_file = NULL;
 	if (!shell->prev_dir)
 	{
 		perror("getcwd");

@@ -70,14 +70,14 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
 	{
-		write_error(arr_token[0], "command not found");
+		write_error2(arr_token[0], "command not found");
 		shell->exit_status = 127;
 		free_argv(arr_token, token_list_length(cmds->token_list));
 		return (NULL);
 	}
 	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
 	{
-		write_error(cmd_path, "command not found");
+		write_error2(cmd_path, "command not found");
 		shell->exit_status = 127;
 		free(cmd_path);
 		free_argv(arr_token, token_list_length(cmds->token_list));
@@ -85,7 +85,7 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	}
 	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
 	{
-		write_error(cmd_path, "Is a directory");
+		write_error2(cmd_path, "Is a directory");
 		shell->exit_status = 126;
 		free(cmd_path);
 		free_argv(arr_token, token_list_length(cmds->token_list));
@@ -107,7 +107,8 @@ int	convert_tokens_to_argv(t_token *token_list, char **argv)
 		argv[i] = ft_strdup(temp->value);
 		if (!argv[i])
 		{
-			free_argv(argv, i);
+			while (i > 0)
+				free(argv[--i]);
 			return (-1);
 		}
 		temp = temp->next;
@@ -126,19 +127,19 @@ changed the stdout and stdin inside set_redirs and set_pipes()
 */
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 {
-	int	error_code;
+	// int	error_code;
 	int	exit_status;
 
 	close_all_pipes(shell->pipes, shell->cmds_nb);
 	exit_status = execve(cmd_path, argv, shell->envp);
 	if (exit_status == -1)
 	{
-		error_code = get_exec_error_code(errno);
+		// error_code = get_exec_error_code(errno);
 		free(cmd_path);
-		write_error(argv[0], strerror(errno));
+		write_error(argv[0]);
 		free(argv);
 		argv = NULL;
-		shell->exit_status = error_code;
+		// shell->exit_status = error_code;
 	}
 }
 
@@ -153,14 +154,17 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	arr_token = malloc(sizeof(char *) * (token_count + 1));
 	if (!arr_token)
 	{
-		write_error("Memory allocation", "failed");
+		write_error("Memory allocation failed");
 		ft_exit_child(shell);
 
 	}
 	if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
 	{
 		free(arr_token);
-		return ;
+		close_all_pipes(shell->pipes, shell->cmds_nb);
+		// close(shell->saved_stdin);
+		// close(shell->saved_stdout);
+		ft_exit_child(shell);
 	}
 	if (!arr_token[0])
 	{
@@ -169,13 +173,11 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	}
 	cmd_path = resolve_command_path(shell, cmds, arr_token);
 	if (!cmd_path)
-	{
-		return;
-	}
+		return ;
 	pid = fork();
 	if (pid < 0)
 	{
-		write_error("Fork failed", strerror(errno));
+		write_error("Fork failed");
 		free(cmd_path);
 		free_argv(arr_token, token_count);
 		return ;

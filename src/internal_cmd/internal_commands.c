@@ -57,7 +57,7 @@ t_token *token, int ret)
 		ret = ft_exit_shell(shell, cmd);
 	else
 	{
-		write_error(token->value, ": No such file or directory\n");
+		write_error2(token->value, ": No such file or directory\n");
 		shell->exit_status = 127;
 		return (-1);
 	}

@@ -11,7 +11,7 @@
 void	handle_heredoc(t_shell_data *shell, t_redirection *redir)
 {
 	int	heredoc_fd;
-
+	(void)redir;
 	heredoc_fd = open(redir->heredoc_file, O_RDONLY);
 	if (heredoc_fd == -1)
 	{

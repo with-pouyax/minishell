@@ -3,7 +3,6 @@
 // Function to create directories in the path if they don't exist
 #include <sys/stat.h>
 #include <libgen.h>
-#include <errno.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -29,8 +28,9 @@ int	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in_prev)
 		if (!shell->last_error_file)
 		{
 			shell->last_error_file = redir->filename;
-			shell->exit_status = errno;
+			shell->exit_status = -1;
 		}
+		return (-1);
 	}
 	else
 	{
@@ -50,7 +50,8 @@ int	open_output_file(t_shell_data *shell, t_redirection *redir, int fd_out_prev)
 	if (new_fd == -1)
 	{
 		shell->last_error_file = redir->filename;
-		shell->exit_status = errno;
+		shell->exit_status = -1;
+		return (-1);
 	}
 	else
 	{
@@ -71,7 +72,8 @@ int	open_append_file(t_shell_data *shell, t_redirection *redir, int fd_out_prev)
 	if (new_fd == -1)
 	{
 		shell->last_error_file = redir->filename;
-		shell->exit_status = errno;
+		shell->exit_status = -1;
+		return (-1);
 	}
 	{
 		dup2(new_fd, STDOUT_FILENO);

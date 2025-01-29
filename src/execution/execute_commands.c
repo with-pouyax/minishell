@@ -41,12 +41,15 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	if (shell->saved_stdin == -1 || shell->saved_stdout == -1)
 	{
 		perror("dup failed");
+		close(shell->saved_stdin);
+		close(shell->saved_stdout);
 		return ;
 	}
 	set_redirection(shell, cmds->redirections);
 	if (shell->exit_status == EXIT_SUCCESS)
 	{
-		set_pipes(shell, cmds->redirections, index);
+		if (set_pipes(shell, cmds->redirections, index) == -1)
+			return ;
 		cleanup_heredocs(cmds->redirections);
 		forking(shell, cmds);
 	}
@@ -61,16 +64,25 @@ void	execution(t_shell_data *shell)
 {
 	t_command	*cmd;
 	int			i;
+	int ret;
 
 	i = 0;
+	ret = 0;
 	cmd = shell->commands;
-	shell->pipes = init_pipes(shell, shell->cmds_nb);
-	while (i < shell->cmds_nb)
+	shell->pipes = init_pipes(shell, shell->cmds_nb, &ret);
+	if (ret == 1)
 	{
-		exec_cmd(shell, cmd, i);
-		cmd = cmd->next;
-		i++;
+		ft_clean(shell);
 	}
-	close_all_pipes(shell->pipes, shell->cmds_nb);
-	execute_parent(shell);
+	else if (!ret)
+	{
+		while (i < shell->cmds_nb)
+		{
+			exec_cmd(shell, cmd, i);
+			cmd = cmd->next;
+			i++;
+		}
+		close_all_pipes(shell->pipes, shell->cmds_nb);
+		execute_parent(shell);
+	}
 }

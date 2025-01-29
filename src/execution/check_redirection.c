@@ -12,35 +12,37 @@
 
 #include "../../include/minishell.h"
 
-void	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
+int	check_input(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	if (has_redirs(redir, REDIR_INPUT))
-		return ;
+		return (0);
 	if (cmds_index != 0)
 	{
 		if (dup2(shell->pipes[cmds_index - 1][0], STDIN_FILENO) == -1)
 		{
 			perror("dup2 failed for input pipe");
 			shell->exit_status = EXIT_FAILURE;
-			return ;
+			return (-1);
 		}
 	}
+	return (0);
 }
 
-void	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
+int	check_output(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
 	(void)redir;
 	if (has_redirs(redir, REDIR_OUTPUT) || has_redirs(redir, REDIR_APPEND))
-		return ;
+		return (0);
 	if (cmds_index != shell->cmds_nb - 1)
 	{
 		if (dup2(shell->pipes[cmds_index][1], STDOUT_FILENO) == -1)
 		{
 			perror("dup2 failed for input pipe");
 			shell->exit_status = EXIT_FAILURE;
-			return ;
+			return (-1);
 		}
 	}
+	return (0);
 }
 
 /*
@@ -87,15 +89,21 @@ void	set_redirection(t_shell_data *shell, t_redirection *redir)
 		{
 			exit_code = open_all_files(shell, redir);
 			if (exit_code == EXIT_FAILURE)
+			{
+				shell->exit_status = EXIT_FAILURE;
 				return ;
+			}
 		}
 		redir = redir->next;
 	}
 	shell->exit_status = EXIT_SUCCESS;
 }
 
-void	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
+int	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index)
 {
-	check_input(shell, redir, cmds_index);
-	check_output(shell, redir, cmds_index);
+	if (check_input(shell, redir, cmds_index) == -1)
+		return (-1);
+	if (check_output(shell, redir, cmds_index) == -1)
+		return (-1);
+	return (0);
 }

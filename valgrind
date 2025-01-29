@@ -13,3 +13,6 @@ rm -f $SUPPRESSION_FILE
 echo "Exit code: $EXIT_CODE"
 exit $EXIT_CODE
 '
+
+
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=valgrind.supp --track-fds=yes ./minishell

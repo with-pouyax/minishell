@@ -7,8 +7,13 @@
 // 	ft_putstr_fd(": ", STDERR_FILENO);
 // 	ft_putendl_fd(message, STDERR_FILENO);
 // }
+void	write_error(char *exec_name)
+{
+	ft_putstr_fd(exec_name, STDERR_FILENO);
+    ft_putstr_fd("\n", STDERR_FILENO);
+}
 
-void	write_error(char *exec_name, char *err_message)
+void	write_error2(char *exec_name, char *err_message)
 {
 	ft_putstr_fd(exec_name, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
@@ -25,7 +30,7 @@ int	get_exec_error_code(int err)
 	return (1);
 }
 
-void free_paths(char **paths)
+void    free_paths(char **paths)
 {
     int i;
 

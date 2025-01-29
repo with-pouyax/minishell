@@ -118,7 +118,7 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
         ft_putstr_fd("cd: unable to change the directory\n", STDERR_FILENO);
 	else
 	{
-		write_error(path, "\n");
+		write_error2(path, "\n");
 		shell->exit_status = 1;
 		return (1);
 	}

@@ -24,6 +24,14 @@ int	ft_exit_child(t_shell_data *shell)
 	exit(exit_status);
 }
 
+void	ft_clean(t_shell_data *shell)
+{
+	cleanup(shell);
+	rl_clear_history();
+	close(shell->saved_stdin);
+	close(shell->saved_stdout);
+}
+
 void	free_pid_list(t_shell_data *shell)
 {
 	t_pid_node	*current;
@@ -48,7 +56,7 @@ int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 	pid = fork();
 	if (pid < 0)
 	{
-		write_error("Fork failed", strerror(errno));
+		write_error("Fork failed");
 		return (-1);
 	}
 	else if (pid == 0)

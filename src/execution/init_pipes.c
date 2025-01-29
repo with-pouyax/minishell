@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int	**init_pipes(t_shell_data *shell, int cmds_nb)
+int	**init_pipes(t_shell_data *shell, int cmds_nb, int *ret)
 {
 	int	**pipes;
 	int	i;
@@ -11,8 +11,9 @@ int	**init_pipes(t_shell_data *shell, int cmds_nb)
 	pipes = malloc(sizeof(int *) * (cmds_nb - 1));
 	if (!pipes)
 	{
+		*ret = 1;
 		ft_putstr_fd("malloc failed\n", 2);
-		ft_exit_child(shell);
+		return (NULL);
 	}
 	while (i < (cmds_nb - 1))
 	{
@@ -20,12 +21,16 @@ int	**init_pipes(t_shell_data *shell, int cmds_nb)
 		if (!pipes[i])
 		{
 			free(pipes);
-			ft_exit_child(shell);
+			*ret = 1;
+			ft_clean(shell);
+			return (NULL);
 		}
 		if (pipe(pipes[i]) == -1)
 		{
 			perror("pipe error");
-			ft_exit_child(shell);
+			*ret = 1;
+			ft_clean(shell);
+			return (NULL);
 		}
 		i++;
 	}

@@ -222,12 +222,12 @@ int 	check_leading_pipe(char *input);
 void	setup_signal_handlers(int type);
 
 
-int	**init_pipes(t_shell_data *shell, int cmds_nb);
+int	**init_pipes(t_shell_data *shell, int cmds_nb, int *ret);
 void	init_shell(t_shell_data *shell);
 
 void    execution(t_shell_data *shell);
 void 	set_redirection(t_shell_data *shell, t_redirection *redir);
-void 	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index);
+int 	set_pipes(t_shell_data *shell, t_redirection *redir, int cmds_index);
 int 	has_redirs(t_redirection *redir, t_redirection_type type);
 int 	open_all_files(t_shell_data *shell, t_redirection *redir);
 int 	open_input_file(t_shell_data *shell, t_redirection *redir, int fd_in);
@@ -249,7 +249,9 @@ void 	add_redirection(t_redirection **redirections, t_redirection *new_redir);
 int 	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd);
 int 	is_redirection_operator(char *op);
 void	free_redirections(t_redirection *redirs);
-void	write_error(char *exec_name, char *err_message);
+void	write_error2(char *exec_name, char *err_message);
+void	write_error(char *exec_name);
+
 void 	clear_pid_list(t_shell_data *shell);
 
 int		validate_operators(t_shell_data *shell);
@@ -366,5 +368,6 @@ void	print_sorted_env(t_shell_data *shell);
 int fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token);
 int	execute_command(t_shell_data *shell, t_command *cmd, t_token *token, int ret);
 int	ft_exit_child(t_shell_data *shell);
+void	ft_clean(t_shell_data *shell);
 
 #endif
