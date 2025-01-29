@@ -154,9 +154,8 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	if (!arr_token)
 	{
 		write_error("Memory allocation", "failed");
-		close(shell->saved_stdin);
-		close(shell->saved_stdout);
-		return;
+		ft_exit_child(shell);
+
 	}
 	if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
 	{
