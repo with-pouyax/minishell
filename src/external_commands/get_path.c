@@ -84,38 +84,41 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 	if (!path)
 	{
 		free_paths(all_paths);
-		close(shell->saved_stdin);
-		close(shell->saved_stdout);
+		// close(shell->saved_stdin);
+		// close(shell->saved_stdout);
 		return (NULL);
 	}
 	free_paths(all_paths);
 	return (path);
 }
 
+// If the token starts with a '.', check if it's a valid path
+// Check if it is "." or ".." and return NULL (not a valid command)
+// Check if there is a valid path after the '.' (e.g., "./file")
+
 char	*get_command_path(t_shell_data *shell, t_token *token)
 {
 	struct stat	path_stat;
 
-	// If the token starts with a '.', check if it's a valid path
 	if (token->value[0] == '.')
 	{
-		// Check if it is "." or ".." and return NULL (not a valid command)
-		if ((token->value[1] == '\0') || (token->value[1] == '.' && token->value[2] == '\0'))
+		if ((token->value[1] == '\0')
+			|| (token->value[1] == '.' && token->value[2] == '\0'))
 			return (NULL);
 
-		// Check if there is a valid path after the '.' (e.g., "./file")
 		if (token->value[1] == '/')
 		{
-			if (stat(token->value, &path_stat) == 0 && access(token->value, X_OK) == 0 && !S_ISDIR(path_stat.st_mode))
+			if (stat(token->value, &path_stat) == 0
+				&& access(token->value, X_OK) == 0
+				&& !S_ISDIR(path_stat.st_mode))
 				return (ft_strdup(token->value));
 		}
-
-		// Any other case (like ".echo.") is invalid
 		return (NULL);
 	}
 	if (token->value[0] == '/')
 	{
-		if (stat(token->value, &path_stat) == 0 && access(token->value, X_OK) == 0 && !S_ISDIR(path_stat.st_mode))
+		if (stat(token->value, &path_stat) == 0
+			&& access(token->value, X_OK) == 0 && !S_ISDIR(path_stat.st_mode))
 			return (ft_strdup(token->value));
 		return (NULL);
 	}
