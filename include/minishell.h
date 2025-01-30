@@ -167,7 +167,25 @@ void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int 	process_operator(t_shell_data *shell, int *i, t_command *cmd);
 int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
-
+void	execute_external_commands(t_shell_data *shell, t_command *cmds);
+void	forking(t_shell_data *shell, t_command *cmds);
+char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
+			char **arr_token);
+int	convert_tokens_to_argv(t_token *token_list, char **argv);
+void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
+char	**allocate_and_fill_argv1(t_shell_data *shell, t_command *cmds,
+		int *token_count);
+void	fork_and_exec1(t_shell_data *shell, char *cmd_path,
+		char **arr_token, int token_count);
+void	free_argv(char **argv, int count);
+int	token_list_length(t_token *token);
+char	*check_cmd_path_null1(t_shell_data *shell, t_command *cmds,
+				char **arr_token, char *cmd_path);
+		
+char	*check_dot_cmd_path1(t_shell_data *shell, t_command *cmds,
+				char **arr_token, char *cmd_path);
+char	*check_dir_cmd_path1(t_shell_data *shell, t_command *cmds,
+	char **arr_token, char *cmd_path);			
 
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
 			t_token *heredoc_token);
