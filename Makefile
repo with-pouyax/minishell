@@ -5,7 +5,7 @@
 NAME            = minishell
 
 CC              = cc
-CFLAGS          = -Wall -Wextra -Werror -g
+CFLAGS          = -Wall -Wextra -Werror
 
 # Control verbosity: Set VERBOSE=1 for command output
 VERBOSE         = 0

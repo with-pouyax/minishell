@@ -59,7 +59,7 @@ static int	get_env_size(char **envp)
 //     in a sorted order.
 /******************************************************************************/
 
-static char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
+char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
 {
 	char	**sorted_envp;
 	int		i;
