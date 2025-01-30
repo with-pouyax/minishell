@@ -35,6 +35,7 @@
 //
 /******************************************************************************/
 
+
 int	initialize_expansion(t_shell_data *shell, char **result)
 {
 	shell->in_single_quote = 0;

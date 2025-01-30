@@ -1,0 +1,88 @@
+==1590274== Memcheck, a memory error detector
+==1590274== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1590274== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1590274== Command: /home/mhoushma/Desktop/new/minishell/minishell
+==1590274== Parent PID: 1590273
+==1590274== 
+==1590275== 
+==1590275== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1590275== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1590275==    <inherited from parent>
+==1590275== 
+==1590275== Open file descriptor 45: /dev/ptmx
+==1590275==    <inherited from parent>
+==1590275== 
+==1590275== Open AF_UNIX socket 43: <unknown>
+==1590275==    <inherited from parent>
+==1590275== 
+==1590275== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T112428/ptyhost.log
+==1590275==    <inherited from parent>
+==1590275== 
+==1590275== Open file descriptor 3: /tmp/tmp.EZUgXhPMF9/tmp_valgrind_out
+==1590275==    <inherited from parent>
+==1590275== 
+==1590275== 
+==1590275== HEAP SUMMARY:
+==1590275==     in use at exit: 4,016 bytes in 1 blocks
+==1590275==   total heap usage: 168 allocs, 167 frees, 20,993 bytes allocated
+==1590275== 
+==1590275== LEAK SUMMARY:
+==1590275==    definitely lost: 0 bytes in 0 blocks
+==1590275==    indirectly lost: 0 bytes in 0 blocks
+==1590275==      possibly lost: 0 bytes in 0 blocks
+==1590275==    still reachable: 0 bytes in 0 blocks
+==1590275==         suppressed: 4,016 bytes in 1 blocks
+==1590275== 
+==1590275== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1590275-- 
+--1590275-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1590275== 
+==1590275== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1590274== 
+==1590274== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1590274== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1590274==    <inherited from parent>
+==1590274== 
+==1590274== Open file descriptor 45: /dev/ptmx
+==1590274==    <inherited from parent>
+==1590274== 
+==1590274== Open AF_UNIX socket 43: <unknown>
+==1590274==    <inherited from parent>
+==1590274== 
+==1590274== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T112428/ptyhost.log
+==1590274==    <inherited from parent>
+==1590274== 
+==1590274== Open file descriptor 3: /tmp/tmp.EZUgXhPMF9/tmp_valgrind_out
+==1590274==    <inherited from parent>
+==1590274== 
+==1590274== 
+==1590274== HEAP SUMMARY:
+==1590274==     in use at exit: 4,201 bytes in 11 blocks
+==1590274==   total heap usage: 342 allocs, 331 frees, 20,252 bytes allocated
+==1590274== 
+==1590274== 5 bytes in 1 blocks are definitely lost in loss record 1 of 5
+==1590274==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1590274==    by 0x113019: ft_strdup (in /home/mhoushma/Desktop/new/minishell/minishell)
+==1590274==    by 0x10D5C8: convert_tokens_to_argv (external_commands.c:108)
+==1590274==    by 0x10D869: execute_external_commands (external_commands3.c:32)
+==1590274==    by 0x10D99A: forking (external_commands3.c:59)
+==1590274==    by 0x1098D8: exec_cmd (execute_commands.c:53)
+==1590274==    by 0x1099BA: execution (execute_commands.c:79)
+==1590274==    by 0x10E3D2: process_and_execute_commands (handle_input2.c:68)
+==1590274==    by 0x10E273: handle_execution_flow (handle_input.c:81)
+==1590274==    by 0x10E2E3: handle_user_input (handle_input.c:115)
+==1590274==    by 0x10E349: handle_input (handle_input.c:179)
+==1590274==    by 0x10942D: main (main.c:60)
+==1590274== 
+==1590274== LEAK SUMMARY:
+==1590274==    definitely lost: 5 bytes in 1 blocks
+==1590274==    indirectly lost: 0 bytes in 0 blocks
+==1590274==      possibly lost: 0 bytes in 0 blocks
+==1590274==    still reachable: 0 bytes in 0 blocks
+==1590274==         suppressed: 4,196 bytes in 10 blocks
+==1590274== 
+==1590274== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 4 from 4)
+--1590274-- 
+--1590274-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,196 bytes in 10 blocks
+==1590274== 
+==1590274== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 4 from 4)

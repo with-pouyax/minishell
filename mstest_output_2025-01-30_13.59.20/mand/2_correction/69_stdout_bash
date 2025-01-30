@@ -1,0 +1,4 @@
+HOME=/home/mhoushma
+CARGO_HOME=/usr/share/rust/cargo
+HOME_MAX_SIZE=5
+RUSTUP_HOME=/usr/share/rust/rustup
