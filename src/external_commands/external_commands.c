@@ -94,7 +94,6 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	return (cmd_path);
 }
 
-
 int	convert_tokens_to_argv(t_token *token_list, char **argv)
 {
 	int		i;
@@ -127,19 +126,16 @@ changed the stdout and stdin inside set_redirs and set_pipes()
 */
 void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 {
-	// int	error_code;
 	int	exit_status;
 
 	close_all_pipes(shell->pipes, shell->cmds_nb);
 	exit_status = execve(cmd_path, argv, shell->envp);
 	if (exit_status == -1)
 	{
-		// error_code = get_exec_error_code(errno);
 		free(cmd_path);
 		write_error(argv[0]);
 		free(argv);
 		argv = NULL;
-		// shell->exit_status = error_code;
 	}
 }
 
@@ -148,7 +144,7 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	char	*cmd_path;
 	char	**arr_token;
 	pid_t	pid;
-	int token_count;
+	int		token_count;
 
 	token_count = token_list_length(cmds->token_list);
 	arr_token = malloc(sizeof(char *) * (token_count + 1));
@@ -162,8 +158,6 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	{
 		free(arr_token);
 		close_all_pipes(shell->pipes, shell->cmds_nb);
-		// close(shell->saved_stdin);
-		// close(shell->saved_stdout);
 		ft_exit_child(shell);
 	}
 	if (!arr_token[0])

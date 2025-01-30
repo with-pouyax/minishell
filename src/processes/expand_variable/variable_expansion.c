@@ -54,6 +54,7 @@ char	*getenv_from_envp(t_shell_data *shell, char *name)
 //     1- a variable name can finish with underscore.
 //
 /******************************************************************************/
+
 int	get_var_name_len(char *str)
 {
 	int	len;
@@ -63,8 +64,6 @@ int	get_var_name_len(char *str)
 		len++;
 	return (len);
 }
-
-
 
 /*****************************************************************************/
 // 🎯 Purpose  :
@@ -95,8 +94,6 @@ char	*get_literal_char(char *input, int *i)
 	(*i)++;
 	return (str);
 }
-
-
 
 /*****************************************************************************/
 // 🎯 Purpose  :

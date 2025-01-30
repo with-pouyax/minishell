@@ -9,9 +9,6 @@
 /*   Updated: 2025/01/23 15:31:14 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 #include "../../../include/minishell.h"
 
 void	expand_variables_in_input(t_shell_data *shell)

@@ -40,6 +40,7 @@ void	handle_digit(char *input, int *i)
 //     3- we return 0.
 //
 /******************************************************************************/
+
 int	handle_default_case(char **result)
 {
 	char	*temp;

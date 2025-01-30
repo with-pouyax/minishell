@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:59:12 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/24 14:20:11 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 // Join two strings and free the first one after joining
@@ -54,7 +66,6 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 	return (final_path);
 }
 
-
 char	**get_paths_from_env(t_shell_data *shell, char **env)
 {
 	int		i;
@@ -84,8 +95,6 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 	if (!path)
 	{
 		free_paths(all_paths);
-		// close(shell->saved_stdin);
-		// close(shell->saved_stdout);
 		return (NULL);
 	}
 	free_paths(all_paths);
