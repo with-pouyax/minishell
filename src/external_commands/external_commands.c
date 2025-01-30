@@ -6,7 +6,7 @@
 /*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:46:18 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/30 15:01:23 by pghajard         ###   ########.fr       */
+/*   Updated: 2025/01/30 15:29:54 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,9 @@ int	token_list_length(t_token *token)
 	return (count);
 }
 
-char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
-				char **arr_token)
+static char	*check_cmd_path_null1(t_shell_data *shell, t_command *cmds,
+				char **arr_token, char *cmd_path)
 {
-	char	*cmd_path;
-	struct stat path_stat;
-
-	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
 	{
 		write_error2(arr_token[0], "command not found");
@@ -75,7 +71,14 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 		free_argv(arr_token, token_list_length(cmds->token_list));
 		return (NULL);
 	}
-	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
+	return (cmd_path);
+}
+
+static char	*check_dot_cmd_path1(t_shell_data *shell, t_command *cmds,
+				char **arr_token, char *cmd_path)
+{
+	if (cmd_path[0] == '.' && (cmd_path[1] == '\0'
+			|| (cmd_path[1] == '.' && cmd_path[2] == '\0')))
 	{
 		write_error2(cmd_path, "command not found");
 		shell->exit_status = 127;
@@ -83,6 +86,14 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 		free_argv(arr_token, token_list_length(cmds->token_list));
 		return (NULL);
 	}
+	return (cmd_path);
+}
+
+static char	*check_dir_cmd_path1(t_shell_data *shell, t_command *cmds,
+				char **arr_token, char *cmd_path)
+{
+	struct stat	path_stat;
+
 	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
 	{
 		write_error2(cmd_path, "Is a directory");
@@ -93,6 +104,23 @@ char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
 	}
 	return (cmd_path);
 }
+
+char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
+			char **arr_token)
+{
+	char	*cmd_path;
+
+	cmd_path = get_command_path(shell, cmds->token_list);
+	cmd_path = check_cmd_path_null1(shell, cmds, arr_token, cmd_path);
+	if (!cmd_path)
+		return (NULL);
+	cmd_path = check_dot_cmd_path1(shell, cmds, arr_token, cmd_path);
+	if (!cmd_path)
+		return (NULL);
+	cmd_path = check_dir_cmd_path1(shell, cmds, arr_token, cmd_path);
+	return (cmd_path);
+}
+
 
 int	convert_tokens_to_argv(t_token *token_list, char **argv)
 {

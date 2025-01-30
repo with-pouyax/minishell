@@ -1,0 +1,300 @@
+==754596== Memcheck, a memory error detector
+==754596== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==754596== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==754596== Command: /home/pghajard/minishell/minishell
+==754596== Parent PID: 754595
+==754596== 
+==754598== 
+==754598== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754598== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754598==    <inherited from parent>
+==754598== 
+==754598== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754598==    <inherited from parent>
+==754598== 
+==754598== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754598==    <inherited from parent>
+==754598== 
+==754598== 
+==754598== HEAP SUMMARY:
+==754598==     in use at exit: 4,016 bytes in 1 blocks
+==754598==   total heap usage: 304 allocs, 303 frees, 25,238 bytes allocated
+==754598== 
+==754598== LEAK SUMMARY:
+==754598==    definitely lost: 0 bytes in 0 blocks
+==754598==    indirectly lost: 0 bytes in 0 blocks
+==754598==      possibly lost: 0 bytes in 0 blocks
+==754598==    still reachable: 0 bytes in 0 blocks
+==754598==         suppressed: 4,016 bytes in 1 blocks
+==754598== 
+==754598== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754598-- 
+--754598-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754598== 
+==754598== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754599== 
+==754599== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754599== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754599==    <inherited from parent>
+==754599== 
+==754599== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754599==    <inherited from parent>
+==754599== 
+==754599== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754599==    <inherited from parent>
+==754599== 
+==754599== 
+==754599== HEAP SUMMARY:
+==754599==     in use at exit: 4,016 bytes in 1 blocks
+==754599==   total heap usage: 390 allocs, 389 frees, 26,417 bytes allocated
+==754599== 
+==754599== LEAK SUMMARY:
+==754599==    definitely lost: 0 bytes in 0 blocks
+==754599==    indirectly lost: 0 bytes in 0 blocks
+==754599==      possibly lost: 0 bytes in 0 blocks
+==754599==    still reachable: 0 bytes in 0 blocks
+==754599==         suppressed: 4,016 bytes in 1 blocks
+==754599== 
+==754599== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754599-- 
+--754599-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754599== 
+==754599== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754600== 
+==754600== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754600== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754600==    <inherited from parent>
+==754600== 
+==754600== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754600==    <inherited from parent>
+==754600== 
+==754600== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754600==    <inherited from parent>
+==754600== 
+==754600== 
+==754600== HEAP SUMMARY:
+==754600==     in use at exit: 4,016 bytes in 1 blocks
+==754600==   total heap usage: 488 allocs, 487 frees, 27,781 bytes allocated
+==754600== 
+==754600== LEAK SUMMARY:
+==754600==    definitely lost: 0 bytes in 0 blocks
+==754600==    indirectly lost: 0 bytes in 0 blocks
+==754600==      possibly lost: 0 bytes in 0 blocks
+==754600==    still reachable: 0 bytes in 0 blocks
+==754600==         suppressed: 4,016 bytes in 1 blocks
+==754600== 
+==754600== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754600-- 
+--754600-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754600== 
+==754600== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754601== 
+==754601== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754601== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754601==    <inherited from parent>
+==754601== 
+==754601== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754601==    <inherited from parent>
+==754601== 
+==754601== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754601==    <inherited from parent>
+==754601== 
+==754601== 
+==754601== HEAP SUMMARY:
+==754601==     in use at exit: 4,016 bytes in 1 blocks
+==754601==   total heap usage: 572 allocs, 571 frees, 28,966 bytes allocated
+==754601== 
+==754601== LEAK SUMMARY:
+==754601==    definitely lost: 0 bytes in 0 blocks
+==754601==    indirectly lost: 0 bytes in 0 blocks
+==754601==      possibly lost: 0 bytes in 0 blocks
+==754601==    still reachable: 0 bytes in 0 blocks
+==754601==         suppressed: 4,016 bytes in 1 blocks
+==754601== 
+==754601== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754601-- 
+--754601-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754601== 
+==754601== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754602== 
+==754602== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754602== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754602==    <inherited from parent>
+==754602== 
+==754602== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754602==    <inherited from parent>
+==754602== 
+==754602== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754602==    <inherited from parent>
+==754602== 
+==754602== 
+==754602== HEAP SUMMARY:
+==754602==     in use at exit: 4,016 bytes in 1 blocks
+==754602==   total heap usage: 658 allocs, 657 frees, 30,145 bytes allocated
+==754602== 
+==754602== LEAK SUMMARY:
+==754602==    definitely lost: 0 bytes in 0 blocks
+==754602==    indirectly lost: 0 bytes in 0 blocks
+==754602==      possibly lost: 0 bytes in 0 blocks
+==754602==    still reachable: 0 bytes in 0 blocks
+==754602==         suppressed: 4,016 bytes in 1 blocks
+==754602== 
+==754602== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754602-- 
+--754602-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754602== 
+==754602== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754603== 
+==754603== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754603== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754603==    <inherited from parent>
+==754603== 
+==754603== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754603==    <inherited from parent>
+==754603== 
+==754603== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754603==    <inherited from parent>
+==754603== 
+==754603== 
+==754603== HEAP SUMMARY:
+==754603==     in use at exit: 4,028 bytes in 2 blocks
+==754603==   total heap usage: 752 allocs, 750 frees, 27,862 bytes allocated
+==754603== 
+==754603== 12 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==754603==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==754603==    by 0x113119: ft_strdup (in /home/pghajard/minishell/minishell)
+==754603==    by 0x10D6E0: convert_tokens_to_argv (external_commands.c:134)
+==754603==    by 0x10D878: allocate_and_fill_argv1 (external_commands.c:187)
+==754603==    by 0x10D980: execute_external_commands (external_commands.c:232)
+==754603==    by 0x10DA6F: forking (external_commands.c:257)
+==754603==    by 0x1098D8: exec_cmd (execute_commands.c:54)
+==754603==    by 0x1099BA: execution (execute_commands.c:81)
+==754603==    by 0x10E4D6: process_and_execute_commands (handle_input2.c:68)
+==754603==    by 0x10E377: handle_execution_flow (handle_input.c:81)
+==754603==    by 0x10E3E7: handle_user_input (handle_input.c:115)
+==754603==    by 0x10E44D: handle_input (handle_input.c:179)
+==754603== 
+==754603== LEAK SUMMARY:
+==754603==    definitely lost: 12 bytes in 1 blocks
+==754603==    indirectly lost: 0 bytes in 0 blocks
+==754603==      possibly lost: 0 bytes in 0 blocks
+==754603==    still reachable: 0 bytes in 0 blocks
+==754603==         suppressed: 4,016 bytes in 1 blocks
+==754603== 
+==754603== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+--754603-- 
+--754603-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754603== 
+==754603== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+==754604== 
+==754604== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754604== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754604==    <inherited from parent>
+==754604== 
+==754604== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754604==    <inherited from parent>
+==754604== 
+==754604== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754604==    <inherited from parent>
+==754604== 
+==754604== 
+==754604== HEAP SUMMARY:
+==754604==     in use at exit: 4,016 bytes in 1 blocks
+==754604==   total heap usage: 787 allocs, 786 frees, 32,493 bytes allocated
+==754604== 
+==754604== LEAK SUMMARY:
+==754604==    definitely lost: 0 bytes in 0 blocks
+==754604==    indirectly lost: 0 bytes in 0 blocks
+==754604==      possibly lost: 0 bytes in 0 blocks
+==754604==    still reachable: 0 bytes in 0 blocks
+==754604==         suppressed: 4,016 bytes in 1 blocks
+==754604== 
+==754604== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754604-- 
+--754604-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754604== 
+==754604== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754605== 
+==754605== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754605== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754605==    <inherited from parent>
+==754605== 
+==754605== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754605==    <inherited from parent>
+==754605== 
+==754605== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754605==    <inherited from parent>
+==754605== 
+==754605== 
+==754605== HEAP SUMMARY:
+==754605==     in use at exit: 4,016 bytes in 1 blocks
+==754605==   total heap usage: 873 allocs, 872 frees, 33,672 bytes allocated
+==754605== 
+==754605== LEAK SUMMARY:
+==754605==    definitely lost: 0 bytes in 0 blocks
+==754605==    indirectly lost: 0 bytes in 0 blocks
+==754605==      possibly lost: 0 bytes in 0 blocks
+==754605==    still reachable: 0 bytes in 0 blocks
+==754605==         suppressed: 4,016 bytes in 1 blocks
+==754605== 
+==754605== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754605-- 
+--754605-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754605== 
+==754605== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754606== 
+==754606== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754606== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754606==    <inherited from parent>
+==754606== 
+==754606== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754606==    <inherited from parent>
+==754606== 
+==754606== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754606==    <inherited from parent>
+==754606== 
+==754606== 
+==754606== HEAP SUMMARY:
+==754606==     in use at exit: 4,016 bytes in 1 blocks
+==754606==   total heap usage: 907 allocs, 906 frees, 34,194 bytes allocated
+==754606== 
+==754606== LEAK SUMMARY:
+==754606==    definitely lost: 0 bytes in 0 blocks
+==754606==    indirectly lost: 0 bytes in 0 blocks
+==754606==      possibly lost: 0 bytes in 0 blocks
+==754606==    still reachable: 0 bytes in 0 blocks
+==754606==         suppressed: 4,016 bytes in 1 blocks
+==754606== 
+==754606== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--754606-- 
+--754606-- used_suppression:      1 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==754606== 
+==754606== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==754596== 
+==754596== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==754596== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==754596==    <inherited from parent>
+==754596== 
+==754596== Open file descriptor 43: /home/pghajard/.config/Code/logs/20250130T145531/ptyhost.log
+==754596==    <inherited from parent>
+==754596== 
+==754596== Open file descriptor 3: /tmp/tmp.RE2UWeXrua/tmp_valgrind_out
+==754596==    <inherited from parent>
+==754596== 
+==754596== 
+==754596== HEAP SUMMARY:
+==754596==     in use at exit: 4,879 bytes in 55 blocks
+==754596==   total heap usage: 993 allocs, 938 frees, 31,209 bytes allocated
+==754596== 
+==754596== LEAK SUMMARY:
+==754596==    definitely lost: 0 bytes in 0 blocks
+==754596==    indirectly lost: 0 bytes in 0 blocks
+==754596==      possibly lost: 0 bytes in 0 blocks
+==754596==    still reachable: 0 bytes in 0 blocks
+==754596==         suppressed: 4,879 bytes in 55 blocks
+==754596== 
+==754596== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--754596-- 
+--754596-- used_suppression:      4 libreadline /home/pghajard/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,879 bytes in 55 blocks
+==754596== 
+==754596== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
