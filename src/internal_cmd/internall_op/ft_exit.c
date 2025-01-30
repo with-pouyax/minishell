@@ -12,8 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
-
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -92,7 +90,8 @@ void	cleanup_and_exit(t_shell_data *shell, int exit_status)
 //     3- we return 0
 /******************************************************************************/
 
-int	process_exit_arguments(t_shell_data *shell, t_command *cmd, int *exit_status)
+int	process_exit_arguments(t_shell_data *shell, t_command *cmd, \
+int *exit_status)
 {
 	t_token	*token;
 
@@ -106,7 +105,8 @@ int	process_exit_arguments(t_shell_data *shell, t_command *cmd, int *exit_status
 			token = token->next;
 			if (token)
 			{
-				print_exit_error("exit: too many arguments\n", &shell->exit_status, 1);
+				print_exit_error("exit: too many arguments\n", \
+				&shell->exit_status, 1);
 				return (1);
 			}
 		}
@@ -152,6 +152,7 @@ int	ft_exit_shell(t_shell_data *shell, t_command *cmd)
 	cleanup_and_exit(shell, exit_status);
 	return (0);
 }
+
 /*****************************************************************************/
 //               No explanation needed
 /*****************************************************************************/

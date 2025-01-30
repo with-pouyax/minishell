@@ -12,8 +12,6 @@
 
 #include "../../include/minishell.h"
 
-
-
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -125,7 +123,7 @@ char	*expand_variables_in_heredoc(t_shell_data *shell, char *input)
 //
 /******************************************************************************/
 
-int	expand_and_write_line(t_shell_data *shell ,char *line, int fd)
+int	expand_and_write_line(t_shell_data *shell, char *line, int fd)
 {
 	char	*temp;
 

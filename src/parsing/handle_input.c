@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
 /*****************************************************************************/
 //                        🚀 is_input_empty 🚀
 /*****************************************************************************/
@@ -86,6 +84,7 @@ int	handle_execution_flow(t_shell_data *shell)
 	}
 	return (1);
 }
+
 /*****************************************************************************/
 //                        🚀 handle_user_input 🚀
 /*****************************************************************************/
@@ -132,6 +131,7 @@ int	handle_user_input(t_shell_data *shell)
 //     1- we print the error message using ft_putstr_fd() to STDERR_FILENO,
 //        which is standard error.
 /******************************************************************************/
+
 int	handle_read_error(void)
 {
 	ft_putstr_fd("Error: Failed to read input\n", STDERR_FILENO);
@@ -163,6 +163,7 @@ int	handle_read_error(void)
 //           process).
 //     3- now that we are out of the loop we clear the history and return 0.
 /******************************************************************************/
+
 int	handle_input(t_shell_data *shell)
 {
 	int	running;

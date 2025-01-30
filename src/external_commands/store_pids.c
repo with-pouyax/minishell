@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   store_pids.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 10:59:12 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/24 14:20:11 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	store_pids(t_shell_data *shell, pid_t pid)
@@ -9,6 +21,7 @@ void	store_pids(t_shell_data *shell, pid_t pid)
 	if (!new_node)
 	{
 		perror("Failed to allocate memory for PID node");
+		ft_clean(shell);
 		return ;
 	}
 	new_node->pid = pid;

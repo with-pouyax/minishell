@@ -30,7 +30,6 @@ int	is_parent_command(const char *cmd)
 	ft_strcmp(cmd, "unset") == 0);
 }
 
-
 /*
 shell->exit_status = ret
 ----> Set global exit status based on command return value
@@ -57,7 +56,7 @@ t_token *token, int ret)
 		ret = ft_exit_shell(shell, cmd);
 	else
 	{
-		write_error(token->value, ": No such file or directory\n");
+		write_error2(token->value, ": No such file or directory\n");
 		shell->exit_status = 127;
 		return (-1);
 	}

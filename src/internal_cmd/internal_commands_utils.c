@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*****************************************************************************/
 //             using a while loop iterate through the environment
 //             variables and count the number of variables.
@@ -74,7 +59,7 @@ static int	get_env_size(char **envp)
 //     in a sorted order.
 /******************************************************************************/
 
-static char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
+char	**duplicate_envp(char **envp, int env_size, t_shell_data *shell)
 {
 	char	**sorted_envp;
 	int		i;

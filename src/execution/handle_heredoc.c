@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_heredoc.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:45:05 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/23 15:20:57 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 /*
   // Create a pipe to pass heredoc input to the next command
@@ -12,6 +24,7 @@ void	handle_heredoc(t_shell_data *shell, t_redirection *redir)
 {
 	int	heredoc_fd;
 
+	(void)redir;
 	heredoc_fd = open(redir->heredoc_file, O_RDONLY);
 	if (heredoc_fd == -1)
 	{

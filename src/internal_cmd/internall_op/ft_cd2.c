@@ -107,6 +107,7 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 	char	*home;
 	char	*expanded_path;
 
+	expanded_path = NULL;
 	home = getenv_from_envp(shell, "HOME");
 	if (!home)
 		return (handle_no_home(shell));
@@ -114,11 +115,11 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 		expanded_path = ft_strdup(home);
 	else if (path[1] == '/')
 		expanded_path = ft_strjoin(home, &path[1]);
-    if (!expanded_path)
-        ft_putstr_fd("cd: unable to change the directory\n", STDERR_FILENO);
+	if (!expanded_path)
+		ft_putstr_fd("cd: unable to change the dir\n", STDERR_FILENO);
 	else
 	{
-		write_error(path, "\n");
+		write_error2(path, "\n");
 		shell->exit_status = 1;
 		return (1);
 	}
@@ -127,6 +128,5 @@ int	handle_tilde_path(t_shell_data *shell, char *path)
 	if (chdir(expanded_path) != 0)
 		return (handle_chdir_error(shell, expanded_path));
 	free(expanded_path);
-	shell->exit_status = 0;
-	return (0);
+	return (shell->exit_status = 0, 0);
 }

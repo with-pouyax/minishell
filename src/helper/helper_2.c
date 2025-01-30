@@ -50,6 +50,7 @@ void	skip_spaces(t_shell_data *shell, int *i)
 //        neither s1 nor s2.
 //
 /******************************************************************************/
+
 char	*ft_strjoin_and_free_both(char *s1, char *s2)
 {
 	char	*joined;
@@ -68,6 +69,7 @@ char	*ft_strjoin_and_free_both(char *s1, char *s2)
 /*****************************************************************************/
 //          No explanation needed for this function
 /*****************************************************************************/
+
 char	*ft_strjoin_free_both(char *s1, char *s2)
 {
 	return (ft_strjoin_and_free_both(s1, s2));

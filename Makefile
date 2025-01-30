@@ -4,8 +4,8 @@
 
 NAME            = minishell
 
-CC              = gcc
-CFLAGS          = -Wall -Wextra -Werror -g
+CC              = cc
+CFLAGS          = -Wall -Wextra -Werror
 
 # Control verbosity: Set VERBOSE=1 for command output
 VERBOSE         = 0
@@ -62,7 +62,10 @@ SRCS            = src/main.c\
                   src/internal_cmd/internall_op/ft_unset.c\
                   src/execution/open_files.c\
                   src/external_commands/external_commands.c\
+                  src/external_commands/external_commands2.c\
+                  src/external_commands/external_commands3.c\
                   src/external_commands/get_path.c\
+                  src/external_commands/get_path2.c\
                   src/external_commands/handel_error_exec.c\
                   src/external_commands/store_pids.c\
                   src/parsing/check_last_pipe.c\

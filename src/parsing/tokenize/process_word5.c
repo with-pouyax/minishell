@@ -83,6 +83,7 @@ int *i, char **expanded_word)
 	free(word);
 	return (0);
 }
+
 /*****************************************************************************/
 //       using a while loop we iterate backwards over the command and free
 //       each token.

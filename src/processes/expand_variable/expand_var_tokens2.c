@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -77,8 +76,6 @@ void	toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i)
 		shell->in_double_quote = !shell->in_double_quote;
 	(*i)++;
 }
-
-
 
 int	cleanup_and_return_null(char *result)
 {

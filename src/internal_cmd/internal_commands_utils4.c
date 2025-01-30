@@ -44,6 +44,7 @@ int	find_env_index(char **envp, const char *key, int key_len)
 	}
 	return (-1);
 }
+
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -63,19 +64,20 @@ int	find_env_index(char **envp, const char *key, int key_len)
 //        an error message and set the exit status to 1.
 //
 /******************************************************************************/
-void replace_env_var(t_shell_data *shell, int index, const char *str)
+void	replace_env_var(t_shell_data *shell, int index, \
+const char *str)
 {
-    char *new_str;
+	char	*new_str;
 
-    new_str = ft_strdup(str);
-    if (!new_str)
-    {
-        ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
-        shell->exit_status = 1;
-        return;
-    }
-    free(shell->envp[index]);
-    shell->envp[index] = new_str;
+	new_str = ft_strdup(str);
+	if (!new_str)
+	{
+		ft_putstr_fd("minishell: export: allocation error\n", STDERR_FILENO);
+		shell->exit_status = 1;
+		return ;
+	}
+	free(shell->envp[index]);
+	shell->envp[index] = new_str;
 }
 
 /*****************************************************************************/
@@ -97,7 +99,6 @@ char	*duplicate_new_var(const char *str, t_shell_data *shell)
 /*****************************************************************************/
 //    we allocate memory for the new environment variables.
 /*****************************************************************************/
-
 char	**allocate_new_envp(int current_size, t_shell_data *shell)
 {
 	char	**new_envp;
@@ -110,6 +111,7 @@ char	**allocate_new_envp(int current_size, t_shell_data *shell)
 	}
 	return (new_envp);
 }
+
 /*****************************************************************************/
 // using a while loop we copy the existing environment variables to the new
 // environment variables.

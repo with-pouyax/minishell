@@ -12,17 +12,24 @@
 
 #include "../../include/minishell.h"
 
-int	ft_exit_child(t_shell_data *shell, t_command *cmd)
+int	ft_exit_child(t_shell_data *shell)
 {
 	int	exit_status;
 
-	(void)cmd;
 	exit_status = shell->exit_status;
 	cleanup(shell);
 	rl_clear_history();
 	close(shell->saved_stdin);
 	close(shell->saved_stdout);
 	exit(exit_status);
+}
+
+void	ft_clean(t_shell_data *shell)
+{
+	cleanup(shell);
+	rl_clear_history();
+	close(shell->saved_stdin);
+	close(shell->saved_stdout);
 }
 
 void	free_pid_list(t_shell_data *shell)
@@ -40,7 +47,6 @@ void	free_pid_list(t_shell_data *shell)
 	shell->pid_list = NULL;
 }
 
-
 int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 {
 	pid_t	pid;
@@ -49,7 +55,7 @@ int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 	pid = fork();
 	if (pid < 0)
 	{
-		write_error("Fork failed", strerror(errno));
+		write_error("Fork failed");
 		return (-1);
 	}
 	else if (pid == 0)
@@ -58,10 +64,10 @@ int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 		if (execute_command(shell, cmds, token, 0) == -1)
 		{
 			free_pid_list(shell);
-			ft_exit_child(shell, cmds);
+			ft_exit_child(shell);
 		}
 		free_pid_list(shell);
-		ft_exit_child(shell, cmds);
+		ft_exit_child(shell);
 	}
 	else
 		store_pids(shell, pid);

@@ -62,6 +62,7 @@ void	print_env(t_shell_data *shell)
 //        we call the print_env function to print all the environment variables
 //	 6- we set the exit status to 0 and return 0
 /******************************************************************************/
+
 int	ft_env(t_shell_data *shell, t_command *cmd)
 {
 	int		arg_count;

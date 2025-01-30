@@ -50,6 +50,3 @@ char	*generate_temp_filename(void)
 	free(counter_str);
 	return (filename);
 }
-
-
-

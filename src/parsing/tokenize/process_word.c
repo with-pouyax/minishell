@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-
-
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -37,7 +34,7 @@ char	**split_expanded_word(char *expanded_word)
 {
 	char	**expanded_word_arr;
 
-    (void)expanded_word;
+	(void)expanded_word;
 	expanded_word_arr = ft_split(expanded_word, ' ');
 	if (!expanded_word_arr)
 	{
@@ -162,7 +159,8 @@ char *expanded_word, char *original_word)
 //           split the expanded word and add the tokens to the command.
 //           I- if there is an error we return 1.
 //     4- if the shell->expanded does not exist or we are in a double quote
-//        a- using handle_non_expanded() we handle the non expanded word, meaning
+//        a- using handle_non_expanded() we handle the non expanded word, 
+//				meaning
 //           we add the word to the command.
 //           I- if there is an error we return 1.
 //     5- at the end we return 0.
@@ -173,7 +171,6 @@ int	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd)
 {
 	char	*expanded_word;
 	char	*original_word;
-
 
 	if (collect_and_expand_word(shell, input, i, &expanded_word))
 		return (1);
