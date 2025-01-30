@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   external_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 00:46:18 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/23 15:21:34 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:01:23 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,20 +139,22 @@ void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
 	}
 }
 
-void	execute_external_commands(t_shell_data *shell, t_command *cmds)
-{
-	char	*cmd_path;
-	char	**arr_token;
-	pid_t	pid;
-	int		token_count;
 
-	token_count = token_list_length(cmds->token_list);
-	arr_token = malloc(sizeof(char *) * (token_count + 1));
+
+
+
+
+static char	**allocate_and_fill_argv1(t_shell_data *shell, t_command *cmds,
+		int *token_count)
+{
+	char	**arr_token;
+
+	*token_count = token_list_length(cmds->token_list);
+	arr_token = malloc(sizeof(char *) * (*token_count + 1));
 	if (!arr_token)
 	{
 		write_error("Memory allocation failed");
 		ft_exit_child(shell);
-
 	}
 	if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
 	{
@@ -160,14 +162,18 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 		close_all_pipes(shell->pipes, shell->cmds_nb);
 		ft_exit_child(shell);
 	}
-	if (!arr_token[0])
-	{
-		free(arr_token);
-		return ;
-	}
-	cmd_path = resolve_command_path(shell, cmds, arr_token);
-	if (!cmd_path)
-		return ;
+	return (arr_token);
+}
+
+/*
+** Forks and executes the child process or stores the PID in parent.
+** Frees resources and returns on fork failure.
+*/
+static void	fork_and_exec1(t_shell_data *shell, char *cmd_path,
+		char **arr_token, int token_count)
+{
+	pid_t	pid;
+
 	pid = fork();
 	if (pid < 0)
 	{
@@ -183,9 +189,33 @@ void	execute_external_commands(t_shell_data *shell, t_command *cmds)
 	}
 	else
 		store_pids(shell, pid);
+}
+
+/*
+** Main function that manages execution of external commands.
+** Splits into smaller functions to respect Norminette line limits.
+*/
+void	execute_external_commands(t_shell_data *shell, t_command *cmds)
+{
+	int		token_count;
+	char	*cmd_path;
+	char	**arr_token;
+
+	arr_token = allocate_and_fill_argv1(shell, cmds, &token_count);
+	if (!arr_token[0])
+	{
+		free(arr_token);
+		return ;
+	}
+	cmd_path = resolve_command_path(shell, cmds, arr_token);
+	if (!cmd_path)
+		return ;
+	fork_and_exec1(shell, cmd_path, arr_token, token_count);
 	free(cmd_path);
 	free_argv(arr_token, token_count);
 }
+
+
 
 void	forking(t_shell_data *shell, t_command *cmds)
 {
