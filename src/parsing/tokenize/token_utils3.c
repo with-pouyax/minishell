@@ -174,13 +174,13 @@ char *original_word)
 //
 /******************************************************************************/
 
-int validate_expanded_word(t_shell_data *shell, char *expanded_word)
+int	validate_expanded_word(t_shell_data *shell, char *expanded_word)
 {
 	if (is_valid_operator(expanded_word) || \
 	starts_with_operator_char(expanded_word[0]))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", \
-		STDERR_FILENO);
+		ft_putstr_fd("minishell: syntax error near unexpected token `",
+			STDERR_FILENO);
 		ft_putstr_fd(expanded_word, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
 		shell->exit_status = 2;

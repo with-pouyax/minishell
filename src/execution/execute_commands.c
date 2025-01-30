@@ -57,14 +57,13 @@ void	exec_cmd(t_shell_data *shell, t_command *cmds, int index)
 	dup2(shell->saved_stdout, STDOUT_FILENO);
 	close(shell->saved_stdin);
 	close(shell->saved_stdout);
-
 }
 
 void	execution(t_shell_data *shell)
 {
-	t_command	*cmd;
 	int			i;
-	int ret;
+	int			ret;
+	t_command	*cmd;
 
 	i = 0;
 	ret = 0;

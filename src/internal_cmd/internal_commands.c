@@ -30,7 +30,6 @@ int	is_parent_command(const char *cmd)
 	ft_strcmp(cmd, "unset") == 0);
 }
 
-
 /*
 shell->exit_status = ret
 ----> Set global exit status based on command return value

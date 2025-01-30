@@ -37,7 +37,7 @@
 
 int	ft_unset(t_shell_data *shell, t_command *cmd)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = cmd->token_list->next;
 	while (token)

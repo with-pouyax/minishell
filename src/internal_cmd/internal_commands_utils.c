@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*****************************************************************************/
 //             using a while loop iterate through the environment
 //             variables and count the number of variables.

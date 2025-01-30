@@ -9,9 +9,7 @@
 /*   Updated: 2025/01/23 15:26:31 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../../include/minishell.h"
-
 /*****************************************************************************/
 // 🎯 Purpose  :  collec and expand redirection word
 /*****************************************************************************/
@@ -83,7 +81,6 @@ int	free_word_and_return(char *word, int ret)
 //          No explanation needed for this function
 /*****************************************************************************/
 
-
 int	free_original_and_expanded_and_return(char *original_word, \
 char *expanded_word, int ret)
 {
@@ -144,4 +141,3 @@ int	add_token_to_command(t_command *cmd, char *word)
 		return (1);
 	return (0);
 }
-

@@ -59,6 +59,7 @@ int	is_allowed_char(char c)
 //
 //
 /******************************************************************************/
+
 int	is_valid_identifier(const char *str, int allow_equals)
 {
 	int	i;

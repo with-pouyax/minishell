@@ -1,0 +1,360 @@
+==1127522== Memcheck, a memory error detector
+==1127522== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1127522== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1127522== Command: /home/mhoushma/Desktop/new/minishell/minishell
+==1127522== Parent PID: 1127521
+==1127522== 
+==1127524== 
+==1127524== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127524== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 44: /dev/ptmx
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open AF_UNIX socket 43: <unknown>
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127524==    <inherited from parent>
+==1127524== 
+==1127524== 
+==1127524== HEAP SUMMARY:
+==1127524==     in use at exit: 4,016 bytes in 1 blocks
+==1127524==   total heap usage: 298 allocs, 297 frees, 23,354 bytes allocated
+==1127524== 
+==1127524== LEAK SUMMARY:
+==1127524==    definitely lost: 0 bytes in 0 blocks
+==1127524==    indirectly lost: 0 bytes in 0 blocks
+==1127524==      possibly lost: 0 bytes in 0 blocks
+==1127524==    still reachable: 0 bytes in 0 blocks
+==1127524==         suppressed: 4,016 bytes in 1 blocks
+==1127524== 
+==1127524== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127524-- 
+--1127524-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127524== 
+==1127524== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127525== 
+==1127525== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127525== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 44: /dev/ptmx
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open AF_UNIX socket 43: <unknown>
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127525==    <inherited from parent>
+==1127525== 
+==1127525== 
+==1127525== HEAP SUMMARY:
+==1127525==     in use at exit: 4,016 bytes in 1 blocks
+==1127525==   total heap usage: 384 allocs, 383 frees, 24,533 bytes allocated
+==1127525== 
+==1127525== LEAK SUMMARY:
+==1127525==    definitely lost: 0 bytes in 0 blocks
+==1127525==    indirectly lost: 0 bytes in 0 blocks
+==1127525==      possibly lost: 0 bytes in 0 blocks
+==1127525==    still reachable: 0 bytes in 0 blocks
+==1127525==         suppressed: 4,016 bytes in 1 blocks
+==1127525== 
+==1127525== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127525-- 
+--1127525-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127525== 
+==1127525== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127526== 
+==1127526== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127526== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127526==    <inherited from parent>
+==1127526== 
+==1127526== Open file descriptor 44: /dev/ptmx
+==1127526==    <inherited from parent>
+==1127526== 
+==1127526== Open AF_UNIX socket 43: <unknown>
+==1127526==    <inherited from parent>
+==1127526== 
+==1127526== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127526==    <inherited from parent>
+==1127526== 
+==1127526== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127526==    <inherited from parent>
+==1127526== 
+==1127526== 
+==1127526== HEAP SUMMARY:
+==1127526==     in use at exit: 4,016 bytes in 1 blocks
+==1127526==   total heap usage: 482 allocs, 481 frees, 25,897 bytes allocated
+==1127526== 
+==1127526== LEAK SUMMARY:
+==1127526==    definitely lost: 0 bytes in 0 blocks
+==1127526==    indirectly lost: 0 bytes in 0 blocks
+==1127526==      possibly lost: 0 bytes in 0 blocks
+==1127526==    still reachable: 0 bytes in 0 blocks
+==1127526==         suppressed: 4,016 bytes in 1 blocks
+==1127526== 
+==1127526== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127526-- 
+--1127526-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127526== 
+==1127526== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127527== 
+==1127527== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127527== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127527==    <inherited from parent>
+==1127527== 
+==1127527== Open file descriptor 44: /dev/ptmx
+==1127527==    <inherited from parent>
+==1127527== 
+==1127527== Open AF_UNIX socket 43: <unknown>
+==1127527==    <inherited from parent>
+==1127527== 
+==1127527== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127527==    <inherited from parent>
+==1127527== 
+==1127527== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127527==    <inherited from parent>
+==1127527== 
+==1127527== 
+==1127527== HEAP SUMMARY:
+==1127527==     in use at exit: 4,016 bytes in 1 blocks
+==1127527==   total heap usage: 566 allocs, 565 frees, 27,082 bytes allocated
+==1127527== 
+==1127527== LEAK SUMMARY:
+==1127527==    definitely lost: 0 bytes in 0 blocks
+==1127527==    indirectly lost: 0 bytes in 0 blocks
+==1127527==      possibly lost: 0 bytes in 0 blocks
+==1127527==    still reachable: 0 bytes in 0 blocks
+==1127527==         suppressed: 4,016 bytes in 1 blocks
+==1127527== 
+==1127527== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127527-- 
+--1127527-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127527== 
+==1127527== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127530== 
+==1127530== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127530== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127530==    <inherited from parent>
+==1127530== 
+==1127530== Open file descriptor 44: /dev/ptmx
+==1127530==    <inherited from parent>
+==1127530== 
+==1127530== Open AF_UNIX socket 43: <unknown>
+==1127530==    <inherited from parent>
+==1127530== 
+==1127530== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127530==    <inherited from parent>
+==1127530== 
+==1127530== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127530==    <inherited from parent>
+==1127530== 
+==1127530== 
+==1127530== HEAP SUMMARY:
+==1127530==     in use at exit: 4,016 bytes in 1 blocks
+==1127530==   total heap usage: 652 allocs, 651 frees, 28,261 bytes allocated
+==1127530== 
+==1127530== LEAK SUMMARY:
+==1127530==    definitely lost: 0 bytes in 0 blocks
+==1127530==    indirectly lost: 0 bytes in 0 blocks
+==1127530==      possibly lost: 0 bytes in 0 blocks
+==1127530==    still reachable: 0 bytes in 0 blocks
+==1127530==         suppressed: 4,016 bytes in 1 blocks
+==1127530== 
+==1127530== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127530-- 
+--1127530-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127530== 
+==1127530== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127531== 
+==1127531== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127531== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127531==    <inherited from parent>
+==1127531== 
+==1127531== Open file descriptor 44: /dev/ptmx
+==1127531==    <inherited from parent>
+==1127531== 
+==1127531== Open AF_UNIX socket 43: <unknown>
+==1127531==    <inherited from parent>
+==1127531== 
+==1127531== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127531==    <inherited from parent>
+==1127531== 
+==1127531== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127531==    <inherited from parent>
+==1127531== 
+==1127531== 
+==1127531== HEAP SUMMARY:
+==1127531==     in use at exit: 4,028 bytes in 2 blocks
+==1127531==   total heap usage: 746 allocs, 744 frees, 26,026 bytes allocated
+==1127531== 
+==1127531== 12 bytes in 1 blocks are definitely lost in loss record 1 of 2
+==1127531==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1127531==    by 0x40BFF9: ft_strdup (in /home/mhoushma/Desktop/new/minishell/minishell)
+==1127531==    by 0x405C65: convert_tokens_to_argv (external_commands2.c:40)
+==1127531==    by 0x405DF5: allocate_and_fill_argv1 (external_commands2.c:88)
+==1127531==    by 0x405EF0: execute_external_commands (external_commands3.c:25)
+==1127531==    by 0x405FC9: forking (external_commands3.c:48)
+==1127531==    by 0x4018AA: exec_cmd (execute_commands.c:54)
+==1127531==    by 0x40198B: execution (execute_commands.c:80)
+==1127531==    by 0x406B31: process_and_execute_commands (handle_input2.c:68)
+==1127531==    by 0x406992: handle_execution_flow (handle_input.c:81)
+==1127531==    by 0x406A14: handle_user_input (handle_input.c:115)
+==1127531==    by 0x406A98: handle_input (handle_input.c:179)
+==1127531== 
+==1127531== LEAK SUMMARY:
+==1127531==    definitely lost: 12 bytes in 1 blocks
+==1127531==    indirectly lost: 0 bytes in 0 blocks
+==1127531==      possibly lost: 0 bytes in 0 blocks
+==1127531==    still reachable: 0 bytes in 0 blocks
+==1127531==         suppressed: 4,016 bytes in 1 blocks
+==1127531== 
+==1127531== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+--1127531-- 
+--1127531-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127531== 
+==1127531== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 1 from 1)
+==1127532== 
+==1127532== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127532== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127532==    <inherited from parent>
+==1127532== 
+==1127532== Open file descriptor 44: /dev/ptmx
+==1127532==    <inherited from parent>
+==1127532== 
+==1127532== Open AF_UNIX socket 43: <unknown>
+==1127532==    <inherited from parent>
+==1127532== 
+==1127532== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127532==    <inherited from parent>
+==1127532== 
+==1127532== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127532==    <inherited from parent>
+==1127532== 
+==1127532== 
+==1127532== HEAP SUMMARY:
+==1127532==     in use at exit: 4,016 bytes in 1 blocks
+==1127532==   total heap usage: 781 allocs, 780 frees, 30,657 bytes allocated
+==1127532== 
+==1127532== LEAK SUMMARY:
+==1127532==    definitely lost: 0 bytes in 0 blocks
+==1127532==    indirectly lost: 0 bytes in 0 blocks
+==1127532==      possibly lost: 0 bytes in 0 blocks
+==1127532==    still reachable: 0 bytes in 0 blocks
+==1127532==         suppressed: 4,016 bytes in 1 blocks
+==1127532== 
+==1127532== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127532-- 
+--1127532-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127532== 
+==1127532== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127533== 
+==1127533== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127533== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127533==    <inherited from parent>
+==1127533== 
+==1127533== Open file descriptor 44: /dev/ptmx
+==1127533==    <inherited from parent>
+==1127533== 
+==1127533== Open AF_UNIX socket 43: <unknown>
+==1127533==    <inherited from parent>
+==1127533== 
+==1127533== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127533==    <inherited from parent>
+==1127533== 
+==1127533== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127533==    <inherited from parent>
+==1127533== 
+==1127533== 
+==1127533== HEAP SUMMARY:
+==1127533==     in use at exit: 4,016 bytes in 1 blocks
+==1127533==   total heap usage: 867 allocs, 866 frees, 31,836 bytes allocated
+==1127533== 
+==1127533== LEAK SUMMARY:
+==1127533==    definitely lost: 0 bytes in 0 blocks
+==1127533==    indirectly lost: 0 bytes in 0 blocks
+==1127533==      possibly lost: 0 bytes in 0 blocks
+==1127533==    still reachable: 0 bytes in 0 blocks
+==1127533==         suppressed: 4,016 bytes in 1 blocks
+==1127533== 
+==1127533== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127533-- 
+--1127533-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127533== 
+==1127533== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127539== 
+==1127539== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127539== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127539==    <inherited from parent>
+==1127539== 
+==1127539== Open file descriptor 44: /dev/ptmx
+==1127539==    <inherited from parent>
+==1127539== 
+==1127539== Open AF_UNIX socket 43: <unknown>
+==1127539==    <inherited from parent>
+==1127539== 
+==1127539== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127539==    <inherited from parent>
+==1127539== 
+==1127539== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127539==    <inherited from parent>
+==1127539== 
+==1127539== 
+==1127539== HEAP SUMMARY:
+==1127539==     in use at exit: 4,016 bytes in 1 blocks
+==1127539==   total heap usage: 901 allocs, 900 frees, 32,358 bytes allocated
+==1127539== 
+==1127539== LEAK SUMMARY:
+==1127539==    definitely lost: 0 bytes in 0 blocks
+==1127539==    indirectly lost: 0 bytes in 0 blocks
+==1127539==      possibly lost: 0 bytes in 0 blocks
+==1127539==    still reachable: 0 bytes in 0 blocks
+==1127539==         suppressed: 4,016 bytes in 1 blocks
+==1127539== 
+==1127539== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+--1127539-- 
+--1127539-- used_suppression:      1 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,016 bytes in 1 blocks
+==1127539== 
+==1127539== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+==1127522== 
+==1127522== FILE DESCRIPTORS: 8 open (3 std) at exit.
+==1127522== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==1127522==    <inherited from parent>
+==1127522== 
+==1127522== Open file descriptor 44: /dev/ptmx
+==1127522==    <inherited from parent>
+==1127522== 
+==1127522== Open AF_UNIX socket 43: <unknown>
+==1127522==    <inherited from parent>
+==1127522== 
+==1127522== Open file descriptor 42: /home/mhoushma/.config/Code/logs/20250130T145336/ptyhost.log
+==1127522==    <inherited from parent>
+==1127522== 
+==1127522== Open file descriptor 3: /tmp/tmp.MboeiMSMAn/tmp_valgrind_out
+==1127522==    <inherited from parent>
+==1127522== 
+==1127522== 
+==1127522== HEAP SUMMARY:
+==1127522==     in use at exit: 4,879 bytes in 55 blocks
+==1127522==   total heap usage: 987 allocs, 932 frees, 29,373 bytes allocated
+==1127522== 
+==1127522== LEAK SUMMARY:
+==1127522==    definitely lost: 0 bytes in 0 blocks
+==1127522==    indirectly lost: 0 bytes in 0 blocks
+==1127522==      possibly lost: 0 bytes in 0 blocks
+==1127522==    still reachable: 0 bytes in 0 blocks
+==1127522==         suppressed: 4,879 bytes in 55 blocks
+==1127522== 
+==1127522== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
+--1127522-- 
+--1127522-- used_suppression:      4 libreadline /home/mhoushma/42_minishell_tester/utils/minishell.supp:2 suppressed: 4,879 bytes in 55 blocks
+==1127522== 
+==1127522== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

@@ -1,5 +1,3 @@
-#include "../../include/minishell.h"
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -11,7 +9,7 @@
 /*   Updated: 2025/01/30 10:00:00 by yourname         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "../../include/minishell.h"
 
 static int	**allocate_pipes1(t_shell_data *shell, int cmds_nb, int *ret)
 {
@@ -69,7 +67,6 @@ int	**init_pipes(t_shell_data *shell, int cmds_nb, int *ret)
 		return (NULL);
 	return (pipes);
 }
-
 
 void	close_pipes_after_execution(t_shell_data *shell, int cmds_index)
 {

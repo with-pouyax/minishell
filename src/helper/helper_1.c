@@ -60,4 +60,3 @@ char	*ft_strjoin_safe(const char *s1, const char *s2)
 	res[s1_len + s2_len] = '\0';
 	return (res);
 }
-

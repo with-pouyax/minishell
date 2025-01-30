@@ -25,16 +25,14 @@ void	print_exit_error(char *message, int *exit_status, int code)
 //               No explanation needed
 /*****************************************************************************/
 
-
 void	print_exit_error2(char *format, char *arg, int *exit_status, int code)
 {
-	(void)format; // Since we're not using the format string, we can safely ignore it
+	(void)format;
 	ft_putstr_fd("exit: ", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
 	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 	*exit_status = code;
 }
-
 
 /*****************************************************************************/
 // 🎯 Purpose  :

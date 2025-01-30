@@ -12,8 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
-
 /*****************************************************************************/
 // 🎯 Purpose  :  process the filename or delimiter in the redirection
 /*****************************************************************************/
@@ -74,8 +72,8 @@ int *i, t_redirection *redir)
 	return (0);
 }
 
-int	handle_unexpected_token_error(t_shell_data *shell, t_redirection *new_redir, \
-char *token)
+int	handle_unexpected_token_error(t_shell_data *shell, \
+t_redirection *new_redir, char *token)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", \
 	STDERR_FILENO);
@@ -118,6 +116,7 @@ t_redirection *new_redir)
 	shell->exit_status = 2;
 	return (1);
 }
+
 /*****************************************************************************/
 // 💡 Notes:
 //     1- no explanation needed.

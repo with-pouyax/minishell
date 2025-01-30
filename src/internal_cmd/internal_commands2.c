@@ -47,7 +47,6 @@ void	free_pid_list(t_shell_data *shell)
 	shell->pid_list = NULL;
 }
 
-
 int	fork_and_execute(t_shell_data *shell, t_command *cmds, t_token *token)
 {
 	pid_t	pid;

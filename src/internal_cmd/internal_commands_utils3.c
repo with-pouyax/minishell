@@ -24,6 +24,7 @@ void	finalize_new_envp(char **new_envp, char *new_var, int current_size)
 /*****************************************************************************/
 //  free the old environment variables
 /*****************************************************************************/
+
 void	replace_envp(t_shell_data *shell, char **new_envp)
 {
 	free(shell->envp);
@@ -55,7 +56,8 @@ void	replace_envp(t_shell_data *shell, char **new_envp)
 //
 //
 /******************************************************************************/
-static void	handle_new_env_var(t_shell_data *shell, const char *str, \
+
+void	handle_new_env_var(t_shell_data *shell, const char *str, \
 int current_size, char *new_var)
 {
 	char	**new_envp;
@@ -158,4 +160,3 @@ void	add_to_env(t_shell_data *shell, const char *str)
 	}
 	free(key);
 }
-

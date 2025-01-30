@@ -181,7 +181,15 @@ void	free_argv(char **argv, int count);
 int	token_list_length(t_token *token);
 char	*check_cmd_path_null1(t_shell_data *shell, t_command *cmds,
 				char **arr_token, char *cmd_path);
-		
+char	*join_path(const char *prefix, const char *suffix);
+int	is_valid_file(const char *path);
+int	is_directory1(char *path_to_search);
+char	*handle_valid_path1(char *path_to_search);
+char	*check_and_return_path(const char *cmd, char **all_paths);
+char	**get_paths_from_env(t_shell_data *shell, char **env);
+char	*find_path_in_env(t_shell_data *shell, char *cmd);
+char	*get_command_path(t_shell_data *shell, t_token *token);
+
 char	*check_dot_cmd_path1(t_shell_data *shell, t_command *cmds,
 				char **arr_token, char *cmd_path);
 char	*check_dir_cmd_path1(t_shell_data *shell, t_command *cmds,
@@ -254,7 +262,6 @@ int 	open_append_file(t_shell_data *shell, t_redirection *redir, int fd_out);
 int		execute_internal_commands(t_shell_data *shell, t_command *cmds);
 
 
-char 	*get_command_path(t_shell_data *shell, t_token *token);
 void 	store_pids(t_shell_data *shell, pid_t pid);
 int		get_exec_error_code(int err);
 void	execute_parent(t_shell_data *shell);

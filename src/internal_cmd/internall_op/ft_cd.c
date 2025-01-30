@@ -12,7 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -55,7 +54,6 @@ int	change_to_home(t_shell_data *shell)
 	return (0);
 }
 
-
 /*****************************************************************************/
 // 🎯 Purpose  :
 /*****************************************************************************/
@@ -71,9 +69,9 @@ int	change_to_home(t_shell_data *shell)
 //        and we print an error message and return 1
 //     2- if the path is valid, we return 0
 /******************************************************************************/
-static int	validate_path(const char *path)
+int	validate_path(const char *path)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (path[i])
@@ -88,7 +86,6 @@ static int	validate_path(const char *path)
 	}
 	return (0);
 }
-
 
 /*****************************************************************************/
 //              No explanation needed

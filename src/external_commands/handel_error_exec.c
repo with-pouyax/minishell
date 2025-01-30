@@ -56,4 +56,3 @@ void	free_paths(char **paths)
 	}
 	free(paths);
 }
-

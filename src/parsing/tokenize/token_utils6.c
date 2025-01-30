@@ -126,7 +126,7 @@ int	prepare_redirection(t_command *cmd, t_redirection **new_redir)
 //
 /******************************************************************************/
 
-int handle_redirection(t_shell_data *shell, char *input, int *i, \
+int	handle_redirection(t_shell_data *shell, char *input, int *i, \
 t_command *cmd)
 {
 	t_redirection	*new_redir;
@@ -134,7 +134,6 @@ t_command *cmd)
 	shell->filename_or_delimiter = NULL;
 	if (prepare_redirection(cmd, &new_redir))
 		return (1);
-
 	skip_whitespace(input, i);
 	if (check_operator_error(shell, input, i, new_redir))
 		return (1);
@@ -145,6 +144,7 @@ t_command *cmd)
 	add_redirection(&(cmd->redirections), new_redir);
 	return (0);
 }
+
 /*****************************************************************************/
 // 🎯 Purpose  :  check if op is a redirection
 /*****************************************************************************/
