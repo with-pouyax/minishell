@@ -63,6 +63,7 @@ SRCS            = src/main.c\
                   src/execution/open_files.c\
                   src/external_commands/external_commands.c\
                   src/external_commands/external_commands2.c\
+                  src/external_commands/external_commands3.c\
                   src/external_commands/get_path.c\
                   src/external_commands/get_cmd_path.c\
                   src/external_commands/handel_error_exec.c\

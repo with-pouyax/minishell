@@ -168,7 +168,7 @@ void	free_tokens(t_token *token_list);
 int 	process_operator(t_shell_data *shell, int *i, t_command *cmd);
 int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
 void    if_convert_fail(t_shell_data *shell, char	**arr_token);
-
+void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv);
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
 			t_token *heredoc_token);
 int 	read_heredoc_content(t_shell_data *shell, t_redirection *redir);
@@ -185,11 +185,17 @@ char	*ft_strjoin_safe(const char *s1, const char *s2);
 char	*ft_strjoin_free_both(char *s1, char *s2);
 int		add_char_to_token(char **token, char c);
 int		skip_quotes(char *input, int i);
-
+void	in_child(t_shell_data *shell, char	*cmd_path, char	**arr_token);
+void    if_convert_fail(t_shell_data *shell, char	**arr_token);
+void    if_fork_fail(char	*cmd_path, char	**arr_token, int token_count);
+void	if_arr_token_fail(t_shell_data *shell);
+void	handle_malloc_fail(t_shell_data *shell);
 void	handle_tokenization_error(t_shell_data *shell, int error_flag);
 
 int	preprocess_input(t_shell_data *shell);
 void	cleanup(t_shell_data *shell);
+void	forking(t_shell_data *shell, t_command *cmds);
+void	execute_external_commands(t_shell_data *shell, t_command *cmds);
 
 void	initialize_new_token(t_token *new_token, char *token_value,
 			int *index, int is_operator);// 			int *in_double_quote);
