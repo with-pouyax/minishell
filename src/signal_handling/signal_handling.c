@@ -9,13 +9,9 @@
 /*   Updated: 2025/01/23 15:32:41 by pouyax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 #include "../../include/minishell.h"
 
-
 t_signal	g_signal = {0, 0};
-
 /*****************************************************************************/
 // 🎯 Purpose  :    set up signal for when we are in the child process and we
 //					press SIGQUIT

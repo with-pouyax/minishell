@@ -77,8 +77,6 @@ void	toggle_quotes_and_skip(t_shell_data *shell, char current_char, int *i)
 	(*i)++;
 }
 
-
-
 int	cleanup_and_return_null(char *result)
 {
 	free(result);
