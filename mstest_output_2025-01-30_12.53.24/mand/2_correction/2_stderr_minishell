@@ -1,0 +1,2 @@
+: command not found
+/home/mhoushma/42_minishell_tester/tester.sh: line 635: 1368263 Segmentation fault      (core dumped) LD_PRELOAD=/home/mhoushma/42_minishell_tester/utils/libintercept/libintercept.so /home/mhoushma/Desktop/new/minishell/minishell

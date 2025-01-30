@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/19 00:45:05 by pouyax            #+#    #+#             */
+/*   Updated: 2025/01/23 15:20:57 by pouyax           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../../include/minishell.h"
 
 // Join two strings and free the first one after joining
@@ -28,13 +39,11 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 	char		*path_to_search;
 	char		*final_path;
 	struct stat	st;
-	int			i;
 
-	i = 0;
 	final_path = NULL;
-	while (all_paths[i])
+	while (*all_paths)
 	{
-		path_to_search = join_path(all_paths[i], cmd);
+		path_to_search = join_path(*all_paths, cmd);
 		if (!path_to_search)
 			return (NULL);
 		if (access(path_to_search, F_OK) == 0 && is_valid_file(path_to_search))
@@ -49,11 +58,10 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 			break ;
 		}
 		free(path_to_search);
-		i++;
+		all_paths++;
 	}
 	return (final_path);
 }
-
 
 char	**get_paths_from_env(t_shell_data *shell, char **env)
 {
@@ -84,44 +92,8 @@ char	*find_path_in_env(t_shell_data *shell, char *cmd)
 	if (!path)
 	{
 		free_paths(all_paths);
-		// close(shell->saved_stdin);
-		// close(shell->saved_stdout);
 		return (NULL);
 	}
 	free_paths(all_paths);
 	return (path);
 }
-
-// If the token starts with a '.', check if it's a valid path
-// Check if it is "." or ".." and return NULL (not a valid command)
-// Check if there is a valid path after the '.' (e.g., "./file")
-
-char	*get_command_path(t_shell_data *shell, t_token *token)
-{
-	struct stat	path_stat;
-
-	if (token->value[0] == '.')
-	{
-		if ((token->value[1] == '\0')
-			|| (token->value[1] == '.' && token->value[2] == '\0'))
-			return (NULL);
-
-		if (token->value[1] == '/')
-		{
-			if (stat(token->value, &path_stat) == 0
-				&& access(token->value, X_OK) == 0
-				&& !S_ISDIR(path_stat.st_mode))
-				return (ft_strdup(token->value));
-		}
-		return (NULL);
-	}
-	if (token->value[0] == '/')
-	{
-		if (stat(token->value, &path_stat) == 0
-			&& access(token->value, X_OK) == 0 && !S_ISDIR(path_stat.st_mode))
-			return (ft_strdup(token->value));
-		return (NULL);
-	}
-	return (find_path_in_env(shell, token->value));
-}
-

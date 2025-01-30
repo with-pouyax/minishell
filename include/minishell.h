@@ -167,7 +167,7 @@ void 	free_shell_resources(t_shell_data *shell);
 void	free_tokens(t_token *token_list);
 int 	process_operator(t_shell_data *shell, int *i, t_command *cmd);
 int 	process_word(t_shell_data *shell, char *input, int *i, t_command *cmd);
-
+void    if_convert_fail(t_shell_data *shell, char	**arr_token);
 
 int		process_heredoc_delimiter(t_shell_data *shell ,char *input, int *i,
 			t_token *heredoc_token);
@@ -237,13 +237,29 @@ int		execute_internal_commands(t_shell_data *shell, t_command *cmds);
 
 
 char 	*get_command_path(t_shell_data *shell, t_token *token);
+char	*find_path_in_env(t_shell_data *shell, char *cmd);
+char	**get_paths_from_env(t_shell_data *shell, char **env);
+char	*check_and_return_path(const char *cmd, char **all_paths);
 void 	store_pids(t_shell_data *shell, pid_t pid);
 int		get_exec_error_code(int err);
 void	execute_parent(t_shell_data *shell);
 
+void	free_argv(char **argv, int count);
+int	token_list_length(t_token *token);
+int	convert_tokens_to_argv(t_token *token_list, char **argv);
+char	*resolve_command_path(t_shell_data *shell,
+		t_command *cmds, char **arr_token);
 void 	close_all_pipes(int **pipes, int nb_cmds);
 void 	free_paths(char **paths);
 void	forking(t_shell_data *shell, t_command *cmds);
+
+void	handle_malloc_fail(t_shell_data *shell);
+void	handle_fork_fail(char *cmd_path, char **arr_token, int token_count);
+void	handle_exec_fail(char *cmd_path, char **argv, t_shell_data *shell);
+char	*allocate_argv(int token_count, t_shell_data *shell);
+void	resolve_and_fork(t_shell_data *shell, t_command *cmds, char **arr_token, int token_count);
+void	execute_external_commands(t_shell_data *shell, t_command *cmds);
+
 
 void 	add_redirection(t_redirection **redirections, t_redirection *new_redir);
 int 	handle_redirection(t_shell_data *shell, char *input, int *i, t_command *cmd);

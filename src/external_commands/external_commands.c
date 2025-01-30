@@ -61,38 +61,41 @@ int	token_list_length(t_token *token)
 	return (count);
 }
 
-char	*resolve_command_path(t_shell_data *shell, t_command *cmds,
-				char **arr_token)
+char	*handle_invalid_command(char *cmd_path, t_shell_data *shell, 
+				char **arr_token, int status)
 {
-	char	*cmd_path;
-	struct stat path_stat;
+	if (status == 127)
+		write_error2(cmd_path, "command not found");
+	else
+		write_error2(cmd_path, "Is a directory");
+	shell->exit_status = status;
+	free(cmd_path);
+	free_argv(arr_token, 0);
+	return (NULL);
+}
+
+char	*resolve_command_path(t_shell_data *shell,
+		t_command *cmds, char **arr_token)
+{
+	char		*cmd_path;
+	struct stat	path_stat;
 
 	cmd_path = get_command_path(shell, cmds->token_list);
 	if (!cmd_path)
+		return (handle_invalid_command(arr_token[0], shell, arr_token, 127));
+	if (cmd_path[0] == '.')
 	{
-		write_error2(arr_token[0], "command not found");
-		shell->exit_status = 127;
-		free_argv(arr_token, token_list_length(cmds->token_list));
-		return (NULL);
+		if (!cmd_path[1] || (cmd_path[1] == '.' && !cmd_path[2]))
+			return (handle_invalid_command(cmd_path, shell, arr_token, 127));
 	}
-	if (cmd_path[0] == '.' && (cmd_path[1] == '\0' || (cmd_path[1] == '.' && cmd_path[2] == '\0')))
+	if (stat(cmd_path, &path_stat) == 0)
 	{
-		write_error2(cmd_path, "command not found");
-		shell->exit_status = 127;
-		free(cmd_path);
-		free_argv(arr_token, token_list_length(cmds->token_list));
-		return (NULL);
-	}
-	if (stat(cmd_path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
-	{
-		write_error2(cmd_path, "Is a directory");
-		shell->exit_status = 126;
-		free(cmd_path);
-		free_argv(arr_token, token_list_length(cmds->token_list));
-		return (NULL);
+		if (S_ISDIR(path_stat.st_mode))
+			return (handle_invalid_command(cmd_path, shell, arr_token, 126));
 	}
 	return (cmd_path);
 }
+
 
 
 int	convert_tokens_to_argv(t_token *token_list, char **argv)
@@ -116,92 +119,4 @@ int	convert_tokens_to_argv(t_token *token_list, char **argv)
 	}
 	argv[i] = NULL;
 	return (0);
-}
-
-/*
-We need to close all the pipes in the child process because: we already
-changed the stdout and stdin inside set_redirs and set_pipes()
-
- If execve call is successful, the following lines are never executed
- chon : the child process will kill itself when finished
-*/
-void	exec_external_child(t_shell_data *shell, char *cmd_path, char **argv)
-{
-	// int	error_code;
-	int	exit_status;
-
-	close_all_pipes(shell->pipes, shell->cmds_nb);
-	exit_status = execve(cmd_path, argv, shell->envp);
-	if (exit_status == -1)
-	{
-		// error_code = get_exec_error_code(errno);
-		free(cmd_path);
-		write_error(argv[0]);
-		free(argv);
-		argv = NULL;
-		// shell->exit_status = error_code;
-	}
-}
-
-void	execute_external_commands(t_shell_data *shell, t_command *cmds)
-{
-	char	*cmd_path;
-	char	**arr_token;
-	pid_t	pid;
-	int token_count;
-
-	token_count = token_list_length(cmds->token_list);
-	arr_token = malloc(sizeof(char *) * (token_count + 1));
-	if (!arr_token)
-	{
-		write_error("Memory allocation failed");
-		ft_exit_child(shell);
-
-	}
-	if (convert_tokens_to_argv(cmds->token_list, arr_token) == -1)
-	{
-		free(arr_token);
-		close_all_pipes(shell->pipes, shell->cmds_nb);
-		// close(shell->saved_stdin);
-		// close(shell->saved_stdout);
-		ft_exit_child(shell);
-	}
-	if (!arr_token[0])
-	{
-		free(arr_token);
-		return ;
-	}
-	cmd_path = resolve_command_path(shell, cmds, arr_token);
-	if (!cmd_path)
-		return ;
-	pid = fork();
-	if (pid < 0)
-	{
-		write_error("Fork failed");
-		free(cmd_path);
-		free_argv(arr_token, token_count);
-		return ;
-	}
-	else if (pid == 0)
-	{
-		exec_external_child(shell, cmd_path, arr_token);
-		ft_exit_child(shell);
-	}
-	else
-		store_pids(shell, pid);
-	free(cmd_path);
-	free_argv(arr_token, token_count);
-}
-
-void	forking(t_shell_data *shell, t_command *cmds)
-{
-	setup_signal_handlers(2);
-	if (cmds->token_list && cmds->token_list->is_int)
-	{
-		execute_internal_commands(shell, cmds);
-	}
-	else
-	{
-		execute_external_commands(shell, cmds);
-	}
 }
