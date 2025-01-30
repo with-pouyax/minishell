@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pouyax <pouyax@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pghajard <pghajard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 10:59:12 by pouyax            #+#    #+#             */
-/*   Updated: 2025/01/24 14:20:11 by pouyax           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:42:51 by pghajard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,43 @@ int	is_valid_file(const char *path)
 	return (stat(path, &st) == 0 && !S_ISDIR(st.st_mode));
 }
 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_and_return_path.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yourname <yourname@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 10:00:00 by yourname          #+#    #+#             */
+/*   Updated: 2025/01/30 10:00:00 by yourname         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+static int	is_directory1(char *path_to_search)
+{
+	struct stat	st;
+
+	if (stat(path_to_search, &st) == 0 && S_ISDIR(st.st_mode))
+		return (1);
+	return (0);
+}
+
+static char	*handle_valid_path1(char *path_to_search)
+{
+	char	*final_path;
+
+	final_path = ft_strdup(path_to_search);
+	free(path_to_search);
+	return (final_path);
+}
+
 char	*check_and_return_path(const char *cmd, char **all_paths)
 {
-	char		*path_to_search;
-	char		*final_path;
-	struct stat	st;
-	int			i;
+	int		i;
+	char	*path_to_search, *final_path;
 
-	i = 0;
-	final_path = NULL;
+	i = 0; final_path = NULL;
 	while (all_paths[i])
 	{
 		path_to_search = join_path(all_paths[i], cmd);
@@ -51,11 +79,10 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 			return (NULL);
 		if (access(path_to_search, F_OK) == 0 && is_valid_file(path_to_search))
 		{
-			final_path = ft_strdup(path_to_search);
-			free(path_to_search);
+			final_path = handle_valid_path1(path_to_search);
 			break ;
 		}
-		if (stat(path_to_search, &st) == 0 && S_ISDIR(st.st_mode))
+		if (is_directory1(path_to_search))
 		{
 			free(path_to_search);
 			break ;
@@ -65,6 +92,7 @@ char	*check_and_return_path(const char *cmd, char **all_paths)
 	}
 	return (final_path);
 }
+
 
 char	**get_paths_from_env(t_shell_data *shell, char **env)
 {
