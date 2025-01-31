@@ -105,8 +105,7 @@ SRCS            = src/main.c\
                   src/validation/lexer.c \
                   src/validation/lexer2.c \
                   src/validation/error.c \
-				  src/cleanup/free_redirections.c\
-                  print_tokens.c
+				  src/cleanup/free_redirections.c
 
 # Object files and dependency files
 OBJS            = $(SRCS:.c=.o)
@@ -128,9 +127,23 @@ all: $(NAME)
 
 # Linking the final executable
 $(NAME): $(LIBFT) $(OBJS)
-	$(Q)echo "Building $(NAME)..."
 	$(Q)$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
-	$(Q)echo "$(GREEN)$(NAME) compiled successfully!$(RESET_COLOR)"
+	$(Q)echo " "
+	$(Q)echo " ▐▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▌"
+	$(Q)echo " ▐                                                                                   ▌"
+	$(Q)echo " ▐                                                                                   ▌"
+	$(Q)echo " ▐   ██████   ██████  ███              ███          █████               ████  ████   ▌"
+	$(Q)echo " ▐  ░░██████ ██████  ░░░              ░░░          ░░███               ░░███ ░░███   ▌"
+	$(Q)echo " ▐   ░███░█████░███  ████  ████████   ████   █████  ░███████    ██████  ░███  ░███   ▌"
+	$(Q)echo " ▐   ░███░░███ ░███ ░░███ ░░███░░███ ░░███  ███░░   ░███░░███  ███░░███ ░███  ░███   ▌"
+	$(Q)echo " ▐   ░███ ░░░  ░███  ░███  ░███ ░███  ░███ ░░█████  ░███ ░███ ░███████  ░███  ░███   ▌"
+	$(Q)echo " ▐   ░███      ░███  ░███  ░███ ░███  ░███  ░░░░███ ░███ ░███ ░███░░░   ░███  ░███   ▌"
+	$(Q)echo " ▐   █████     █████ █████ ████ █████ █████ ██████  ████ █████░░██████  █████ █████  ▌"
+	$(Q)echo " ▐  ░░░░░     ░░░░░ ░░░░░ ░░░░ ░░░░░ ░░░░░ ░░░░░░  ░░░░ ░░░░░  ░░░░░░  ░░░░░ ░░░░░   ▌"
+	$(Q)echo " ▐                                                                                   ▌"
+	$(Q)echo " ▐                                                                                   ▌"
+	$(Q)echo " ▐▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌"
+	$(Q)echo " "
 
 # Building the libft library
 $(LIBFT):
@@ -139,7 +152,7 @@ $(LIBFT):
 
 # Compilation of .c files to .o files with dependency generation
 %.o: %.c
-	$(Q)$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@
+	$(Q)$(CC) $(CFLAGS) $(INCLUDES)  -c $< -o $@
 
 # Include dependency files
 -include $(DEPS)
