@@ -1,4 +1,7 @@
 # Minishell
+
+![Terminal Icon](https://i.pinimg.com/736x/01/e5/f5/01e5f554c4a1f2fb13a039152a2e5b0b.jpg)
+
  
 A minimal UNIX shell built as part of the **42 School** curriculum. Minishell supports command execution, redirections, pipes, and more, while adhering to strict coding and function usage rules.
 
