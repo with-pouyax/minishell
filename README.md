@@ -11,7 +11,7 @@ A minimal UNIX shell built as part of the **42 School** curriculum. Minishell su
 1. [Introduction](#introduction)  
 2. [Features](#features)  
 3. [Example Usage](#example-usage)  
-4. [42 School Rules & Restrictions](#42-school-rules--restrictions)  
+4. [42 School Rules & Restrictions](#42-school-rules--restrictions)   
    - [Allowed Functions](#allowed-functions)  
    - [Norminette Rules](#norminette-rules)  
 5. [Contributors](#contributors)  
